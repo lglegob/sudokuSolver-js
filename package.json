@@ -1,0 +1,21 @@
+{
+  "name": "sudokusolver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-css":"node-sass --output-style expanded --include-path scss scss/main.scss css/main.css",
+    "watch-css":"nodemon -e scss -x \"npm run build-css\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lglegob/sudokuSolver.git"
+  },
+  "author": "Leonardo Gonzalez Bello",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lglegob/sudokuSolver/issues"
+  },
+  "homepage": "https://github.com/lglegob/sudokuSolver#readme"
+}
