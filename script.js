@@ -9,29 +9,25 @@
 // Sixth Step - hidden pairs - square
 // Sixth Step - Obvious Triples (even with doubles)
 
-//Loop to create Variables
-for (let row = 0; row <= 9; row++) {
-    for (let column = 0; column <= 9; column++) {
-            window['item' + row + column] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+
+//Definining the functions to create the Matrix
+const createthematrix = () => {
+    for (let row = 0; row <= 9; row++) {
+        theMatrix[row] = [];
+        for (let column = 0; column <= 9; column++) {
+            theMatrix[row][column] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+            // window['item' + row + column] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+        };
     };
 };
 
-var row1 = [item11, item12, item13, item14, item15, item16, item17, item18, item19]
-var row2 = [item21, item22, item23, item24, item25, item26, item27, item28, item29]
-var row3 = [item31, item32, item33, item34, item35, item36, item37, item38, item39]
-var row4 = [item41, item42, item43, item44, item45, item46, item47, item48, item49]
-var row5 = [item51, item52, item53, item54, item55, item56, item57, item58, item59]
-var row6 = [item61, item62, item63, item64, item65, item66, item67, item68, item69]
-var row7 = [item71, item72, item73, item74, item75, item76, item77, item78, item79]
-var row8 = [item81, item82, item83, item84, item85, item86, item87, item88, item89]
-var row9 = [item91, item92, item93, item94, item95, item96, item97, item98, item99]
-
-var theMatrix = [row1, row2, row3, row4, row5, row6, row7, row8, row9]
-
+// definining elements for Event Listeners
 const button_validar = document.querySelector(".button-validar");
 const button_resolver = document.querySelector(".button-resolver");
 const button_clear = document.querySelector(".button-clear");
 
+var theMatrix = [];
+createthematrix();
 
 // Add event listener to the form submit action
 button_validar.addEventListener("click", (e) => {
@@ -184,6 +180,8 @@ button_resolver.addEventListener("click", (e) => {
     console.log(theMatrix);
     console.log(loopsexecuted);
 });
+
+
 
 
 
