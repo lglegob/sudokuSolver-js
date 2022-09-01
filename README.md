@@ -6,6 +6,14 @@ Repository dedicated for the building of a Sudoku Solver based on JavaScript
 
 ## Change Control and Versioning
 
+### Version 0.0.3 (Functions and Scope) 2022-09-01
+
+- The complete process is redefined and partitioned in functions to be called.
+- Scope of the variables reviewed and statically defined (so, not everything defaults to global variables).
+- Use of the 'use strict' to validate previous point.
+
+---
+
 ### Version 0.0.2 (Creation of the 3D Matrix is optimized) 2022-08-31
 
 - The 3D Matrix now is created exclusevely by the use of for loops without the use of intermediate variables

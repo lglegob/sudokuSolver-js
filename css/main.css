@@ -18,7 +18,7 @@ html {
 
 .theMatrix {
   display: grid;
-  grid-gap: 2px;
+  grid-gap: 5px;
   justify-content: start;
   grid-template-columns: repeat(9, 1fr);
   max-width: 1000px;
