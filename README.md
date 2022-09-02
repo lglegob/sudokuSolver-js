@@ -6,6 +6,14 @@ Repository dedicated for the building of a Sudoku Solver based on JavaScript
 
 ## Change Control and Versioning
 
+### Version 0.0.4 (Row, column and square methods) 2022-09-02
+
+- 3 new solving methods defined (hidden singles per row, hidden singles pero column, and hidden singles per square)
+- Solving already tested with an expert sudoku game succesfully.
+- Se elimina el juego de numeros por defecto del html, y ahora se carga por JS
+- Para la carga se agrega boton de carga, y se define const con los valores en el JS
+- Se agrega variable iterationsuccess para detener la resolucion paso a paso, y no por olas de metodo
+
 ### Version 0.0.3 (Functions and Scope) 2022-09-01
 
 - The complete process is redefined and partitioned in functions to be called.
