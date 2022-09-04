@@ -1,264 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sudoku Solver</title>
-        <link rel="stylesheet" type="text/css" href="css/main.css">
-        <script src="script.js" defer></script>
-    </head>
-    <body>
-        <div class="theMatrix">
-            <div class="cell row1 column1">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row1 column2">
-                <input type="number" min="1" max="9">   
-            </div>
-            <div class="cell row1 column3">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row1 column4">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row1 column5">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row1 column6">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row1 column7">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row1 column8">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row1 column9">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row2 column1">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row2 column2">
-                <input type="number" min="1" max="9">   
-            </div>
-            <div class="cell row2 column3">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row2 column4">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row2 column5">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row2 column6">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row2 column7">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row2 column8">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row2 column9">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row3 column1">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row3 column2">
-                <input type="number" min="1" max="9">   
-            </div>
-            <div class="cell row3 column3">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row3 column4">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row3 column5">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row3 column6">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row3 column7">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row3 column8">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row3 column9">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row4 column1">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row4 column2">
-                <input type="number" min="1" max="9">   
-            </div>
-            <div class="cell row4 column3">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row4 column4">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row4 column5">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row4 column6">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row4 column7">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row4 column8">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row4 column9">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row5 column1">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row5 column2">
-                <input type="number" min="1" max="9">   
-            </div>
-            <div class="cell row5 column3">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row5 column4">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row5 column5">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row5 column6">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row5 column7">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row5 column8">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row5 column9">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row6 column1">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row6 column2">
-                <input type="number" min="1" max="9">   
-            </div>
-            <div class="cell row6 column3">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row6 column4">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row6 column5">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row6 column6">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row6 column7">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row6 column8">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row6 column9">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row7 column1">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row7 column2">
-                <input type="number" min="1" max="9">   
-            </div>
-            <div class="cell row7 column3">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row7 column4">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row7 column5">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row7 column6">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row7 column7">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row7 column8">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row7 column9">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row8 column1">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row8 column2">
-                <input type="number" min="1" max="9">   
-            </div>
-            <div class="cell row8 column3">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row8 column4">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row8 column5">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row8 column6">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row8 column7">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row8 column8">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row8 column9">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row9 column1">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row9 column2">
-                <input type="number" min="1" max="9">   
-            </div>
-            <div class="cell row9 column3">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row9 column4">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row9 column5">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row9 column6">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row9 column7">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row9 column8">
-                <input type="number" min="1" max="9">
-            </div>
-            <div class="cell row9 column9">
-                <input type="number" min="1" max="9">
-            </div>
-        </div>
-        <form>
-            <button class="button-cargar">Cargar</button>
-            <button class="button-validar">Validar</button>
-            <button class="button-resolver">Resolver</button>
-            <button class="button-clear">Limpiar Matriz</button>
-        </form>
-    </body>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Solver</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="theMatrix">
+      <div class="cell row1 column1">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row1 column2">
+        <input type="number" min="1" max="9">   
+      </div>
+      <div class="cell row1 column3">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row1 column4">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row1 column5">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row1 column6">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row1 column7">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row1 column8">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row1 column9">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row2 column1">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row2 column2">
+        <input type="number" min="1" max="9">   
+      </div>
+      <div class="cell row2 column3">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row2 column4">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row2 column5">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row2 column6">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row2 column7">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row2 column8">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row2 column9">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row3 column1">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row3 column2">
+        <input type="number" min="1" max="9">   
+      </div>
+      <div class="cell row3 column3">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row3 column4">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row3 column5">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row3 column6">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row3 column7">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row3 column8">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row3 column9">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row4 column1">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row4 column2">
+        <input type="number" min="1" max="9">   
+      </div>
+      <div class="cell row4 column3">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row4 column4">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row4 column5">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row4 column6">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row4 column7">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row4 column8">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row4 column9">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row5 column1">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row5 column2">
+        <input type="number" min="1" max="9">   
+      </div>
+      <div class="cell row5 column3">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row5 column4">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row5 column5">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row5 column6">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row5 column7">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row5 column8">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row5 column9">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row6 column1">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row6 column2">
+        <input type="number" min="1" max="9">   
+      </div>
+      <div class="cell row6 column3">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row6 column4">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row6 column5">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row6 column6">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row6 column7">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row6 column8">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row6 column9">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row7 column1">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row7 column2">
+        <input type="number" min="1" max="9">   
+      </div>
+      <div class="cell row7 column3">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row7 column4">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row7 column5">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row7 column6">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row7 column7">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row7 column8">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row7 column9">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row8 column1">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row8 column2">
+        <input type="number" min="1" max="9">   
+      </div>
+      <div class="cell row8 column3">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row8 column4">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row8 column5">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row8 column6">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row8 column7">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row8 column8">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row8 column9">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row9 column1">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row9 column2">
+        <input type="number" min="1" max="9">   
+      </div>
+      <div class="cell row9 column3">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row9 column4">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row9 column5">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row9 column6">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row9 column7">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row9 column8">
+        <input type="number" min="1" max="9">
+      </div>
+      <div class="cell row9 column9">
+        <input type="number" min="1" max="9">
+      </div>
+    </div>
+    <form>
+      <button class="button-cargar">Cargar</button>
+      <button class="button-validar">Validar</button>
+      <button class="button-resolver">Resolver</button>
+      <button class="button-clear">Limpiar Matriz</button>
+      <button class="button-shownotes">Mostrar Notas</button>
+    </form>
+  </body>
 </html>

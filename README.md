@@ -1,10 +1,20 @@
 # sudokuSolver-js
 
-Repository dedicated for the building of a Sudoku Solver based on JavaScript
+Repository dedicated for the configuration and development of a Sudoku Solver based on JavaScript
 
 ![Sudoku Image](/images/6710716.jpg)
 
 ## Change Control and Versioning
+
+### Version 0.0.5 (Discard methods, notes shown) 2022-09-04
+
+- 3 new discard methods defined, to find obvious pairs per Row, per Column and per square
+- New function newfoundvalueHTML for showing in the html, the information for each new value
+- New function discardedvaluesHTML for showing logs when finding possibles values to discard
+- New feature of showing in screen the snotes for each cell, Button and Listener added.
+- New function to hide temporarily the notes and return to the main matrix in screen
+- Variable discardnotessucces added to also detect one pair of related values to be discarded per iteration
+- Internal grid (3x3) per each cell added to show the notes
 
 ### Version 0.0.4 (Row, column and square methods) 2022-09-02
 
