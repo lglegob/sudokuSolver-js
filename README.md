@@ -6,6 +6,12 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.0.6a (Branch adding-rollback - Time Dimension) 2022-09-06
+
+- Variable step created to define the rollback steps the user can go back
+- Time Dimension added to the Matrix, with the definition of step
+- step 0 is the initial state of the sudoku, subsequent steps are each of the changes on theMatrix, by adding cell solutions or discarding notes values
+
 ### Version 0.0.6 (Input Listener, initial styling) 2022-09-05
 
 - A new input listener with loop is define to "listen" when the matrix is initially changed to enable the validate a custom matrix option
