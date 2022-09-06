@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.0.6 (Input Listener, initial styling) 2022-09-05
+
+- A new input listener with loop is define to "listen" when the matrix is initially changed to enable the validate a custom matrix option
+- The algorithms to enable or disable the action buttons are defined, depending in which state is the Matrix and possible actions.
+- It is define in the HTML a new section to show the messages.
+- Initial Styling is applied to the Matrix to show the blocks, and to resize with a 1:1 ratio all the cells
+- The show notes is change to be a toggle button to be able to show or hide the notes of the matrix at will.
+
 ### Version 0.0.5 (Discard methods, notes shown) 2022-09-04
 
 - 3 new discard methods defined, to find obvious pairs per Row, per Column and per square

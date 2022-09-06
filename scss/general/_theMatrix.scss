@@ -1,0 +1,77 @@
+.theMatrix > div {
+  display: grid;
+  justify-content: start;
+  grid-template-columns: repeat(9, 1fr);
+  border: 3px solid blue;
+  margin: 10px auto;
+  padding: 10px;
+
+  & .cell {
+    width: 100%;
+    padding-top: 100%; /* 1:1 Aspect Ratio */
+    position: relative;
+
+    & > input {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      font-size: 4rem;
+      text-align: center;
+
+    }
+    & > div {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      font-size: 1.5rem;
+      text-align: center;
+      // Notes configuration, to show the 9 values
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      justify-content: start;
+      text-align: center;
+
+
+
+    }
+  }
+}
+
+// .notes {
+//   display: grid;
+//   grid-template-columns: repeat(3, 1fr);
+//   grid-template-rows: repeat(3, 1fr);
+//   justify-content: start;
+//   text-align: center;
+//   & div {
+//     // position: absolute;
+//     // top: 0;
+//     // bottom: 0;
+//     // right: 0;
+//     // left: 0;
+//     // height: 100%;
+//     // width: 100%;
+//   }
+// }
+
+.column1, .column4 {
+  border-left: 3px solid black;
+}
+.column6, .column9 {
+  border-right: 3px solid black;
+}
+.row1, .row4 {
+  border-top: 3px solid black;
+}
+.row6, .row9 {
+  border-bottom: 3px solid black;
+}

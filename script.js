@@ -45,18 +45,15 @@ const sudokuvalues = [
 
 //For loop to create the base 3D Matrix
 //The 3D matrix is formed with 3 dimensions, the first dimension with 9 internal arrays, 1 array for each row in the Sudoku Matrix
-//The second dimension (each of the 9 arrays) has as well 9 arrays inside (81 nested for the 81 cells in the sudoku array), one array for each value in the row
+//The second dimension (each of the 9 arrays) has as well 9 arrays inside (81 nested total for the 81 cells in the sudoku array), one array for each value in the row
 //The third dimension (each of the 81 (9*9) nested arrays) is an array of 10 numbers, the first one is for the value of the cell (if already known or zero if not known)
 //the other 9 numbers (indexes 1-9 show the notes for each of the cells of the sudoku array)
-const loadthematrix = () => {
-  console.log("...Wake Up Neo")
-  for (let cellvalue = 0; cellvalue < sudokuvalues.length; cellvalue++) {
-    document.querySelector(".row" + sudokuvalues[cellvalue][0] + ".column" + sudokuvalues[cellvalue][1] + " input").setAttribute("value", sudokuvalues[cellvalue][2]);
-  };
-};
+// theMatrix Structure --> [[row][row]...[row][row]]
+// Each row Structure  --> [[column cell][column cell]...[column cell][column cell]]
+// Each Column Cell    --> [[answer][note 1][note 2][note 3]...[note 9]]
 
-//For loop to create the base 3D Matrix
 const createthematrix = () => {
+  console.log("Wake Up, Neo...")
   for (let row = 0; row <= 8; row++) {
     theMatrix[row] = [];
     for (let column = 0; column <= 8; column++) {
@@ -65,19 +62,38 @@ const createthematrix = () => {
   };
 };
 
-//Clear the values from the form input
-const clearthematrix = () => {
-  for (let row = 0; row <= 8; row++) {
-    for (let column = 0; column <= 8; column++) {
-      let itemrow = row + 1;
-      let itemcolumn = column + 1;
-      document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").value = undefined;
-    };
+//Load the values from sudokuvalues variable into de html input fields
+const loadthematrix = () => {
+  for (let cellvalue = 0; cellvalue < sudokuvalues.length; cellvalue++) {
+    document.querySelector(".row" + sudokuvalues[cellvalue][0] + ".column" + sudokuvalues[cellvalue][1] + " input").setAttribute("value", sudokuvalues[cellvalue][2]);
   };
+  validatethematrix();
+  cellbycellanalysis();
 };
 
+//reset the values from the form input
+const resetthematrix = () => {
+  window.location.reload();
+  // for (let row = 0; row <= 8; row++) {
+  //   for (let column = 0; column <= 8; column++) {
+  //     let itemrow = row + 1;
+  //     let itemcolumn = column + 1;
+  //     document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").value = undefined;
+  //   };
+  // };
+  // document.querySelector("#button-load").disabled = false
+  // document.querySelector("#button-validate").disabled = true
+  // document.querySelector("#button-resolve").disabled = true
+  // document.querySelector("#button-shownotes").disabled = true
+  // document.querySelector("#button-reset").disabled = true
+  // let theMatrix = [];
+  // let loopsexecuted = 0;
+  // let cellsresolved = 0;
+  // let areweshowingnotes = false;
+};
+
+//Get the values from the form input into the Matrix
 const validatethematrix = () => {
-  //Get the values from the form input into the Matrix
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
       let itemrow = row + 1;
@@ -109,27 +125,33 @@ const cellbycellanalysis = () => {
       };
     };
   };
+  document.querySelector("#button-load").disabled = true
+  document.querySelector("#button-validate").disabled = true
+  document.querySelector("#button-resolve").disabled = false
+  document.querySelector("#button-togglenotes").disabled = false
+  document.querySelector("#button-reset").disabled = false
 };
 
+//Here, it is mark as zero, each cell in the same row, which contains the currentcellvalue as option yet
 const optionzeroinrow = (row, currentcellvalue) => {
-  //Here, we mark as zero, each cell in the same row, which contains the currentcellvalue as option yet
   theMatrix[row].forEach(function(column_item) {
     column_item[currentcellvalue] = 0
   });
 }
 
+//Here, it is mark as zero, each cell in the same column, which contains the currentcellvalue as option yet
 const optionzeroincolumn = (column, currentcellvalue) => {
   for (let row_within_column = 0; row_within_column < 9; row_within_column++) {
     theMatrix[row_within_column][column][currentcellvalue] = 0
   };
 };
 
+//Here, it is mark as zero, each cell in the same block(square), which contains the currentcellvalue as option yet
 const optionzeroinsquare = (row, column, currentcellvalue) => {
   let fromrow;
   let maximumrow;
   let fromcolumn;
   let maximumcolumn;
-  //Here, we marked zero, each cell in the same square, which contains the currentcellvalue as option yet
   switch (true) {
     case row <= 2:
       fromrow = 0
@@ -190,8 +212,8 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentcellvalue, method) => {
   newfoundvalueArticle.innerHTML = `
   <p>New Found Value in row ${itemrow}, column ${itemcolumn}, the Value is ${currentcellvalue}, and was found using ${method} method</p>
   `;
-  const main = document.querySelector("body");
-  main.append(newfoundvalueArticle);
+  const main = document.querySelector(".found-values > div");
+  main.prepend(newfoundvalueArticle);
   if (areweshowingnotes === true) shownotes();
 };
 
@@ -199,15 +221,14 @@ const discardedvaluesHTML = (mainaxis, mainaxisvalue, secondaryaxis, secondaryax
   console.log("We found an Obvious Pair!")
   console.log(`We are looking at ${mainaxis} ${mainaxisvalue + 1}, the first cell is ${secondaryaxis} ${secondaryaxisvalue1 + 1}, and the second cell is ${secondaryaxis} ${secondaryaxisvalue2 + 1}`)
   console.log(`The notes are ${value1} and ${value2}, they have been deleted from the ${mainaxis} ${mainaxisvalue + 1}`);
-  // document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", currentcellvalue);
-  // let newfoundvalueArticle = document.createElement("article");
-  // newfoundvalueArticle.classList.add("newfoundvalue");
-  // // newfoundvalueArticle.setAttribute("id", DEFINE-ID);
-  // newfoundvalueArticle.innerHTML = `
-  // <p>New Found Value in row ${itemrow}, column ${itemcolumn}, the Value is ${currentcellvalue}, and was found using ${method} method</p>
-  // `;
-  // const main = document.querySelector("body");
-  // main.append(newfoundvalueArticle);
+  let newdiscardedvalueArticle = document.createElement("article");
+  newdiscardedvalueArticle.classList.add("newdiscardedvalue");
+  // newfoundvalueArticle.setAttribute("id", DEFINE-ID);
+  newdiscardedvalueArticle.innerHTML = `
+  <p>Notes Discarded in ${mainaxis} ${mainaxisvalue + 1}, the first cell is ${secondaryaxis} ${secondaryaxisvalue1 + 1}, and the second cell is ${secondaryaxis} ${secondaryaxisvalue2 + 1}, The notes discarded are ${value1} and ${value2}, they have been deleted from the ${mainaxis} ${mainaxisvalue + 1}, using ${method} method</p>
+  `;
+  const main = document.querySelector(".found-values > div");
+  main.prepend(newdiscardedvalueArticle);
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -645,32 +666,30 @@ const obviouspairssquare = () => {
 //Function used to add html config with a 9 cells grid per each of the original divs to show the notes of each cell
 const shownotes = () => {
   for (let row = 0; row <= 8; row++) {
+    let newdivoption;
     for (let column = 0; column <= 8; column++) {
+      let itemrow = row + 1;
+      let itemcolumn = column + 1;
       if (theMatrix[row][column][0] === 0) {
-        let itemrow = row + 1;
-        let itemcolumn = column + 1;
-        let newdivoption;
         document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").remove();
         document.querySelector(".row" + itemrow + ".column" + itemcolumn).classList.add("notes")
-      
+        let newdivoption = document.createElement("div");
         for (let note = 1; note <= 9; note++) {
-          let newdivoption = document.createElement("div");
+          let newnote = document.createElement("p");
           if (theMatrix[row][column][note] !== 0) {
-            newdivoption.innerHTML = `
-            <p>${note}</p>
+            newnote.innerHTML = `
+            ${note}
             `;
           }
-          else {
-            newdivoption.innerHTML = `
-            <p></p>
-            `;
-          };
-          const main = document.querySelector(".row" + itemrow + ".column" + itemcolumn);
-          main.append(newdivoption);
+          newdivoption.append(newnote);
         };
+        const main = document.querySelector(".row" + itemrow + ".column" + itemcolumn);
+        main.append(newdivoption);
       };
     };
   };
+  let togglebutton = document.querySelector("#button-togglenotes");
+  togglebutton.innerText = "Hide Notas";
 };
 
 const hidenotes = () => {
@@ -691,18 +710,21 @@ const hidenotes = () => {
       };
     };
   };
+  let togglebutton = document.querySelector("#button-togglenotes");
+  togglebutton.innerText = "Show Notas";
 };
 
 // definining elements for Event Listeners
-const button_cargar = document.querySelector(".button-cargar");
-const button_validar = document.querySelector(".button-validar");
-const button_resolver = document.querySelector(".button-resolver");
-const button_clear = document.querySelector(".button-clear");
-const button_shownotes = document.querySelector(".button-shownotes");
+const button_load = document.querySelector("#button-load");
+const button_validate = document.querySelector("#button-validate");
+const button_resolve = document.querySelector("#button-resolve");
+const button_reset = document.querySelector("#button-reset");
+const button_togglenotes = document.querySelector("#button-togglenotes");
+const input_cellvalues = document.querySelectorAll(".theMatrix input");
 
 // Add event listener to the Load button
 const loadthematrixListener = () => {
-  button_cargar.addEventListener("click", (e) => {
+  button_load.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
     loadthematrix();
@@ -711,7 +733,7 @@ const loadthematrixListener = () => {
 
 // Add event listener to the Validate button
 const validatethematrixListener = () => {
-  button_validar.addEventListener("click", (e) => {
+  button_validate.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
     validatethematrix();
@@ -719,28 +741,45 @@ const validatethematrixListener = () => {
   });
 };
 
-// Add event listener to the Clear button
-const clearthematrixListener = () => {
-  button_clear.addEventListener("click", (e) => {
+// Add event listener to the reset button
+const resetthematrixListener = () => {
+  button_reset.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    clearthematrix();
+    resetthematrix();
   });
 };
 
 // Add event listener to the ShowNotes button
-const shownotesListener = () => {
-  button_shownotes.addEventListener("click", (e) => {
+const togglenotesListener = () => {
+  button_togglenotes.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    areweshowingnotes = true;
-    shownotes();
+    if (areweshowingnotes === false) {
+      areweshowingnotes = true;
+      shownotes();
+    } else {
+      areweshowingnotes = false;
+      hidenotes();
+    };
   });
 };
 
+// Add event listener to the ShowNotes button
+const inputListener = () => {
+  input_cellvalues.forEach(item => {
+    item.addEventListener("change", () => {
+      document.querySelector("#button-load").disabled = true;
+      document.querySelector("#button-validate").disabled = false;
+      document.querySelector("#button-reset").disabled = false;
+    });
+  });
+};
+
+
 // Add event listener to the Resolve Button
 const resolvethematrixListener = () => {
-  button_resolver.addEventListener("click", (e) => {
+  button_resolve.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
     singleoptions();
@@ -765,6 +804,10 @@ const resolvethematrixListener = () => {
 
     iterationsuccess = false;
     discardnotessuccess = false;
+    if (cellsresolved === 81) {
+      document.querySelector("#button-resolve").disabled = true
+      document.querySelector("#button-togglenotes").disabled = true
+    }
     // console.log(theMatrix);
     // console.log(`loopsexecuted: ${loopsexecuted}`);
   });
@@ -776,10 +819,17 @@ let cellsresolved = 0;
 let iterationsuccess = false;
 let discardnotessuccess = false;
 let areweshowingnotes = false;
+
+document.querySelector("#button-validate").disabled = true
+document.querySelector("#button-resolve").disabled = true
+document.querySelector("#button-togglenotes").disabled = true
+document.querySelector("#button-reset").disabled = true
+
 createthematrix();
 //activate the Listeners
 validatethematrixListener();
-clearthematrixListener();
+resetthematrixListener();
 resolvethematrixListener();
 loadthematrixListener();
-shownotesListener();
+togglenotesListener();
+inputListener();

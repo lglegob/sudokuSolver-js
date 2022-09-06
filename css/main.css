@@ -16,29 +16,83 @@ html {
   box-sizing: inherit;
 }
 
-.theMatrix {
+.theButtons {
+  margin: 0 auto;
+}
+
+.theButtons form {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.found-values {
+  margin: 0 auto;
+}
+
+.content-wrap {
+  max-width: 1400px;
+  width: 85%;
+  margin: 0 auto;
+  padding: 10px 0 5px;
+}
+
+.theMatrix > div {
   display: grid;
-  grid-gap: 5px;
   justify-content: start;
   grid-template-columns: repeat(9, 1fr);
-  max-width: 1000px;
+  border: 3px solid blue;
+  margin: 10px auto;
+  padding: 10px;
 }
 
-.cell {
+.theMatrix > div .cell {
   width: 100%;
+  padding-top: 100%;
+  /* 1:1 Aspect Ratio */
+  position: relative;
 }
 
-.cell > input {
+.theMatrix > div .cell > input {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
   width: 100%;
-  height: 5rem;
-  font-size: 1.5rem;
+  font-size: 4rem;
   text-align: center;
 }
 
-.notes {
+.theMatrix > div .cell > div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  font-size: 1.5rem;
+  text-align: center;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   justify-content: start;
   text-align: center;
+}
+
+.column1, .column4 {
+  border-left: 3px solid black;
+}
+
+.column6, .column9 {
+  border-right: 3px solid black;
+}
+
+.row1, .row4 {
+  border-top: 3px solid black;
+}
+
+.row6, .row9 {
+  border-bottom: 3px solid black;
 }
