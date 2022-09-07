@@ -36,6 +36,10 @@ html {
   padding: 10px 0 5px;
 }
 
+body {
+  overflow-y: scroll;
+}
+
 .theMatrix > div {
   display: grid;
   justify-content: start;
@@ -60,8 +64,26 @@ html {
   left: 0;
   height: 100%;
   width: 100%;
-  font-size: 4rem;
   text-align: center;
+  font-size: 0.8rem;
+}
+
+@media screen and (min-width: 440px) {
+  .theMatrix > div .cell > input {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .theMatrix > div .cell > input {
+    font-size: 3rem;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .theMatrix > div .cell > input {
+    font-size: 4rem;
+  }
 }
 
 .theMatrix > div .cell > div {
@@ -72,13 +94,57 @@ html {
   left: 0;
   height: 100%;
   width: 100%;
-  font-size: 1.5rem;
+  font-size: 0.4rem;
   text-align: center;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   justify-content: start;
   text-align: center;
+}
+
+@media screen and (min-width: 440px) {
+  .theMatrix > div .cell > div {
+    font-size: 0.7rem;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .theMatrix > div .cell > div {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .theMatrix > div .cell > div {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .theMatrix > div .cell > div {
+    font-size: 1.7rem;
+  }
+}
+
+.notes .note1, .notes .note4, .notes .note7 {
+  border-right: 1px dashed black;
+  border-left: 1px solid black;
+}
+
+.notes .note3, .notes .note6, .notes .note9 {
+  border-left: 1px dashed black;
+  border-right: 1px solid black;
+}
+
+.notes .note1, .notes .note2, .notes .note3 {
+  border-bottom: 1px dashed black;
+  border-top: 1px solid black;
+}
+
+.notes .note7, .notes .note8, .notes .note9 {
+  border-top: 1px dashed black;
+  border-bottom: 1px solid black;
 }
 
 .column1, .column4 {

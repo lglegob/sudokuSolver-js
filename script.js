@@ -43,10 +43,12 @@ const sudokuvalues = [
   [9, 7, 1]
 ]
 
-//For loop to create the base 3D Matrix
-//The 3D matrix is formed with 3 dimensions, the first dimension with 9 internal arrays, 1 array for each row in the Sudoku Matrix
-//The second dimension (each of the 9 arrays) has as well 9 arrays inside (81 nested total for the 81 cells in the sudoku array), one array for each value in the row
-//The third dimension (each of the 81 (9*9) nested arrays) is an array of 10 numbers, the first one is for the value of the cell (if already known or zero if not known)
+//For loop to create the base 4D Matrix
+//The 4D matrix is formed with 4 dimensions
+//The latest added dimension is also the first, and it is... Time!, expressed as the steps taken so far to resolve the Sudoku, the step 0 is the initial state and the subsequent steps represent each time a change is made in the matrix, by adding a number (cell solution) or discarding values (notes)
+//The Second dimension is theMatrix itself, with 9 internal arrays, 1 array for each row in the Sudoku Matrix
+//The Third dimension (each of the 9 arrays) has as well 9 arrays inside (81 nested total for the 81 cells in the sudoku array), one array for each value in the row
+//The Fourth and Last dimension (each of the 81 (9*9) nested arrays) is an array of 10 numbers, the first one is for the value of the cell (if already known or zero if not known)
 //the other 9 numbers (indexes 1-9 show the notes for each of the cells of the sudoku array)
 // theMatrix Structure --> [[row][row]...[row][row]]
 // Each row Structure  --> [[column cell][column cell]...[column cell][column cell]]
@@ -55,9 +57,9 @@ const sudokuvalues = [
 const createthematrix = () => {
   console.log("Wake Up, Neo...")
   for (let row = 0; row <= 8; row++) {
-    theMatrix[row] = [];
+    theMatrix[step][row] = [];
     for (let column = 0; column <= 8; column++) {
-      theMatrix[row][column] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+      theMatrix[step][row][column] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     };
   };
 };
@@ -71,25 +73,31 @@ const loadthematrix = () => {
   cellbycellanalysis();
 };
 
+//Reload the Matrix (html values and notes) based on a previous step
+const thematrixreloaded = () => {
+  if (stepsinfo[step][0] === true) cellsresolved--;   
+  step--;
+  document.querySelector("#button-resolve").disabled = false;
+  document.querySelector("#button-togglenotes").disabled = false;
+  if (areweshowingnotes === true) hidenotes();
+  if (step === 0) document.querySelector("#button-reload").disabled = true;
+  for (let row = 0; row <= 8; row++) {
+    for (let column = 0; column <= 8; column++) {
+      let itemrow = row + 1;
+      let itemcolumn = column + 1;
+      if (theMatrix[step][row][column][0] !== 0) {
+        document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", theMatrix[step][row][column][0]);
+      } else {
+        document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", "");
+      };
+    };
+  };
+  if (areweshowingnotes === true) shownotes();
+};
+
 //reset the values from the form input
 const resetthematrix = () => {
   window.location.reload();
-  // for (let row = 0; row <= 8; row++) {
-  //   for (let column = 0; column <= 8; column++) {
-  //     let itemrow = row + 1;
-  //     let itemcolumn = column + 1;
-  //     document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").value = undefined;
-  //   };
-  // };
-  // document.querySelector("#button-load").disabled = false
-  // document.querySelector("#button-validate").disabled = true
-  // document.querySelector("#button-resolve").disabled = true
-  // document.querySelector("#button-shownotes").disabled = true
-  // document.querySelector("#button-reset").disabled = true
-  // let theMatrix = [];
-  // let loopsexecuted = 0;
-  // let cellsresolved = 0;
-  // let areweshowingnotes = false;
 };
 
 //Get the values from the form input into the Matrix
@@ -100,7 +108,7 @@ const validatethematrix = () => {
       let itemcolumn = column + 1;
       let currentcell = document.querySelector(".row" + itemrow + ".column" + itemcolumn);
       let currentcellvalue = Number(currentcell.querySelector("input").value);
-      theMatrix[row][column] = [currentcellvalue, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+      theMatrix[step][row][column] = [currentcellvalue, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     };
   };
 };
@@ -111,11 +119,11 @@ const cellbycellanalysis = () => {
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
       loopsexecuted++;
-      let currentcellvalue = theMatrix[row][column][0];
+      let currentcellvalue = theMatrix[step][row][column][0];
       // If the value is different than zero, it has to set as zero that position in every element of the same row, same column and same square
       if (currentcellvalue != 0) {
         // since this cell already has a value, all the posibilities are marked zero
-        theMatrix[row][column] = [currentcellvalue, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        theMatrix[step][row][column] = [currentcellvalue, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         optionzeroinrow(row, currentcellvalue);
         optionzeroincolumn(column, currentcellvalue);
         optionzeroinsquare(row, column, currentcellvalue);
@@ -134,7 +142,7 @@ const cellbycellanalysis = () => {
 
 //Here, it is mark as zero, each cell in the same row, which contains the currentcellvalue as option yet
 const optionzeroinrow = (row, currentcellvalue) => {
-  theMatrix[row].forEach(function(column_item) {
+  theMatrix[step][row].forEach(function(column_item) {
     column_item[currentcellvalue] = 0
   });
 }
@@ -142,7 +150,7 @@ const optionzeroinrow = (row, currentcellvalue) => {
 //Here, it is mark as zero, each cell in the same column, which contains the currentcellvalue as option yet
 const optionzeroincolumn = (column, currentcellvalue) => {
   for (let row_within_column = 0; row_within_column < 9; row_within_column++) {
-    theMatrix[row_within_column][column][currentcellvalue] = 0
+    theMatrix[step][row_within_column][column][currentcellvalue] = 0
   };
 };
 
@@ -182,7 +190,7 @@ const optionzeroinsquare = (row, column, currentcellvalue) => {
   }
   for (let square_row = fromrow; square_row <= maximumrow; square_row++) {
     for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) {
-    theMatrix[square_row][square_column][currentcellvalue] = 0
+    theMatrix[step][square_row][square_column][currentcellvalue] = 0
     };
   };
 };
@@ -190,10 +198,14 @@ const optionzeroinsquare = (row, column, currentcellvalue) => {
 //function called each time a new value is found by any method
 const cellvaluefound = (row, column, currentcellvalue, method) => {
   cellsresolved++;
+  step++;
+  stepsinfo[step] = [true, method, [row, column, currentcellvalue]];
+  theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
   console.log(`Cells resolved so far: ${cellsresolved}`);
+  document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   if (areweshowingnotes === true) hidenotes();
   // here the currentcellvalue is set in theMatrix variable, and the corresponding notes in the cells of the same row, column and squatre deleted
-  theMatrix[row][column] = [currentcellvalue, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  theMatrix[step][row][column] = [currentcellvalue, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   optionzeroinrow(row, currentcellvalue);
   optionzeroincolumn(column, currentcellvalue);
   optionzeroinsquare(row, column, currentcellvalue);
@@ -217,10 +229,16 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentcellvalue, method) => {
   if (areweshowingnotes === true) shownotes();
 };
 
+const discardedvalue = (mainaxis, mainaxisvalue, secondaryaxis, secondaryaxisvalue1, secondaryaxisvalue2, value1, value2, method) => {
+  // AQUI debe ir la creacion del step nuevo de theMatrix y modificacion de las variables para unificar funcion, por ahora esta distribuido en las 3 funciones de obvious
+  discardedvaluesHTML(mainaxis, mainaxisvalue, secondaryaxis, secondaryaxisvalue1, secondaryaxisvalue2, value1, value2, method);
+};
+
 const discardedvaluesHTML = (mainaxis, mainaxisvalue, secondaryaxis, secondaryaxisvalue1, secondaryaxisvalue2, value1, value2, method) => {
   console.log("We found an Obvious Pair!")
   console.log(`We are looking at ${mainaxis} ${mainaxisvalue + 1}, the first cell is ${secondaryaxis} ${secondaryaxisvalue1 + 1}, and the second cell is ${secondaryaxis} ${secondaryaxisvalue2 + 1}`)
   console.log(`The notes are ${value1} and ${value2}, they have been deleted from the ${mainaxis} ${mainaxisvalue + 1}`);
+  document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   let newdiscardedvalueArticle = document.createElement("article");
   newdiscardedvalueArticle.classList.add("newdiscardedvalue");
   // newfoundvalueArticle.setAttribute("id", DEFINE-ID);
@@ -240,16 +258,16 @@ const singleoptions = () => {
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
       loopsexecuted++;
-      let currentcellvalue = theMatrix[row][column][0];
+      let currentcellvalue = theMatrix[step][row][column][0];
       //method reduce to obtain the sum of the options in this cell
-      const sum = theMatrix[row][column].reduce(add, 0);
+      const sum = theMatrix[step][row][column].reduce(add, 0);
         function add(accumulator, a) {
           return accumulator + a;
         };
         if (sum-currentcellvalue === 1) {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentcellvalue
         iterationsuccess = true;
-        currentcellvalue = theMatrix[row][column].findIndex((one, index) => one === 1 && index > 0)
+        currentcellvalue = theMatrix[step][row][column].findIndex((one, index) => one === 1 && index > 0);
         cellvaluefound(row, column, currentcellvalue, "Detecting Singles");
         break;
         };
@@ -267,11 +285,11 @@ const hiddensinglesrow = () => {
       let columnfound;
       loopsexecuted++;
       for (let column = 0; column <= 8; column++) {
-        currentcellvalue = theMatrix[row][column][0];
+        currentcellvalue = theMatrix[step][row][column][0];
         //this if evalutes the cell does not have a solved value yet and that the possiblevalue in evaluation is present in this cell
-        if (currentcellvalue === 0 && theMatrix[row][column][possibleoption] === 1) {
+        if (currentcellvalue === 0 && theMatrix[step][row][column][possibleoption] === 1) {
           //This cell has not yet been resolved, it sums the values of each option position to find a hidden single
-          ishiddensingle++
+          ishiddensingle++;
           // si ya existen mas de una celda con el possiblevalue, salir del loop y pasar al siguiente possiblevalue
           if (ishiddensingle > 1) break;
           columnfound = column;
@@ -298,11 +316,11 @@ const hiddensinglescolumn = () => {
       let rowfound;
       loopsexecuted++;
       for (let row = 0; row <= 8; row++) {
-        currentcellvalue = theMatrix[row][column][0];
+        currentcellvalue = theMatrix[step][row][column][0];
         //this if evalutes the cell does not have a solved value yet and that the possiblevalue in evaluation is present in this cell
-        if (currentcellvalue === 0 && theMatrix[row][column][possibleoption] === 1) {
+        if (currentcellvalue === 0 && theMatrix[step][row][column][possibleoption] === 1) {
           //This cell has not yet been resolved, it sums the values of each option position to find a hidden single
-          ishiddensingle++
+          ishiddensingle++;
           // si ya existen mas de una celda con el possiblevalue, salir del loop y pasar al siguiente possiblevalue
           if (ishiddensingle > 1) break;
           rowfound = row;
@@ -366,11 +384,11 @@ const hiddensinglessquare = () => {
 
       for (let square_row = fromrow; square_row <= maximumrow; square_row++) {
         for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) {
-          currentcellvalue = theMatrix[square_row][square_column][0];
+          currentcellvalue = theMatrix[step][square_row][square_column][0];
           //this if evalutes the cell does not have a solved value yet and that the possiblevalue in evaluation is present in this cell
-          if (currentcellvalue === 0 && theMatrix[square_row][square_column][possibleoption] === 1) {
+          if (currentcellvalue === 0 && theMatrix[step][square_row][square_column][possibleoption] === 1) {
             //This cell has not yet been resolved, it sums the values of each option position to find a hidden single
-            ishiddensingle++
+            ishiddensingle++;
             // si ya existen mas de una celda con el possiblevalue, salir del loop y pasar al siguiente possiblevalue
             if (ishiddensingle > 1) break;
             rowfound = square_row;
@@ -398,9 +416,9 @@ const obviouspairsrow = () => {
   for (let row = 0; row <= 8; row++) { 
     let answersrow = [0,0,0,0,0,0,0,0,0,0];
     for (let column = 0; column <= 8; column++) {
-      if (theMatrix[row][column][0] !== 0) {
+      if (theMatrix[step][row][column][0] !== 0) {
         //It is consolidated in one array (1*10 first index value (0) not used) the answers for this row
-        answersrow[theMatrix[row][column][0]] = 1
+        answersrow[theMatrix[step][row][column][0]] = 1;
         
       }
     }
@@ -417,7 +435,7 @@ const obviouspairsrow = () => {
       whereisthisnote[possibleoption] = [0,0,0,0,0,0,0,0,0];
       if (answersrow[possibleoption] === 0) {
         for (let column = 0; column <= 8; column++) {
-          if (theMatrix[row][column][possibleoption] === 1) {
+          if (theMatrix[step][row][column][possibleoption] === 1) {
             howmanycellswiththisnote[possibleoption]++;
             howmanynotesinthiscell[column]++;
             whereisthisnote[possibleoption][column]++
@@ -432,32 +450,32 @@ const obviouspairsrow = () => {
       if (howmanynotesinthiscell[column1] === 2) {
         for (let column2 = column1+1; column2<= 8; column2++) {
           if (howmanynotesinthiscell[column2] === 2) {
-            let cell1notes = theMatrix[row][column1];
-            let cell2notes = theMatrix[row][column2];
+            let cell1notes = theMatrix[step][row][column1];
+            let cell2notes = theMatrix[step][row][column2];
             if (cell1notes.every((val, index) => val === cell2notes[index])) {
               const isthenotehere = (note) => note === 1;
               let currentcellvalue1 = cell1notes.indexOf(1);
               let currentcellvalue2 = cell1notes.indexOf(1, currentcellvalue1 + 1);
               //This if is to make sure the pair found has notes in other cells and declare them as obvious Pair
               if (howmanycellswiththisnote[currentcellvalue1] > 2 || howmanycellswiththisnote[currentcellvalue2] > 2) {
-                // console.log("I found an Obvious Pair!")
-                // console.log(`I am looking at row ${row + 1}, the first cell is column ${column1 + 1}, and the second cell is column ${column2 + 1}`)
-                // console.log(`The notes are ${currentcellvalue1} and ${currentcellvalue2}, they have been deleted from the row ${row}`);
+                step++;
+                stepsinfo[step] = [false, "Detecting Obvius Pair (Row)", []];
+                theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
                 //Here we take advantage of the functions to delete the notes of found values
                 optionzeroinrow(row, currentcellvalue1);
                 optionzeroinrow(row, currentcellvalue2);
                 //But here, it is restablished as notes for the pair of cells
-                theMatrix[row][column1][currentcellvalue1] = 1;
-                theMatrix[row][column1][currentcellvalue2] = 1;
-                theMatrix[row][column2][currentcellvalue1] = 1;
-                theMatrix[row][column2][currentcellvalue2] = 1;
+                theMatrix[step][row][column1][currentcellvalue1] = 1;
+                theMatrix[step][row][column1][currentcellvalue2] = 1;
+                theMatrix[step][row][column2][currentcellvalue1] = 1;
+                theMatrix[step][row][column2][currentcellvalue2] = 1;
                 if (areweshowingnotes === true) {
                 hidenotes();
                 };
                 areweshowingnotes = true;
                 shownotes();
                 discardnotessuccess = true;
-                discardedvaluesHTML("row", row, "column", column1, column2, currentcellvalue1, currentcellvalue2, "Detecting Obvius Pair (Row)");
+                discardedvalue("row", row, "column", column1, column2, currentcellvalue1, currentcellvalue2, "Detecting Obvius Pair (Row)");
                 break;
               };
             };
@@ -476,11 +494,11 @@ const obviouspairscolumn = () => {
   for (let column = 0; column <= 8; column++) { 
     let answerscolumn = [0,0,0,0,0,0,0,0,0,0];
     for (let row = 0; row <= 8; row++) {
-      if (theMatrix[row][column][0] !== 0) {
+      if (theMatrix[step][row][column][0] !== 0) {
         //It is consolidated in one array (1*10 first index value (0) not used) the answers for this column
-        answerscolumn[theMatrix[row][column][0]] = 1
-      }
-    }
+        answerscolumn[theMatrix[step][row][column][0]] = 1
+      };
+    };
 
     //It is consolidated in one array (1*10 first index value (0) not used) how many notes for each possibleoption in this column
     let howmanycellswiththisnote = [0,0,0,0,0,0,0,0,0,0];
@@ -494,7 +512,7 @@ const obviouspairscolumn = () => {
       whereisthisnote[possibleoption] = [0,0,0,0,0,0,0,0,0];
       if (answerscolumn[possibleoption] === 0) {
         for (let row = 0; row <= 8; row++) {
-          if (theMatrix[row][column][possibleoption] === 1) {
+          if (theMatrix[step][row][column][possibleoption] === 1) {
             howmanycellswiththisnote[possibleoption]++;
             howmanynotesinthiscell[row]++;
             whereisthisnote[possibleoption][row]++
@@ -509,29 +527,32 @@ const obviouspairscolumn = () => {
       if (howmanynotesinthiscell[row1] === 2) {
         for (let row2 = row1+1; row2<= 8; row2++) {
           if (howmanynotesinthiscell[row2] === 2) {
-            let cell1notes = theMatrix[row1][column];
-            let cell2notes = theMatrix[row2][column];
+            let cell1notes = theMatrix[step][row1][column];
+            let cell2notes = theMatrix[step][row2][column];
             if (cell1notes.every((val, index) => val === cell2notes[index])) {
               const isthenotehere = (note) => note === 1;
               let currentcellvalue1 = cell1notes.indexOf(1);
               let currentcellvalue2 = cell1notes.indexOf(1, currentcellvalue1 + 1);
               //This if is to make sure the pair found has notes in other cells and declare them as obvious Pair
               if (howmanycellswiththisnote[currentcellvalue1] > 2 || howmanycellswiththisnote[currentcellvalue2] > 2) {
+                step++;
+                stepsinfo[step] = [false, "Detecting Obvius Pair (Column)", []];
+                theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
                 //Here we take advantage of the functions to delete the notes of found values
                 optionzeroincolumn(column, currentcellvalue1);
                 optionzeroincolumn(column, currentcellvalue2);
                 //But here, it is restablished as notes for the pair of cells
-                theMatrix[row1][column][currentcellvalue1] = 1;
-                theMatrix[row1][column][currentcellvalue2] = 1;
-                theMatrix[row2][column][currentcellvalue1] = 1;
-                theMatrix[row2][column][currentcellvalue2] = 1;
+                theMatrix[step][row1][column][currentcellvalue1] = 1;
+                theMatrix[step][row1][column][currentcellvalue2] = 1;
+                theMatrix[step][row2][column][currentcellvalue1] = 1;
+                theMatrix[step][row2][column][currentcellvalue2] = 1;
                 if (areweshowingnotes === true) {
                   hidenotes();
                   };
                   areweshowingnotes = true;
                   shownotes();
                 discardnotessuccess = true;
-                discardedvaluesHTML("column", column, "row", row1, row2, currentcellvalue1, currentcellvalue2, "Detecting Obvius Pair (Column)");
+                discardedvalue("column", column, "row", row1, row2, currentcellvalue1, currentcellvalue2, "Detecting Obvius Pair (Column)");
                 break;
               };
             };
@@ -586,12 +607,12 @@ const obviouspairssquare = () => {
     let answerssquare = [0,0,0,0,0,0,0,0,0,0];
     for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) { 
       for (let square_row = fromrow; square_row <= maximumrow; square_row++) {
-        if (theMatrix[square_row][square_column][0] !== 0) {
+        if (theMatrix[step][square_row][square_column][0] !== 0) {
           //It is consolidated in one array (1*10 first index value (0) not used) the answers for this column
-          answerssquare[theMatrix[square_row][square_column][0]] = 1
+          answerssquare[theMatrix[step][square_row][square_column][0]] = 1
           
-        }
-      }
+        };
+      };
     };
 
     //It is consolidated in one array (1*10 first index value (0) not used) how many notes for each possibleoption in this square
@@ -607,7 +628,7 @@ const obviouspairssquare = () => {
       if (answerssquare[possibleoption] === 0) {
         for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) { 
           for (let square_row = fromrow; square_row <= maximumrow; square_row++) {
-            if (theMatrix[square_row][square_column][possibleoption] === 1) {
+            if (theMatrix[step][square_row][square_column][possibleoption] === 1) {
               howmanycellswiththisnote[possibleoption]++;
               let relativecolumn = square_column - ( 3 * ((square-1) % 3));
               let relativerow = square_row - (3 * (Math.floor((square-1) / 3)));
@@ -629,28 +650,31 @@ const obviouspairssquare = () => {
             let realcolumn1 = fromcolumn + cell1 % 3;
             let realrow2 = fromrow + Math.floor(cell2 / 3);
             let realcolumn2 = fromcolumn + cell2 % 3;
-            let cell1notes = theMatrix[realrow1][realcolumn1];
-            let cell2notes = theMatrix[realrow2][realcolumn2];
+            let cell1notes = theMatrix[step][realrow1][realcolumn1];
+            let cell2notes = theMatrix[step][realrow2][realcolumn2];
             if (cell1notes.every((val, index) => val === cell2notes[index])) {
               let currentcellvalue1 = cell1notes.indexOf(1);
               let currentcellvalue2 = cell1notes.indexOf(1, currentcellvalue1 + 1);
               //This if is to make sure the pair found has notes in other cells and declare them as obvious Pair
               if (howmanycellswiththisnote[currentcellvalue1] > 2 || howmanycellswiththisnote[currentcellvalue2] > 2) {
+                step++;
+                stepsinfo[step] = [false, "Detecting Obvius Pair (Square)", []];
+                theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
                 //Here we take advantage of the functions to delete the notes of found values
                 optionzeroinsquare(realrow1, realcolumn2, currentcellvalue1);
                 optionzeroinsquare(realrow2, realcolumn2, currentcellvalue2);
                 //But here, it is restablished as notes for the pair of cells
-                theMatrix[realrow1][realcolumn1][currentcellvalue1] = 1;
-                theMatrix[realrow1][realcolumn1][currentcellvalue2] = 1;
-                theMatrix[realrow2][realcolumn2][currentcellvalue1] = 1;
-                theMatrix[realrow2][realcolumn2][currentcellvalue2] = 1;
+                theMatrix[step][realrow1][realcolumn1][currentcellvalue1] = 1;
+                theMatrix[step][realrow1][realcolumn1][currentcellvalue2] = 1;
+                theMatrix[step][realrow2][realcolumn2][currentcellvalue1] = 1;
+                theMatrix[step][realrow2][realcolumn2][currentcellvalue2] = 1;
                 if (areweshowingnotes === true) {
                   hidenotes();
                   };
                   areweshowingnotes = true;
                   shownotes();
                 discardnotessuccess = true;
-                discardedvaluesHTML("square", square - 1, "row", realrow1, realrow2, currentcellvalue1, currentcellvalue2, "Detecting Obvius Pair (Square)");
+                discardedvalue("square", square - 1, "row", realrow1, realrow2, currentcellvalue1, currentcellvalue2, "Detecting Obvius Pair (Square)");
                 break;
               };
             };
@@ -670,13 +694,14 @@ const shownotes = () => {
     for (let column = 0; column <= 8; column++) {
       let itemrow = row + 1;
       let itemcolumn = column + 1;
-      if (theMatrix[row][column][0] === 0) {
+      if (theMatrix[step][row][column][0] === 0) {
         document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").remove();
         document.querySelector(".row" + itemrow + ".column" + itemcolumn).classList.add("notes")
         let newdivoption = document.createElement("div");
         for (let note = 1; note <= 9; note++) {
           let newnote = document.createElement("p");
-          if (theMatrix[row][column][note] !== 0) {
+          newnote.classList.add(`note${note}`);
+          if (theMatrix[step][row][column][note] !== 0) {
             newnote.innerHTML = `
             ${note}
             `;
@@ -695,7 +720,7 @@ const shownotes = () => {
 const hidenotes = () => {
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
-      if (theMatrix[row][column][0] === 0) {
+      if (theMatrix[step][row][column][0] === 0) {
         let itemrow = row + 1;
         let itemcolumn = column + 1;
         let newdivoption;
@@ -720,7 +745,9 @@ const button_validate = document.querySelector("#button-validate");
 const button_resolve = document.querySelector("#button-resolve");
 const button_reset = document.querySelector("#button-reset");
 const button_togglenotes = document.querySelector("#button-togglenotes");
+const button_reload = document.querySelector("#button-reload");
 const input_cellvalues = document.querySelectorAll(".theMatrix input");
+
 
 // Add event listener to the Load button
 const loadthematrixListener = () => {
@@ -728,6 +755,15 @@ const loadthematrixListener = () => {
     // Stop form from reloading the page
     e.preventDefault();
     loadthematrix();
+  });
+};
+
+// Add event listener to the Load button
+const reloadthematrixListener = () => {
+  button_reload.addEventListener("click", (e) => {
+    // Stop form from reloading the page
+    e.preventDefault();
+    thematrixreloaded();
   });
 };
 
@@ -804,23 +840,25 @@ const resolvethematrixListener = () => {
 
     iterationsuccess = false;
     discardnotessuccess = false;
+    // to resolve this, after having enable the time machine
     if (cellsresolved === 81) {
       document.querySelector("#button-resolve").disabled = true
       document.querySelector("#button-togglenotes").disabled = true
-    }
-    // console.log(theMatrix);
-    // console.log(`loopsexecuted: ${loopsexecuted}`);
+    };
   });
 };
 
-let theMatrix = [];
+let theMatrix = [[]];
 let loopsexecuted = 0;
 let cellsresolved = 0;
+let step = 0;
+let stepsinfo = []; //Stepsinfo [steptype, Method, [Step detailed info]]
 let iterationsuccess = false;
 let discardnotessuccess = false;
 let areweshowingnotes = false;
 
 document.querySelector("#button-validate").disabled = true
+document.querySelector("#button-reload").disabled = true
 document.querySelector("#button-resolve").disabled = true
 document.querySelector("#button-togglenotes").disabled = true
 document.querySelector("#button-reset").disabled = true
@@ -830,6 +868,7 @@ createthematrix();
 validatethematrixListener();
 resetthematrixListener();
 resolvethematrixListener();
+reloadthematrixListener();
 loadthematrixListener();
 togglenotesListener();
 inputListener();
