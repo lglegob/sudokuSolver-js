@@ -1,4 +1,29 @@
 
+body {
+    overflow-y: scroll;
+}
+h1 {
+	font-size: 40px;
+	line-height: 0.9;
+	margin-bottom: 10px;
+	@include size-sm {
+		font-size: 60px;
+	}
+	@include size-md {
+		font-size: 100px;	
+		line-height: 1.2;
+	}
+}
+h2 {
+	font-size: 20px;
+	line-height: 1;
+	@include size-sm {
+		font-size: 30px;
+	}
+	@include size-md {
+		font-size: 40px;
+	}
+}
 .theButtons {
     margin: 0 auto;
     & form {
@@ -11,10 +36,7 @@
 }
 .content-wrap {
 	max-width: 1400px;
-	width: 85%;
+	width: 95%;
 	margin: 0 auto;
 	padding: 10px 0 5px;
-}
-body {
-    overflow-y: scroll;
 }

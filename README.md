@@ -6,6 +6,12 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.1.1 (Minor Style Changes) 2022-09-07
+
+- Small changes to make it more responsive
+- Style added to buttons
+- active and inactive classes added, to be modified by js, and define different possible actions at each stage
+
 ### Version 0.0.6b (Branch adding-rollback - Rollback Config) 2022-09-06
 
 - New Function theMatrixreloaded defined to reload a previous status of the Matrix (previous Steps)

@@ -20,15 +20,18 @@
       height: 100%;
       width: 100%;
       text-align: center;
-      font-size: 0.8rem;
+      font-size: 1.2rem;
       @include size-xs {
         font-size: 2rem;
       }
-      @include size-md {
+      @include size-sm {
         font-size: 3rem;
       }
-      @include size-lg {
+      @include size-md {
         font-size: 4rem;
+      }
+      @include size-lg {
+        font-size: 5rem;
       }
 
 
@@ -41,17 +44,17 @@
       left: 0;
       height: 100%;
       width: 100%;
-      font-size: 0.4rem;
+      font-size: 0.6rem;
       @include size-xs {
         font-size: 0.7rem;
       }
       @include size-sm {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
       }
       @include size-md {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
       }
-      @include size-lg {
+      @include size-xl {
         font-size: 1.7rem;
       }
       text-align: center;
@@ -65,22 +68,31 @@
   }
 }
 .notes {
-  & .note1, .note4, .note7 {
-    border-right: 1px dashed black;
-    border-left: 1px solid black;
-  }
-  & .note3, .note6, .note9 {
-    border-left: 1px dashed black;
-    border-right: 1px solid black;
-  } 
-  & .note1, .note2, .note3 {
-    border-bottom: 1px dashed black;
-    border-top: 1px solid black;
-  }
-  & .note7, .note8, .note9 {
-    border-top: 1px dashed black;
-    border-bottom: 1px solid black;
-  }
+
+    & .note1, .note4, .note7 {
+      border-left: 1px solid black;
+      @include size-lg {
+        border-right: 1px dashed black;
+      }
+    }
+    & .note3, .note6, .note9 {
+      border-right: 1px solid black;
+      @include size-lg {
+        border-left: 1px dashed black;
+      }
+    } 
+    & .note1, .note2, .note3 {
+      border-top: 1px solid black;
+      @include size-lg {
+        border-bottom: 1px dashed black;
+      }
+    }
+    & .note7, .note8, .note9 {
+      border-bottom: 1px solid black;
+      @include size-lg {
+        border-top: 1px dashed black;
+      }
+    }
 }
 
 .column1, .column4 {

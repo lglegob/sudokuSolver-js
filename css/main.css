@@ -16,6 +16,72 @@ html {
   box-sizing: inherit;
 }
 
+.button-rectangle {
+  font-size: 12px;
+  color: white;
+  background: blue;
+  text-decoration: none;
+  border-radius: 4px;
+  margin: 5px;
+  display: inline-block;
+  transition: all 1s ease-out;
+}
+
+@media screen and (min-width: 576px) {
+  .button-rectangle {
+    font-size: 20px;
+  }
+}
+
+.button-rectangle:hover {
+  background: lightblue;
+  /* Dodger Blue */
+}
+
+.button-rectangle.inactive {
+  background: gray;
+}
+
+body {
+  overflow-y: scroll;
+}
+
+h1 {
+  font-size: 40px;
+  line-height: 0.9;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 576px) {
+  h1 {
+    font-size: 60px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  h1 {
+    font-size: 100px;
+    line-height: 1.2;
+  }
+}
+
+h2 {
+  font-size: 20px;
+  line-height: 1;
+}
+
+@media screen and (min-width: 576px) {
+  h2 {
+    font-size: 30px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  h2 {
+    font-size: 40px;
+  }
+}
+
 .theButtons {
   margin: 0 auto;
 }
@@ -31,13 +97,9 @@ html {
 
 .content-wrap {
   max-width: 1400px;
-  width: 85%;
+  width: 95%;
   margin: 0 auto;
   padding: 10px 0 5px;
-}
-
-body {
-  overflow-y: scroll;
 }
 
 .theMatrix > div {
@@ -65,7 +127,7 @@ body {
   height: 100%;
   width: 100%;
   text-align: center;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
 }
 
 @media screen and (min-width: 440px) {
@@ -74,15 +136,21 @@ body {
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 576px) {
   .theMatrix > div .cell > input {
     font-size: 3rem;
   }
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
   .theMatrix > div .cell > input {
     font-size: 4rem;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .theMatrix > div .cell > input {
+    font-size: 5rem;
   }
 }
 
@@ -94,7 +162,7 @@ body {
   left: 0;
   height: 100%;
   width: 100%;
-  font-size: 0.4rem;
+  font-size: 0.6rem;
   text-align: center;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -111,40 +179,60 @@ body {
 
 @media screen and (min-width: 576px) {
   .theMatrix > div .cell > div {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 }
 
 @media screen and (min-width: 768px) {
   .theMatrix > div .cell > div {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
   }
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 1200px) {
   .theMatrix > div .cell > div {
     font-size: 1.7rem;
   }
 }
 
 .notes .note1, .notes .note4, .notes .note7 {
-  border-right: 1px dashed black;
   border-left: 1px solid black;
 }
 
+@media screen and (min-width: 992px) {
+  .notes .note1, .notes .note4, .notes .note7 {
+    border-right: 1px dashed black;
+  }
+}
+
 .notes .note3, .notes .note6, .notes .note9 {
-  border-left: 1px dashed black;
   border-right: 1px solid black;
 }
 
+@media screen and (min-width: 992px) {
+  .notes .note3, .notes .note6, .notes .note9 {
+    border-left: 1px dashed black;
+  }
+}
+
 .notes .note1, .notes .note2, .notes .note3 {
-  border-bottom: 1px dashed black;
   border-top: 1px solid black;
 }
 
+@media screen and (min-width: 992px) {
+  .notes .note1, .notes .note2, .notes .note3 {
+    border-bottom: 1px dashed black;
+  }
+}
+
 .notes .note7, .notes .note8, .notes .note9 {
-  border-top: 1px dashed black;
   border-bottom: 1px solid black;
+}
+
+@media screen and (min-width: 992px) {
+  .notes .note7, .notes .note8, .notes .note9 {
+    border-top: 1px dashed black;
+  }
 }
 
 .column1, .column4 {
@@ -161,4 +249,19 @@ body {
 
 .row6, .row9 {
   border-bottom: 3px solid black;
+}
+
+.button-rectangle {
+  width: 120px;
+  padding: 4px;
+}
+
+@media screen and (min-width: 576px) {
+  .button-rectangle {
+    width: 170px;
+  }
+}
+
+.button-rectangle.active:hover {
+  transform: scale(1.1);
 }

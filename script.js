@@ -78,9 +78,17 @@ const thematrixreloaded = () => {
   if (stepsinfo[step][0] === true) cellsresolved--;   
   step--;
   document.querySelector("#button-resolve").disabled = false;
+  document.querySelector("#button-resolve").classList.add("active");
+  document.querySelector("#button-resolve").classList.remove("inactive");
   document.querySelector("#button-togglenotes").disabled = false;
+  document.querySelector("#button-togglenotes").classList.add("active");
+  document.querySelector("#button-togglenotes").classList.remove("inactive");
   if (areweshowingnotes === true) hidenotes();
-  if (step === 0) document.querySelector("#button-reload").disabled = true;
+  if (step === 0) {
+    document.querySelector("#button-reload").disabled = true;
+    document.querySelector("#button-reload").classList.remove("active");
+    document.querySelector("#button-reload").classList.add("inactive");
+  }
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
       let itemrow = row + 1;
@@ -133,11 +141,22 @@ const cellbycellanalysis = () => {
       };
     };
   };
-  document.querySelector("#button-load").disabled = true
-  document.querySelector("#button-validate").disabled = true
-  document.querySelector("#button-resolve").disabled = false
-  document.querySelector("#button-togglenotes").disabled = false
-  document.querySelector("#button-reset").disabled = false
+  document.querySelector("#button-load").disabled = true;
+  document.querySelector("#button-load").classList.remove("active");
+  document.querySelector("#button-load").classList.add("inactive");
+  document.querySelector("#button-validate").disabled = true;
+  document.querySelector("#button-validate").classList.remove("active");
+  document.querySelector("#button-validate").classList.add("inactive");
+  document.querySelector("#button-resolve").disabled = false;
+  document.querySelector("#button-resolve").classList.add("active");
+  document.querySelector("#button-resolve").classList.remove("inactive");
+  document.querySelector("#button-togglenotes").disabled = false;
+  document.querySelector("#button-togglenotes").classList.add("active");
+  document.querySelector("#button-togglenotes").classList.remove("inactive");
+  document.querySelector("#button-reset").disabled = false;
+  document.querySelector("#button-reset").classList.add("active");
+  document.querySelector("#button-reset").classList.remove("inactive");
+  
 };
 
 //Here, it is mark as zero, each cell in the same row, which contains the currentcellvalue as option yet
@@ -203,6 +222,8 @@ const cellvaluefound = (row, column, currentcellvalue, method) => {
   theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
   console.log(`Cells resolved so far: ${cellsresolved}`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
+  document.querySelector("#button-reload").classList.add("active");
+  document.querySelector("#button-reload").classList.remove("inactive");
   if (areweshowingnotes === true) hidenotes();
   // here the currentcellvalue is set in theMatrix variable, and the corresponding notes in the cells of the same row, column and squatre deleted
   theMatrix[step][row][column] = [currentcellvalue, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -239,6 +260,8 @@ const discardedvaluesHTML = (mainaxis, mainaxisvalue, secondaryaxis, secondaryax
   console.log(`We are looking at ${mainaxis} ${mainaxisvalue + 1}, the first cell is ${secondaryaxis} ${secondaryaxisvalue1 + 1}, and the second cell is ${secondaryaxis} ${secondaryaxisvalue2 + 1}`)
   console.log(`The notes are ${value1} and ${value2}, they have been deleted from the ${mainaxis} ${mainaxisvalue + 1}`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
+  document.querySelector("#button-reload").classList.add("active");
+  document.querySelector("#button-reload").classList.remove("inactive");
   let newdiscardedvalueArticle = document.createElement("article");
   newdiscardedvalueArticle.classList.add("newdiscardedvalue");
   // newfoundvalueArticle.setAttribute("id", DEFINE-ID);
@@ -470,7 +493,7 @@ const obviouspairsrow = () => {
                 theMatrix[step][row][column2][currentcellvalue1] = 1;
                 theMatrix[step][row][column2][currentcellvalue2] = 1;
                 if (areweshowingnotes === true) {
-                hidenotes();
+                  hidenotes();
                 };
                 areweshowingnotes = true;
                 shownotes();
@@ -549,8 +572,8 @@ const obviouspairscolumn = () => {
                 if (areweshowingnotes === true) {
                   hidenotes();
                   };
-                  areweshowingnotes = true;
-                  shownotes();
+                areweshowingnotes = true;
+                shownotes();
                 discardnotessuccess = true;
                 discardedvalue("column", column, "row", row1, row2, currentcellvalue1, currentcellvalue2, "Detecting Obvius Pair (Column)");
                 break;
@@ -671,8 +694,8 @@ const obviouspairssquare = () => {
                 if (areweshowingnotes === true) {
                   hidenotes();
                   };
-                  areweshowingnotes = true;
-                  shownotes();
+                areweshowingnotes = true;
+                shownotes();
                 discardnotessuccess = true;
                 discardedvalue("square", square - 1, "row", realrow1, realrow2, currentcellvalue1, currentcellvalue2, "Detecting Obvius Pair (Square)");
                 break;
@@ -714,7 +737,7 @@ const shownotes = () => {
     };
   };
   let togglebutton = document.querySelector("#button-togglenotes");
-  togglebutton.innerText = "Hide Notas";
+  togglebutton.innerText = "Hide Notes";
 };
 
 const hidenotes = () => {
@@ -806,8 +829,14 @@ const inputListener = () => {
   input_cellvalues.forEach(item => {
     item.addEventListener("change", () => {
       document.querySelector("#button-load").disabled = true;
+      document.querySelector("#button-load").classList.remove("active");
+      document.querySelector("#button-load").classList.add("inactive");
       document.querySelector("#button-validate").disabled = false;
+      document.querySelector("#button-validate").classList.add("active");
+      document.querySelector("#button-validate").classList.remove("inactive");
       document.querySelector("#button-reset").disabled = false;
+      document.querySelector("#button-reset").classList.add("active");
+      document.querySelector("#button-reset").classList.remove("inactive");
     });
   });
 };
@@ -842,8 +871,12 @@ const resolvethematrixListener = () => {
     discardnotessuccess = false;
     // to resolve this, after having enable the time machine
     if (cellsresolved === 81) {
-      document.querySelector("#button-resolve").disabled = true
-      document.querySelector("#button-togglenotes").disabled = true
+      document.querySelector("#button-resolve").disabled = true;
+      document.querySelector("#button-resolve").classList.remove("active");
+      document.querySelector("#button-resolve").classList.add("inactive");
+      document.querySelector("#button-togglenotes").disabled = true;
+      document.querySelector("#button-togglenotes").classList.remove("active");
+      document.querySelector("#button-togglenotes").classList.add("inactive");
     };
   });
 };
@@ -857,6 +890,7 @@ let iterationsuccess = false;
 let discardnotessuccess = false;
 let areweshowingnotes = false;
 
+//Initial state defined in the html, no need to change classes
 document.querySelector("#button-validate").disabled = true
 document.querySelector("#button-reload").disabled = true
 document.querySelector("#button-resolve").disabled = true
