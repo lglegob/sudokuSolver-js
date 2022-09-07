@@ -73,6 +73,28 @@ const loadthematrix = () => {
   cellbycellanalysis();
 };
 
+//Reload the Matrix (html values and notes) based on a previous step
+const thematrixreloaded = () => {
+  if (stepsinfo[step][0] === true) cellsresolved--;   
+  step--;
+  document.querySelector("#button-resolve").disabled = false;
+  document.querySelector("#button-togglenotes").disabled = false;
+  if (areweshowingnotes === true) hidenotes();
+  if (step === 0) document.querySelector("#button-reload").disabled = true;
+  for (let row = 0; row <= 8; row++) {
+    for (let column = 0; column <= 8; column++) {
+      let itemrow = row + 1;
+      let itemcolumn = column + 1;
+      if (theMatrix[step][row][column][0] !== 0) {
+        document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", theMatrix[step][row][column][0]);
+      } else {
+        document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", "");
+      };
+    };
+  };
+  if (areweshowingnotes === true) shownotes();
+};
+
 //reset the values from the form input
 const resetthematrix = () => {
   window.location.reload();
@@ -177,8 +199,10 @@ const optionzeroinsquare = (row, column, currentcellvalue) => {
 const cellvaluefound = (row, column, currentcellvalue, method) => {
   cellsresolved++;
   step++;
-  theMatrix[step] = theMatrix[step - 1]; //The point where a new step is cerated in theMatrix, so previous state is saved in step-1
+  stepsinfo[step] = [true, method, [row, column, currentcellvalue]];
+  theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
   console.log(`Cells resolved so far: ${cellsresolved}`);
+  document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   if (areweshowingnotes === true) hidenotes();
   // here the currentcellvalue is set in theMatrix variable, and the corresponding notes in the cells of the same row, column and squatre deleted
   theMatrix[step][row][column] = [currentcellvalue, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -205,10 +229,16 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentcellvalue, method) => {
   if (areweshowingnotes === true) shownotes();
 };
 
+const discardedvalue = (mainaxis, mainaxisvalue, secondaryaxis, secondaryaxisvalue1, secondaryaxisvalue2, value1, value2, method) => {
+  // AQUI debe ir la creacion del step nuevo de theMatrix y modificacion de las variables para unificar funcion, por ahora esta distribuido en las 3 funciones de obvious
+  discardedvaluesHTML(mainaxis, mainaxisvalue, secondaryaxis, secondaryaxisvalue1, secondaryaxisvalue2, value1, value2, method);
+};
+
 const discardedvaluesHTML = (mainaxis, mainaxisvalue, secondaryaxis, secondaryaxisvalue1, secondaryaxisvalue2, value1, value2, method) => {
   console.log("We found an Obvious Pair!")
   console.log(`We are looking at ${mainaxis} ${mainaxisvalue + 1}, the first cell is ${secondaryaxis} ${secondaryaxisvalue1 + 1}, and the second cell is ${secondaryaxis} ${secondaryaxisvalue2 + 1}`)
   console.log(`The notes are ${value1} and ${value2}, they have been deleted from the ${mainaxis} ${mainaxisvalue + 1}`);
+  document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   let newdiscardedvalueArticle = document.createElement("article");
   newdiscardedvalueArticle.classList.add("newdiscardedvalue");
   // newfoundvalueArticle.setAttribute("id", DEFINE-ID);
@@ -428,6 +458,9 @@ const obviouspairsrow = () => {
               let currentcellvalue2 = cell1notes.indexOf(1, currentcellvalue1 + 1);
               //This if is to make sure the pair found has notes in other cells and declare them as obvious Pair
               if (howmanycellswiththisnote[currentcellvalue1] > 2 || howmanycellswiththisnote[currentcellvalue2] > 2) {
+                step++;
+                stepsinfo[step] = [false, "Detecting Obvius Pair (Row)", []];
+                theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
                 //Here we take advantage of the functions to delete the notes of found values
                 optionzeroinrow(row, currentcellvalue1);
                 optionzeroinrow(row, currentcellvalue2);
@@ -442,7 +475,7 @@ const obviouspairsrow = () => {
                 areweshowingnotes = true;
                 shownotes();
                 discardnotessuccess = true;
-                discardedvaluesHTML("row", row, "column", column1, column2, currentcellvalue1, currentcellvalue2, "Detecting Obvius Pair (Row)");
+                discardedvalue("row", row, "column", column1, column2, currentcellvalue1, currentcellvalue2, "Detecting Obvius Pair (Row)");
                 break;
               };
             };
@@ -502,6 +535,9 @@ const obviouspairscolumn = () => {
               let currentcellvalue2 = cell1notes.indexOf(1, currentcellvalue1 + 1);
               //This if is to make sure the pair found has notes in other cells and declare them as obvious Pair
               if (howmanycellswiththisnote[currentcellvalue1] > 2 || howmanycellswiththisnote[currentcellvalue2] > 2) {
+                step++;
+                stepsinfo[step] = [false, "Detecting Obvius Pair (Column)", []];
+                theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
                 //Here we take advantage of the functions to delete the notes of found values
                 optionzeroincolumn(column, currentcellvalue1);
                 optionzeroincolumn(column, currentcellvalue2);
@@ -516,7 +552,7 @@ const obviouspairscolumn = () => {
                   areweshowingnotes = true;
                   shownotes();
                 discardnotessuccess = true;
-                discardedvaluesHTML("column", column, "row", row1, row2, currentcellvalue1, currentcellvalue2, "Detecting Obvius Pair (Column)");
+                discardedvalue("column", column, "row", row1, row2, currentcellvalue1, currentcellvalue2, "Detecting Obvius Pair (Column)");
                 break;
               };
             };
@@ -621,6 +657,9 @@ const obviouspairssquare = () => {
               let currentcellvalue2 = cell1notes.indexOf(1, currentcellvalue1 + 1);
               //This if is to make sure the pair found has notes in other cells and declare them as obvious Pair
               if (howmanycellswiththisnote[currentcellvalue1] > 2 || howmanycellswiththisnote[currentcellvalue2] > 2) {
+                step++;
+                stepsinfo[step] = [false, "Detecting Obvius Pair (Square)", []];
+                theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
                 //Here we take advantage of the functions to delete the notes of found values
                 optionzeroinsquare(realrow1, realcolumn2, currentcellvalue1);
                 optionzeroinsquare(realrow2, realcolumn2, currentcellvalue2);
@@ -635,7 +674,7 @@ const obviouspairssquare = () => {
                   areweshowingnotes = true;
                   shownotes();
                 discardnotessuccess = true;
-                discardedvaluesHTML("square", square - 1, "row", realrow1, realrow2, currentcellvalue1, currentcellvalue2, "Detecting Obvius Pair (Square)");
+                discardedvalue("square", square - 1, "row", realrow1, realrow2, currentcellvalue1, currentcellvalue2, "Detecting Obvius Pair (Square)");
                 break;
               };
             };
@@ -661,6 +700,7 @@ const shownotes = () => {
         let newdivoption = document.createElement("div");
         for (let note = 1; note <= 9; note++) {
           let newnote = document.createElement("p");
+          newnote.classList.add(`note${note}`);
           if (theMatrix[step][row][column][note] !== 0) {
             newnote.innerHTML = `
             ${note}
@@ -705,7 +745,9 @@ const button_validate = document.querySelector("#button-validate");
 const button_resolve = document.querySelector("#button-resolve");
 const button_reset = document.querySelector("#button-reset");
 const button_togglenotes = document.querySelector("#button-togglenotes");
+const button_reload = document.querySelector("#button-reload");
 const input_cellvalues = document.querySelectorAll(".theMatrix input");
+
 
 // Add event listener to the Load button
 const loadthematrixListener = () => {
@@ -713,6 +755,15 @@ const loadthematrixListener = () => {
     // Stop form from reloading the page
     e.preventDefault();
     loadthematrix();
+  });
+};
+
+// Add event listener to the Load button
+const reloadthematrixListener = () => {
+  button_reload.addEventListener("click", (e) => {
+    // Stop form from reloading the page
+    e.preventDefault();
+    thematrixreloaded();
   });
 };
 
@@ -789,6 +840,7 @@ const resolvethematrixListener = () => {
 
     iterationsuccess = false;
     discardnotessuccess = false;
+    // to resolve this, after having enable the time machine
     if (cellsresolved === 81) {
       document.querySelector("#button-resolve").disabled = true
       document.querySelector("#button-togglenotes").disabled = true
@@ -800,11 +852,13 @@ let theMatrix = [[]];
 let loopsexecuted = 0;
 let cellsresolved = 0;
 let step = 0;
+let stepsinfo = []; //Stepsinfo [steptype, Method, [Step detailed info]]
 let iterationsuccess = false;
 let discardnotessuccess = false;
 let areweshowingnotes = false;
 
 document.querySelector("#button-validate").disabled = true
+document.querySelector("#button-reload").disabled = true
 document.querySelector("#button-resolve").disabled = true
 document.querySelector("#button-togglenotes").disabled = true
 document.querySelector("#button-reset").disabled = true
@@ -814,6 +868,7 @@ createthematrix();
 validatethematrixListener();
 resetthematrixListener();
 resolvethematrixListener();
+reloadthematrixListener();
 loadthematrixListener();
 togglenotesListener();
 inputListener();

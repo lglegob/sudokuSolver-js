@@ -6,6 +6,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.0.6b (Branch adding-rollback - Rollback Config) 2022-09-06
+
+- New Function theMatrixreloaded defined to reload a previous status of the Matrix (previous Steps)
+- New Variable defined as stepsinfo, to saved status and infomration of each step towards a final resolution of the Sudoku
+- Adjusted configuration to decrease the number of steps and resolvedcells according to the new capability og going back to previous steps
+- Correction of theMatrix previous steps (it was being referenced instead of cloned, so any change in the latest state was replicated to all other previous steps in the Matrix (time dimension)), now with the use of JSON methods (parse and stringfy), each of the steps in time of the Matrix is isolated and can be modified.
+- overflow-y scroll added to avoid the jump in size ehen the ammount of steps documented in the HTML made the width of the screen to change
+- Several changes in style and breakpoints added to change font sizes.
+
 ### Version 0.0.6a (Branch adding-rollback - Time Dimension) 2022-09-06
 
 - Variable step created to define the rollback steps the user can go back
