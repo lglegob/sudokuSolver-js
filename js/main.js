@@ -1,51 +1,23 @@
 'use strict';
-// First Step - check NO repeated numbers per row, column and square
+import sudokuvalues from "./data.js";
+import * as recurrent from "./recurrentfunctions.js"
 
-// Delete options from rows, columns and squares
+// SOLUTION PHASES
+// Check NO repeated numbers per row, column and square
+
+// DONE - Delete notes from rows, columns and squares
+
 // Nested Loops
-// Second Step -  check cells with just one option
-// Third Step - hidden singles - check rows, columns and squares where any number appears just once
-// Fourth Step - check numbers per row and column, that appear only in one of the squares, amd delete the possibilities in any other cell in the square
-// Fifth step - check for obvious pairs per row, column and square
+// DONE Second Step - check cells with just one note
+// DONE Third Step - hidden singles - check rows, columns and squares where any number appears just once
+// Fourth Step - check numbers per row and column, that appear only in one of the squares, and delete the possibilities in any other cell in the square
+// DONE Fifth step - check for obvious pairs per row, column and square
 // Sixth Step - hidden pairs - square
 // Sixth Step - Obvious Triples (even with doubles)
 
-const sudokuvalues = [
-  [1, 3, 4],
-  [1, 7, 7],
-  [1, 9, 3],
-  
-  [2, 1, 8],
-  [2, 4, 9],
-  [2, 6, 2],
-
-  [3, 2, 3],
-  
-  [4, 2, 8],
-  [4, 3, 9],
-  [4, 4, 1],
-  
-  [5, 1, 5],
-  [5, 9, 8],
-  
-  [6, 6, 9],
-  [6, 7, 2],
-  [6, 8, 6],
-
-  [7, 8, 2],
-  
-  [8, 4, 8],
-  [8, 6, 4],
-  [8, 9, 5],
-
-  [9, 1, 6],
-  [9, 3, 5],
-  [9, 7, 1]
-]
-
 //For loop to create the base 4D Matrix
 //The 4D matrix is formed with 4 dimensions
-//The latest added dimension is also the first, and it is... Time!, expressed as the steps taken so far to resolve the Sudoku, the step 0 is the initial state and the subsequent steps represent each time a change is made in the matrix, by adding a number (cell solution) or discarding values (notes)
+//The latest added dimension is also the biggest, and it is... Time!, expressed as the steps taken so far to resolve the Sudoku, the step 0 is the initial state and the subsequent steps represent each time a change is made in the matrix, by adding a number (cell solution) or discarding values (notes)
 //The Second dimension is theMatrix itself, with 9 internal arrays, 1 array for each row in the Sudoku Matrix
 //The Third dimension (each of the 9 arrays) has as well 9 arrays inside (81 nested total for the 81 cells in the sudoku array), one array for each value in the row
 //The Fourth and Last dimension (each of the 81 (9*9) nested arrays) is an array of 10 numbers, the first one is for the value of the cell (if already known or zero if not known)
@@ -53,6 +25,11 @@ const sudokuvalues = [
 // theMatrix Structure --> [[row][row]...[row][row]]
 // Each row Structure  --> [[column cell][column cell]...[column cell][column cell]]
 // Each Column Cell    --> [[answer][note 1][note 2][note 3]...[note 9]]
+
+
+////////////////////////////////////////////////////////////////////////////////
+//                             BASIC FUNCTIONS                               //
+//////////////////////////////////////////////////////////////////////////////
 
 const createthematrix = () => {
   console.log("Wake Up, Neo...")
@@ -156,7 +133,6 @@ const cellbycellanalysis = () => {
   document.querySelector("#button-reset").disabled = false;
   document.querySelector("#button-reset").classList.add("active");
   document.querySelector("#button-reset").classList.remove("inactive");
-  
 };
 
 //Here, it is mark as zero, each cell in the same row, which contains the currentcellvalue as option yet
@@ -175,38 +151,7 @@ const optionzeroincolumn = (column, currentcellvalue) => {
 
 //Here, it is mark as zero, each cell in the same block(square), which contains the currentcellvalue as option yet
 const optionzeroinsquare = (row, column, currentcellvalue) => {
-  let fromrow;
-  let maximumrow;
-  let fromcolumn;
-  let maximumcolumn;
-  switch (true) {
-    case row <= 2:
-      fromrow = 0
-      maximumrow = 2
-      break;
-    case row <= 5:
-      fromrow = 3
-      maximumrow = 5
-      break;
-    case row <= 8:
-      fromrow = 6
-      maximumrow = 8
-      break;
-  }
-  switch (true) {
-    case column <= 2:
-      fromcolumn = 0
-      maximumcolumn = 2
-      break;
-    case column <= 5:
-      fromcolumn = 3
-      maximumcolumn = 5
-      break;
-    case row <= 8:
-      fromcolumn = 6
-      maximumcolumn = 8
-      break;
-  }
+  const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.definesquarecoordinatesRC(row, column);
   for (let square_row = fromrow; square_row <= maximumrow; square_row++) {
     for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) {
     theMatrix[step][square_row][square_column][currentcellvalue] = 0
@@ -364,40 +309,7 @@ const hiddensinglescolumn = () => {
 // Function to detect when an square has a possible value just in one of the 9 cells
 const hiddensinglessquare = () => {
   for (let square = 1; square <= 9; square++) {
-    //Here, it is defined depending the square the range of rows and columns to evaluate
-    let fromrow;
-    let maximumrow;
-    let fromcolumn;
-    let maximumcolumn;
-    switch (true) {
-      case (square === 1 || square === 4 || square == 7):
-        fromcolumn = 0
-        maximumcolumn = 2
-        break;
-      case (square === 2 || square === 5 || square == 8):
-        fromcolumn = 3
-        maximumcolumn = 5
-        break;
-      case (square === 3 || square === 6 || square == 9):
-        fromcolumn = 6
-        maximumcolumn = 8
-        break;
-    }
-    switch (true) {
-      case square <= 3:
-        fromrow = 0
-        maximumrow = 2
-        break;
-      case square <= 6:
-        fromrow = 3
-        maximumrow = 5
-        break;
-      case square <= 9:
-        fromrow = 6
-        maximumrow = 8
-        break;
-    }
-    
+    const { fromrow, maximumrow, fromcolumn, maximumcolumn } = recurrent.definesquarecoordinatesSQ(square);
     for (let possibleoption = 1; possibleoption <=9; possibleoption++) {
       let ishiddensingle = 0;
       let currentcellvalue;
@@ -440,7 +352,7 @@ const obviouspairsrow = () => {
     let answersrow = [0,0,0,0,0,0,0,0,0,0];
     for (let column = 0; column <= 8; column++) {
       if (theMatrix[step][row][column][0] !== 0) {
-        //It is consolidated in one array (1*10 first index value (0) not used) the answers for this row
+        //It is consolidated in one array (1*10 first index value (0) not used) the answers for this row already known
         answersrow[theMatrix[step][row][column][0]] = 1;
         
       }
@@ -482,7 +394,7 @@ const obviouspairsrow = () => {
               //This if is to make sure the pair found has notes in other cells and declare them as obvious Pair
               if (howmanycellswiththisnote[currentcellvalue1] > 2 || howmanycellswiththisnote[currentcellvalue2] > 2) {
                 step++;
-                stepsinfo[step] = [false, "Detecting Obvius Pair (Row)", []];
+                stepsinfo[step] = [false, "Detecting Obvious Pair (Row)", []];
                 theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
                 //Here we take advantage of the functions to delete the notes of found values
                 optionzeroinrow(row, currentcellvalue1);
@@ -498,7 +410,7 @@ const obviouspairsrow = () => {
                 areweshowingnotes = true;
                 shownotes();
                 discardnotessuccess = true;
-                discardedvalue("row", row, "column", column1, column2, currentcellvalue1, currentcellvalue2, "Detecting Obvius Pair (Row)");
+                discardedvalue("row", row, "column", column1, column2, currentcellvalue1, currentcellvalue2, "Detecting Obvious Pair (Row)");
                 break;
               };
             };
@@ -507,6 +419,7 @@ const obviouspairsrow = () => {
         if (discardnotessuccess) break;
       };
     };
+    lockedcandidate(answersrow, whereisthisnote);
     if (discardnotessuccess) break;
   };
 };
@@ -518,7 +431,7 @@ const obviouspairscolumn = () => {
     let answerscolumn = [0,0,0,0,0,0,0,0,0,0];
     for (let row = 0; row <= 8; row++) {
       if (theMatrix[step][row][column][0] !== 0) {
-        //It is consolidated in one array (1*10 first index value (0) not used) the answers for this column
+        //It is consolidated in one array (1*10 first index value (0) not used) the answers for this column already known
         answerscolumn[theMatrix[step][row][column][0]] = 1
       };
     };
@@ -559,7 +472,7 @@ const obviouspairscolumn = () => {
               //This if is to make sure the pair found has notes in other cells and declare them as obvious Pair
               if (howmanycellswiththisnote[currentcellvalue1] > 2 || howmanycellswiththisnote[currentcellvalue2] > 2) {
                 step++;
-                stepsinfo[step] = [false, "Detecting Obvius Pair (Column)", []];
+                stepsinfo[step] = [false, "Detecting Obvious Pair (Column)", []];
                 theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
                 //Here we take advantage of the functions to delete the notes of found values
                 optionzeroincolumn(column, currentcellvalue1);
@@ -575,7 +488,7 @@ const obviouspairscolumn = () => {
                 areweshowingnotes = true;
                 shownotes();
                 discardnotessuccess = true;
-                discardedvalue("column", column, "row", row1, row2, currentcellvalue1, currentcellvalue2, "Detecting Obvius Pair (Column)");
+                discardedvalue("column", column, "row", row1, row2, currentcellvalue1, currentcellvalue2, "Detecting Obvious Pair (Column)");
                 break;
               };
             };
@@ -584,6 +497,7 @@ const obviouspairscolumn = () => {
         if (discardnotessuccess) break;
       };
     };
+    lockedcandidate(answerscolumn, whereisthisnote);
     if (discardnotessuccess) break;
   };
 };
@@ -592,41 +506,8 @@ const obviouspairscolumn = () => {
 const obviouspairssquare = () => {
   
   for (let square = 1; square <= 9; square++) {
-    //Here, it is defined depending the square the range of rows and columns to evaluate
-    let fromrow;
-    let maximumrow;
-    let fromcolumn;
-    let maximumcolumn;
-    switch (true) {
-      case (square === 1 || square === 4 || square == 7):
-        fromcolumn = 0
-        maximumcolumn = 2
-        break;
-      case (square === 2 || square === 5 || square == 8):
-        fromcolumn = 3
-        maximumcolumn = 5
-        break;
-      case (square === 3 || square === 6 || square == 9):
-        fromcolumn = 6
-        maximumcolumn = 8
-        break;
-    }
-    switch (true) {
-      case square <= 3:
-        fromrow = 0
-        maximumrow = 2
-        break;
-      case square <= 6:
-        fromrow = 3
-        maximumrow = 5
-        break;
-      case square <= 9:
-        fromrow = 6
-        maximumrow = 8
-        break;
-    }
-
-    //It is consolidated in one array (1*10 first index value (0) not used) how many notes for each possibleoption in this square
+    const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.definesquarecoordinatesSQ(square);
+    //It is consolidated in one array (1*10 first index value (0) not used) the answers for this square already known
     let answerssquare = [0,0,0,0,0,0,0,0,0,0];
     for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) { 
       for (let square_row = fromrow; square_row <= maximumrow; square_row++) {
@@ -681,7 +562,7 @@ const obviouspairssquare = () => {
               //This if is to make sure the pair found has notes in other cells and declare them as obvious Pair
               if (howmanycellswiththisnote[currentcellvalue1] > 2 || howmanycellswiththisnote[currentcellvalue2] > 2) {
                 step++;
-                stepsinfo[step] = [false, "Detecting Obvius Pair (Square)", []];
+                stepsinfo[step] = [false, "Detecting Obvious Pair (Square)", []];
                 theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
                 //Here we take advantage of the functions to delete the notes of found values
                 optionzeroinsquare(realrow1, realcolumn2, currentcellvalue1);
@@ -697,7 +578,7 @@ const obviouspairssquare = () => {
                 areweshowingnotes = true;
                 shownotes();
                 discardnotessuccess = true;
-                discardedvalue("square", square - 1, "row", realrow1, realrow2, currentcellvalue1, currentcellvalue2, "Detecting Obvius Pair (Square)");
+                discardedvalue("square", square - 1, "row", realrow1, realrow2, currentcellvalue1, currentcellvalue2, "Detecting Obvious Pair (Square)");
                 break;
               };
             };
@@ -706,9 +587,24 @@ const obviouspairssquare = () => {
         if (discardnotessuccess) break;
       };
     };
+    lockedcandidate(answerssquare, whereisthisnote);
     if (discardnotessuccess) break;
   };
 };
+
+const lockedcandidate = (answers, whereisthisnote) => {
+  for (let possibleoption = 1; possibleoption <= 9; possibleoption++) {
+    if (answers[possibleoption] === 0) {
+      let firstthird = whereisthisnote[possibleoption][0] + whereisthisnote[possibleoption][1] + whereisthisnote[possibleoption][2];
+      let secondthird = whereisthisnote[possibleoption][3] + whereisthisnote[possibleoption][4] + whereisthisnote[possibleoption][5];
+      let finalthird = whereisthisnote[possibleoption][6] + whereisthisnote[possibleoption][7] + whereisthisnote[possibleoption][8];
+      if (firstthird > 1 && secondthird === 0 && finalthird === 0) {console.log("It is located in the first third only")};
+      if (firstthird === 0 && secondthird > 1 && finalthird === 0) {console.log("It is located in the second third only")};
+      if (firstthird === 0 && secondthird === 0 && finalthird > 1) {console.log("It is located in the final third only")};
+    };
+  };
+};
+
 
 //Function used to add html config with a 9 cells grid per each of the original divs to show the notes of each cell
 const shownotes = () => {
@@ -759,7 +655,7 @@ const hidenotes = () => {
     };
   };
   let togglebutton = document.querySelector("#button-togglenotes");
-  togglebutton.innerText = "Show Notas";
+  togglebutton.innerText = "Show Notes";
 };
 
 // definining elements for Event Listeners
@@ -847,7 +743,7 @@ const resolvethematrixListener = () => {
   button_resolve.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    singleoptions();
+    singleoptions(loopsexecuted, iterationsuccess, theMatrix, step);
     if (iterationsuccess === false && discardnotessuccess === false) {
       hiddensinglessquare();
     };
@@ -869,7 +765,6 @@ const resolvethematrixListener = () => {
 
     iterationsuccess = false;
     discardnotessuccess = false;
-    // to resolve this, after having enable the time machine
     if (cellsresolved === 81) {
       document.querySelector("#button-resolve").disabled = true;
       document.querySelector("#button-resolve").classList.remove("active");

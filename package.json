@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lglegob/sudokuSolver.git"
+    "url": "git+https://github.com/lglegob/sudokuSolver-js.git"
   },
   "author": "Leonardo Gonzalez Bello",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lglegob/sudokuSolver/issues"
+    "url": "https://github.com/lglegob/sudokuSolver-js/issues"
   },
-  "homepage": "https://github.com/lglegob/sudokuSolver#readme"
+  "homepage": "https://github.com/lglegob/sudokuSolver-js#readme"
 }

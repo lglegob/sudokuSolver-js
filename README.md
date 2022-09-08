@@ -6,11 +6,28 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.1.2 (type="module" changes) 2022-09-08
+
+- type="module" added to the script, so it can split in several js files
+- two recurrent minor functions (definesquarecoordinatesRC and definesquarecoordinatesSQ) were taken out to an external js file for testing purposes.
+- the data to pre-load the sudoku game is now taken from data.js file
+  script.js renamed to main.js
+
+---
+
 ### Version 0.1.1 (Minor Style Changes) 2022-09-07
 
 - Small changes to make it more responsive
 - Style added to buttons
 - active and inactive classes added, to be modified by js, and define different possible actions at each stage
+
+---
+
+### Version 0.1.0 (Branch Merge adding-rollback) 2022-09-06
+
+- adding-rollback branch changes integrated to main branch.
+
+---
 
 ### Version 0.0.6b (Branch adding-rollback - Rollback Config) 2022-09-06
 
@@ -21,11 +38,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 - overflow-y scroll added to avoid the jump in size ehen the ammount of steps documented in the HTML made the width of the screen to change
 - Several changes in style and breakpoints added to change font sizes.
 
+---
+
 ### Version 0.0.6a (Branch adding-rollback - Time Dimension) 2022-09-06
 
 - Variable step created to define the rollback steps the user can go back
 - Time Dimension added to the Matrix, with the definition of step
 - step 0 is the initial state of the sudoku, subsequent steps are each of the changes on theMatrix, by adding cell solutions or discarding notes values
+
+---
 
 ### Version 0.0.6 (Input Listener, initial styling) 2022-09-05
 
@@ -34,6 +55,8 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 - It is define in the HTML a new section to show the messages.
 - Initial Styling is applied to the Matrix to show the blocks, and to resize with a 1:1 ratio all the cells
 - The show notes is change to be a toggle button to be able to show or hide the notes of the matrix at will.
+
+---
 
 ### Version 0.0.5 (Discard methods, notes shown) 2022-09-04
 
@@ -45,6 +68,8 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 - Variable discardnotessucces added to also detect one pair of related values to be discarded per iteration
 - Internal grid (3x3) per each cell added to show the notes
 
+---
+
 ### Version 0.0.4 (Row, column and square methods) 2022-09-02
 
 - 3 new solving methods defined (hidden singles per row, hidden singles pero column, and hidden singles per square)
@@ -52,6 +77,8 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 - Se elimina el juego de numeros por defecto del html, y ahora se carga por JS
 - Para la carga se agrega boton de carga, y se define const con los valores en el JS
 - Se agrega variable iterationsuccess para detener la resolucion paso a paso, y no por olas de metodo
+
+---
 
 ### Version 0.0.3 (Functions and Scope) 2022-09-01
 
