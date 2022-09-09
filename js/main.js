@@ -1,6 +1,7 @@
 'use strict';
-import sudokuvalues from "./data.js";
+import sudokuvalues_expert02 from "./data.js";
 import * as recurrent from "./recurrentfunctions.js"
+import * as optionstozero from "./optionstozero.js"
 
 // SOLUTION PHASES
 // Check NO repeated numbers per row, column and square
@@ -43,8 +44,8 @@ const createthematrix = () => {
 
 //Load the values from sudokuvalues variable into de html input fields
 const loadthematrix = () => {
-  for (let cellvalue = 0; cellvalue < sudokuvalues.length; cellvalue++) {
-    document.querySelector(".row" + sudokuvalues[cellvalue][0] + ".column" + sudokuvalues[cellvalue][1] + " input").setAttribute("value", sudokuvalues[cellvalue][2]);
+  for (let cellvalue = 0; cellvalue < sudokuvalues_expert02.length; cellvalue++) {
+    document.querySelector(".row" + sudokuvalues_expert02[cellvalue][0] + ".column" + sudokuvalues_expert02[cellvalue][1] + " input").setAttribute("value", sudokuvalues_expert02[cellvalue][2]);
   };
   validatethematrix();
   cellbycellanalysis();
@@ -60,7 +61,7 @@ const thematrixreloaded = () => {
   document.querySelector("#button-togglenotes").disabled = false;
   document.querySelector("#button-togglenotes").classList.add("active");
   document.querySelector("#button-togglenotes").classList.remove("inactive");
-  if (areweshowingnotes === true) hidenotes();
+  if (areweshowingnotes === true) recurrent.hidenotes(theMatrix[step]);
   if (step === 0) {
     document.querySelector("#button-reload").disabled = true;
     document.querySelector("#button-reload").classList.remove("active");
@@ -77,7 +78,7 @@ const thematrixreloaded = () => {
       };
     };
   };
-  if (areweshowingnotes === true) shownotes();
+  if (areweshowingnotes === true) recurrent.shownotes(theMatrix[step]);
 };
 
 //reset the values from the form input
@@ -109,9 +110,12 @@ const cellbycellanalysis = () => {
       if (currentcellvalue != 0) {
         // since this cell already has a value, all the posibilities are marked zero
         theMatrix[step][row][column] = [currentcellvalue, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        optionzeroinrow(row, currentcellvalue);
-        optionzeroincolumn(column, currentcellvalue);
-        optionzeroinsquare(row, column, currentcellvalue);
+        let theMatrixStep = optionstozero.optionzeroinrow(row, currentcellvalue, theMatrix[step]);
+        theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
+        theMatrixStep = optionstozero.optionzeroincolumn(column, currentcellvalue, theMatrix[step]);
+        theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
+        theMatrixStep = optionstozero.optionzeroinsquare(row, column, currentcellvalue, theMatrix[step]);
+        theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
         cellsresolved++;
         console.log(`Cells resolved so far: ${cellsresolved}`);
         console.log(`the value in row ${row+1}, column ${column+1} is ${currentcellvalue}`);
@@ -133,30 +137,7 @@ const cellbycellanalysis = () => {
   document.querySelector("#button-reset").disabled = false;
   document.querySelector("#button-reset").classList.add("active");
   document.querySelector("#button-reset").classList.remove("inactive");
-};
-
-//Here, it is mark as zero, each cell in the same row, which contains the currentcellvalue as option yet
-const optionzeroinrow = (row, currentcellvalue) => {
-  theMatrix[step][row].forEach(function(column_item) {
-    column_item[currentcellvalue] = 0
-  });
-}
-
-//Here, it is mark as zero, each cell in the same column, which contains the currentcellvalue as option yet
-const optionzeroincolumn = (column, currentcellvalue) => {
-  for (let row_within_column = 0; row_within_column < 9; row_within_column++) {
-    theMatrix[step][row_within_column][column][currentcellvalue] = 0
-  };
-};
-
-//Here, it is mark as zero, each cell in the same block(square), which contains the currentcellvalue as option yet
-const optionzeroinsquare = (row, column, currentcellvalue) => {
-  const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.definesquarecoordinatesRC(row, column);
-  for (let square_row = fromrow; square_row <= maximumrow; square_row++) {
-    for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) {
-    theMatrix[step][square_row][square_column][currentcellvalue] = 0
-    };
-  };
+  console.log("The Matrix has you...")
 };
 
 //function called each time a new value is found by any method
@@ -169,12 +150,15 @@ const cellvaluefound = (row, column, currentcellvalue, method) => {
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
-  if (areweshowingnotes === true) hidenotes();
+  if (areweshowingnotes === true)  recurrent.hidenotes(theMatrix[step]);
   // here the currentcellvalue is set in theMatrix variable, and the corresponding notes in the cells of the same row, column and squatre deleted
   theMatrix[step][row][column] = [currentcellvalue, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  optionzeroinrow(row, currentcellvalue);
-  optionzeroincolumn(column, currentcellvalue);
-  optionzeroinsquare(row, column, currentcellvalue);
+  let theMatrixStep = optionstozero.optionzeroinrow(row, currentcellvalue, theMatrix[step]);
+  theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
+  theMatrixStep = optionstozero.optionzeroincolumn(column, currentcellvalue, theMatrix[step]);
+  theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
+  theMatrixStep = optionstozero.optionzeroinsquare(row, column, currentcellvalue, theMatrix[step]);
+  theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
   // here the foundvalue is set in the html document to be shown, by calling the function newfoundvalueHTML
   let itemrow = row + 1;
   let itemcolumn = column + 1;
@@ -192,7 +176,7 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentcellvalue, method) => {
   `;
   const main = document.querySelector(".found-values > div");
   main.prepend(newfoundvalueArticle);
-  if (areweshowingnotes === true) shownotes();
+  if (areweshowingnotes === true) recurrent.shownotes(theMatrix[step]);
 };
 
 const discardedvalue = (mainaxis, mainaxisvalue, secondaryaxis, secondaryaxisvalue1, secondaryaxisvalue2, value1, value2, method) => {
@@ -397,18 +381,20 @@ const obviouspairsrow = () => {
                 stepsinfo[step] = [false, "Detecting Obvious Pair (Row)", []];
                 theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
                 //Here we take advantage of the functions to delete the notes of found values
-                optionzeroinrow(row, currentcellvalue1);
-                optionzeroinrow(row, currentcellvalue2);
+                let theMatrixStep = optionstozero.optionzeroinrow(row, currentcellvalue1, theMatrix[step]);
+                theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
+                theMatrixStep = optionstozero.optionzeroinrow(row, currentcellvalue2, theMatrix[step]);
+                theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
                 //But here, it is restablished as notes for the pair of cells
                 theMatrix[step][row][column1][currentcellvalue1] = 1;
                 theMatrix[step][row][column1][currentcellvalue2] = 1;
                 theMatrix[step][row][column2][currentcellvalue1] = 1;
                 theMatrix[step][row][column2][currentcellvalue2] = 1;
                 if (areweshowingnotes === true) {
-                  hidenotes();
+                  recurrent.hidenotes(theMatrix[step]);
                 };
                 areweshowingnotes = true;
-                shownotes();
+                recurrent.shownotes(theMatrix[step]);
                 discardnotessuccess = true;
                 discardedvalue("row", row, "column", column1, column2, currentcellvalue1, currentcellvalue2, "Detecting Obvious Pair (Row)");
                 break;
@@ -475,18 +461,20 @@ const obviouspairscolumn = () => {
                 stepsinfo[step] = [false, "Detecting Obvious Pair (Column)", []];
                 theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
                 //Here we take advantage of the functions to delete the notes of found values
-                optionzeroincolumn(column, currentcellvalue1);
-                optionzeroincolumn(column, currentcellvalue2);
+                let theMatrixStep = optionstozero.optionzeroincolumn(column, currentcellvalue1, theMatrix[step]);
+                theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
+                theMatrixStep = optionstozero.optionzeroincolumn(column, currentcellvalue2, theMatrix[step]);
+                theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
                 //But here, it is restablished as notes for the pair of cells
                 theMatrix[step][row1][column][currentcellvalue1] = 1;
                 theMatrix[step][row1][column][currentcellvalue2] = 1;
                 theMatrix[step][row2][column][currentcellvalue1] = 1;
                 theMatrix[step][row2][column][currentcellvalue2] = 1;
                 if (areweshowingnotes === true) {
-                  hidenotes();
+                  recurrent.hidenotes(theMatrix[step]);
                   };
                 areweshowingnotes = true;
-                shownotes();
+                recurrent.shownotes(theMatrix[step]);
                 discardnotessuccess = true;
                 discardedvalue("column", column, "row", row1, row2, currentcellvalue1, currentcellvalue2, "Detecting Obvious Pair (Column)");
                 break;
@@ -564,19 +552,21 @@ const obviouspairssquare = () => {
                 step++;
                 stepsinfo[step] = [false, "Detecting Obvious Pair (Square)", []];
                 theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
-                //Here we take advantage of the functions to delete the notes of found values
-                optionzeroinsquare(realrow1, realcolumn2, currentcellvalue1);
-                optionzeroinsquare(realrow2, realcolumn2, currentcellvalue2);
+                //Here we take advantage of the functions to delete the notes of found values, we just need the 2 currentcellvalues, it does not matter which cell (of the 2 checked as equal) is taken as reference.
+                let theMatrixStep = optionstozero.optionzeroinsquare(realrow1, realcolumn1, currentcellvalue1, theMatrix[step]);
+                theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
+                theMatrixStep = optionstozero.optionzeroinsquare(realrow1, realcolumn1, currentcellvalue2, theMatrix[step]);
+                theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
                 //But here, it is restablished as notes for the pair of cells
                 theMatrix[step][realrow1][realcolumn1][currentcellvalue1] = 1;
                 theMatrix[step][realrow1][realcolumn1][currentcellvalue2] = 1;
                 theMatrix[step][realrow2][realcolumn2][currentcellvalue1] = 1;
                 theMatrix[step][realrow2][realcolumn2][currentcellvalue2] = 1;
                 if (areweshowingnotes === true) {
-                  hidenotes();
+                  recurrent.hidenotes(theMatrix[step]);
                   };
                 areweshowingnotes = true;
-                shownotes();
+                recurrent.shownotes(theMatrix[step]);
                 discardnotessuccess = true;
                 discardedvalue("square", square - 1, "row", realrow1, realrow2, currentcellvalue1, currentcellvalue2, "Detecting Obvious Pair (Square)");
                 break;
@@ -603,59 +593,6 @@ const lockedcandidate = (answers, whereisthisnote) => {
       if (firstthird === 0 && secondthird === 0 && finalthird > 1) {console.log("It is located in the final third only")};
     };
   };
-};
-
-
-//Function used to add html config with a 9 cells grid per each of the original divs to show the notes of each cell
-const shownotes = () => {
-  for (let row = 0; row <= 8; row++) {
-    let newdivoption;
-    for (let column = 0; column <= 8; column++) {
-      let itemrow = row + 1;
-      let itemcolumn = column + 1;
-      if (theMatrix[step][row][column][0] === 0) {
-        document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").remove();
-        document.querySelector(".row" + itemrow + ".column" + itemcolumn).classList.add("notes")
-        let newdivoption = document.createElement("div");
-        for (let note = 1; note <= 9; note++) {
-          let newnote = document.createElement("p");
-          newnote.classList.add(`note${note}`);
-          if (theMatrix[step][row][column][note] !== 0) {
-            newnote.innerHTML = `
-            ${note}
-            `;
-          }
-          newdivoption.append(newnote);
-        };
-        const main = document.querySelector(".row" + itemrow + ".column" + itemcolumn);
-        main.append(newdivoption);
-      };
-    };
-  };
-  let togglebutton = document.querySelector("#button-togglenotes");
-  togglebutton.innerText = "Hide Notes";
-};
-
-const hidenotes = () => {
-  for (let row = 0; row <= 8; row++) {
-    for (let column = 0; column <= 8; column++) {
-      if (theMatrix[step][row][column][0] === 0) {
-        let itemrow = row + 1;
-        let itemcolumn = column + 1;
-        let newdivoption;
-        document.querySelector(".row" + itemrow + ".column" + itemcolumn).classList.remove("notes");
-        newdivoption = document.createElement("div");
-        newdivoption.classList.add("cell", `row${itemrow}`, `column${itemcolumn}`);
-        newdivoption.innerHTML = `
-        <input type="number" min="1" max="9">
-        `;
-        const main = document.querySelector(".row" + itemrow + ".column" + itemcolumn);
-        main.replaceWith(newdivoption);
-      };
-    };
-  };
-  let togglebutton = document.querySelector("#button-togglenotes");
-  togglebutton.innerText = "Show Notes";
 };
 
 // definining elements for Event Listeners
@@ -712,10 +649,10 @@ const togglenotesListener = () => {
     e.preventDefault();
     if (areweshowingnotes === false) {
       areweshowingnotes = true;
-      shownotes();
+      recurrent.shownotes(theMatrix[step]);
     } else {
       areweshowingnotes = false;
-      hidenotes();
+      recurrent.hidenotes(theMatrix[step]);
     };
   });
 };

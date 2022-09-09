@@ -6,6 +6,13 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.1.3 (Taking functions to js files) 2022-09-09
+
+- functions shownotes and hidenotes were taken from main.js to recurrentfunctions.js
+- new js file created (optionszero.js) where the functions optionzeroinrow, optionzeroincolumn and optionzeroinsquare were taken from main.js to this disagregated file
+
+---
+
 ### Version 0.1.2 (type="module" changes) 2022-09-08
 
 - type="module" added to the script, so it can split in several js files
