@@ -46,10 +46,18 @@ body {
   overflow-y: scroll;
 }
 
+header {
+  text-align: center;
+}
+
+header p {
+  font-size: 2rem;
+}
+
 h1 {
   font-size: 40px;
   line-height: 0.9;
-  margin-bottom: 10px;
+  margin: 10px auto;
 }
 
 @media screen and (min-width: 576px) {
@@ -68,6 +76,7 @@ h1 {
 h2 {
   font-size: 20px;
   line-height: 1;
+  margin: 10px auto;
 }
 
 @media screen and (min-width: 576px) {
@@ -93,10 +102,11 @@ h2 {
 
 .found-values {
   margin: 0 auto;
+  text-align: center;
 }
 
 .content-wrap {
-  max-width: 1400px;
+  max-width: 1000px;
   width: 95%;
   margin: 0 auto;
   padding: 10px 0 5px;

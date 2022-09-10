@@ -1,10 +1,17 @@
 # sudokuSolver-js
 
-Repository dedicated for the configuration and development of a Sudoku Solver based on JavaScript
+Repository dedicated for the configuration and development of a Sudoku Solver based on JavaScript, by using solution methods like a human would solve it, so to be able to solve each sudoku puzzle like a tutorial, no backtracking algorith.
 
 ![Sudoku Image](/images/6710716.jpg)
 
 ## Change Control and Versioning
+
+### Version 0.1.4 (MatrixFunctions to separate js file) 2022-09-10
+
+- The functions related to the whole Matrix like create, load, validate, have been taken out to a different js file (matrixfunctions.js)
+- there were several parts where the JSON methods for arrays were used several times, they were reduce to just one time, to avoid unnecesary CPU cycles.
+
+---
 
 ### Version 0.1.3 (Taking functions to js files) 2022-09-09
 

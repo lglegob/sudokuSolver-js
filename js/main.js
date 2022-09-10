@@ -1,7 +1,7 @@
 'use strict';
-import sudokuvalues_expert02 from "./data.js";
 import * as recurrent from "./recurrentfunctions.js"
 import * as optionstozero from "./optionstozero.js"
+import * as matrixfunctions from "./matrixfunctions.js"
 
 // SOLUTION PHASES
 // Check NO repeated numbers per row, column and square
@@ -32,114 +32,6 @@ import * as optionstozero from "./optionstozero.js"
 //                             BASIC FUNCTIONS                               //
 //////////////////////////////////////////////////////////////////////////////
 
-const createthematrix = () => {
-  console.log("Wake Up, Neo...")
-  for (let row = 0; row <= 8; row++) {
-    theMatrix[step][row] = [];
-    for (let column = 0; column <= 8; column++) {
-      theMatrix[step][row][column] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-    };
-  };
-};
-
-//Load the values from sudokuvalues variable into de html input fields
-const loadthematrix = () => {
-  for (let cellvalue = 0; cellvalue < sudokuvalues_expert02.length; cellvalue++) {
-    document.querySelector(".row" + sudokuvalues_expert02[cellvalue][0] + ".column" + sudokuvalues_expert02[cellvalue][1] + " input").setAttribute("value", sudokuvalues_expert02[cellvalue][2]);
-  };
-  validatethematrix();
-  cellbycellanalysis();
-};
-
-//Reload the Matrix (html values and notes) based on a previous step
-const thematrixreloaded = () => {
-  if (stepsinfo[step][0] === true) cellsresolved--;   
-  step--;
-  document.querySelector("#button-resolve").disabled = false;
-  document.querySelector("#button-resolve").classList.add("active");
-  document.querySelector("#button-resolve").classList.remove("inactive");
-  document.querySelector("#button-togglenotes").disabled = false;
-  document.querySelector("#button-togglenotes").classList.add("active");
-  document.querySelector("#button-togglenotes").classList.remove("inactive");
-  if (areweshowingnotes === true) recurrent.hidenotes(theMatrix[step]);
-  if (step === 0) {
-    document.querySelector("#button-reload").disabled = true;
-    document.querySelector("#button-reload").classList.remove("active");
-    document.querySelector("#button-reload").classList.add("inactive");
-  }
-  for (let row = 0; row <= 8; row++) {
-    for (let column = 0; column <= 8; column++) {
-      let itemrow = row + 1;
-      let itemcolumn = column + 1;
-      if (theMatrix[step][row][column][0] !== 0) {
-        document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", theMatrix[step][row][column][0]);
-      } else {
-        document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", "");
-      };
-    };
-  };
-  if (areweshowingnotes === true) recurrent.shownotes(theMatrix[step]);
-};
-
-//reset the values from the form input
-const resetthematrix = () => {
-  window.location.reload();
-};
-
-//Get the values from the form input into the Matrix
-const validatethematrix = () => {
-  for (let row = 0; row <= 8; row++) {
-    for (let column = 0; column <= 8; column++) {
-      let itemrow = row + 1;
-      let itemcolumn = column + 1;
-      let currentcell = document.querySelector(".row" + itemrow + ".column" + itemcolumn);
-      let currentcellvalue = Number(currentcell.querySelector("input").value);
-      theMatrix[step][row][column] = [currentcellvalue, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-    };
-  };
-};
-
-// Initial validation used in validatethematrixListener
-const cellbycellanalysis = () => {
-  // First select each row
-  for (let row = 0; row <= 8; row++) {
-    for (let column = 0; column <= 8; column++) {
-      loopsexecuted++;
-      let currentcellvalue = theMatrix[step][row][column][0];
-      // If the value is different than zero, it has to set as zero that position in every element of the same row, same column and same square
-      if (currentcellvalue != 0) {
-        // since this cell already has a value, all the posibilities are marked zero
-        theMatrix[step][row][column] = [currentcellvalue, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        let theMatrixStep = optionstozero.optionzeroinrow(row, currentcellvalue, theMatrix[step]);
-        theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
-        theMatrixStep = optionstozero.optionzeroincolumn(column, currentcellvalue, theMatrix[step]);
-        theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
-        theMatrixStep = optionstozero.optionzeroinsquare(row, column, currentcellvalue, theMatrix[step]);
-        theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
-        cellsresolved++;
-        console.log(`Cells resolved so far: ${cellsresolved}`);
-        console.log(`the value in row ${row+1}, column ${column+1} is ${currentcellvalue}`);
-      };
-    };
-  };
-  document.querySelector("#button-load").disabled = true;
-  document.querySelector("#button-load").classList.remove("active");
-  document.querySelector("#button-load").classList.add("inactive");
-  document.querySelector("#button-validate").disabled = true;
-  document.querySelector("#button-validate").classList.remove("active");
-  document.querySelector("#button-validate").classList.add("inactive");
-  document.querySelector("#button-resolve").disabled = false;
-  document.querySelector("#button-resolve").classList.add("active");
-  document.querySelector("#button-resolve").classList.remove("inactive");
-  document.querySelector("#button-togglenotes").disabled = false;
-  document.querySelector("#button-togglenotes").classList.add("active");
-  document.querySelector("#button-togglenotes").classList.remove("inactive");
-  document.querySelector("#button-reset").disabled = false;
-  document.querySelector("#button-reset").classList.add("active");
-  document.querySelector("#button-reset").classList.remove("inactive");
-  console.log("The Matrix has you...")
-};
-
 //function called each time a new value is found by any method
 const cellvaluefound = (row, column, currentcellvalue, method) => {
   cellsresolved++;
@@ -154,15 +46,14 @@ const cellvaluefound = (row, column, currentcellvalue, method) => {
   // here the currentcellvalue is set in theMatrix variable, and the corresponding notes in the cells of the same row, column and squatre deleted
   theMatrix[step][row][column] = [currentcellvalue, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   let theMatrixStep = optionstozero.optionzeroinrow(row, currentcellvalue, theMatrix[step]);
-  theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
-  theMatrixStep = optionstozero.optionzeroincolumn(column, currentcellvalue, theMatrix[step]);
-  theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
-  theMatrixStep = optionstozero.optionzeroinsquare(row, column, currentcellvalue, theMatrix[step]);
+  theMatrixStep = optionstozero.optionzeroincolumn(column, currentcellvalue, theMatrixStep);
+  theMatrixStep = optionstozero.optionzeroinsquare(row, column, currentcellvalue, theMatrixStep);
   theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
   // here the foundvalue is set in the html document to be shown, by calling the function newfoundvalueHTML
   let itemrow = row + 1;
   let itemcolumn = column + 1;
   newfoundvalueHTML(itemrow,itemcolumn,currentcellvalue, method);
+  console.log(theMatrix);
 };
 
 const newfoundvalueHTML = (itemrow, itemcolumn, currentcellvalue, method) => {
@@ -382,8 +273,7 @@ const obviouspairsrow = () => {
                 theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
                 //Here we take advantage of the functions to delete the notes of found values
                 let theMatrixStep = optionstozero.optionzeroinrow(row, currentcellvalue1, theMatrix[step]);
-                theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
-                theMatrixStep = optionstozero.optionzeroinrow(row, currentcellvalue2, theMatrix[step]);
+                theMatrixStep = optionstozero.optionzeroinrow(row, currentcellvalue2, theMatrixStep);
                 theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
                 //But here, it is restablished as notes for the pair of cells
                 theMatrix[step][row][column1][currentcellvalue1] = 1;
@@ -405,8 +295,8 @@ const obviouspairsrow = () => {
         if (discardnotessuccess) break;
       };
     };
-    lockedcandidate(answersrow, whereisthisnote);
     if (discardnotessuccess) break;
+    lockedcandidate(answersrow, whereisthisnote);
   };
 };
 
@@ -462,8 +352,7 @@ const obviouspairscolumn = () => {
                 theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
                 //Here we take advantage of the functions to delete the notes of found values
                 let theMatrixStep = optionstozero.optionzeroincolumn(column, currentcellvalue1, theMatrix[step]);
-                theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
-                theMatrixStep = optionstozero.optionzeroincolumn(column, currentcellvalue2, theMatrix[step]);
+                theMatrixStep = optionstozero.optionzeroincolumn(column, currentcellvalue2, theMatrixStep);
                 theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
                 //But here, it is restablished as notes for the pair of cells
                 theMatrix[step][row1][column][currentcellvalue1] = 1;
@@ -485,8 +374,8 @@ const obviouspairscolumn = () => {
         if (discardnotessuccess) break;
       };
     };
-    lockedcandidate(answerscolumn, whereisthisnote);
     if (discardnotessuccess) break;
+    lockedcandidate(answerscolumn, whereisthisnote);
   };
 };
 
@@ -554,8 +443,7 @@ const obviouspairssquare = () => {
                 theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
                 //Here we take advantage of the functions to delete the notes of found values, we just need the 2 currentcellvalues, it does not matter which cell (of the 2 checked as equal) is taken as reference.
                 let theMatrixStep = optionstozero.optionzeroinsquare(realrow1, realcolumn1, currentcellvalue1, theMatrix[step]);
-                theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
-                theMatrixStep = optionstozero.optionzeroinsquare(realrow1, realcolumn1, currentcellvalue2, theMatrix[step]);
+                theMatrixStep = optionstozero.optionzeroinsquare(realrow1, realcolumn1, currentcellvalue2, theMatrixStep);
                 theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
                 //But here, it is restablished as notes for the pair of cells
                 theMatrix[step][realrow1][realcolumn1][currentcellvalue1] = 1;
@@ -577,8 +465,8 @@ const obviouspairssquare = () => {
         if (discardnotessuccess) break;
       };
     };
-    lockedcandidate(answerssquare, whereisthisnote);
     if (discardnotessuccess) break;
+    lockedcandidate(answerssquare, whereisthisnote);
   };
 };
 
@@ -610,7 +498,12 @@ const loadthematrixListener = () => {
   button_load.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    loadthematrix();
+    matrixfunctions.loadthematrix();
+    theMatrixStep = matrixfunctions.validatethematrix(theMatrix[0]);
+    const { loopsexecutedanalysis, cellsresolvedanalysis, theMatrixStepanalysis } = matrixfunctions.cellbycellanalysis(loopsexecuted, cellsresolved, theMatrixStep);
+    loopsexecuted = loopsexecutedanalysis;
+    cellsresolved = cellsresolvedanalysis;
+    theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStepanalysis));
   });
 };
 
@@ -619,7 +512,9 @@ const reloadthematrixListener = () => {
   button_reload.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    thematrixreloaded();
+    const { stepReloaded, cellsresolvedReloaded } = matrixfunctions.thematrixreloaded(step, cellsresolved, areweshowingnotes, theMatrix[step - 1], stepsinfo);
+    step = stepReloaded;
+    cellsresolved = cellsresolvedReloaded;
   });
 };
 
@@ -628,8 +523,11 @@ const validatethematrixListener = () => {
   button_validate.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    validatethematrix();
-    cellbycellanalysis();
+    theMatrixStep = matrixfunctions.validatethematrix(theMatrix[0]);
+    const { loopsexecutedanalysis, cellsresolvedanalysis, theMatrixStepanalysis } = matrixfunctions.cellbycellanalysis(loopsexecuted, cellsresolved, theMatrixStep);
+    loopsexecuted = loopsexecutedanalysis;
+    cellsresolved = cellsresolvedanalysis;
+    theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStepanalysis));
   });
 };
 
@@ -638,7 +536,7 @@ const resetthematrixListener = () => {
   button_reset.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    resetthematrix();
+    matrixfunctions.resetthematrix();
   });
 };
 
@@ -680,7 +578,8 @@ const resolvethematrixListener = () => {
   button_resolve.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    singleoptions(loopsexecuted, iterationsuccess, theMatrix, step);
+    singleoptions();
+
     if (iterationsuccess === false && discardnotessuccess === false) {
       hiddensinglessquare();
     };
@@ -729,7 +628,9 @@ document.querySelector("#button-resolve").disabled = true
 document.querySelector("#button-togglenotes").disabled = true
 document.querySelector("#button-reset").disabled = true
 
-createthematrix();
+let theMatrixStep = matrixfunctions.createthematrix();
+theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStep));
+
 //activate the Listeners
 validatethematrixListener();
 resetthematrixListener();
