@@ -6,6 +6,12 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.1.5a (fixing Naming files Bug) 2022-09-16
+
+- The files where a letter went from lowercase to uppercase, were not changed in github, so the links broke. The situation is fixed with this commit changing the names of couple of files.
+
+---
+
 ### Version 0.1.5 (bem naming) 2022-09-16
 
 - The functions in separated files renamed to bem convention
@@ -14,14 +20,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ### Version 0.1.4 (matrixFunctions to separate js file) 2022-09-10
 
-- The functions related to the whole Matrix like create, load, validate, have been taken out to a different js file (matrixFunctions.js)
+- The functions related to the whole Matrix like create, load, validate, have been taken out to a different js file (theMatrixFunctions.js)
 - there were several parts where the JSON methods for arrays were used several times, they were reduce to just one time, to avoid unnecesary CPU cycles.
 
 ---
 
 ### Version 0.1.3 (Taking functions to js files) 2022-09-09
 
-- functions showNotes and hideNotes were taken from main.js to recurrentFunctions.js
+- functions showNotes and hideNotes were taken from main.js to theRecurrentFunctions.js
 - new js file created (optionszero.js) where the functions noteZeroRow, noteZeroColumn and noteZeroSquare were taken from main.js to this disagregated file
 
 ---

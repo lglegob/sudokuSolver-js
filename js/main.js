@@ -1,7 +1,7 @@
 'use strict';
-import * as recurrent from "./recurrentFunctions.js"
+import * as recurrent from "./theRecurrentFunctions.js"
 import * as notesZero from "./notesZero.js"
-import * as matrixFunctions from "./matrixFunctions.js"
+import * as matrixFunctions from "./theMatrixFunctions.js"
 
 // SOLUTION PHASES
 // Check NO repeated numbers per row, column and square
@@ -296,7 +296,7 @@ const obviouspairsrow = () => {
       };
     };
     if (discardnotessuccess) break;
-    lockedcandidate(answersrow, whereisthisnote);
+    // lockedcandidate(answersrow, whereisthisnote);
   };
 };
 
@@ -375,7 +375,7 @@ const obviouspairscolumn = () => {
       };
     };
     if (discardnotessuccess) break;
-    lockedcandidate(answerscolumn, whereisthisnote);
+    // lockedcandidate(answerscolumn, whereisthisnote);
   };
 };
 
@@ -466,7 +466,7 @@ const obviouspairssquare = () => {
       };
     };
     if (discardnotessuccess) break;
-    lockedcandidate(answerssquare, whereisthisnote);
+    // lockedcandidate(answerssquare, whereisthisnote);
   };
 };
 

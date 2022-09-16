@@ -5,7 +5,7 @@
 
 import sudokuvalues_expert02 from "./data.js";
 import * as notesZero from "./notesZero.js"
-import * as recurrent from "./recurrentFunctions.js"
+import * as recurrent from "./theRecurrentFunctions.js"
 
 const createMatrix = () => {
   console.log("Wake Up, Neo...")

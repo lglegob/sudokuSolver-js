@@ -1,5 +1,5 @@
 'use strict';
-import * as recurrent from "./recurrentFunctions.js"
+import * as recurrent from "./theRecurrentFunctions.js"
 
 //Here, it is mark as zero, each cell in the same row, which contains the currentcellvalue as option yet
 const noteZeroRow = (row, currentcellvalue, theMatrixStep) => {
