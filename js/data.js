@@ -1,3 +1,4 @@
+'use strict';
 let sudokuvalues_easy01 = [
   [1, 2, 6], [1, 5, 8], [1, 7, 4], [1, 8, 2],
   [2, 2, 1],

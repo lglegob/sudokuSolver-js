@@ -6,24 +6,30 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
-### Version 0.1.4 (MatrixFunctions to separate js file) 2022-09-10
+### Version 0.1.5 (bem naming) 2022-09-16
 
-- The functions related to the whole Matrix like create, load, validate, have been taken out to a different js file (matrixfunctions.js)
+- The functions in separated files renamed to bem convention
+
+---
+
+### Version 0.1.4 (matrixFunctions to separate js file) 2022-09-10
+
+- The functions related to the whole Matrix like create, load, validate, have been taken out to a different js file (matrixFunctions.js)
 - there were several parts where the JSON methods for arrays were used several times, they were reduce to just one time, to avoid unnecesary CPU cycles.
 
 ---
 
 ### Version 0.1.3 (Taking functions to js files) 2022-09-09
 
-- functions shownotes and hidenotes were taken from main.js to recurrentfunctions.js
-- new js file created (optionszero.js) where the functions optionzeroinrow, optionzeroincolumn and optionzeroinsquare were taken from main.js to this disagregated file
+- functions showNotes and hideNotes were taken from main.js to recurrentFunctions.js
+- new js file created (optionszero.js) where the functions noteZeroRow, noteZeroColumn and noteZeroSquare were taken from main.js to this disagregated file
 
 ---
 
 ### Version 0.1.2 (type="module" changes) 2022-09-08
 
 - type="module" added to the script, so it can split in several js files
-- two recurrent minor functions (definesquarecoordinatesRC and definesquarecoordinatesSQ) were taken out to an external js file for testing purposes.
+- two recurrent minor functions (defineSquareCoordinatesRC and defineSquareCoordinatesSQ) were taken out to an external js file for testing purposes.
 - the data to pre-load the sudoku game is now taken from data.js file
   script.js renamed to main.js
 
@@ -45,7 +51,7 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ### Version 0.0.6b (Branch adding-rollback - Rollback Config) 2022-09-06
 
-- New Function theMatrixreloaded defined to reload a previous status of the Matrix (previous Steps)
+- New Function matrixReloaded defined to reload a previous status of the Matrix (previous Steps)
 - New Variable defined as stepsinfo, to saved status and infomration of each step towards a final resolution of the Sudoku
 - Adjusted configuration to decrease the number of steps and resolvedcells according to the new capability og going back to previous steps
 - Correction of theMatrix previous steps (it was being referenced instead of cloned, so any change in the latest state was replicated to all other previous steps in the Matrix (time dimension)), now with the use of JSON methods (parse and stringfy), each of the steps in time of the Matrix is isolated and can be modified.

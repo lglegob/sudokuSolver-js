@@ -1,7 +1,7 @@
 'use strict';
-import * as recurrent from "./recurrentfunctions.js"
-import * as optionstozero from "./optionstozero.js"
-import * as matrixfunctions from "./matrixfunctions.js"
+import * as recurrent from "./recurrentFunctions.js"
+import * as notesZero from "./notesZero.js"
+import * as matrixFunctions from "./matrixFunctions.js"
 
 // SOLUTION PHASES
 // Check NO repeated numbers per row, column and square
@@ -42,12 +42,12 @@ const cellvaluefound = (row, column, currentcellvalue, method) => {
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
-  if (areweshowingnotes === true)  recurrent.hidenotes(theMatrix[step]);
+  if (areweshowingnotes === true)  recurrent.hideNotes(theMatrix[step]);
   // here the currentcellvalue is set in theMatrix variable, and the corresponding notes in the cells of the same row, column and squatre deleted
   theMatrix[step][row][column] = [currentcellvalue, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  let theMatrixStep = optionstozero.optionzeroinrow(row, currentcellvalue, theMatrix[step]);
-  theMatrixStep = optionstozero.optionzeroincolumn(column, currentcellvalue, theMatrixStep);
-  theMatrixStep = optionstozero.optionzeroinsquare(row, column, currentcellvalue, theMatrixStep);
+  let theMatrixStep = notesZero.noteZeroRow(row, currentcellvalue, theMatrix[step]);
+  theMatrixStep = notesZero.noteZeroColumn(column, currentcellvalue, theMatrixStep);
+  theMatrixStep = notesZero.noteZeroSquare(row, column, currentcellvalue, theMatrixStep);
   theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
   // here the foundvalue is set in the html document to be shown, by calling the function newfoundvalueHTML
   let itemrow = row + 1;
@@ -67,7 +67,7 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentcellvalue, method) => {
   `;
   const main = document.querySelector(".found-values > div");
   main.prepend(newfoundvalueArticle);
-  if (areweshowingnotes === true) recurrent.shownotes(theMatrix[step]);
+  if (areweshowingnotes === true) recurrent.showNotes(theMatrix[step]);
 };
 
 const discardedvalue = (mainaxis, mainaxisvalue, secondaryaxis, secondaryaxisvalue1, secondaryaxisvalue2, value1, value2, method) => {
@@ -184,7 +184,7 @@ const hiddensinglescolumn = () => {
 // Function to detect when an square has a possible value just in one of the 9 cells
 const hiddensinglessquare = () => {
   for (let square = 1; square <= 9; square++) {
-    const { fromrow, maximumrow, fromcolumn, maximumcolumn } = recurrent.definesquarecoordinatesSQ(square);
+    const { fromrow, maximumrow, fromcolumn, maximumcolumn } = recurrent.defineSquareCoordinatesSQ(square);
     for (let possibleoption = 1; possibleoption <=9; possibleoption++) {
       let ishiddensingle = 0;
       let currentcellvalue;
@@ -272,8 +272,8 @@ const obviouspairsrow = () => {
                 stepsinfo[step] = [false, "Detecting Obvious Pair (Row)", []];
                 theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
                 //Here we take advantage of the functions to delete the notes of found values
-                let theMatrixStep = optionstozero.optionzeroinrow(row, currentcellvalue1, theMatrix[step]);
-                theMatrixStep = optionstozero.optionzeroinrow(row, currentcellvalue2, theMatrixStep);
+                let theMatrixStep = notesZero.noteZeroRow(row, currentcellvalue1, theMatrix[step]);
+                theMatrixStep = notesZero.noteZeroRow(row, currentcellvalue2, theMatrixStep);
                 theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
                 //But here, it is restablished as notes for the pair of cells
                 theMatrix[step][row][column1][currentcellvalue1] = 1;
@@ -281,10 +281,10 @@ const obviouspairsrow = () => {
                 theMatrix[step][row][column2][currentcellvalue1] = 1;
                 theMatrix[step][row][column2][currentcellvalue2] = 1;
                 if (areweshowingnotes === true) {
-                  recurrent.hidenotes(theMatrix[step]);
+                  recurrent.hideNotes(theMatrix[step]);
                 };
                 areweshowingnotes = true;
-                recurrent.shownotes(theMatrix[step]);
+                recurrent.showNotes(theMatrix[step]);
                 discardnotessuccess = true;
                 discardedvalue("row", row, "column", column1, column2, currentcellvalue1, currentcellvalue2, "Detecting Obvious Pair (Row)");
                 break;
@@ -351,8 +351,8 @@ const obviouspairscolumn = () => {
                 stepsinfo[step] = [false, "Detecting Obvious Pair (Column)", []];
                 theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
                 //Here we take advantage of the functions to delete the notes of found values
-                let theMatrixStep = optionstozero.optionzeroincolumn(column, currentcellvalue1, theMatrix[step]);
-                theMatrixStep = optionstozero.optionzeroincolumn(column, currentcellvalue2, theMatrixStep);
+                let theMatrixStep = notesZero.noteZeroColumn(column, currentcellvalue1, theMatrix[step]);
+                theMatrixStep = notesZero.noteZeroColumn(column, currentcellvalue2, theMatrixStep);
                 theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
                 //But here, it is restablished as notes for the pair of cells
                 theMatrix[step][row1][column][currentcellvalue1] = 1;
@@ -360,10 +360,10 @@ const obviouspairscolumn = () => {
                 theMatrix[step][row2][column][currentcellvalue1] = 1;
                 theMatrix[step][row2][column][currentcellvalue2] = 1;
                 if (areweshowingnotes === true) {
-                  recurrent.hidenotes(theMatrix[step]);
+                  recurrent.hideNotes(theMatrix[step]);
                   };
                 areweshowingnotes = true;
-                recurrent.shownotes(theMatrix[step]);
+                recurrent.showNotes(theMatrix[step]);
                 discardnotessuccess = true;
                 discardedvalue("column", column, "row", row1, row2, currentcellvalue1, currentcellvalue2, "Detecting Obvious Pair (Column)");
                 break;
@@ -383,7 +383,7 @@ const obviouspairscolumn = () => {
 const obviouspairssquare = () => {
   
   for (let square = 1; square <= 9; square++) {
-    const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.definesquarecoordinatesSQ(square);
+    const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineSquareCoordinatesSQ(square);
     //It is consolidated in one array (1*10 first index value (0) not used) the answers for this square already known
     let answerssquare = [0,0,0,0,0,0,0,0,0,0];
     for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) { 
@@ -442,8 +442,8 @@ const obviouspairssquare = () => {
                 stepsinfo[step] = [false, "Detecting Obvious Pair (Square)", []];
                 theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
                 //Here we take advantage of the functions to delete the notes of found values, we just need the 2 currentcellvalues, it does not matter which cell (of the 2 checked as equal) is taken as reference.
-                let theMatrixStep = optionstozero.optionzeroinsquare(realrow1, realcolumn1, currentcellvalue1, theMatrix[step]);
-                theMatrixStep = optionstozero.optionzeroinsquare(realrow1, realcolumn1, currentcellvalue2, theMatrixStep);
+                let theMatrixStep = notesZero.noteZeroSquare(realrow1, realcolumn1, currentcellvalue1, theMatrix[step]);
+                theMatrixStep = notesZero.noteZeroSquare(realrow1, realcolumn1, currentcellvalue2, theMatrixStep);
                 theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
                 //But here, it is restablished as notes for the pair of cells
                 theMatrix[step][realrow1][realcolumn1][currentcellvalue1] = 1;
@@ -451,10 +451,10 @@ const obviouspairssquare = () => {
                 theMatrix[step][realrow2][realcolumn2][currentcellvalue1] = 1;
                 theMatrix[step][realrow2][realcolumn2][currentcellvalue2] = 1;
                 if (areweshowingnotes === true) {
-                  recurrent.hidenotes(theMatrix[step]);
+                  recurrent.hideNotes(theMatrix[step]);
                   };
                 areweshowingnotes = true;
-                recurrent.shownotes(theMatrix[step]);
+                recurrent.showNotes(theMatrix[step]);
                 discardnotessuccess = true;
                 discardedvalue("square", square - 1, "row", realrow1, realrow2, currentcellvalue1, currentcellvalue2, "Detecting Obvious Pair (Square)");
                 break;
@@ -494,13 +494,13 @@ const input_cellvalues = document.querySelectorAll(".theMatrix input");
 
 
 // Add event listener to the Load button
-const loadthematrixListener = () => {
+const loadMatrixListener = () => {
   button_load.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    matrixfunctions.loadthematrix();
-    theMatrixStep = matrixfunctions.validatethematrix(theMatrix[0]);
-    const { loopsexecutedanalysis, cellsresolvedanalysis, theMatrixStepanalysis } = matrixfunctions.cellbycellanalysis(loopsexecuted, cellsresolved, theMatrixStep);
+    matrixFunctions.loadMatrix();
+    theMatrixStep = matrixFunctions.validateMatrix(theMatrix[0]);
+    const { loopsexecutedanalysis, cellsresolvedanalysis, theMatrixStepanalysis } = matrixFunctions.analyzeMatrix(loopsexecuted, cellsresolved, theMatrixStep);
     loopsexecuted = loopsexecutedanalysis;
     cellsresolved = cellsresolvedanalysis;
     theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStepanalysis));
@@ -508,23 +508,23 @@ const loadthematrixListener = () => {
 };
 
 // Add event listener to the Load button
-const reloadthematrixListener = () => {
+const reloadMatrixListener = () => {
   button_reload.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    const { stepReloaded, cellsresolvedReloaded } = matrixfunctions.thematrixreloaded(step, cellsresolved, areweshowingnotes, theMatrix[step - 1], stepsinfo);
+    const { stepReloaded, cellsresolvedReloaded } = matrixFunctions.matrixReloaded(step, cellsresolved, areweshowingnotes, theMatrix[step - 1], stepsinfo);
     step = stepReloaded;
     cellsresolved = cellsresolvedReloaded;
   });
 };
 
 // Add event listener to the Validate button
-const validatethematrixListener = () => {
+const validateMatrixListener = () => {
   button_validate.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    theMatrixStep = matrixfunctions.validatethematrix(theMatrix[0]);
-    const { loopsexecutedanalysis, cellsresolvedanalysis, theMatrixStepanalysis } = matrixfunctions.cellbycellanalysis(loopsexecuted, cellsresolved, theMatrixStep);
+    theMatrixStep = matrixFunctions.validateMatrix(theMatrix[0]);
+    const { loopsexecutedanalysis, cellsresolvedanalysis, theMatrixStepanalysis } = matrixFunctions.analyzeMatrix(loopsexecuted, cellsresolved, theMatrixStep);
     loopsexecuted = loopsexecutedanalysis;
     cellsresolved = cellsresolvedanalysis;
     theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStepanalysis));
@@ -532,31 +532,31 @@ const validatethematrixListener = () => {
 };
 
 // Add event listener to the reset button
-const resetthematrixListener = () => {
+const resetMatrixListener = () => {
   button_reset.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    matrixfunctions.resetthematrix();
+    matrixFunctions.resetMatrix();
   });
 };
 
-// Add event listener to the ShowNotes button
-const togglenotesListener = () => {
+// Add event listener to the showNotes button
+const toggleNotesListener = () => {
   button_togglenotes.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
     if (areweshowingnotes === false) {
       areweshowingnotes = true;
-      recurrent.shownotes(theMatrix[step]);
+      recurrent.showNotes(theMatrix[step]);
     } else {
       areweshowingnotes = false;
-      recurrent.hidenotes(theMatrix[step]);
+      recurrent.hideNotes(theMatrix[step]);
     };
   });
 };
 
-// Add event listener to the ShowNotes button
-const inputListener = () => {
+// Add event listener to the showNotes button
+const inputCellsListener = () => {
   input_cellvalues.forEach(item => {
     item.addEventListener("change", () => {
       document.querySelector("#button-load").disabled = true;
@@ -574,7 +574,7 @@ const inputListener = () => {
 
 
 // Add event listener to the Resolve Button
-const resolvethematrixListener = () => {
+const resolveMatrixListener = () => {
   button_resolve.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
@@ -628,14 +628,14 @@ document.querySelector("#button-resolve").disabled = true
 document.querySelector("#button-togglenotes").disabled = true
 document.querySelector("#button-reset").disabled = true
 
-let theMatrixStep = matrixfunctions.createthematrix();
+let theMatrixStep = matrixFunctions.createMatrix();
 theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStep));
 
 //activate the Listeners
-validatethematrixListener();
-resetthematrixListener();
-resolvethematrixListener();
-reloadthematrixListener();
-loadthematrixListener();
-togglenotesListener();
-inputListener();
+validateMatrixListener();
+resetMatrixListener();
+resolveMatrixListener();
+reloadMatrixListener();
+loadMatrixListener();
+toggleNotesListener();
+inputCellsListener();

@@ -1,12 +1,13 @@
+'use strict';
 ////////////////////////////////////////////////////////////////////////////////
 //                            MATRIX FUNCTIONS                               //
 //////////////////////////////////////////////////////////////////////////////
 
 import sudokuvalues_expert02 from "./data.js";
-import * as optionstozero from "./optionstozero.js"
-import * as recurrent from "./recurrentfunctions.js"
+import * as notesZero from "./notesZero.js"
+import * as recurrent from "./recurrentFunctions.js"
 
-const createthematrix = () => {
+const createMatrix = () => {
   console.log("Wake Up, Neo...")
   let theMatrixStep = [];
   for (let row = 0; row <= 8; row++) {
@@ -18,14 +19,14 @@ const createthematrix = () => {
   return theMatrixStep;
 };
 
-const loadthematrix = () => {
+const loadMatrix = () => {
   for (let cellvalue = 0; cellvalue < sudokuvalues_expert02.length; cellvalue++) {
     document.querySelector(".row" + sudokuvalues_expert02[cellvalue][0] + ".column" + sudokuvalues_expert02[cellvalue][1] + " input").setAttribute("value", sudokuvalues_expert02[cellvalue][2]);
   };
 };
 
 //Get the values from the form input into the Matrix
-const validatethematrix = (theMatrixStep) => {
+const validateMatrix = (theMatrixStep) => {
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
       let itemrow = row + 1;
@@ -39,12 +40,12 @@ const validatethematrix = (theMatrixStep) => {
 };
 
 //reset the values from the form input
-const resetthematrix = () => {
+const resetMatrix = () => {
   window.location.reload();
 };
 
-// Initial validation used in validatethematrixListener
-const cellbycellanalysis = (loopsexecutedanalysis, cellsresolvedanalysis, theMatrixStepanalysis) => {
+// Initial validation used in validateMatrixListener
+const analyzeMatrix = (loopsexecutedanalysis, cellsresolvedanalysis, theMatrixStepanalysis) => {
   // First select each row
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
@@ -54,9 +55,9 @@ const cellbycellanalysis = (loopsexecutedanalysis, cellsresolvedanalysis, theMat
       if (currentcellvalue != 0) {
         // since this cell already has a value, all the posibilities are marked zero
         theMatrixStepanalysis[row][column] = [currentcellvalue, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        theMatrixStepanalysis = optionstozero.optionzeroinrow(row, currentcellvalue, theMatrixStepanalysis);
-        theMatrixStepanalysis = optionstozero.optionzeroincolumn(column, currentcellvalue, theMatrixStepanalysis);
-        theMatrixStepanalysis = optionstozero.optionzeroinsquare(row, column, currentcellvalue, theMatrixStepanalysis);
+        theMatrixStepanalysis = notesZero.noteZeroRow(row, currentcellvalue, theMatrixStepanalysis);
+        theMatrixStepanalysis = notesZero.noteZeroColumn(column, currentcellvalue, theMatrixStepanalysis);
+        theMatrixStepanalysis = notesZero.noteZeroSquare(row, column, currentcellvalue, theMatrixStepanalysis);
         cellsresolvedanalysis++;
         console.log(`Cells resolved so far: ${cellsresolvedanalysis}`);
         console.log(`the value in row ${row+1}, column ${column+1} is ${currentcellvalue}`);
@@ -83,7 +84,7 @@ const cellbycellanalysis = (loopsexecutedanalysis, cellsresolvedanalysis, theMat
 };
 
 //Reload the Matrix (html values and notes) based on a previous step
-const thematrixreloaded = (stepReloaded, cellsresolvedReloaded, areweshowingnotes, theMatrixDestinedStep, stepsinfo) => {
+const matrixReloaded = (stepReloaded, cellsresolvedReloaded, areweshowingnotes, theMatrixDestinedStep, stepsinfo) => {
   if (stepsinfo[stepReloaded][0] === true) cellsresolvedReloaded--;   
   stepReloaded--;
   document.querySelector("#button-resolve").disabled = false;
@@ -92,7 +93,7 @@ const thematrixreloaded = (stepReloaded, cellsresolvedReloaded, areweshowingnote
   document.querySelector("#button-togglenotes").disabled = false;
   document.querySelector("#button-togglenotes").classList.add("active");
   document.querySelector("#button-togglenotes").classList.remove("inactive");
-  if (areweshowingnotes === true) recurrent.hidenotes(theMatrixDestinedStep);
+  if (areweshowingnotes === true) recurrent.hideNotes(theMatrixDestinedStep);
   if (stepReloaded === 0) {
     document.querySelector("#button-reload").disabled = true;
     document.querySelector("#button-reload").classList.remove("active");
@@ -109,8 +110,8 @@ const thematrixreloaded = (stepReloaded, cellsresolvedReloaded, areweshowingnote
       };
     };
   };
-  if (areweshowingnotes === true) recurrent.shownotes(theMatrixDestinedStep);
+  if (areweshowingnotes === true) recurrent.showNotes(theMatrixDestinedStep);
   return { stepReloaded, cellsresolvedReloaded }
 };
 
-export { createthematrix, loadthematrix, validatethematrix, cellbycellanalysis, resetthematrix, thematrixreloaded };
+export { createMatrix, loadMatrix, validateMatrix, analyzeMatrix, resetMatrix, matrixReloaded };

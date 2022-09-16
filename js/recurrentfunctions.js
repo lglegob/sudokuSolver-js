@@ -1,5 +1,6 @@
+'use strict';
 //Here, it is defined depending of the current cell in analysis, the range of rows and columns to evaluate
-const definesquarecoordinatesRC = (row, column) => {
+const defineSquareCoordinatesRC = (row, column) => {
   let fromrow;
   let maximumrow;
   let fromcolumn;
@@ -36,7 +37,7 @@ const definesquarecoordinatesRC = (row, column) => {
 };
 
 //Here, it is defined depending of the square in analysis, the range of rows and columns to evaluate
-const definesquarecoordinatesSQ = (square) => {
+const defineSquareCoordinatesSQ = (square) => {
   let fromrow;
   let maximumrow;
   let fromcolumn;
@@ -73,7 +74,7 @@ const definesquarecoordinatesSQ = (square) => {
 };
 
 //Function used to add html config with a 9 cells grid per each of the original divs to show the notes of each cell
-const shownotes = (theMatrixStep) => {
+const showNotes = (theMatrixStep) => {
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
       let itemrow = row + 1;
@@ -102,7 +103,7 @@ const shownotes = (theMatrixStep) => {
 };
 
 //Function used to remove the notes and replace them with the div reserved to the final number (currently blank)
-const hidenotes = (theMatrixStep) => {
+const hideNotes = (theMatrixStep) => {
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
       if (theMatrixStep[row][column][0] === 0) {
@@ -124,4 +125,4 @@ const hidenotes = (theMatrixStep) => {
   togglebutton.innerText = "Show Notes";
 };
 
-export { definesquarecoordinatesRC, definesquarecoordinatesSQ, shownotes, hidenotes };
+export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, showNotes, hideNotes };
