@@ -2,6 +2,7 @@
 import * as recurrent from "./theRecurrentFunctions.js"
 import * as notesZero from "./notesZero.js"
 import * as matrixFunctions from "./theMatrixFunctions.js"
+import * as processFunctions from "./solvingProcessFunctions.js"
 
 // SOLUTION PHASES
 // Check NO repeated numbers per row, column and square
@@ -31,44 +32,6 @@ import * as matrixFunctions from "./theMatrixFunctions.js"
 ////////////////////////////////////////////////////////////////////////////////
 //                             BASIC FUNCTIONS                               //
 //////////////////////////////////////////////////////////////////////////////
-
-//function called each time a new value is found by any method
-const cellvaluefound = (row, column, currentcellvalue, method) => {
-  cellsresolved++;
-  step++;
-  stepsinfo[step] = [true, method, [row, column, currentcellvalue]];
-  theMatrix[step] = JSON.parse(JSON.stringify(theMatrix[step - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
-  console.log(`Cells resolved so far: ${cellsresolved}`);
-  document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
-  document.querySelector("#button-reload").classList.add("active");
-  document.querySelector("#button-reload").classList.remove("inactive");
-  if (areweshowingnotes === true)  recurrent.hideNotes(theMatrix[step]);
-  // here the currentcellvalue is set in theMatrix variable, and the corresponding notes in the cells of the same row, column and squatre deleted
-  theMatrix[step][row][column] = [currentcellvalue, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  let theMatrixStep = notesZero.noteZeroRow(row, currentcellvalue, theMatrix[step]);
-  theMatrixStep = notesZero.noteZeroColumn(column, currentcellvalue, theMatrixStep);
-  theMatrixStep = notesZero.noteZeroSquare(row, column, currentcellvalue, theMatrixStep);
-  theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStep));
-  // here the foundvalue is set in the html document to be shown, by calling the function newfoundvalueHTML
-  let itemrow = row + 1;
-  let itemcolumn = column + 1;
-  newfoundvalueHTML(itemrow,itemcolumn,currentcellvalue, method);
-  console.log(theMatrix);
-};
-
-const newfoundvalueHTML = (itemrow, itemcolumn, currentcellvalue, method) => {
-  console.log(`the value in row ${itemrow}, column ${itemcolumn} is ${currentcellvalue} by ${method} method`);
-  document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", currentcellvalue);
-  let newfoundvalueArticle = document.createElement("article");
-  newfoundvalueArticle.classList.add("newfoundvalue");
-  // newfoundvalueArticle.setAttribute("id", DEFINE-ID);
-  newfoundvalueArticle.innerHTML = `
-  <p>New Found Value in row ${itemrow}, column ${itemcolumn}, the Value is ${currentcellvalue}, and was found using ${method} method</p>
-  `;
-  const main = document.querySelector(".found-values > div");
-  main.prepend(newfoundvalueArticle);
-  if (areweshowingnotes === true) recurrent.showNotes(theMatrix[step]);
-};
 
 const discardedvalue = (mainaxis, mainaxisvalue, secondaryaxis, secondaryaxisvalue1, secondaryaxisvalue2, value1, value2, method) => {
   // AQUI debe ir la creacion del step nuevo de theMatrix y modificacion de las variables para unificar funcion, por ahora esta distribuido en las 3 funciones de obvious
@@ -111,7 +74,11 @@ const singleoptions = () => {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentcellvalue
         iterationsuccess = true;
         currentcellvalue = theMatrix[step][row][column].findIndex((one, index) => one === 1 && index > 0);
-        cellvaluefound(row, column, currentcellvalue, "Detecting Singles");
+        const {cellsresolvedCellFound, stepCellFound, theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(cellsresolved, step, theMatrix[step], row, column, currentcellvalue, areweshowingnotes, "Detecting Singles");
+        cellsresolved = cellsresolvedCellFound;
+        step = stepCellFound;
+        theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
+        stepsinfo[step] = JSON.parse(JSON.stringify(stepsinfoStepCellFound));
         break;
         };
     };
@@ -142,7 +109,11 @@ const hiddensinglesrow = () => {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentcellvalue
         iterationsuccess = true;
         currentcellvalue = possibleoption;
-        cellvaluefound(row, columnfound, currentcellvalue, "Detecting Hidden Singles (row)");
+        const {cellsresolvedCellFound, stepCellFound, theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(cellsresolved, step, theMatrix[step], row, columnfound, currentcellvalue, areweshowingnotes, "Detecting Hidden Singles (row)");
+        cellsresolved = cellsresolvedCellFound;
+        step = stepCellFound;
+        theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
+        stepsinfo[step] = JSON.parse(JSON.stringify(stepsinfoStepCellFound));
         break;
       };
     };
@@ -173,7 +144,11 @@ const hiddensinglescolumn = () => {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentcellvalue
         iterationsuccess = true;
         currentcellvalue = possibleoption;
-        cellvaluefound(rowfound, column, currentcellvalue, "Detecting Hidden Singles (column)");
+        const {cellsresolvedCellFound, stepCellFound, theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(cellsresolved, step, theMatrix[step], rowfound, column, currentcellvalue, areweshowingnotes, "Detecting Hidden Singles (column)");
+        cellsresolved = cellsresolvedCellFound;
+        step = stepCellFound;
+        theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
+        stepsinfo[step] = JSON.parse(JSON.stringify(stepsinfoStepCellFound));
         break;
       };
     };
@@ -211,7 +186,11 @@ const hiddensinglessquare = () => {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentcellvalue
         iterationsuccess = true;
         currentcellvalue = possibleoption;
-        cellvaluefound(rowfound, columnfound, currentcellvalue, "Detecting Hidden Singles (square)");
+        const {cellsresolvedCellFound, stepCellFound, theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(cellsresolved, step, theMatrix[step], rowfound, columnfound, currentcellvalue, areweshowingnotes, "Detecting Hidden Singles (square)");
+        cellsresolved = cellsresolvedCellFound;
+        step = stepCellFound;
+        theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
+        stepsinfo[step] = JSON.parse(JSON.stringify(stepsinfoStepCellFound));
         break;
       };
     if (iterationsuccess) break;

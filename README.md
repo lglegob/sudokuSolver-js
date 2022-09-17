@@ -6,6 +6,12 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.1.6 (solvingProcessFunctions.js file) 2022-09-16
+
+- The functions cellvaluefound and newfoundvalueHTML were taken out to a new file solvingProcessFunctions.js
+
+---
+
 ### Version 0.1.5a (fixing Naming files Bug) 2022-09-16
 
 - The files where a letter went from lowercase to uppercase, were not changed in github, so the links broke. The situation is fixed with this commit changing the names of couple of files.
