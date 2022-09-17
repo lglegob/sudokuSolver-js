@@ -3,16 +3,18 @@
 //                      SOLVING PROCESSES FUNCTIONS                          //
 //////////////////////////////////////////////////////////////////////////////
 
+import globalVar from "./globalVar.js";
 import * as recurrent from "./theRecurrentFunctions.js"
 import * as notesZero from "./notesZero.js"
 
+
 //function called each time a new value is found by any method
-const cellvaluefound = (cellsresolvedCellFound, stepCellFound, theMatrixPreviousStep, row, column, currentcellvalue, areweshowingnotes, method) => {
-  cellsresolvedCellFound++;
+const cellvaluefound = ( stepCellFound, theMatrixPreviousStep, row, column, currentcellvalue, areweshowingnotes, method) => {
+  globalVar.cellsResolved++;
   stepCellFound++;
   let stepsinfoStepCellFound = [true, method, [row, column, currentcellvalue]];
   let theMatrixStepCellFound = JSON.parse(JSON.stringify(theMatrixPreviousStep)); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
-  console.log(`Cells resolved so far: ${cellsresolvedCellFound}`);
+  console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
@@ -27,7 +29,7 @@ const cellvaluefound = (cellsresolvedCellFound, stepCellFound, theMatrixPrevious
   let itemrow = row + 1;
   let itemcolumn = column + 1;
   newfoundvalueHTML(itemrow, itemcolumn, currentcellvalue, areweshowingnotes, theMatrixStepCellFound, method);
-  return {cellsresolvedCellFound, stepCellFound, theMatrixStepCellFound, stepsinfoStepCellFound}
+  return { stepCellFound, theMatrixStepCellFound, stepsinfoStepCellFound}
 };
 
 const newfoundvalueHTML = (itemrow, itemcolumn, currentcellvalue, areweshowingnotes, theMatrixStep, method) => {
@@ -41,6 +43,7 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentcellvalue, areweshowingno
   `;
   const main = document.querySelector(".found-values > div");
   main.prepend(newfoundvalueArticle);
+  console.log(globalVar.loopsExecuted);
   if (areweshowingnotes === true) recurrent.showNotes(theMatrixStep);
 };
 

@@ -4,6 +4,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 import sudokuvalues_expert02 from "./data.js";
+import globalVar from "./globalVar.js";
 import * as notesZero from "./notesZero.js"
 import * as recurrent from "./theRecurrentFunctions.js"
 
@@ -45,11 +46,11 @@ const resetMatrix = () => {
 };
 
 // Initial validation used in validateMatrixListener
-const analyzeMatrix = (loopsexecutedanalysis, cellsresolvedanalysis, theMatrixStepanalysis) => {
+const analyzeMatrix = (theMatrixStepanalysis) => {
   // First select each row
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
-      loopsexecutedanalysis++;
+      globalVar.loopsExecuted++;
       let currentcellvalue = theMatrixStepanalysis[row][column][0];
       // If the value is different than zero, it has to set as zero that position in every element of the same row, same column and same square
       if (currentcellvalue != 0) {
@@ -58,8 +59,8 @@ const analyzeMatrix = (loopsexecutedanalysis, cellsresolvedanalysis, theMatrixSt
         theMatrixStepanalysis = notesZero.noteZeroRow(row, currentcellvalue, theMatrixStepanalysis);
         theMatrixStepanalysis = notesZero.noteZeroColumn(column, currentcellvalue, theMatrixStepanalysis);
         theMatrixStepanalysis = notesZero.noteZeroSquare(row, column, currentcellvalue, theMatrixStepanalysis);
-        cellsresolvedanalysis++;
-        console.log(`Cells resolved so far: ${cellsresolvedanalysis}`);
+        globalVar.cellsResolved++;
+        console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
         console.log(`the value in row ${row+1}, column ${column+1} is ${currentcellvalue}`);
       };
     };
@@ -80,12 +81,12 @@ const analyzeMatrix = (loopsexecutedanalysis, cellsresolvedanalysis, theMatrixSt
   document.querySelector("#button-reset").classList.add("active");
   document.querySelector("#button-reset").classList.remove("inactive");
   console.log("The Matrix has you...")
-  return { loopsexecutedanalysis, cellsresolvedanalysis, theMatrixStepanalysis };
+  return { theMatrixStepanalysis };
 };
 
 //Reload the Matrix (html values and notes) based on a previous step
-const matrixReloaded = (stepReloaded, cellsresolvedReloaded, areweshowingnotes, theMatrixDestinedStep, stepsinfo) => {
-  if (stepsinfo[stepReloaded][0] === true) cellsresolvedReloaded--;   
+const matrixReloaded = (stepReloaded, areweshowingnotes, theMatrixDestinedStep, stepsinfo) => {
+  if (stepsinfo[stepReloaded][0] === true) globalVar.cellsResolved--;   
   stepReloaded--;
   document.querySelector("#button-resolve").disabled = false;
   document.querySelector("#button-resolve").classList.add("active");
@@ -111,7 +112,7 @@ const matrixReloaded = (stepReloaded, cellsresolvedReloaded, areweshowingnotes, 
     };
   };
   if (areweshowingnotes === true) recurrent.showNotes(theMatrixDestinedStep);
-  return { stepReloaded, cellsresolvedReloaded }
+  return { stepReloaded }
 };
 
 export { createMatrix, loadMatrix, validateMatrix, analyzeMatrix, resetMatrix, matrixReloaded };

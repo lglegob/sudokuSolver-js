@@ -6,6 +6,12 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.1.7 (Global Variables globalVar.js) 2022-09-16
+
+- globalVar.js is added to host several real global variables, with this, the process of migrating functions to other files will be easier and cleaner.
+
+---
+
 ### Version 0.1.6 (solvingProcessFunctions.js file) 2022-09-16
 
 - The functions cellvaluefound and newfoundvalueHTML were taken out to a new file solvingProcessFunctions.js

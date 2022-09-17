@@ -1,8 +1,10 @@
 'use strict';
+import globalVar from "./globalVar.js";
 import * as recurrent from "./theRecurrentFunctions.js"
 import * as notesZero from "./notesZero.js"
 import * as matrixFunctions from "./theMatrixFunctions.js"
 import * as processFunctions from "./solvingProcessFunctions.js"
+
 
 // SOLUTION PHASES
 // Check NO repeated numbers per row, column and square
@@ -63,7 +65,7 @@ const discardedvaluesHTML = (mainaxis, mainaxisvalue, secondaryaxis, secondaryax
 const singleoptions = () => {
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
-      loopsexecuted++;
+      globalVar.loopsExecuted++;
       let currentcellvalue = theMatrix[step][row][column][0];
       //method reduce to obtain the sum of the options in this cell
       const sum = theMatrix[step][row][column].reduce(add, 0);
@@ -72,17 +74,16 @@ const singleoptions = () => {
         };
         if (sum-currentcellvalue === 1) {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentcellvalue
-        iterationsuccess = true;
+        globalVar.iterationSuccess = true;
         currentcellvalue = theMatrix[step][row][column].findIndex((one, index) => one === 1 && index > 0);
-        const {cellsresolvedCellFound, stepCellFound, theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(cellsresolved, step, theMatrix[step], row, column, currentcellvalue, areweshowingnotes, "Detecting Singles");
-        cellsresolved = cellsresolvedCellFound;
+        const { stepCellFound, theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(step, theMatrix[step], row, column, currentcellvalue, areweshowingnotes, "Detecting Singles");
         step = stepCellFound;
         theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
         stepsinfo[step] = JSON.parse(JSON.stringify(stepsinfoStepCellFound));
         break;
         };
     };
-    if (iterationsuccess) break;
+    if (globalVar.iterationSuccess) break;
   };
 };
 
@@ -93,8 +94,8 @@ const hiddensinglesrow = () => {
       let ishiddensingle = 0;
       let currentcellvalue;
       let columnfound;
-      loopsexecuted++;
       for (let column = 0; column <= 8; column++) {
+        globalVar.loopsExecuted++;
         currentcellvalue = theMatrix[step][row][column][0];
         //this if evalutes the cell does not have a solved value yet and that the possiblevalue in evaluation is present in this cell
         if (currentcellvalue === 0 && theMatrix[step][row][column][possibleoption] === 1) {
@@ -107,17 +108,16 @@ const hiddensinglesrow = () => {
       };
       if (ishiddensingle === 1) {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentcellvalue
-        iterationsuccess = true;
+        globalVar.iterationSuccess = true;
         currentcellvalue = possibleoption;
-        const {cellsresolvedCellFound, stepCellFound, theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(cellsresolved, step, theMatrix[step], row, columnfound, currentcellvalue, areweshowingnotes, "Detecting Hidden Singles (row)");
-        cellsresolved = cellsresolvedCellFound;
+        const {stepCellFound, theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(step, theMatrix[step], row, columnfound, currentcellvalue, areweshowingnotes, "Detecting Hidden Singles (row)");
         step = stepCellFound;
         theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
         stepsinfo[step] = JSON.parse(JSON.stringify(stepsinfoStepCellFound));
         break;
       };
     };
-    if (iterationsuccess) break;
+    if (globalVar.iterationSuccess) break;
   };
 }
 
@@ -128,8 +128,8 @@ const hiddensinglescolumn = () => {
       let ishiddensingle = 0;
       let currentcellvalue;
       let rowfound;
-      loopsexecuted++;
       for (let row = 0; row <= 8; row++) {
+        globalVar.loopsExecuted++;
         currentcellvalue = theMatrix[step][row][column][0];
         //this if evalutes the cell does not have a solved value yet and that the possiblevalue in evaluation is present in this cell
         if (currentcellvalue === 0 && theMatrix[step][row][column][possibleoption] === 1) {
@@ -142,17 +142,16 @@ const hiddensinglescolumn = () => {
       };
       if (ishiddensingle === 1) {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentcellvalue
-        iterationsuccess = true;
+        globalVar.iterationSuccess = true;
         currentcellvalue = possibleoption;
-        const {cellsresolvedCellFound, stepCellFound, theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(cellsresolved, step, theMatrix[step], rowfound, column, currentcellvalue, areweshowingnotes, "Detecting Hidden Singles (column)");
-        cellsresolved = cellsresolvedCellFound;
+        const {stepCellFound, theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(step, theMatrix[step], rowfound, column, currentcellvalue, areweshowingnotes, "Detecting Hidden Singles (column)");
         step = stepCellFound;
         theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
         stepsinfo[step] = JSON.parse(JSON.stringify(stepsinfoStepCellFound));
         break;
       };
     };
-    if (iterationsuccess) break;
+    if (globalVar.iterationSuccess) break;
   };
 }
 
@@ -165,10 +164,9 @@ const hiddensinglessquare = () => {
       let currentcellvalue;
       let rowfound;
       let columnfound;
-      loopsexecuted++;
-
       for (let square_row = fromrow; square_row <= maximumrow; square_row++) {
         for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) {
+          globalVar.loopsExecuted++;
           currentcellvalue = theMatrix[step][square_row][square_column][0];
           //this if evalutes the cell does not have a solved value yet and that the possiblevalue in evaluation is present in this cell
           if (currentcellvalue === 0 && theMatrix[step][square_row][square_column][possibleoption] === 1) {
@@ -184,18 +182,17 @@ const hiddensinglessquare = () => {
       };
       if (ishiddensingle === 1) {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentcellvalue
-        iterationsuccess = true;
+        globalVar.iterationSuccess = true;
         currentcellvalue = possibleoption;
-        const {cellsresolvedCellFound, stepCellFound, theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(cellsresolved, step, theMatrix[step], rowfound, columnfound, currentcellvalue, areweshowingnotes, "Detecting Hidden Singles (square)");
-        cellsresolved = cellsresolvedCellFound;
+        const {stepCellFound, theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(step, theMatrix[step], rowfound, columnfound, currentcellvalue, areweshowingnotes, "Detecting Hidden Singles (square)");
         step = stepCellFound;
         theMatrix[step] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
         stepsinfo[step] = JSON.parse(JSON.stringify(stepsinfoStepCellFound));
         break;
       };
-    if (iterationsuccess) break;
+    if (globalVar.iterationSuccess) break;
     };
-  if (iterationsuccess) break; //so, it just find one solution per loop
+  if (globalVar.iterationSuccess) break; //so, it just find one solution per loop
   };
 };
 
@@ -205,6 +202,7 @@ const obviouspairsrow = () => {
   for (let row = 0; row <= 8; row++) { 
     let answersrow = [0,0,0,0,0,0,0,0,0,0];
     for (let column = 0; column <= 8; column++) {
+      globalVar.loopsExecuted++;
       if (theMatrix[step][row][column][0] !== 0) {
         //It is consolidated in one array (1*10 first index value (0) not used) the answers for this row already known
         answersrow[theMatrix[step][row][column][0]] = 1;
@@ -224,6 +222,7 @@ const obviouspairsrow = () => {
       whereisthisnote[possibleoption] = [0,0,0,0,0,0,0,0,0];
       if (answersrow[possibleoption] === 0) {
         for (let column = 0; column <= 8; column++) {
+          globalVar.loopsExecuted++;
           if (theMatrix[step][row][column][possibleoption] === 1) {
             howmanycellswiththisnote[possibleoption]++;
             howmanynotesinthiscell[column]++;
@@ -238,6 +237,7 @@ const obviouspairsrow = () => {
     for (let column1 = 0; column1<= 7; column1++) {
       if (howmanynotesinthiscell[column1] === 2) {
         for (let column2 = column1+1; column2<= 8; column2++) {
+          globalVar.loopsExecuted++;
           if (howmanynotesinthiscell[column2] === 2) {
             let cell1notes = theMatrix[step][row][column1];
             let cell2notes = theMatrix[step][row][column2];
@@ -285,6 +285,7 @@ const obviouspairscolumn = () => {
   for (let column = 0; column <= 8; column++) { 
     let answerscolumn = [0,0,0,0,0,0,0,0,0,0];
     for (let row = 0; row <= 8; row++) {
+      globalVar.loopsExecuted++;
       if (theMatrix[step][row][column][0] !== 0) {
         //It is consolidated in one array (1*10 first index value (0) not used) the answers for this column already known
         answerscolumn[theMatrix[step][row][column][0]] = 1
@@ -303,6 +304,7 @@ const obviouspairscolumn = () => {
       whereisthisnote[possibleoption] = [0,0,0,0,0,0,0,0,0];
       if (answerscolumn[possibleoption] === 0) {
         for (let row = 0; row <= 8; row++) {
+          globalVar.loopsExecuted++;
           if (theMatrix[step][row][column][possibleoption] === 1) {
             howmanycellswiththisnote[possibleoption]++;
             howmanynotesinthiscell[row]++;
@@ -317,6 +319,7 @@ const obviouspairscolumn = () => {
     for (let row1 = 0; row1<= 7; row1++) {
       if (howmanynotesinthiscell[row1] === 2) {
         for (let row2 = row1+1; row2<= 8; row2++) {
+          globalVar.loopsExecuted++;
           if (howmanynotesinthiscell[row2] === 2) {
             let cell1notes = theMatrix[step][row1][column];
             let cell2notes = theMatrix[step][row2][column];
@@ -367,6 +370,7 @@ const obviouspairssquare = () => {
     let answerssquare = [0,0,0,0,0,0,0,0,0,0];
     for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) { 
       for (let square_row = fromrow; square_row <= maximumrow; square_row++) {
+        globalVar.loopsExecuted++;
         if (theMatrix[step][square_row][square_column][0] !== 0) {
           //It is consolidated in one array (1*10 first index value (0) not used) the answers for this column
           answerssquare[theMatrix[step][square_row][square_column][0]] = 1
@@ -388,6 +392,7 @@ const obviouspairssquare = () => {
       if (answerssquare[possibleoption] === 0) {
         for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) { 
           for (let square_row = fromrow; square_row <= maximumrow; square_row++) {
+            globalVar.loopsExecuted++;
             if (theMatrix[step][square_row][square_column][possibleoption] === 1) {
               howmanycellswiththisnote[possibleoption]++;
               let relativecolumn = square_column - ( 3 * ((square-1) % 3));
@@ -405,6 +410,7 @@ const obviouspairssquare = () => {
     for (let cell1 = 0; cell1<= 7; cell1++) {
       if (howmanynotesinthiscell[cell1] === 2) {
         for (let cell2 = cell1+1; cell2<= 8; cell2++) {
+          globalVar.loopsExecuted++;
           if (howmanynotesinthiscell[cell2] === 2) {
             let realrow1 = fromrow + Math.floor(cell1 / 3); 
             let realcolumn1 = fromcolumn + cell1 % 3;
@@ -451,6 +457,7 @@ const obviouspairssquare = () => {
 
 const lockedcandidate = (answers, whereisthisnote) => {
   for (let possibleoption = 1; possibleoption <= 9; possibleoption++) {
+    globalVar.loopsExecuted++;
     if (answers[possibleoption] === 0) {
       let firstthird = whereisthisnote[possibleoption][0] + whereisthisnote[possibleoption][1] + whereisthisnote[possibleoption][2];
       let secondthird = whereisthisnote[possibleoption][3] + whereisthisnote[possibleoption][4] + whereisthisnote[possibleoption][5];
@@ -479,9 +486,7 @@ const loadMatrixListener = () => {
     e.preventDefault();
     matrixFunctions.loadMatrix();
     theMatrixStep = matrixFunctions.validateMatrix(theMatrix[0]);
-    const { loopsexecutedanalysis, cellsresolvedanalysis, theMatrixStepanalysis } = matrixFunctions.analyzeMatrix(loopsexecuted, cellsresolved, theMatrixStep);
-    loopsexecuted = loopsexecutedanalysis;
-    cellsresolved = cellsresolvedanalysis;
+    const { theMatrixStepanalysis } = matrixFunctions.analyzeMatrix(theMatrixStep);
     theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStepanalysis));
   });
 };
@@ -491,9 +496,8 @@ const reloadMatrixListener = () => {
   button_reload.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    const { stepReloaded, cellsresolvedReloaded } = matrixFunctions.matrixReloaded(step, cellsresolved, areweshowingnotes, theMatrix[step - 1], stepsinfo);
+    const { stepReloaded } = matrixFunctions.matrixReloaded(step, areweshowingnotes, theMatrix[step - 1], stepsinfo);
     step = stepReloaded;
-    cellsresolved = cellsresolvedReloaded;
   });
 };
 
@@ -503,9 +507,7 @@ const validateMatrixListener = () => {
     // Stop form from reloading the page
     e.preventDefault();
     theMatrixStep = matrixFunctions.validateMatrix(theMatrix[0]);
-    const { loopsexecutedanalysis, cellsresolvedanalysis, theMatrixStepanalysis } = matrixFunctions.analyzeMatrix(loopsexecuted, cellsresolved, theMatrixStep);
-    loopsexecuted = loopsexecutedanalysis;
-    cellsresolved = cellsresolvedanalysis;
+    const {theMatrixStepanalysis } = matrixFunctions.analyzeMatrix(theMatrixStep);
     theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStepanalysis));
   });
 };
@@ -559,28 +561,28 @@ const resolveMatrixListener = () => {
     e.preventDefault();
     singleoptions();
 
-    if (iterationsuccess === false && discardnotessuccess === false) {
+    if (globalVar.iterationSuccess === false && discardnotessuccess === false) {
       hiddensinglessquare();
     };
-    if (iterationsuccess === false && discardnotessuccess === false) {
+    if (globalVar.iterationSuccess === false && discardnotessuccess === false) {
       hiddensinglesrow();
     };
-    if (iterationsuccess === false && discardnotessuccess === false) {
+    if (globalVar.iterationSuccess === false && discardnotessuccess === false) {
       hiddensinglescolumn();
     };
-    if (iterationsuccess === false && discardnotessuccess === false) {
+    if (globalVar.iterationSuccess === false && discardnotessuccess === false) {
       obviouspairsrow();
     };
-    if (iterationsuccess === false && discardnotessuccess === false) {
+    if (globalVar.iterationSuccess === false && discardnotessuccess === false) {
       obviouspairscolumn();
     };
-    if (iterationsuccess === false && discardnotessuccess === false) {
+    if (globalVar.iterationSuccess === false && discardnotessuccess === false) {
       obviouspairssquare();
     };
 
-    iterationsuccess = false;
+    globalVar.iterationSuccess = false;
     discardnotessuccess = false;
-    if (cellsresolved === 81) {
+    if (globalVar.cellsResolved === 81) {
       document.querySelector("#button-resolve").disabled = true;
       document.querySelector("#button-resolve").classList.remove("active");
       document.querySelector("#button-resolve").classList.add("inactive");
@@ -592,11 +594,8 @@ const resolveMatrixListener = () => {
 };
 
 let theMatrix = [[]];
-let loopsexecuted = 0;
-let cellsresolved = 0;
 let step = 0;
 let stepsinfo = []; //Stepsinfo [steptype, Method, [Step detailed info]]
-let iterationsuccess = false;
 let discardnotessuccess = false;
 let areweshowingnotes = false;
 
