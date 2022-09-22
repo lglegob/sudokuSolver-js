@@ -6,6 +6,12 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.1.8 (Global Variables globalVar.js) 2022-09-22
+
+- two more variables (currentStep and discardNoteSuccess) migrated to globalVar.js and corresponding changes in the functions
+
+---
+
 ### Version 0.1.7 (Global Variables globalVar.js) 2022-09-16
 
 - globalVar.js is added to host several real global variables, with this, the process of migrating functions to other files will be easier and cleaner.

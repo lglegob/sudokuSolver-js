@@ -5,7 +5,7 @@
 import globalVar from "./globalVar.js"
 
 // Function to detect when a cell has just 1 option (note)
-const singleoptions = ( theMatrixStep, stepsingleoptions, areweshowingnotes) => {
+const singleoptions = ( theMatrixStep, areweshowingnotes) => {
   let theMatrixStepsingleoptions;
   let stepsinfoStepsingleoptions;
   for (let row = 0; row <= 8; row++) {
@@ -21,8 +21,7 @@ const singleoptions = ( theMatrixStep, stepsingleoptions, areweshowingnotes) => 
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentcellvalue
         globalVar.iterationSuccess = true;
         currentcellvalue = theMatrixStep[row][column].findIndex((one, index) => one === 1 && index > 0);
-        const {stepCellFound, theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(stepsingleoptions, theMatrixStep, row, column, currentcellvalue, areweshowingnotes, "Detecting Singles");
-        stepsingleoptions = stepCellFound;
+        const {theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(theMatrixStep, row, column, currentcellvalue, areweshowingnotes, "Detecting Singles");
         theMatrixStepsingleoptions = JSON.parse(JSON.stringify(theMatrixStepCellFound));
         stepsinfoStepsingleoptions = JSON.parse(JSON.stringify(stepsinfoStepCellFound));
         break;
@@ -30,7 +29,7 @@ const singleoptions = ( theMatrixStep, stepsingleoptions, areweshowingnotes) => 
     };
     if (globalVar.iterationSuccess) break;
   };
-  return { theMatrixStepsingleoptions, stepsinfoStepsingleoptions, stepsingleoptions};
+  return { theMatrixStepsingleoptions, stepsinfoStepsingleoptions};
 };
 
 export { singleoptions };

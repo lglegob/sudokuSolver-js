@@ -85,9 +85,9 @@ const analyzeMatrix = (theMatrixStepanalysis) => {
 };
 
 //Reload the Matrix (html values and notes) based on a previous step
-const matrixReloaded = (stepReloaded, areweshowingnotes, theMatrixDestinedStep, stepsinfo) => {
-  if (stepsinfo[stepReloaded][0] === true) globalVar.cellsResolved--;   
-  stepReloaded--;
+const matrixReloaded = (areweshowingnotes, theMatrixDestinedStep, stepsinfo) => {
+  if (stepsinfo[globalVar.currentStep][0] === true) globalVar.cellsResolved--;   
+  globalVar.currentStep--;
   document.querySelector("#button-resolve").disabled = false;
   document.querySelector("#button-resolve").classList.add("active");
   document.querySelector("#button-resolve").classList.remove("inactive");
@@ -95,7 +95,7 @@ const matrixReloaded = (stepReloaded, areweshowingnotes, theMatrixDestinedStep, 
   document.querySelector("#button-togglenotes").classList.add("active");
   document.querySelector("#button-togglenotes").classList.remove("inactive");
   if (areweshowingnotes === true) recurrent.hideNotes(theMatrixDestinedStep);
-  if (stepReloaded === 0) {
+  if (globalVar.currentStep === 0) {
     document.querySelector("#button-reload").disabled = true;
     document.querySelector("#button-reload").classList.remove("active");
     document.querySelector("#button-reload").classList.add("inactive");
@@ -112,7 +112,6 @@ const matrixReloaded = (stepReloaded, areweshowingnotes, theMatrixDestinedStep, 
     };
   };
   if (areweshowingnotes === true) recurrent.showNotes(theMatrixDestinedStep);
-  return { stepReloaded }
 };
 
 export { createMatrix, loadMatrix, validateMatrix, analyzeMatrix, resetMatrix, matrixReloaded };

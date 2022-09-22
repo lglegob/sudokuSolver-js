@@ -9,9 +9,9 @@ import * as notesZero from "./notesZero.js"
 
 
 //function called each time a new value is found by any method
-const cellvaluefound = ( stepCellFound, theMatrixPreviousStep, row, column, currentcellvalue, areweshowingnotes, method) => {
+const cellvaluefound = ( theMatrixPreviousStep, row, column, currentcellvalue, areweshowingnotes, method) => {
   globalVar.cellsResolved++;
-  stepCellFound++;
+  globalVar.currentStep++;
   let stepsinfoStepCellFound = [true, method, [row, column, currentcellvalue]];
   let theMatrixStepCellFound = JSON.parse(JSON.stringify(theMatrixPreviousStep)); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
@@ -29,7 +29,7 @@ const cellvaluefound = ( stepCellFound, theMatrixPreviousStep, row, column, curr
   let itemrow = row + 1;
   let itemcolumn = column + 1;
   newfoundvalueHTML(itemrow, itemcolumn, currentcellvalue, areweshowingnotes, theMatrixStepCellFound, method);
-  return { stepCellFound, theMatrixStepCellFound, stepsinfoStepCellFound}
+  return { theMatrixStepCellFound, stepsinfoStepCellFound}
 };
 
 const newfoundvalueHTML = (itemrow, itemcolumn, currentcellvalue, areweshowingnotes, theMatrixStep, method) => {
