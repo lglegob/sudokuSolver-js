@@ -6,6 +6,12 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.1.9 (Variable areNotesShowing) 2022-09-22
+
+- one more variable (areNotesShowing) migrated to globalVar.js and corresponding changes in the functions, to control the notes shown or not shown.
+
+---
+
 ### Version 0.1.8 (Global Variables globalVar.js) 2022-09-22
 
 - two more variables (currentStep and discardNoteSuccess) migrated to globalVar.js and corresponding changes in the functions

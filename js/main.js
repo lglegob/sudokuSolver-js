@@ -75,7 +75,7 @@ const singleoptions = () => {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentcellvalue
         globalVar.iterationSuccess = true;
         currentcellvalue = theMatrix[globalVar.currentStep][row][column].findIndex((one, index) => one === 1 && index > 0);
-        const { theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(theMatrix[globalVar.currentStep], row, column, currentcellvalue, areweshowingnotes, "Detecting Singles");
+        const { theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(theMatrix[globalVar.currentStep], row, column, currentcellvalue, "Detecting Singles");
         theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
         stepsinfo[globalVar.currentStep] = JSON.parse(JSON.stringify(stepsinfoStepCellFound));
         break;
@@ -108,7 +108,7 @@ const hiddensinglesrow = () => {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentcellvalue
         globalVar.iterationSuccess = true;
         currentcellvalue = possibleoption;
-        const {theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(theMatrix[globalVar.currentStep], row, columnfound, currentcellvalue, areweshowingnotes, "Detecting Hidden Singles (row)");
+        const {theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(theMatrix[globalVar.currentStep], row, columnfound, currentcellvalue, "Detecting Hidden Singles (row)");
         theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
         stepsinfo[globalVar.currentStep] = JSON.parse(JSON.stringify(stepsinfoStepCellFound));
         break;
@@ -141,7 +141,7 @@ const hiddensinglescolumn = () => {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentcellvalue
         globalVar.iterationSuccess = true;
         currentcellvalue = possibleoption;
-        const {theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(theMatrix[globalVar.currentStep], rowfound, column, currentcellvalue, areweshowingnotes, "Detecting Hidden Singles (column)");
+        const {theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(theMatrix[globalVar.currentStep], rowfound, column, currentcellvalue, "Detecting Hidden Singles (column)");
         theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
         stepsinfo[globalVar.currentStep] = JSON.parse(JSON.stringify(stepsinfoStepCellFound));
         break;
@@ -180,7 +180,7 @@ const hiddensinglessquare = () => {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentcellvalue
         globalVar.iterationSuccess = true;
         currentcellvalue = possibleoption;
-        const {theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(theMatrix[globalVar.currentStep], rowfound, columnfound, currentcellvalue, areweshowingnotes, "Detecting Hidden Singles (square)");
+        const {theMatrixStepCellFound, stepsinfoStepCellFound} = processFunctions.cellvaluefound(theMatrix[globalVar.currentStep], rowfound, columnfound, currentcellvalue, "Detecting Hidden Singles (square)");
         theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
         stepsinfo[globalVar.currentStep] = JSON.parse(JSON.stringify(stepsinfoStepCellFound));
         break;
@@ -254,10 +254,10 @@ const obviouspairsrow = () => {
                 theMatrix[globalVar.currentStep][row][column1][currentcellvalue2] = 1;
                 theMatrix[globalVar.currentStep][row][column2][currentcellvalue1] = 1;
                 theMatrix[globalVar.currentStep][row][column2][currentcellvalue2] = 1;
-                if (areweshowingnotes === true) {
+                if (globalVar.areNotesShowing === true) {
                   recurrent.hideNotes(theMatrix[globalVar.currentStep]);
                 };
-                areweshowingnotes = true;
+                globalVar.areNotesShowing = true;
                 recurrent.showNotes(theMatrix[globalVar.currentStep]);
                 globalVar.discardNoteSuccess = true;
                 discardedvalue("row", row, "column", column1, column2, currentcellvalue1, currentcellvalue2, "Detecting Obvious Pair (Row)");
@@ -336,10 +336,10 @@ const obviouspairscolumn = () => {
                 theMatrix[globalVar.currentStep][row1][column][currentcellvalue2] = 1;
                 theMatrix[globalVar.currentStep][row2][column][currentcellvalue1] = 1;
                 theMatrix[globalVar.currentStep][row2][column][currentcellvalue2] = 1;
-                if (areweshowingnotes === true) {
+                if (globalVar.areNotesShowing === true) {
                   recurrent.hideNotes(theMatrix[globalVar.currentStep]);
                   };
-                areweshowingnotes = true;
+                globalVar.areNotesShowing = true;
                 recurrent.showNotes(theMatrix[globalVar.currentStep]);
                 globalVar.discardNoteSuccess = true;
                 discardedvalue("column", column, "row", row1, row2, currentcellvalue1, currentcellvalue2, "Detecting Obvious Pair (Column)");
@@ -430,10 +430,10 @@ const obviouspairssquare = () => {
                 theMatrix[globalVar.currentStep][realrow1][realcolumn1][currentcellvalue2] = 1;
                 theMatrix[globalVar.currentStep][realrow2][realcolumn2][currentcellvalue1] = 1;
                 theMatrix[globalVar.currentStep][realrow2][realcolumn2][currentcellvalue2] = 1;
-                if (areweshowingnotes === true) {
+                if (globalVar.areNotesShowing === true) {
                   recurrent.hideNotes(theMatrix[globalVar.currentStep]);
                   };
-                areweshowingnotes = true;
+                globalVar.areNotesShowing = true;
                 recurrent.showNotes(theMatrix[globalVar.currentStep]);
                 globalVar.discardNoteSuccess = true;
                 discardedvalue("square", square - 1, "row", realrow1, realrow2, currentcellvalue1, currentcellvalue2, "Detecting Obvious Pair (Square)");
@@ -491,7 +491,7 @@ const reloadMatrixListener = () => {
   button_reload.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    matrixFunctions.matrixReloaded(areweshowingnotes, theMatrix[globalVar.currentStep - 1], stepsinfo);
+    matrixFunctions.matrixReloaded(theMatrix[globalVar.currentStep - 1], stepsinfo);
   });
 };
 
@@ -520,11 +520,11 @@ const toggleNotesListener = () => {
   button_togglenotes.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    if (areweshowingnotes === false) {
-      areweshowingnotes = true;
+    if (globalVar.areNotesShowing === false) {
+      globalVar.areNotesShowing = true;
       recurrent.showNotes(theMatrix[globalVar.currentStep]);
     } else {
-      areweshowingnotes = false;
+      globalVar.areNotesShowing = false;
       recurrent.hideNotes(theMatrix[globalVar.currentStep]);
     };
   });
@@ -589,7 +589,6 @@ const resolveMatrixListener = () => {
 
 let theMatrix = [[]];
 let stepsinfo = []; //Stepsinfo [steptype, Method, [Step detailed info]]
-let areweshowingnotes = false;
 
 //Initial state defined in the html, no need to change classes
 document.querySelector("#button-validate").disabled = true

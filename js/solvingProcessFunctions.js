@@ -9,7 +9,7 @@ import * as notesZero from "./notesZero.js"
 
 
 //function called each time a new value is found by any method
-const cellvaluefound = ( theMatrixPreviousStep, row, column, currentcellvalue, areweshowingnotes, method) => {
+const cellvaluefound = ( theMatrixPreviousStep, row, column, currentcellvalue, method) => {
   globalVar.cellsResolved++;
   globalVar.currentStep++;
   let stepsinfoStepCellFound = [true, method, [row, column, currentcellvalue]];
@@ -18,7 +18,7 @@ const cellvaluefound = ( theMatrixPreviousStep, row, column, currentcellvalue, a
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
-  if (areweshowingnotes === true)  recurrent.hideNotes(theMatrixStepCellFound);
+  if (globalVar.areNotesShowing === true)  recurrent.hideNotes(theMatrixStepCellFound);
   // here the currentcellvalue is set in theMatrix variable, and the corresponding notes in the cells of the same row, column and squatre deleted
   theMatrixStepCellFound[row][column] = [currentcellvalue, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   let theMatrixStep = notesZero.noteZeroRow(row, currentcellvalue, theMatrixStepCellFound);
@@ -28,11 +28,11 @@ const cellvaluefound = ( theMatrixPreviousStep, row, column, currentcellvalue, a
   // here the foundvalue is set in the html document to be shown, by calling the function newfoundvalueHTML
   let itemrow = row + 1;
   let itemcolumn = column + 1;
-  newfoundvalueHTML(itemrow, itemcolumn, currentcellvalue, areweshowingnotes, theMatrixStepCellFound, method);
+  newfoundvalueHTML(itemrow, itemcolumn, currentcellvalue, theMatrixStepCellFound, method);
   return { theMatrixStepCellFound, stepsinfoStepCellFound}
 };
 
-const newfoundvalueHTML = (itemrow, itemcolumn, currentcellvalue, areweshowingnotes, theMatrixStep, method) => {
+const newfoundvalueHTML = (itemrow, itemcolumn, currentcellvalue, theMatrixStep, method) => {
   console.log(`the value in row ${itemrow}, column ${itemcolumn} is ${currentcellvalue} by ${method} method`);
   document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", currentcellvalue);
   let newfoundvalueArticle = document.createElement("article");
@@ -44,7 +44,7 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentcellvalue, areweshowingno
   const main = document.querySelector(".found-values > div");
   main.prepend(newfoundvalueArticle);
   console.log(globalVar.loopsExecuted);
-  if (areweshowingnotes === true) recurrent.showNotes(theMatrixStep);
+  if (globalVar.areNotesShowing === true) recurrent.showNotes(theMatrixStep);
 };
 
 export { cellvaluefound, newfoundvalueHTML };
