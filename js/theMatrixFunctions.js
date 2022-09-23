@@ -17,7 +17,7 @@ const createMatrix = () => {
       theMatrixStep[row][column] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     };
   };
-  return theMatrixStep;
+  globalVar.theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStep));
 };
 
 const loadMatrix = () => {

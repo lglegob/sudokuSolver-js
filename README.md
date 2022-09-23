@@ -6,6 +6,18 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.2.1 (eventListeners.js file) 2022-09-23
+
+- EventListeners taken to a new file (eventListeners.js) for simplicity of the main.js file
+
+---
+
+### Version 0.2.0 (Branch Merge convertMatrixes) 2022-09-23
+
+- convertMatrixes branch changes integrated to main branch.
+
+---
+
 ### Version 0.1.9a (Branch convertMatrixes Matrix Variables) 2022-09-23
 
 - theMatrix and stepsDetail variables moved to globalVar.js file
