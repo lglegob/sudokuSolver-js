@@ -1,19 +1,18 @@
 'use strict';
+import globalVar from "./globalVar.js";
+import * as recurrent from "./theRecurrentFunctions.js";
+import * as notesZero from "./notesZero.js";
+
 ////////////////////////////////////////////////////////////////////////////////
 //                      SOLVING PROCESSES FUNCTIONS                          //
 //////////////////////////////////////////////////////////////////////////////
 
-import globalVar from "./globalVar.js";
-import * as recurrent from "./theRecurrentFunctions.js"
-import * as notesZero from "./notesZero.js"
-
-
 //function called each time a new value is found by any method
-const cellvaluefound = ( theMatrixPreviousStep, row, column, currentcellvalue, method) => {
+const cellvaluefound = (row, column, currentcellvalue, method) => {
   globalVar.cellsResolved++;
   globalVar.currentStep++;
-  let stepsinfoStepCellFound = [true, method, [row, column, currentcellvalue]];
-  let theMatrixStepCellFound = JSON.parse(JSON.stringify(theMatrixPreviousStep)); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
+  globalVar.stepsDetail[globalVar.currentStep] = [true, method, [row, column, currentcellvalue]];
+  let theMatrixStepCellFound = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
@@ -29,7 +28,7 @@ const cellvaluefound = ( theMatrixPreviousStep, row, column, currentcellvalue, m
   let itemrow = row + 1;
   let itemcolumn = column + 1;
   newfoundvalueHTML(itemrow, itemcolumn, currentcellvalue, theMatrixStepCellFound, method);
-  return { theMatrixStepCellFound, stepsinfoStepCellFound}
+  return { theMatrixStepCellFound}
 };
 
 const newfoundvalueHTML = (itemrow, itemcolumn, currentcellvalue, theMatrixStep, method) => {

@@ -6,6 +6,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.1.9a (Branch convertMatrixes Matrix Variables) 2022-09-23
+
+- theMatrix and stepsDetail variables moved to globalVar.js file
+- Solving Techniques Functions moved to solvingTechniques.js file
+- discarding functions were moved to a new file (discradingTechniques.js)
+- With the changes made since v0.1.1 (when the javascript was contained in just one file) main.js file was reduced from more than 900 lines to 146 lines, and disagragated in several lines for organization and code cleanliness.
+
+---
+
 ### Version 0.1.9 (Variable areNotesShowing) 2022-09-22
 
 - one more variable (areNotesShowing) migrated to globalVar.js and corresponding changes in the functions, to control the notes shown or not shown.
