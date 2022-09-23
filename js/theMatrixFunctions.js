@@ -1,12 +1,12 @@
 'use strict';
+import sudokuvalues_expert02 from "./data.js";
+import globalVar from "./globalVar.js";
+import * as notesZero from "./notesZero.js";
+import * as recurrent from "./theRecurrentFunctions.js";
+
 ////////////////////////////////////////////////////////////////////////////////
 //                            MATRIX FUNCTIONS                               //
 //////////////////////////////////////////////////////////////////////////////
-
-import sudokuvalues_expert02 from "./data.js";
-import globalVar from "./globalVar.js";
-import * as notesZero from "./notesZero.js"
-import * as recurrent from "./theRecurrentFunctions.js"
 
 const createMatrix = () => {
   console.log("Wake Up, Neo...")
@@ -85,8 +85,8 @@ const analyzeMatrix = (theMatrixStepanalysis) => {
 };
 
 //Reload the Matrix (html values and notes) based on a previous step
-const matrixReloaded = (theMatrixDestinedStep, stepsinfo) => {
-  if (stepsinfo[globalVar.currentStep][0] === true) globalVar.cellsResolved--;   
+const matrixReloaded = (theMatrixDestinedStep) => {
+  if (globalVar.stepsDetail[globalVar.currentStep][0] === true) globalVar.cellsResolved--;   
   globalVar.currentStep--;
   document.querySelector("#button-resolve").disabled = false;
   document.querySelector("#button-resolve").classList.add("active");

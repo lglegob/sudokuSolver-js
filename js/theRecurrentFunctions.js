@@ -1,4 +1,8 @@
 'use strict';
+////////////////////////////////////////////////////////////////////////////////
+//                         RECURRENT FUNCTIONS                               //
+//////////////////////////////////////////////////////////////////////////////
+
 //Here, it is defined depending of the current cell in analysis, the range of rows and columns to evaluate
 const defineSquareCoordinatesRC = (row, column) => {
   let fromrow;
