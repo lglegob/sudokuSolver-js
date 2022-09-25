@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.2.3 (Bug Resolution) 2022-09-24
+
+- Bug introduced by previous feature added has been fixed
+- The functionality to go back one step stopped working, now the update of values when using going back one step function uses this method: "document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").value" instead of modifying the attribute
+- A new Alert has been added in those cases when the Sudoku cannot be solved.
+
+---
+
 ### Version 0.2.2 (Manual Sudoku ingress) 2022-09-24
 
 - A new process to ingress the Sudoku by a string of 81 characteres is added with prompt and alert functionality, this also includes a new EventListener and a new function (matrixFunctions.loadMatrixManually)

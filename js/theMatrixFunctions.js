@@ -30,7 +30,7 @@ const loadMatrix = () => {
 };
 
 const loadMatrixManually = () => {
-  let newLine = "\r\n"
+  let newLine = "\r\n";
   let prompttext = "INSTRUCTIONS";
   prompttext += newLine;
   prompttext += "Introduce your Sudoku puzzle as a series of 81 digits between 0 and 9.";
@@ -160,9 +160,11 @@ const matrixReloaded = (theMatrixDestinedStep) => {
       let itemrow = row + 1;
       let itemcolumn = column + 1;
       if (theMatrixDestinedStep[row][column][0] !== 0) {
-        document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", theMatrixDestinedStep[row][column][0]);
+        // document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", theMatrixDestinedStep[row][column][0]);
+        document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").value = theMatrixDestinedStep[row][column][0];
       } else {
-        document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", "");
+        // document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", "");
+        document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").value = "";
       };
     };
   };

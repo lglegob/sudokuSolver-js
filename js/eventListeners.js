@@ -122,6 +122,17 @@ const resolveMatrixListener = () => {
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
       discardingTechniques.obviousPairsSquare();
     };
+    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+      let newLine = "\r\n";
+      let prompttext = "WE ARE SORRY! :(";
+      prompttext += newLine;
+      prompttext += "We are not able to advance more in the resolution of this Sudoku Puzzle.";
+      prompttext += newLine;
+      prompttext += "However, we are in the process of adding new advance solving techniques to crack this kind of difficult puzzles.";
+      prompttext += newLine;
+      prompttext += "Please help us by sending us your puzzle as originally ingressed to leonardogonzalezbello@gmail.com";
+      alert (prompttext);
+    }
 
     globalVar.iterationSuccess = false;
     globalVar.discardNoteSuccess = false;
