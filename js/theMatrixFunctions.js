@@ -24,6 +24,51 @@ const loadMatrix = () => {
   for (let cellvalue = 0; cellvalue < sudokuvalues_expert02.length; cellvalue++) {
     document.querySelector(".row" + sudokuvalues_expert02[cellvalue][0] + ".column" + sudokuvalues_expert02[cellvalue][1] + " input").setAttribute("value", sudokuvalues_expert02[cellvalue][2]);
   };
+  let theMatrixStep = validateMatrix(globalVar.theMatrix[0]);
+  const { theMatrixStepanalysis } = analyzeMatrix(theMatrixStep);
+  globalVar.theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStepanalysis));
+};
+
+const loadMatrixManually = () => {
+  let newLine = "\r\n"
+  let prompttext = "INSTRUCTIONS";
+  prompttext += newLine;
+  prompttext += "Introduce your Sudoku puzzle as a series of 81 digits between 0 and 9.";
+  prompttext += newLine;
+  prompttext += "0 or any different character means empty.";
+  prompttext += newLine;
+  prompttext += "Less than 81 will be filled with empty cells";
+  prompttext += newLine;
+  prompttext += "More than 81 will be discarded";
+  let manualMatrixValues = prompt(prompttext, "--4---7-38--9-2----3--------891-----5-------8-----926--------2----8-4--56-5---1--")
+  console.log(`La cadena que ingresaste fue: ${manualMatrixValues}`)
+  console.log(`lenght is: ${manualMatrixValues.length}`)
+  if (manualMatrixValues.length >= 17) {
+    let howManyDigits = 0;
+    for (let cellCounter = 0; cellCounter < Math.min(manualMatrixValues.length, 81); cellCounter++) {
+      let row = Math.floor(cellCounter / 9) + 1;
+      let column = (cellCounter % 9) + 1;
+      let cellValue = manualMatrixValues.charAt(cellCounter);
+      if (cellValue > 0 && cellValue <=9) {
+        howManyDigits++;
+        console.log(`Value at row ${row}, column ${column} is ${cellValue}`);
+        document.querySelector(".row" + row + ".column" + column + " input").setAttribute("value", cellValue);
+      } else {
+        //In case the user had inserted any value in the inputs
+        document.querySelector(".row" + row + ".column" + column + " input").value = "";
+      } 
+    };
+    if (howManyDigits < 17) {
+      alert("Ingress at least 17 digits different than zero, Not enough Digits");
+      resetMatrix();
+    } else {
+      let theMatrixStep = validateMatrix(globalVar.theMatrix[0]);
+      const { theMatrixStepanalysis } = analyzeMatrix(theMatrixStep);
+      globalVar.theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStepanalysis));
+    }
+  } else {
+    alert("Ingress at least 17 digits different than zero, Not enough Digits");
+  };
 };
 
 //Get the values from the form input into the Matrix
@@ -60,27 +105,37 @@ const analyzeMatrix = (theMatrixStepanalysis) => {
         theMatrixStepanalysis = notesZero.noteZeroColumn(column, currentcellvalue, theMatrixStepanalysis);
         theMatrixStepanalysis = notesZero.noteZeroSquare(row, column, currentcellvalue, theMatrixStepanalysis);
         globalVar.cellsResolved++;
+        console.log("--------------------------------------------");
         console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
         console.log(`the value in row ${row+1}, column ${column+1} is ${currentcellvalue}`);
       };
     };
   };
-  document.querySelector("#button-load").disabled = true;
-  document.querySelector("#button-load").classList.remove("active");
-  document.querySelector("#button-load").classList.add("inactive");
-  document.querySelector("#button-validate").disabled = true;
-  document.querySelector("#button-validate").classList.remove("active");
-  document.querySelector("#button-validate").classList.add("inactive");
-  document.querySelector("#button-resolve").disabled = false;
-  document.querySelector("#button-resolve").classList.add("active");
-  document.querySelector("#button-resolve").classList.remove("inactive");
-  document.querySelector("#button-togglenotes").disabled = false;
-  document.querySelector("#button-togglenotes").classList.add("active");
-  document.querySelector("#button-togglenotes").classList.remove("inactive");
-  document.querySelector("#button-reset").disabled = false;
-  document.querySelector("#button-reset").classList.add("active");
-  document.querySelector("#button-reset").classList.remove("inactive");
-  console.log("The Matrix has you...")
+  if (globalVar.cellsResolved >= 17) {
+    document.querySelector("#button-load").disabled = true;
+    document.querySelector("#button-load").classList.remove("active");
+    document.querySelector("#button-load").classList.add("inactive");
+    document.querySelector("#button-loadmanually").disabled = true;
+    document.querySelector("#button-loadmanually").classList.remove("active");
+    document.querySelector("#button-loadmanually").classList.add("inactive");
+    document.querySelector("#button-validate").disabled = true;
+    document.querySelector("#button-validate").classList.remove("active");
+    document.querySelector("#button-validate").classList.add("inactive");
+    document.querySelector("#button-resolve").disabled = false;
+    document.querySelector("#button-resolve").classList.add("active");
+    document.querySelector("#button-resolve").classList.remove("inactive");
+    document.querySelector("#button-togglenotes").disabled = false;
+    document.querySelector("#button-togglenotes").classList.add("active");
+    document.querySelector("#button-togglenotes").classList.remove("inactive");
+    document.querySelector("#button-reset").disabled = false;
+    document.querySelector("#button-reset").classList.add("active");
+    document.querySelector("#button-reset").classList.remove("inactive");
+    console.log("--------------------------------------------");
+    console.log("The Matrix has you...")
+  } else {
+    globalVar.cellsResolved = 0;
+    alert("Ingress at least 17 digits different than zero, Not enough Digits");
+  }
   return { theMatrixStepanalysis };
 };
 
@@ -114,4 +169,4 @@ const matrixReloaded = (theMatrixDestinedStep) => {
   if (globalVar.areNotesShowing === true) recurrent.showNotes(theMatrixDestinedStep);
 };
 
-export { createMatrix, loadMatrix, validateMatrix, analyzeMatrix, resetMatrix, matrixReloaded };
+export { createMatrix, loadMatrix, loadMatrixManually, validateMatrix, analyzeMatrix, resetMatrix, matrixReloaded };

@@ -22,5 +22,6 @@ eventListeners.resetMatrixListener();
 eventListeners.resolveMatrixListener();
 eventListeners.reloadMatrixListener();
 eventListeners.loadMatrixListener();
+eventListeners.loadMatrixManuallyListener();
 eventListeners.toggleNotesListener();
 eventListeners.inputCellsListener();

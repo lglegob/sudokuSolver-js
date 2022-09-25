@@ -11,6 +11,7 @@ import * as discardingTechniques from "./discardingTechniques.js";
 
 // definining elements for Event Listeners
 const button_load = document.querySelector("#button-load");
+const button_loadmanually = document.querySelector("#button-loadmanually");
 const button_validate = document.querySelector("#button-validate");
 const button_resolve = document.querySelector("#button-resolve");
 const button_reset = document.querySelector("#button-reset");
@@ -24,9 +25,14 @@ const loadMatrixListener = () => {
     // Stop form from reloading the page
     e.preventDefault();
     matrixFunctions.loadMatrix();
-    let theMatrixStep = matrixFunctions.validateMatrix(globalVar.theMatrix[0]);
-    const { theMatrixStepanalysis } = matrixFunctions.analyzeMatrix(theMatrixStep);
-    globalVar.theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStepanalysis));
+  });
+};
+
+const loadMatrixManuallyListener = () => {
+  button_loadmanually.addEventListener("click", (e) => {
+    // Stop form from reloading the page
+    e.preventDefault();
+    matrixFunctions.loadMatrixManually();
   });
 };
 
@@ -130,4 +136,4 @@ const resolveMatrixListener = () => {
   });
 };
 
-export { loadMatrixListener, reloadMatrixListener, validateMatrixListener, resetMatrixListener, toggleNotesListener, inputCellsListener, resolveMatrixListener }
+export { loadMatrixListener, loadMatrixManuallyListener, reloadMatrixListener, validateMatrixListener, resetMatrixListener, toggleNotesListener, inputCellsListener, resolveMatrixListener }

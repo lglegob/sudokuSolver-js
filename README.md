@@ -6,6 +6,12 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.2.2 (Manual Sudoku ingress) 2022-09-24
+
+- A new process to ingress the Sudoku by a string of 81 characteres is added with prompt and alert functionality, this also includes a new EventListener and a new function (matrixFunctions.loadMatrixManually)
+
+---
+
 ### Version 0.2.1 (eventListeners.js file) 2022-09-23
 
 - EventListeners taken to a new file (eventListeners.js) for simplicity of the main.js file

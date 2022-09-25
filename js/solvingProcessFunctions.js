@@ -13,7 +13,6 @@ const cellvaluefound = (row, column, currentcellvalue, method) => {
   globalVar.currentStep++;
   globalVar.stepsDetail[globalVar.currentStep] = [true, method, [row, column, currentcellvalue]];
   let theMatrixStepCellFound = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
-  console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
@@ -32,8 +31,12 @@ const cellvaluefound = (row, column, currentcellvalue, method) => {
 };
 
 const newfoundvalueHTML = (itemrow, itemcolumn, currentcellvalue, theMatrixStep, method) => {
+  console.log("--------------------------------------------");
+  console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
+  console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);
   console.log(`the value in row ${itemrow}, column ${itemcolumn} is ${currentcellvalue} by ${method} method`);
-  document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", currentcellvalue);
+  // document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", currentcellvalue);
+  document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").value = currentcellvalue;
   let newfoundvalueArticle = document.createElement("article");
   newfoundvalueArticle.classList.add("newfoundvalue");
   // newfoundvalueArticle.setAttribute("id", DEFINE-ID);
@@ -42,7 +45,6 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentcellvalue, theMatrixStep,
   `;
   const main = document.querySelector(".found-values > div");
   main.prepend(newfoundvalueArticle);
-  console.log(globalVar.loopsExecuted);
   if (globalVar.areNotesShowing === true) recurrent.showNotes(theMatrixStep);
 };
 
