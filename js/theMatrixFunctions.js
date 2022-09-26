@@ -1,5 +1,4 @@
 'use strict';
-import sudokuvalues_expert02 from "./data.js";
 import globalVar from "./globalVar.js";
 import * as notesZero from "./notesZero.js";
 import * as recurrent from "./theRecurrentFunctions.js";
@@ -20,35 +19,15 @@ const createMatrix = () => {
   globalVar.theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStep));
 };
 
-const loadMatrix = () => {
-  for (let cellvalue = 0; cellvalue < sudokuvalues_expert02.length; cellvalue++) {
-    document.querySelector(".row" + sudokuvalues_expert02[cellvalue][0] + ".column" + sudokuvalues_expert02[cellvalue][1] + " input").setAttribute("value", sudokuvalues_expert02[cellvalue][2]);
-  };
-  let theMatrixStep = validateMatrix(globalVar.theMatrix[0]);
-  const { theMatrixStepanalysis } = analyzeMatrix(theMatrixStep);
-  globalVar.theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStepanalysis));
-};
-
-const loadMatrixManually = () => {
-  let newLine = "\r\n";
-  let prompttext = "INSTRUCTIONS";
-  prompttext += newLine;
-  prompttext += "Introduce your Sudoku puzzle as a series of 81 digits between 0 and 9.";
-  prompttext += newLine;
-  prompttext += "0 or any different character means empty.";
-  prompttext += newLine;
-  prompttext += "Less than 81 will be filled with empty cells";
-  prompttext += newLine;
-  prompttext += "More than 81 will be discarded";
-  let manualMatrixValues = prompt(prompttext, "--4---7-38--9-2----3--------891-----5-------8-----926--------2----8-4--56-5---1--")
-  console.log(`La cadena que ingresaste fue: ${manualMatrixValues}`)
-  console.log(`lenght is: ${manualMatrixValues.length}`)
-  if (manualMatrixValues.length >= 17) {
+const loadMatrix = (initialMatrixValues) => {
+  console.log(`La cadena que ingresaste fue: ${initialMatrixValues}`)
+  console.log(`lenght is: ${initialMatrixValues.length}`)
+  if (initialMatrixValues.length >= 17) {
     let howManyDigits = 0;
-    for (let cellCounter = 0; cellCounter < Math.min(manualMatrixValues.length, 81); cellCounter++) {
+    for (let cellCounter = 0; cellCounter < Math.min(initialMatrixValues.length, 81); cellCounter++) {
       let row = Math.floor(cellCounter / 9) + 1;
       let column = (cellCounter % 9) + 1;
-      let cellValue = manualMatrixValues.charAt(cellCounter);
+      let cellValue = initialMatrixValues.charAt(cellCounter);
       if (cellValue > 0 && cellValue <=9) {
         howManyDigits++;
         console.log(`Value at row ${row}, column ${column} is ${cellValue}`);
@@ -69,6 +48,21 @@ const loadMatrixManually = () => {
   } else {
     alert("Ingress at least 17 digits different than zero, Not enough Digits");
   };
+};
+
+const loadMatrixManually = () => {
+  let newLine = "\r\n";
+  let prompttext = "INSTRUCTIONS";
+  prompttext += newLine;
+  prompttext += "Introduce your Sudoku puzzle as a series of 81 digits between 0 and 9.";
+  prompttext += newLine;
+  prompttext += "0 or any different character means empty.";
+  prompttext += newLine;
+  prompttext += "Less than 81 will be filled with empty cells";
+  prompttext += newLine;
+  prompttext += "More than 81 will be discarded";
+  let manualMatrixValues = prompt(prompttext, "--4---7-38--9-2----3--------891-----5-------8-----926--------2----8-4--56-5---1--")
+  loadMatrix(manualMatrixValues);
 };
 
 //Get the values from the form input into the Matrix
@@ -103,7 +97,7 @@ const analyzeMatrix = (theMatrixStepanalysis) => {
         theMatrixStepanalysis[row][column] = [currentcellvalue, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         theMatrixStepanalysis = notesZero.noteZeroRow(row, currentcellvalue, theMatrixStepanalysis);
         theMatrixStepanalysis = notesZero.noteZeroColumn(column, currentcellvalue, theMatrixStepanalysis);
-        theMatrixStepanalysis = notesZero.noteZeroSquare(row, column, currentcellvalue, theMatrixStepanalysis);
+        theMatrixStepanalysis = notesZero.noteZeroSquareRC(row, column, currentcellvalue, theMatrixStepanalysis);
         globalVar.cellsResolved++;
         console.log("--------------------------------------------");
         console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);

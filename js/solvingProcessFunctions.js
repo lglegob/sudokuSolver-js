@@ -21,7 +21,7 @@ const cellvaluefound = (row, column, currentcellvalue, method) => {
   theMatrixStepCellFound[row][column] = [currentcellvalue, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   let theMatrixStep = notesZero.noteZeroRow(row, currentcellvalue, theMatrixStepCellFound);
   theMatrixStep = notesZero.noteZeroColumn(column, currentcellvalue, theMatrixStep);
-  theMatrixStep = notesZero.noteZeroSquare(row, column, currentcellvalue, theMatrixStep);
+  theMatrixStep = notesZero.noteZeroSquareRC(row, column, currentcellvalue, theMatrixStep);
   theMatrixStepCellFound = JSON.parse(JSON.stringify(theMatrixStep));
   // here the foundvalue is set in the html document to be shown, by calling the function newfoundvalueHTML
   let itemrow = row + 1;

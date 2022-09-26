@@ -1,5 +1,4 @@
 'use strict';
-import globalVar from "./globalVar.js";
 import * as matrixFunctions from "./theMatrixFunctions.js";
 import * as eventListeners from "./eventListeners.js";
 

@@ -12,8 +12,8 @@
 // Nested Loops
 // DONE Second Step - check cells with just one note
 // DONE Third Step - hidden singles - check rows, columns and squares where any number appears just once
-// Fourth Step - check numbers per row and column, that appear only in one of the squares, and delete the possibilities in any other cell in the square
-// DONE Fifth step - check for obvious pairs per row, column and square
+// DONE Fourth step - check for obvious pairs per row, column and square
+// Fifth Step - check numbers per row and column, that appear only in one of the squares, and delete the possibilities in any other cell in the square
 // Sixth Step - hidden pairs - square
 // Sixth Step - Obvious Triples (even with doubles)
 
@@ -22,13 +22,13 @@ import * as recurrent from "./theRecurrentFunctions.js"
 import * as processFunctions from "./solvingProcessFunctions.js"
 
 
-// Function to detect when a cell has just 1 option (note)
-const singleOptions = () => {
+// Function to detect when a cell has just 1 candidate (note)
+const singleCandidate = () => {
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
       globalVar.loopsExecuted++;
       let currentcellvalue = globalVar.theMatrix[globalVar.currentStep][row][column][0];
-      //method reduce to obtain the sum of the options in this cell
+      //method reduce to obtain the sum of the candidates in this cell
       const sum = globalVar.theMatrix[globalVar.currentStep][row][column].reduce(add, 0);
         function add(accumulator, a) {
           return accumulator + a;
@@ -49,7 +49,7 @@ const singleOptions = () => {
 // Function to detect when a row has a possible value just in one of the 9 cells
 const hiddenSinglesRow = () => {
   for (let row = 0; row <= 8; row++) {
-    for (let possibleoption = 1; possibleoption <=9; possibleoption++) {
+    for (let possiblecandidate = 1; possiblecandidate <=9; possiblecandidate++) {
       let ishiddensingle = 0;
       let currentcellvalue;
       let columnfound;
@@ -57,8 +57,8 @@ const hiddenSinglesRow = () => {
         globalVar.loopsExecuted++;
         currentcellvalue = globalVar.theMatrix[globalVar.currentStep][row][column][0];
         //this if evalutes the cell does not have a solved value yet and that the possiblevalue in evaluation is present in this cell
-        if (currentcellvalue === 0 && globalVar.theMatrix[globalVar.currentStep][row][column][possibleoption] === 1) {
-          //This cell has not yet been resolved, it sums the values of each option position to find a hidden single
+        if (currentcellvalue === 0 && globalVar.theMatrix[globalVar.currentStep][row][column][possiblecandidate] === 1) {
+          //This cell has not yet been resolved, it sums the values of each candidate position to find a hidden single
           ishiddensingle++;
           // si ya existen mas de una celda con el possiblevalue, salir del loop y pasar al siguiente possiblevalue
           if (ishiddensingle > 1) break;
@@ -68,7 +68,7 @@ const hiddenSinglesRow = () => {
       if (ishiddensingle === 1) {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentcellvalue
         globalVar.iterationSuccess = true;
-        currentcellvalue = possibleoption;
+        currentcellvalue = possiblecandidate;
         const {theMatrixStepCellFound} = processFunctions.cellvaluefound(row, columnfound, currentcellvalue, "Detecting Hidden Singles (row)");
         globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
         break;
@@ -81,7 +81,7 @@ const hiddenSinglesRow = () => {
 // Function to detect when a column has a possible value just in one of the 9 cells
 const hiddenSinglesColumn = () => {
   for (let column = 0; column <= 8; column++) {
-    for (let possibleoption = 1; possibleoption <=9; possibleoption++) {
+    for (let possiblecandidate = 1; possiblecandidate <=9; possiblecandidate++) {
       let ishiddensingle = 0;
       let currentcellvalue;
       let rowfound;
@@ -89,8 +89,8 @@ const hiddenSinglesColumn = () => {
         globalVar.loopsExecuted++;
         currentcellvalue = globalVar.theMatrix[globalVar.currentStep][row][column][0];
         //this if evalutes the cell does not have a solved value yet and that the possiblevalue in evaluation is present in this cell
-        if (currentcellvalue === 0 && globalVar.theMatrix[globalVar.currentStep][row][column][possibleoption] === 1) {
-          //This cell has not yet been resolved, it sums the values of each option position to find a hidden single
+        if (currentcellvalue === 0 && globalVar.theMatrix[globalVar.currentStep][row][column][possiblecandidate] === 1) {
+          //This cell has not yet been resolved, it sums the values of each candidate position to find a hidden single
           ishiddensingle++;
           // si ya existen mas de una celda con el possiblevalue, salir del loop y pasar al siguiente possiblevalue
           if (ishiddensingle > 1) break;
@@ -100,7 +100,7 @@ const hiddenSinglesColumn = () => {
       if (ishiddensingle === 1) {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentcellvalue
         globalVar.iterationSuccess = true;
-        currentcellvalue = possibleoption;
+        currentcellvalue = possiblecandidate;
         const {theMatrixStepCellFound} = processFunctions.cellvaluefound(rowfound, column, currentcellvalue, "Detecting Hidden Singles (column)");
         globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
         break;
@@ -114,7 +114,7 @@ const hiddenSinglesColumn = () => {
 const hiddenSinglesSquare = () => {
   for (let square = 1; square <= 9; square++) {
     const { fromrow, maximumrow, fromcolumn, maximumcolumn } = recurrent.defineSquareCoordinatesSQ(square);
-    for (let possibleoption = 1; possibleoption <=9; possibleoption++) {
+    for (let possiblecandidate = 1; possiblecandidate <=9; possiblecandidate++) {
       let ishiddensingle = 0;
       let currentcellvalue;
       let rowfound;
@@ -124,8 +124,8 @@ const hiddenSinglesSquare = () => {
           globalVar.loopsExecuted++;
           currentcellvalue = globalVar.theMatrix[globalVar.currentStep][square_row][square_column][0];
           //this if evalutes the cell does not have a solved value yet and that the possiblevalue in evaluation is present in this cell
-          if (currentcellvalue === 0 && globalVar.theMatrix[globalVar.currentStep][square_row][square_column][possibleoption] === 1) {
-            //This cell has not yet been resolved, it sums the values of each option position to find a hidden single
+          if (currentcellvalue === 0 && globalVar.theMatrix[globalVar.currentStep][square_row][square_column][possiblecandidate] === 1) {
+            //This cell has not yet been resolved, it sums the values of each candidate position to find a hidden single
             ishiddensingle++;
             // si ya existen mas de una celda con el possiblevalue, salir del loop y pasar al siguiente possiblevalue
             if (ishiddensingle > 1) break;
@@ -138,7 +138,7 @@ const hiddenSinglesSquare = () => {
       if (ishiddensingle === 1) {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentcellvalue
         globalVar.iterationSuccess = true;
-        currentcellvalue = possibleoption;
+        currentcellvalue = possiblecandidate;
         const {theMatrixStepCellFound} = processFunctions.cellvaluefound(rowfound, columnfound, currentcellvalue, "Detecting Hidden Singles (square)");
         globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
         break;
@@ -149,4 +149,4 @@ const hiddenSinglesSquare = () => {
   };
 };
 
-export { singleOptions, hiddenSinglesRow, hiddenSinglesColumn, hiddenSinglesSquare };
+export { singleCandidate, hiddenSinglesRow, hiddenSinglesColumn, hiddenSinglesSquare };

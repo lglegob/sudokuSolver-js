@@ -1,5 +1,6 @@
 'use strict';
 import globalVar from "./globalVar.js";
+import initialMatrixpuzzle from "./data.js";
 import * as recurrent from "./theRecurrentFunctions.js";
 import * as matrixFunctions from "./theMatrixFunctions.js";
 import * as solvingTechniques from "./solvingTechniques.js";
@@ -24,7 +25,7 @@ const loadMatrixListener = () => {
   button_load.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    matrixFunctions.loadMatrix();
+    matrixFunctions.loadMatrix(initialMatrixpuzzle.hard02str);
   });
 };
 
@@ -87,6 +88,9 @@ const inputCellsListener = () => {
       document.querySelector("#button-load").disabled = true;
       document.querySelector("#button-load").classList.remove("active");
       document.querySelector("#button-load").classList.add("inactive");
+      document.querySelector("#button-loadmanually").disabled = true;
+      document.querySelector("#button-loadmanually").classList.remove("active");
+      document.querySelector("#button-loadmanually").classList.add("inactive");
       document.querySelector("#button-validate").disabled = false;
       document.querySelector("#button-validate").classList.add("active");
       document.querySelector("#button-validate").classList.remove("inactive");
@@ -102,7 +106,7 @@ const resolveMatrixListener = () => {
   button_resolve.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    solvingTechniques.singleOptions();
+    solvingTechniques.singleCandidate();
 
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
       solvingTechniques.hiddenSinglesSquare();
@@ -126,7 +130,7 @@ const resolveMatrixListener = () => {
       let newLine = "\r\n";
       let prompttext = "WE ARE SORRY! :(";
       prompttext += newLine;
-      prompttext += "We are not able to advance more in the resolution of this Sudoku Puzzle.";
+      prompttext += "We are not able to advance any further in the resolution of this Sudoku Puzzle.";
       prompttext += newLine;
       prompttext += "However, we are in the process of adding new advance solving techniques to crack this kind of difficult puzzles.";
       prompttext += newLine;

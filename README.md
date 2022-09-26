@@ -6,11 +6,18 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
-### Version 0.2.3 (Bug Resolution) 2022-09-24
+### Version 0.2.4 (2 Main Features) 2022-09-26
+
+- The format for loading the sudoku values from file, was standardized with the one used for the manual method
+- The discardedvalue function now consolidates the code for the 3 blocks (row, column and square) when a couple of candidates can be discarded by ObviousPairs process. It probably will be used for hiddenPairs in a future release as well
+
+---
+
+### Version 0.2.3 (Bug Fix) 2022-09-24
 
 - Bug introduced by previous feature added has been fixed
-- The functionality to go back one step stopped working, now the update of values when using going back one step function uses this method: "document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").value" instead of modifying the attribute
-- A new Alert has been added in those cases when the Sudoku cannot be solved.
+- The functionality to go back one step had stopped working by adding the feature to manually load the sudoku values. To fix it, now the update of values when using going back one step function uses this method: "document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").value" instead of modifying the attribute
+- A new Alert has been added in those cases when the Sudoku cannot be solved yet.
 
 ---
 
@@ -159,9 +166,9 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 - 3 new solving methods defined (hidden singles per row, hidden singles pero column, and hidden singles per square)
 - Solving already tested with an expert sudoku game succesfully.
-- Se elimina el juego de numeros por defecto del html, y ahora se carga por JS
-- Para la carga se agrega boton de carga, y se define const con los valores en el JS
-- Se agrega variable iterationsuccess para detener la resolucion paso a paso, y no por olas de metodo
+- The default set of numbers is deleted from the html, and now it is loaded using js
+- For loading the values a new button is added, a const is defined with the values in the js
+- A new variable (iterationsuccess) is added to stop the resolution step by step and not by method waves.
 
 ---
 
