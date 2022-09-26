@@ -258,9 +258,11 @@ const discardedvaluesHTML = (blockvalue, mainaxis, row1, row2, column1, column2,
   document.querySelector("#button-reload").classList.remove("inactive");
   let newdiscardedvalueArticle = document.createElement("article");
   newdiscardedvalueArticle.classList.add("newdiscardedvalue");
-  // newfoundvalueArticle.setAttribute("id", DEFINE-ID);
+  newdiscardedvalueArticle.setAttribute("id", "Step" + globalVar.currentStep);
   newdiscardedvalueArticle.innerHTML = `
-  <p>Notes Discarded in ${mainaxis} ${blockvalue + 1}, the first cell is row${row1 + 1} column${column1 + 1}, and the second cell is row${row2 + 1} column${column2 + 1}, The notes discarded are ${value1} and ${value2}, they have been deleted from other cells in the ${mainaxis} ${blockvalue + 1}, using ${method} method</p>
+  <h3>Step ${globalVar.currentStep}</h3>
+  <h4>Method ${method}</h4>
+  <p>Notes Discarded in ${mainaxis} ${blockvalue + 1}, the first cell is row${row1 + 1} column${column1 + 1}, and the second cell is row${row2 + 1} column${column2 + 1}, The notes discarded are ${value1} and ${value2}, they have been deleted from other cells in the ${mainaxis} ${blockvalue + 1}</p>
   `;
   const main = document.querySelector(".found-values > div");
   main.prepend(newdiscardedvalueArticle);

@@ -39,9 +39,11 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentcellvalue, theMatrixStep,
   document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").value = currentcellvalue;
   let newfoundvalueArticle = document.createElement("article");
   newfoundvalueArticle.classList.add("newfoundvalue");
-  // newfoundvalueArticle.setAttribute("id", DEFINE-ID);
+  newfoundvalueArticle.setAttribute("id", "Step" + globalVar.currentStep );
   newfoundvalueArticle.innerHTML = `
-  <p>New Found Value in row ${itemrow}, column ${itemcolumn}, the Value is ${currentcellvalue}, and was found using ${method} method</p>
+  <h3>Step ${globalVar.currentStep}</h3>
+  <h4>Method ${method}</h4>
+  <p>New Found Value in row ${itemrow}, column ${itemcolumn}, the Value is ${currentcellvalue}</p>
   `;
   const main = document.querySelector(".found-values > div");
   main.prepend(newfoundvalueArticle);

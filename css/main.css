@@ -103,6 +103,16 @@ h2 {
 .found-values {
   margin: 0 auto;
   text-align: center;
+  font-size: 2rem;
+}
+
+.found-values article {
+  padding: 20px;
+  border: 1px solid blue;
+}
+
+.found-values article h3 {
+  padding-bottom: 10px;
 }
 
 .content-wrap {

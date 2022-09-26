@@ -6,6 +6,13 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.2.5 (HTML Found Values Format) 2022-09-26
+
+- Light formatting to the Found Values section in the HTML (New article created for each step solved)
+- ID given for each step in the Found Values Section, to be used with the tutorial component to be implemented in future releases.
+
+---
+
 ### Version 0.2.4 (2 Main Features) 2022-09-26
 
 - The format for loading the sudoku values from file, was standardized with the one used for the manual method

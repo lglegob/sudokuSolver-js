@@ -38,6 +38,8 @@ const loadMatrix = (initialMatrixValues) => {
       } 
     };
     if (howManyDigits < 17) {
+      console.log("--------------------------------------------");
+      console.log("Not like this. Not like this – Switch");
       alert("Ingress at least 17 digits different than zero, Not enough Digits");
       resetMatrix();
     } else {
@@ -46,6 +48,8 @@ const loadMatrix = (initialMatrixValues) => {
       globalVar.theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStepanalysis));
     }
   } else {
+    console.log("--------------------------------------------");
+    console.log("Not like this. Not like this – Switch");
     alert("Ingress at least 17 digits different than zero, Not enough Digits");
   };
 };
@@ -128,6 +132,8 @@ const analyzeMatrix = (theMatrixStepanalysis) => {
     console.log("The Matrix has you...")
   } else {
     globalVar.cellsResolved = 0;
+    console.log("--------------------------------------------");
+    console.log("Not like this. Not like this – Switch");
     alert("Ingress at least 17 digits different than zero, Not enough Digits");
   }
   return { theMatrixStepanalysis };
@@ -137,6 +143,8 @@ const analyzeMatrix = (theMatrixStepanalysis) => {
 const matrixReloaded = (theMatrixDestinedStep) => {
   if (globalVar.stepsDetail[globalVar.currentStep][0] === true) globalVar.cellsResolved--;   
   globalVar.currentStep--;
+  const main = document.querySelector(".found-values > div");
+  main.removeChild(main.firstElementChild);
   document.querySelector("#button-resolve").disabled = false;
   document.querySelector("#button-resolve").classList.add("active");
   document.querySelector("#button-resolve").classList.remove("inactive");
@@ -162,6 +170,8 @@ const matrixReloaded = (theMatrixDestinedStep) => {
       };
     };
   };
+  console.log("--------------------------------------------");
+  console.log("Denial is the most predictable of all human responses – The Architect"); 
   if (globalVar.areNotesShowing === true) recurrent.showNotes(theMatrixDestinedStep);
 };
 
