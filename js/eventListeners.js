@@ -26,7 +26,7 @@ const loadMatrixListener = () => {
   button_load.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    matrixFunctions.loadMatrix(initialMatrixpuzzle.hard02str);
+    matrixFunctions.loadMatrix(initialMatrixpuzzle.hard03str);
   });
 };
 
@@ -133,6 +133,9 @@ const resolveMatrixListener = () => {
     };
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
       lockedCandidates.lockedCandidateRow();
+    };
+    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+      lockedCandidates.lockedCandidateColumn();
     };
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
       let newLine = "\r\n";

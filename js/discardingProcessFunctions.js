@@ -151,7 +151,7 @@ const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, se
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
   console.log("We found a locked Candidate!")
   if (mainaxis === "square") { mainaxisvalue--} //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
-  console.log(`For the ${secondaryaxis} ${secondaryaxisvalue}, all the candidates value of ${value} are contained in the ${mainaxis} ${mainaxisvalue + 1}`)
+  console.log(`For the ${secondaryaxis} ${secondaryaxisvalue + 1}, all the candidates value of ${value} are contained in the ${mainaxis} ${mainaxisvalue + 1}`)
   console.log(`Candidates notes for ${value} in other ${secondaryaxis}s within the same ${mainaxis} ${mainaxisvalue + 1} have been deleted`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
@@ -162,7 +162,7 @@ const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, se
   newdiscardOneCandidateArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>Method ${method}</h4>
-  <p>Notes Discarded in ${mainaxis} ${mainaxisvalue + 1}, all candidates with value ${value} that not belong to ${secondaryaxis} ${secondaryaxisvalue} have been deleted</p>
+  <p>Notes Discarded in ${mainaxis} ${mainaxisvalue + 1}, all candidates with value ${value} that do not belong to ${secondaryaxis} ${secondaryaxisvalue + 1} have been deleted</p>
   `;
   const main = document.querySelector(".found-values > div");
   main.prepend(newdiscardOneCandidateArticle);

@@ -6,6 +6,12 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.3.2 (New Discard Method) 2022-09-28
+
+- A new Discard Candidates method has been added. The method of finding locked candidates (from Square to Column), and deleting the candidates within the same square not belonging to that Column. This is complementary to previous method (version updated).
+
+---
+
 ### Version 0.3.1 (New Discard Method) 2022-09-27
 
 - A new Discard Candidates method has been added. The method of finding locked candidates (from Square to Row), and deleting the candidates within the same square not belonging to that Row
