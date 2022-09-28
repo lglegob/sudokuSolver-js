@@ -1,7 +1,7 @@
 'use strict';
 import globalVar from "./globalVar.js";
 import * as notesZero from "./notesZero.js";
-import * as recurrent from "./theRecurrentFunctions.js";
+import * as recurrent from "./recurrentFunctions.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                            MATRIX FUNCTIONS                               //
@@ -76,8 +76,8 @@ const validateMatrix = (theMatrixStep) => {
       let itemrow = row + 1;
       let itemcolumn = column + 1;
       let currentcell = document.querySelector(".row" + itemrow + ".column" + itemcolumn);
-      let currentcellvalue = Number(currentcell.querySelector("input").value);
-      theMatrixStep[row][column] = [currentcellvalue, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+      let currentCellValue = Number(currentcell.querySelector("input").value);
+      theMatrixStep[row][column] = [currentCellValue, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     };
   };
   return theMatrixStep;
@@ -94,18 +94,18 @@ const analyzeMatrix = (theMatrixStepanalysis) => {
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
       globalVar.loopsExecuted++;
-      let currentcellvalue = theMatrixStepanalysis[row][column][0];
+      let currentCellValue = theMatrixStepanalysis[row][column][0];
       // If the value is different than zero, it has to set as zero that position in every element of the same row, same column and same square
-      if (currentcellvalue != 0) {
+      if (currentCellValue != 0) {
         // since this cell already has a value, all the posibilities are marked zero
-        theMatrixStepanalysis[row][column] = [currentcellvalue, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        theMatrixStepanalysis = notesZero.noteZeroRow(row, currentcellvalue, theMatrixStepanalysis);
-        theMatrixStepanalysis = notesZero.noteZeroColumn(column, currentcellvalue, theMatrixStepanalysis);
-        theMatrixStepanalysis = notesZero.noteZeroSquareRC(row, column, currentcellvalue, theMatrixStepanalysis);
+        theMatrixStepanalysis[row][column] = [currentCellValue, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        theMatrixStepanalysis = notesZero.noteZeroRow(row, currentCellValue, theMatrixStepanalysis);
+        theMatrixStepanalysis = notesZero.noteZeroColumn(column, currentCellValue, theMatrixStepanalysis);
+        theMatrixStepanalysis = notesZero.noteZeroSquareRC(row, column, currentCellValue, theMatrixStepanalysis);
         globalVar.cellsResolved++;
         console.log("--------------------------------------------");
         console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
-        console.log(`the value in row ${row+1}, column ${column+1} is ${currentcellvalue}`);
+        console.log(`the value in row ${row+1}, column ${column+1} is ${currentCellValue}`);
       };
     };
   };

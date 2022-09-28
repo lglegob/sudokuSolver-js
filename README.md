@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.2.5a (Branch optimizeDiscards) 2022-09-27
+
+- For the 3 Discard obviousPairs Techniques, the first two loops, where the current status is gathered, were consolidated in just 1 function for a general block (row, column or square) called discardingFunctions.gettingDetailedInfo.
+- Several other name optimizations for variables to follow bem naming scheme and for the file names.
+- Based on the optimization for the 3 obviousPairs discarding techniques, a new technique is being added, which finds the locked candidates (only row for now), this release shows in console the result, next release will discard the corresponding candidates/notes from the Matrix and expand to column and square.
+
+---
+
 ### Version 0.2.5 (HTML Found Values Format) 2022-09-26
 
 - Light formatting to the Found Values section in the HTML (New article created for each step solved)
@@ -75,7 +83,7 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ### Version 0.1.6 (solvingProcessFunctions.js file) 2022-09-16
 
-- The functions cellvaluefound and newfoundvalueHTML were taken out to a new file solvingProcessFunctions.js
+- The functions cellValueFound and newfoundvalueHTML were taken out to a new file solvingProcessFunctions.js
 
 ---
 
@@ -100,7 +108,7 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ### Version 0.1.3 (Taking functions to js files) 2022-09-09
 
-- functions showNotes and hideNotes were taken from main.js to theRecurrentFunctions.js
+- functions showNotes and hideNotes were taken from main.js to recurrentFunctions.js
 - new js file created (optionszero.js) where the functions noteZeroRow, noteZeroColumn and noteZeroSquare were taken from main.js to this disagregated file
 
 ---

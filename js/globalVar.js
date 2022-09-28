@@ -14,8 +14,11 @@
 // Each row Structure  --> [[column cell][column cell]...[column cell][column cell]]
 // Each Column Cell    --> [[answer][note 1][note 2][note 3]...[note 9]]
 let theMatrix = [[]];
+
 //StepsDetail [steptype, Method, [Step detailed info]]
 let stepsDetail = []; 
+
+//Several Variables needed globally available
 let currentStep = 0;
 let loopsExecuted = 0;
 let cellsResolved = 0;
