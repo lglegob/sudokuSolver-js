@@ -1,10 +1,11 @@
 'use strict';
 import globalVar from "./globalVar.js";
 import initialMatrixpuzzle from "./data.js";
-import * as recurrent from "./theRecurrentFunctions.js";
+import * as recurrent from "./recurrentFunctions.js";
 import * as matrixFunctions from "./theMatrixFunctions.js";
 import * as solvingTechniques from "./solvingTechniques.js";
-import * as discardingTechniques from "./discardingTechniques.js";
+import * as obviousPairs from "./discardingTechniquesObviousPairs.js";
+import * as lockedCandidates from "./discardingTechniquesLockedCandidate.js"
 
 ////////////////////////////////////////////////////////////////////////////////
 //                            EVENT LISTENERS                                //
@@ -25,7 +26,7 @@ const loadMatrixListener = () => {
   button_load.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    matrixFunctions.loadMatrix(initialMatrixpuzzle.expert02str);
+    matrixFunctions.loadMatrix(initialMatrixpuzzle.hard02str);
   });
 };
 
@@ -122,13 +123,16 @@ const resolveMatrixListener = () => {
       solvingTechniques.hiddenSinglesColumn();
     };
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      discardingTechniques.obviousPairsRow();
+      obviousPairs.obviousPairsRow();
     };
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      discardingTechniques.obviousPairsColumn();
+      obviousPairs.obviousPairsColumn();
     };
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      discardingTechniques.obviousPairsSquare();
+      obviousPairs.obviousPairsSquare();
+    };
+    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+      lockedCandidates.lockedCandidateRow();
     };
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
       let newLine = "\r\n";
