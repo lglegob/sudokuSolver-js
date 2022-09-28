@@ -45,6 +45,7 @@ const lockedCandidateRow = () => {
           if ( howmanycellswiththisnoteRow[possibleCandidate] != howmanycellswiththisnote[possibleCandidate]) {
             console.log("--------------------------------------------");
             console.log(`Tenemos un Locked Candidate, option ${possibleCandidate} in row ${row} have other notes in square ${locatedSquare} that can be deleted`)
+            discardingFunctions.discardOneCandidate(locatedSquare, "square", row, "row", possibleCandidate, "Detecting Locked Candidate in Row to delete in Square", notesZero.noteZeroSquareSQ );
           };
         };
 

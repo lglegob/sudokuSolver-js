@@ -6,6 +6,18 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.3.1 (New Discard Method) 2022-09-27
+
+- A new Discard Candidates method has been added. The method of finding locked candidates (from Square to Row), and deleting the candidates within the same square not belonging to that Row
+
+---
+
+### Version 0.3.0 (Merge Branch optimizeDiscards) 2022-09-27
+
+- optimizeDiscards branch changes integrated to main branch.
+
+---
+
 ### Version 0.2.5a (Branch optimizeDiscards) 2022-09-27
 
 - For the 3 Discard obviousPairs Techniques, the first two loops, where the current status is gathered, were consolidated in just 1 function for a general block (row, column or square) called discardingFunctions.gettingDetailedInfo.
@@ -24,7 +36,7 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 ### Version 0.2.4 (2 Main Features) 2022-09-26
 
 - The format for loading the sudoku values from file, was standardized with the one used for the manual method
-- The discardedvalue function now consolidates the code for the 3 blocks (row, column and square) when a couple of candidates can be discarded by ObviousPairs process. It probably will be used for hiddenPairs in a future release as well
+- The discardTwoCandidates function now consolidates the code for the 3 blocks (row, column and square) when a couple of candidates can be discarded by ObviousPairs process. It probably will be used for hiddenPairs in a future release as well
 
 ---
 
@@ -169,7 +181,7 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 - 3 new discard methods defined, to find obvious pairs per Row, per Column and per square
 - New function newfoundvalueHTML for showing in the html, the information for each new value
-- New function discardedvaluesHTML for showing logs when finding possibles values to discard
+- New function discardTwoCandidatesHTML for showing logs when finding possibles values to discard
 - New feature of showing in screen the snotes for each cell, Button and Listener added.
 - New function to hide temporarily the notes and return to the main matrix in screen
 - Variable discardnotessucces added to also detect one pair of related values to be discarded per iteration

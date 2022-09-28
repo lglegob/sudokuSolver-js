@@ -28,7 +28,7 @@ const obviousPairsRow = () => {
               let currentCellValue2 = cell1notes.indexOf(1, currentCellValue1 + 1);
               //This if is to make sure the pair found has notes in other cells and declare them as obvious Pair
               if (howmanycellswiththisnote[currentCellValue1] > 2 || howmanycellswiththisnote[currentCellValue2] > 2) {
-                discardingFunctions.discardedvalue(row, "row", row, row, column1, column2, currentCellValue1, currentCellValue2, "Detecting Obvious Pair (Row)", notesZero.noteZeroRow);
+                discardingFunctions.discardTwoCandidates(row, "row", row, row, column1, column2, currentCellValue1, currentCellValue2, "Detecting Obvious Pair (Row)", notesZero.noteZeroRow);
                 break;
               };
             };
@@ -62,7 +62,7 @@ const obviousPairsColumn = () => {
               let currentCellValue2 = cell1notes.indexOf(1, currentCellValue1 + 1);
               //This if is to make sure the pair found has notes in other cells and declare them as obvious Pair
               if (howmanycellswiththisnote[currentCellValue1] > 2 || howmanycellswiththisnote[currentCellValue2] > 2) {
-                discardingFunctions.discardedvalue(column, "column", row1, row2, column, column, currentCellValue1, currentCellValue2, "Detecting Obvious Pair (Column)", notesZero.noteZeroColumn);
+                discardingFunctions.discardTwoCandidates(column, "column", row1, row2, column, column, currentCellValue1, currentCellValue2, "Detecting Obvious Pair (Column)", notesZero.noteZeroColumn);
                 break;
               };
             };
@@ -101,7 +101,7 @@ const obviousPairsSquare = () => {
               let currentCellValue2 = cell1notes.indexOf(1, currentCellValue1 + 1);
               //This if is to make sure the pair found has notes in other cells and declare them as obvious Pair
               if (howmanycellswiththisnote[currentCellValue1] > 2 || howmanycellswiththisnote[currentCellValue2] > 2) {
-                discardingFunctions.discardedvalue(square, "square", realrow1, realrow2, realcolumn1, realcolumn2, currentCellValue1, currentCellValue2, "Detecting Obvious Pair (Square)", notesZero.noteZeroSquareSQ);
+                discardingFunctions.discardTwoCandidates(square, "square", realrow1, realrow2, realcolumn1, realcolumn2, currentCellValue1, currentCellValue2, "Detecting Obvious Pair (Square)", notesZero.noteZeroSquareSQ);
                 break;
               };
             };

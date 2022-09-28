@@ -48,15 +48,15 @@ const defineSquareCoordinatesSQ = (square) => {
   let fromcolumn;
   let maximumcolumn;
   switch (true) {
-    case (square === 1 || square === 4 || square == 7):
+    case ((square - 1) % 3 == 0 ): //Detects Squares 1, 4 and 7
       fromcolumn = 0
       maximumcolumn = 2
       break;
-    case (square === 2 || square === 5 || square == 8):
+    case ((square - 1) % 3 == 1): //Detects Squares 2, 5 and 8
       fromcolumn = 3
       maximumcolumn = 5
       break;
-    case (square === 3 || square === 6 || square == 9):
+    case ((square - 1) % 3 == 2): //Detects Squares 3, 6 and 9
       fromcolumn = 6
       maximumcolumn = 8
       break;
