@@ -38,7 +38,6 @@ const obviousPairsRow = () => {
       };
     };
     if (globalVar.discardNoteSuccess) break;
-    // lockedCandidate(answersCurrentBlock, whereisthisnote);
   };
 };
 
@@ -72,7 +71,6 @@ const obviousPairsColumn = () => {
       };
     };
     if (globalVar.discardNoteSuccess) break;
-    // lockedCandidate(answersCurrentBlock, whereisthisnote);
   };
 };
 
@@ -111,7 +109,6 @@ const obviousPairsSquare = () => {
       };
     };
     if (globalVar.discardNoteSuccess) break;
-    // lockedCandidate(answersCurrentBlock, whereisthisnote);
   };
 };
 

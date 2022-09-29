@@ -17,7 +17,7 @@ html {
 }
 
 .button-rectangle {
-  font-size: 12px;
+  font-size: 8px;
   color: white;
   background: blue;
   text-decoration: none;
@@ -29,7 +29,7 @@ html {
 
 @media screen and (min-width: 576px) {
   .button-rectangle {
-    font-size: 20px;
+    font-size: 10px;
   }
 }
 
@@ -51,43 +51,43 @@ header {
 }
 
 header p {
-  font-size: 2rem;
+  font-size: 1rem;
 }
 
 h1 {
-  font-size: 40px;
-  line-height: 0.9;
-  margin: 10px auto;
-}
-
-@media screen and (min-width: 576px) {
-  h1 {
-    font-size: 60px;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  h1 {
-    font-size: 100px;
-    line-height: 1.2;
-  }
-}
-
-h2 {
   font-size: 20px;
-  line-height: 1;
-  margin: 10px auto;
+  line-height: 0.9;
+  margin: 5px auto;
 }
 
 @media screen and (min-width: 576px) {
-  h2 {
+  h1 {
     font-size: 30px;
   }
 }
 
 @media screen and (min-width: 768px) {
+  h1 {
+    font-size: 50px;
+    line-height: 1.2;
+  }
+}
+
+h2 {
+  font-size: 10px;
+  line-height: 1;
+  margin: 5px auto;
+}
+
+@media screen and (min-width: 576px) {
   h2 {
-    font-size: 40px;
+    font-size: 15px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  h2 {
+    font-size: 20px;
   }
 }
 
@@ -97,38 +97,65 @@ h2 {
 
 .theButtons form {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
 }
 
-.found-values {
-  margin: 0 auto;
-  text-align: center;
-  font-size: 2rem;
+@media screen and (min-width: 768px) {
+  .theButtons {
+    justify-content: center;
+  }
+  .theButtons form {
+    flex-wrap: nowrap;
+    flex-direction: column;
+  }
 }
 
-.found-values article {
-  padding: 20px;
+.solveIt {
+  margin: 0 auto;
+}
+
+.solveIt form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+@media screen and (min-width: 768px) {
+  .solveIt form {
+    flex-wrap: nowrap;
+  }
+}
+
+.stepsDetails {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.stepsDetails article {
+  padding: 10px;
   border: 1px solid blue;
 }
 
-.found-values article h3 {
-  padding-bottom: 10px;
+.stepsDetails article h3 {
+  padding-bottom: 5px;
 }
 
 .content-wrap {
-  max-width: 1000px;
+  max-width: 500px;
   width: 95%;
   margin: 0 auto;
-  padding: 10px 0 5px;
+  padding: 5px 0 5px;
 }
 
 .theMatrix > div {
   display: grid;
   justify-content: start;
   grid-template-columns: repeat(9, 1fr);
-  border: 3px solid blue;
-  margin: 10px auto;
-  padding: 10px;
+  border: 2px solid blue;
+  margin: 5px auto;
+  padding: 5px;
 }
 
 .theMatrix > div .cell {
@@ -147,30 +174,30 @@ h2 {
   height: 100%;
   width: 100%;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 @media screen and (min-width: 440px) {
   .theMatrix > div .cell > input {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 }
 
 @media screen and (min-width: 576px) {
   .theMatrix > div .cell > input {
-    font-size: 3rem;
+    font-size: 2.2rem;
   }
 }
 
 @media screen and (min-width: 768px) {
   .theMatrix > div .cell > input {
-    font-size: 4rem;
+    font-size: 2.8rem;
   }
 }
 
 @media screen and (min-width: 992px) {
   .theMatrix > div .cell > input {
-    font-size: 5rem;
+    font-size: 3.2rem;
   }
 }
 
@@ -182,7 +209,7 @@ h2 {
   left: 0;
   height: 100%;
   width: 100%;
-  font-size: 0.6rem;
+  font-size: 0.5rem;
   text-align: center;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -193,25 +220,25 @@ h2 {
 
 @media screen and (min-width: 440px) {
   .theMatrix > div .cell > div {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
   }
 }
 
 @media screen and (min-width: 576px) {
   .theMatrix > div .cell > div {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 }
 
 @media screen and (min-width: 768px) {
   .theMatrix > div .cell > div {
-    font-size: 1.1rem;
+    font-size: 0.8rem;
   }
 }
 
 @media screen and (min-width: 1200px) {
   .theMatrix > div .cell > div {
-    font-size: 1.7rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -219,7 +246,7 @@ h2 {
   border-left: 1px solid black;
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
   .notes .note1, .notes .note4, .notes .note7 {
     border-right: 1px dashed black;
   }
@@ -229,7 +256,7 @@ h2 {
   border-right: 1px solid black;
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
   .notes .note3, .notes .note6, .notes .note9 {
     border-left: 1px dashed black;
   }
@@ -239,7 +266,7 @@ h2 {
   border-top: 1px solid black;
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
   .notes .note1, .notes .note2, .notes .note3 {
     border-bottom: 1px dashed black;
   }
@@ -249,7 +276,7 @@ h2 {
   border-bottom: 1px solid black;
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
   .notes .note7, .notes .note8, .notes .note9 {
     border-top: 1px dashed black;
   }
@@ -271,6 +298,19 @@ h2 {
   border-bottom: 3px solid black;
 }
 
+/* Configuration to hide the scroll bars for the inputs inside theMatrix */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .button-rectangle {
   width: 120px;
   padding: 4px;
@@ -284,4 +324,44 @@ h2 {
 
 .button-rectangle.active:hover {
   transform: scale(1.1);
+}
+
+/***************************************************************************
+***                         Global Grids (All Pages)                     ***
+***************************************************************************/
+.index-grid {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-areas: "solveIt" "theMatrix" "theButtons" "stepsDetails";
+}
+
+@media screen and (min-width: 768px) {
+  .index-grid {
+    grid-template-columns: 20% 80%;
+    grid-template-areas: "theButtons		theMatrix" "theButtons 	solveIt" "theButtons 	stepsDetails";
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .index-grid {
+    grid-template-columns: 25% 50% 25%;
+    grid-template-areas: "solveIt 		solveIt			solveIt" "theButtons		theMatrix		stepsDetails";
+  }
+}
+
+/* index page */
+.theMatrix {
+  grid-area: theMatrix;
+}
+
+.theButtons {
+  grid-area: theButtons;
+}
+
+.solveIt {
+  grid-area: solveIt;
+}
+
+.stepsDetails {
+  grid-area: stepsDetails;
 }

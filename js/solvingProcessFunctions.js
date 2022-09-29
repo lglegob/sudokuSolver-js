@@ -43,9 +43,10 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
   newfoundvalueArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>Method ${method}</h4>
-  <p>New Found Value in row ${itemrow}, column ${itemcolumn}, the Value is ${currentCellValue}</p>
+  <p>New Value Found in row ${itemrow}, column ${itemcolumn}.</p>
+  <p>The Value is ${currentCellValue}.</p>
   `;
-  const main = document.querySelector(".found-values > div");
+  const main = document.querySelector(".stepsDetails > div");
   main.prepend(newfoundvalueArticle);
   if (globalVar.areNotesShowing === true) recurrent.showNotes(theMatrixStep);
 };

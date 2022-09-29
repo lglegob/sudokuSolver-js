@@ -1,0 +1,45 @@
+/***************************************************************************
+***                         Global Grids (All Pages)                     ***
+***************************************************************************/
+
+.index-grid {
+	display: grid;
+	grid-template-columns: 100%;
+	grid-template-areas: 
+	"solveIt"
+	"theMatrix"
+	"theButtons"
+	"stepsDetails"
+	;
+	@include size-md {
+		grid-template-columns: 20% 80%;
+		grid-template-areas: 
+		"theButtons		theMatrix"
+		"theButtons 	solveIt"
+		"theButtons 	stepsDetails"
+
+		;
+	}
+	@include size-lg {
+		grid-template-columns: 25% 50% 25%;
+		grid-template-areas: 
+		"solveIt 		solveIt			solveIt"
+		"theButtons		theMatrix		stepsDetails"
+
+		;
+	}
+}
+
+/* index page */
+.theMatrix {			
+	grid-area: theMatrix;
+}
+.theButtons {			
+	grid-area: theButtons;
+}
+.solveIt {			
+	grid-area: solveIt;
+}
+.stepsDetails {			
+	grid-area: stepsDetails;
+}

@@ -2,9 +2,9 @@
   display: grid;
   justify-content: start;
   grid-template-columns: repeat(9, 1fr);
-  border: 3px solid blue;
-  margin: 10px auto;
-  padding: 10px;
+  border: 2px solid blue;
+  margin: 5px auto;
+  padding: 5px;
 
   & .cell {
     width: 100%;
@@ -20,18 +20,18 @@
       height: 100%;
       width: 100%;
       text-align: center;
-      font-size: 1.2rem;
+      font-size: 1rem;
       @include size-xs {
-        font-size: 2rem;
+        font-size: 1.8rem;
       }
       @include size-sm {
-        font-size: 3rem;
+        font-size: 2.2rem;
       }
       @include size-md {
-        font-size: 4rem;
+        font-size: 2.8rem;
       }
       @include size-lg {
-        font-size: 5rem;
+        font-size: 3.2rem;
       }
 
 
@@ -44,18 +44,18 @@
       left: 0;
       height: 100%;
       width: 100%;
-      font-size: 0.6rem;
+      font-size: 0.5rem;
       @include size-xs {
-        font-size: 0.7rem;
+        font-size: 0.6rem;
       }
       @include size-sm {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
       }
       @include size-md {
-        font-size: 1.1rem;
+        font-size: 0.8rem;
       }
       @include size-xl {
-        font-size: 1.7rem;
+        font-size: 0.9rem;
       }
       text-align: center;
       // Notes configuration, to show the 9 values
@@ -71,25 +71,25 @@
 
     & .note1, .note4, .note7 {
       border-left: 1px solid black;
-      @include size-lg {
+      @include size-md {
         border-right: 1px dashed black;
       }
     }
     & .note3, .note6, .note9 {
       border-right: 1px solid black;
-      @include size-lg {
+      @include size-md {
         border-left: 1px dashed black;
       }
     } 
     & .note1, .note2, .note3 {
       border-top: 1px solid black;
-      @include size-lg {
+      @include size-md {
         border-bottom: 1px dashed black;
       }
     }
     & .note7, .note8, .note9 {
       border-bottom: 1px solid black;
-      @include size-lg {
+      @include size-md {
         border-top: 1px dashed black;
       }
     }
@@ -106,4 +106,17 @@
 }
 .row6, .row9 {
   border-bottom: 3px solid black;
+}
+
+/* Configuration to hide the scroll bars for the inputs inside theMatrix */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

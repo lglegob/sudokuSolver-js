@@ -1,4 +1,5 @@
 'use strict';
+import globalVar from "./globalVar.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                         RECURRENT FUNCTIONS                               //
@@ -62,20 +63,26 @@ const defineSquareCoordinatesSQ = (square) => {
       break;
   }
   switch (true) {
-    case square <= 3:
+    case square <= 3:   //Detects Squares 1, 2 and 3
       fromrow = 0
       maximumrow = 2
       break;
-    case square <= 6:
+    case square <= 6:   //Detects Squares 4, 5 and 6
       fromrow = 3
       maximumrow = 5
       break;
-    case square <= 9:
+    case square <= 9:   //Detects Squares 7, 8 and 9
       fromrow = 6
       maximumrow = 8
       break;
   };
   return {fromrow, maximumrow, fromcolumn, maximumcolumn};
+};
+
+const defineRowColumnFromSquareRelative = (square, relativeRow, relativeColumn) => {
+  let realRow = (3 *(Math.floor((square-1) / 3))) + relativeRow;
+  let realColumn = ( 3 * ((square-1) % 3)) + relativeColumn;
+  return { realRow, realColumn }
 };
 
 //Function used to add html config with a 9 cells grid per each of the original divs to show the notes of each cell
@@ -89,6 +96,7 @@ const showNotes = (theMatrixStep) => {
         document.querySelector(".row" + itemrow + ".column" + itemcolumn).classList.add("notes")
         let newdivcandidate = document.createElement("div");
         for (let note = 1; note <= 9; note++) {
+          globalVar.loopsExecuted++;
           let newnote = document.createElement("p");
           newnote.classList.add(`note${note}`);
           if (theMatrixStep[row][column][note] !== 0) {
@@ -111,6 +119,7 @@ const showNotes = (theMatrixStep) => {
 const hideNotes = (theMatrixStep) => {
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
+      globalVar.loopsExecuted++;
       if (theMatrixStep[row][column][0] === 0) {
         let itemrow = row + 1;
         let itemcolumn = column + 1;
@@ -130,4 +139,4 @@ const hideNotes = (theMatrixStep) => {
   togglebutton.innerText = "Show Notes";
 };
 
-export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, showNotes, hideNotes };
+export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineRowColumnFromSquareRelative, showNotes, hideNotes };

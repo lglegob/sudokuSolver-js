@@ -26,7 +26,7 @@ const loadMatrixListener = () => {
   button_load.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    matrixFunctions.loadMatrix(initialMatrixpuzzle.hard03str);
+    matrixFunctions.loadMatrix(initialMatrixpuzzle.expert02str);
   });
 };
 
@@ -111,6 +111,7 @@ const resolveMatrixListener = () => {
   button_resolve.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
+
     solvingTechniques.singleCandidate();
 
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
@@ -138,14 +139,25 @@ const resolveMatrixListener = () => {
       lockedCandidates.lockedCandidateColumn();
     };
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+      lockedCandidates.lockedCandidateSquare();
+    };
+
+    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+      console.log("--------------------------------------------");
+      console.log("I'm sorry, kiddo. I really am. You have a good soul. And I hate giving good people bad news. - Oracle");
       let newLine = "\r\n";
       let prompttext = "WE ARE SORRY! :(";
+      prompttext += newLine;
       prompttext += newLine;
       prompttext += "We are not able to advance any further in the resolution of this Sudoku Puzzle.";
       prompttext += newLine;
       prompttext += "However, we are in the process of adding new advance solving techniques to crack this kind of difficult puzzles.";
       prompttext += newLine;
+      prompttext += newLine;
       prompttext += "Please help us by sending us your puzzle as originally ingressed to leonardogonzalezbello@gmail.com";
+      prompttext += newLine;
+      prompttext += newLine;
+      prompttext += "BTW... if you know what should be the next step to solve it, even better :)";
       alert (prompttext);
     }
 
@@ -160,6 +172,7 @@ const resolveMatrixListener = () => {
       document.querySelector("#button-togglenotes").classList.add("inactive");
       console.log("--------------------------------------------");
       console.log("Never send a human to do a machine's job - Agent Smith")
+      console.log("Everything that has a beginning has an end. - Oracle");
     };
   });
 };

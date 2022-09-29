@@ -64,7 +64,7 @@ const gettingDetailedInfo = ( fromrow, maximumrow, fromcolumn, maximumcolumn, bl
   return { howmanycellswiththisnote, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote };
 };
 
-//Consolidated function for the 3 Blocks (row, column and square), when a pair of values can be discarded
+//Consolidated function for the 3 Blocks (row, column and square), when one value can be discarded
 const discardOneCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method, callbackNoteZero) => {
 
   let fromRowD;
@@ -80,22 +80,41 @@ const discardOneCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, second
       fromColumnD = fromcolumn;
       maximumRowD = maximumrow;
       maximumColumnD = maximumcolumn;
+
+      switch (true) {
+        case (secondaryaxis === "row"):
+          fromRowD = secondaryaxisvalue;
+          maximumRowD = secondaryaxisvalue;
+        break;
+        case (secondaryaxis === "column"):
+          fromColumnD = secondaryaxisvalue;
+          maximumColumnD = secondaryaxisvalue;
+        break;
+      };
+    break;
+
+    case (mainaxis === "row"):
+      const {fromrow:fromRowR, maximumrow:maximumrowR, fromcolumn:fromcolumnR, maximumcolumn:maximumcolumnR} = recurrent.defineSquareCoordinatesSQ(secondaryaxisvalue);
+      fromRowD = mainaxisvalue;
+      fromColumnD = fromcolumnR;
+      maximumRowD = mainaxisvalue;
+      maximumColumnD = maximumcolumnR;
+    break;
+
+    case (mainaxis === "column"):
+      const {fromrow:fromrowC, maximumrow:maximumrowC, fromcolumn:fromcolumnC, maximumcolumn:maximumcolumnC} = recurrent.defineSquareCoordinatesSQ(secondaryaxisvalue);
+      fromRowD = fromrowC;
+      fromColumnD = mainaxisvalue;
+      maximumRowD = maximumrowC;
+      maximumColumnD = mainaxisvalue;
     break;
   };
-  switch (true) {
-    case (secondaryaxis === "row"):
-      fromRowD = secondaryaxisvalue;
-      maximumRowD = secondaryaxisvalue;
-    break;
-    case (secondaryaxis === "column"):
-      fromColumnD = secondaryaxisvalue;
-      maximumColumnD = secondaryaxisvalue;
-    break;
-  };
+
   //This process saves in a temporal variable (the3Cells), the 3 intersecting values where the candadites must not change, to recover them after the notesZero process
   let the3Cells = [];
   for (let the3CellsRow = fromRowD; the3CellsRow <= maximumRowD; the3CellsRow++) { 
     for (let the3CellsColumn = fromColumnD; the3CellsColumn <= maximumColumnD; the3CellsColumn++) {
+      globalVar.loopsExecuted++;
       the3Cells.push(globalVar.theMatrix[globalVar.currentStep][the3CellsRow][the3CellsColumn]); 
     };
   };
@@ -109,6 +128,7 @@ const discardOneCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, second
   //But here, it is restablished as notes for the 3 cells based on the temporal variable the3Cells
   for (let the3CellsRow = fromRowD; the3CellsRow <= maximumRowD; the3CellsRow++) { 
     for (let the3CellsColumn = fromColumnD; the3CellsColumn <= maximumColumnD; the3CellsColumn++) {
+      globalVar.loopsExecuted++;
       globalVar.theMatrix[globalVar.currentStep][the3CellsRow][the3CellsColumn] = the3Cells.shift();
     };
   };
@@ -147,10 +167,12 @@ const discardTwoCandidates = (blockvalue, mainaxis, row1, row2, column1, column2
 
 const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method) => {
   console.log("--------------------------------------------");
+  console.log("Remember, all I’m offering is the truth. Nothing more. - Morpheus");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
   console.log("We found a locked Candidate!")
   if (mainaxis === "square") { mainaxisvalue--} //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  if (secondaryaxis === "square") { secondaryaxisvalue--} //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
   console.log(`For the ${secondaryaxis} ${secondaryaxisvalue + 1}, all the candidates value of ${value} are contained in the ${mainaxis} ${mainaxisvalue + 1}`)
   console.log(`Candidates notes for ${value} in other ${secondaryaxis}s within the same ${mainaxis} ${mainaxisvalue + 1} have been deleted`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
@@ -164,12 +186,13 @@ const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, se
   <h4>Method ${method}</h4>
   <p>Notes Discarded in ${mainaxis} ${mainaxisvalue + 1}, all candidates with value ${value} that do not belong to ${secondaryaxis} ${secondaryaxisvalue + 1} have been deleted</p>
   `;
-  const main = document.querySelector(".found-values > div");
+  const main = document.querySelector(".stepsDetails > div");
   main.prepend(newdiscardOneCandidateArticle);
 };
 
 const discardTwoCandidatesHTML = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method) => {
   console.log("--------------------------------------------");
+  console.log("There are only two possible explanations: either no one told me, or no one knows. - Neo");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
   console.log("We found an Obvious Pair!")
@@ -185,9 +208,11 @@ const discardTwoCandidatesHTML = (blockvalue, mainaxis, row1, row2, column1, col
   newdiscardTwoCandidatesArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>Method ${method}</h4>
-  <p>Notes Discarded in ${mainaxis} ${blockvalue + 1}, the first cell is row${row1 + 1} column${column1 + 1}, and the second cell is row${row2 + 1} column${column2 + 1}, The notes discarded are ${value1} and ${value2}, they have been deleted from other cells in the ${mainaxis} ${blockvalue + 1}</p>
+  <p>Notes Discarded in ${mainaxis} ${blockvalue + 1}.</p>
+  <p>The notes discarded are ${value1} and ${value2}, they have been deleted from other cells in the ${mainaxis} ${blockvalue + 1}</p>
+  <p> the first cell is row${row1 + 1} column${column1 + 1}, and the second cell is row${row2 + 1} column${column2 + 1}.</p>
   `;
-  const main = document.querySelector(".found-values > div");
+  const main = document.querySelector(".stepsDetails > div");
   main.prepend(newdiscardTwoCandidatesArticle);
 };
 

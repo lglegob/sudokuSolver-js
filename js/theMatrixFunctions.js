@@ -1,5 +1,6 @@
 'use strict';
 import globalVar from "./globalVar.js";
+import initialMatrixpuzzle from "./data.js";
 import * as notesZero from "./notesZero.js";
 import * as recurrent from "./recurrentFunctions.js";
 
@@ -13,6 +14,7 @@ const createMatrix = () => {
   for (let row = 0; row <= 8; row++) {
     theMatrixStep[row] = [];
     for (let column = 0; column <= 8; column++) {
+      globalVar.loopsExecuted++;
       theMatrixStep[row][column] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     };
   };
@@ -25,6 +27,7 @@ const loadMatrix = (initialMatrixValues) => {
   if (initialMatrixValues.length >= 17) {
     let howManyDigits = 0;
     for (let cellCounter = 0; cellCounter < Math.min(initialMatrixValues.length, 81); cellCounter++) {
+      globalVar.loopsExecuted++;
       let row = Math.floor(cellCounter / 9) + 1;
       let column = (cellCounter % 9) + 1;
       let cellValue = initialMatrixValues.charAt(cellCounter);
@@ -65,7 +68,7 @@ const loadMatrixManually = () => {
   prompttext += "Less than 81 will be filled with empty cells";
   prompttext += newLine;
   prompttext += "More than 81 will be discarded";
-  let manualMatrixValues = prompt(prompttext, "--4---7-38--9-2----3--------891-----5-------8-----926--------2----8-4--56-5---1--")
+  let manualMatrixValues = prompt(prompttext, initialMatrixpuzzle.hard03str)
   loadMatrix(manualMatrixValues);
 };
 
@@ -73,6 +76,7 @@ const loadMatrixManually = () => {
 const validateMatrix = (theMatrixStep) => {
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
+      globalVar.loopsExecuted++;
       let itemrow = row + 1;
       let itemcolumn = column + 1;
       let currentcell = document.querySelector(".row" + itemrow + ".column" + itemcolumn);
@@ -143,7 +147,7 @@ const analyzeMatrix = (theMatrixStepanalysis) => {
 const matrixReloaded = (theMatrixDestinedStep) => {
   if (globalVar.stepsDetail[globalVar.currentStep][0] === true) globalVar.cellsResolved--;   
   globalVar.currentStep--;
-  const main = document.querySelector(".found-values > div");
+  const main = document.querySelector(".stepsDetails > div");
   main.removeChild(main.firstElementChild);
   document.querySelector("#button-resolve").disabled = false;
   document.querySelector("#button-resolve").classList.add("active");
@@ -159,6 +163,7 @@ const matrixReloaded = (theMatrixDestinedStep) => {
   }
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
+      globalVar.loopsExecuted++;
       let itemrow = row + 1;
       let itemcolumn = column + 1;
       if (theMatrixDestinedStep[row][column][0] !== 0) {

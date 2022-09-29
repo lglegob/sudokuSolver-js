@@ -6,6 +6,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.3.3 (New Square Discard Method) 2022-09-28
+
+- The Third Discard Method focused on finding locked candidates has been added (In this case is based on finding locked candidates in squares and delete candidates in rows or columns)
+- Configuration added to CSS to avoid arrows in input fields.
+- CSS grid added to the configuration and corresponding responsive design for distribution of the buttons, the matrix and the Steps Details (Which are added by js with each resolution step)
+- Technique applied in the destructuring of objects to rename them on the fly (CoderAsk tip), based on the following format: const {fromRow:newFromRowName} = functionName(parameters);
+
+---
+
 ### Version 0.3.2 (New Discard Method) 2022-09-28
 
 - A new Discard Candidates method has been added. The method of finding locked candidates (from Square to Column), and deleting the candidates within the same square not belonging to that Column. This is complementary to previous method (version updated).

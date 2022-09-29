@@ -1,6 +1,6 @@
 // placeholder for the button configuration //
 %button-rectangle {
-	font-size: 12px;
+	font-size: 8px;
 	color: white;
 	background: blue;
 	text-decoration: none;
@@ -9,7 +9,7 @@
 	display: inline-block;
 	transition: all 1s ease-out;
 	@include size-sm {
-		font-size: 20px;
+		font-size: 10px;
 	}
 	&:hover {
 		background: lightblue; /* Dodger Blue */

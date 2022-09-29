@@ -1,4 +1,5 @@
 'use strict';
+import globalVar from "./globalVar.js";
 import * as recurrent from "./recurrentFunctions.js";
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -16,6 +17,7 @@ return theMatrixStep;
 //Here, it is mark as zero, each cell in the same column, which contains the currentCellValue as candidate yet
 const noteZeroColumn = (column, currentCellValue, theMatrixStep) => {
   for (let row_within_column = 0; row_within_column < 9; row_within_column++) {
+    globalVar.loopsExecuted++;
     theMatrixStep[row_within_column][column][currentCellValue] = 0;
   };
   return theMatrixStep;
@@ -26,6 +28,7 @@ const noteZeroSquareSQ = (square, currentCellValue, theMatrixStep) => {
   const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineSquareCoordinatesSQ(square);
   for (let square_row = fromrow; square_row <= maximumrow; square_row++) {
     for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) {
+      globalVar.loopsExecuted++;
       theMatrixStep[square_row][square_column][currentCellValue] = 0;
     };
   };
@@ -37,6 +40,7 @@ const noteZeroSquareRC = (row, column, currentCellValue, theMatrixStep) => {
   const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineSquareCoordinatesRC(row, column);
   for (let square_row = fromrow; square_row <= maximumrow; square_row++) {
     for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) {
+      globalVar.loopsExecuted++;
       theMatrixStep[square_row][square_column][currentCellValue] = 0;
     };
   };
