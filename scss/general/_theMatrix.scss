@@ -1,4 +1,4 @@
-.theMatrix > div {
+.theMatrixNotes > div, .theMatrix > div {
   display: grid;
   justify-content: start;
   grid-template-columns: repeat(9, 1fr);

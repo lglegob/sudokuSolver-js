@@ -6,6 +6,12 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.3.4a (branch rotateNotes 3D card introduction) 2022-09-30
+
+- the 3D model card for the Matrix has been initially introduced (this version is not operational)
+
+---
+
 ### Version 0.3.4 (3 Hidden Pairs Methods) 2022-09-29
 
 - The 3 new methods for Hidden Pairs defined. All candidates in a couple of cells are deleted except for the hidden pair

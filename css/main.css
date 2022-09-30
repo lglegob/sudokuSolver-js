@@ -16,7 +16,7 @@ html {
   box-sizing: inherit;
 }
 
-.button-rectangle {
+.button-rectangle, .card3d-body-front .button-rectangle {
   font-size: 8px;
   color: white;
   background: blue;
@@ -28,7 +28,7 @@ html {
 }
 
 @media screen and (min-width: 576px) {
-  .button-rectangle {
+  .button-rectangle, .card3d-body-front .button-rectangle {
     font-size: 10px;
   }
 }
@@ -153,7 +153,7 @@ h2 {
   padding: 5px 0 5px;
 }
 
-.theMatrix > div {
+.theMatrixNotes > div, .theMatrix > div {
   display: grid;
   justify-content: start;
   grid-template-columns: repeat(9, 1fr);
@@ -162,14 +162,14 @@ h2 {
   padding: 5px;
 }
 
-.theMatrix > div .cell {
+.theMatrixNotes > div .cell, .theMatrix > div .cell {
   width: 100%;
   padding-top: 100%;
   /* 1:1 Aspect Ratio */
   position: relative;
 }
 
-.theMatrix > div .cell > input {
+.theMatrixNotes > div .cell > input, .theMatrix > div .cell > input {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -182,30 +182,30 @@ h2 {
 }
 
 @media screen and (min-width: 440px) {
-  .theMatrix > div .cell > input {
+  .theMatrixNotes > div .cell > input, .theMatrix > div .cell > input {
     font-size: 1.8rem;
   }
 }
 
 @media screen and (min-width: 576px) {
-  .theMatrix > div .cell > input {
+  .theMatrixNotes > div .cell > input, .theMatrix > div .cell > input {
     font-size: 2.2rem;
   }
 }
 
 @media screen and (min-width: 768px) {
-  .theMatrix > div .cell > input {
+  .theMatrixNotes > div .cell > input, .theMatrix > div .cell > input {
     font-size: 2.8rem;
   }
 }
 
 @media screen and (min-width: 992px) {
-  .theMatrix > div .cell > input {
+  .theMatrixNotes > div .cell > input, .theMatrix > div .cell > input {
     font-size: 3.2rem;
   }
 }
 
-.theMatrix > div .cell > div {
+.theMatrixNotes > div .cell > div, .theMatrix > div .cell > div {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -223,25 +223,25 @@ h2 {
 }
 
 @media screen and (min-width: 440px) {
-  .theMatrix > div .cell > div {
+  .theMatrixNotes > div .cell > div, .theMatrix > div .cell > div {
     font-size: 0.6rem;
   }
 }
 
 @media screen and (min-width: 576px) {
-  .theMatrix > div .cell > div {
+  .theMatrixNotes > div .cell > div, .theMatrix > div .cell > div {
     font-size: 0.7rem;
   }
 }
 
 @media screen and (min-width: 768px) {
-  .theMatrix > div .cell > div {
+  .theMatrixNotes > div .cell > div, .theMatrix > div .cell > div {
     font-size: 0.8rem;
   }
 }
 
 @media screen and (min-width: 1200px) {
-  .theMatrix > div .cell > div {
+  .theMatrixNotes > div .cell > div, .theMatrix > div .cell > div {
     font-size: 0.9rem;
   }
 }
@@ -354,7 +354,7 @@ input[type=number] {
 }
 
 /* index page */
-.theMatrix {
+.theMatrixCard {
   grid-area: theMatrix;
 }
 
@@ -368,4 +368,108 @@ input[type=number] {
 
 .stepsDetails {
   grid-area: stepsDetails;
+}
+
+/***************************************************************************
+***                        Products cards 3D                             ***
+***************************************************************************/
+.card3d {
+  cursor: pointer;
+  width: calc(100% - 1em);
+  max-width: 600px;
+  margin: 20px 30px;
+}
+
+.card3d:hover .card3d-body {
+  transform: rotateY(0.5turn);
+}
+
+.card3d-body {
+  text-align: center;
+  position: relative;
+  transition: all 2.25s;
+  background-color: white;
+  padding: 1em;
+  transform-style: preserve-3d;
+  height: 100%;
+  border-radius: 30px;
+  border: 1px solid black;
+  box-shadow: 15px 15px 30px gray, -15px -15px 30px white;
+  height: 100%;
+}
+
+.card3d-body-front, .card3d-body-back {
+  padding: 1em;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.card3d-body-front-image {
+  object-fit: scale-down;
+  width: 90%;
+  height: auto;
+  transform: translateZ(6rem);
+  object-fit: scale-down;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.card3d-body-front-title {
+  transform: translateZ(8rem);
+  border-bottom: 3px solid black;
+  font-size: calc(min(7vw, 2rem));
+}
+
+.card3d-body-front .button-rectangle {
+  display: none;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+@media (hover: none) {
+  .card3d-body-front .button-rectangle {
+    display: inline-block;
+  }
+}
+
+.card3d-body-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  transform: rotateY(0.5turn);
+  border-radius: 30px;
+}
+
+@media (hover: hover) {
+  .card3d-body-back {
+    background-color: red;
+  }
+}
+
+.card3d-body-back-description {
+  transform: translateZ(6rem);
+  font-size: calc(min(4vw, 1.3rem));
+}
+
+.card3d-body-back-price {
+  transform: translateZ(4rem);
+  margin: 5px;
+  padding: 5px;
+}
+
+.card3d-body-back-salir {
+  display: none;
+}
+
+@media (hover: none) {
+  .card3d-body-back-salir {
+    display: inherit;
+  }
 }

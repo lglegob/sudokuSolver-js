@@ -5,7 +5,7 @@ import * as discardingFunctions from "./discardingProcessFunctions.js"
 import * as notesZero from "./notesZero.js";
 
 ////////////////////////////////////////////////////////////////////////////////
-//                            DISCARDING TECHNIQUES                          //
+//                   DISCARDING TECHNIQUES - LOCKED CANDIDATES               //
 //////////////////////////////////////////////////////////////////////////////
 const lockedCandidateRow = () => {
   for (let row = 0; row <= 8; row++) {
