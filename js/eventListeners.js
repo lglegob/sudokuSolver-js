@@ -5,7 +5,8 @@ import * as recurrent from "./recurrentFunctions.js";
 import * as matrixFunctions from "./theMatrixFunctions.js";
 import * as solvingTechniques from "./solvingTechniques.js";
 import * as obviousPairs from "./discardingTechniquesObviousPairs.js";
-import * as lockedCandidates from "./discardingTechniquesLockedCandidate.js"
+import * as lockedCandidates from "./discardingTechniquesLockedCandidate.js";
+import * as hiddenPairs from "./discardingTechniquesHiddenPairs.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                            EVENT LISTENERS                                //
@@ -26,7 +27,7 @@ const loadMatrixListener = () => {
   button_load.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    matrixFunctions.loadMatrix(initialMatrixpuzzle.expert02str);
+    matrixFunctions.loadMatrix(initialMatrixpuzzle.hard02str);
   });
 };
 
@@ -112,8 +113,12 @@ const resolveMatrixListener = () => {
     // Stop form from reloading the page
     e.preventDefault();
 
+    //NAKED SINGLE METHOD
+    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
     solvingTechniques.singleCandidate();
+    };
 
+    //HIDDEN SINGLE METHODS
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
       solvingTechniques.hiddenSinglesSquare();
     };
@@ -123,6 +128,8 @@ const resolveMatrixListener = () => {
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
       solvingTechniques.hiddenSinglesColumn();
     };
+
+    //OBVIOUS PAIRS METHODS
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
       obviousPairs.obviousPairsRow();
     };
@@ -132,6 +139,8 @@ const resolveMatrixListener = () => {
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
       obviousPairs.obviousPairsSquare();
     };
+
+    //LOCKED CANDIDATE METHODS
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
       lockedCandidates.lockedCandidateRow();
     };
@@ -142,6 +151,18 @@ const resolveMatrixListener = () => {
       lockedCandidates.lockedCandidateSquare();
     };
 
+    //HIDDEN PAIRS METHODS
+    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+      hiddenPairs.hiddenPairsRow();
+    };
+    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+      hiddenPairs.hiddenPairsColumn();
+    };
+    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+      hiddenPairs.hiddenPairsSquare();
+    };
+
+    //FAILURE (NOT SOLVED)
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
       console.log("--------------------------------------------");
       console.log("I'm sorry, kiddo. I really am. You have a good soul. And I hate giving good people bad news. - Oracle");

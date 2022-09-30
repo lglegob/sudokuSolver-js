@@ -6,6 +6,12 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.3.4 (3 Hidden Pairs Methods) 2022-09-29
+
+- The 3 new methods for Hidden Pairs defined. All candidates in a couple of cells are deleted except for the hidden pair
+
+---
+
 ### Version 0.3.3 (New Square Discard Method) 2022-09-28
 
 - The Third Discard Method focused on finding locked candidates has been added (In this case is based on finding locked candidates in squares and delete candidates in rows or columns)

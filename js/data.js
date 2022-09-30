@@ -108,4 +108,7 @@ const expert03str = "7----29---3--4----2--1----8--5--7---42-----35---3--8--5----
 //Example Locked Candidates Square to Column
 const expert04str = "--9-7-----8-4-------3----281-----67--2--13-4--4---78--6---3-----1-------------284"
 
-export default { hard02str, hard03str, expert01str, expert02str, expert03str, expert04str };
+//hardest Sudoku Ever https://abcnews.go.com/blogs/headlines/2012/06/can-you-solve-the-hardest-ever-sudoku
+const hardestSudokuEver = "8----------36------7--9-2---5---7-------457-----1---3---1----68--85---1--9----4--"
+
+export default { hard02str, hard03str, expert01str, expert02str, expert03str, expert04str, hardestSudokuEver };

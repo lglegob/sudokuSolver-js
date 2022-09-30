@@ -165,6 +165,24 @@ const discardTwoCandidates = (blockvalue, mainaxis, row1, row2, column1, column2
   discardTwoCandidatesHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
 };
 
+//Consolidated function for the 3 Blocks (row, column and square), when a pair of values must be kept and discard all others in one cell
+const discardAllExcept = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method, callbackNoteZero) => {
+  globalVar.currentStep++;
+  globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
+  globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
+  //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
+  let theMatrixStep = callbackNoteZero(row1, column1, value1, value2, globalVar.theMatrix[globalVar.currentStep]);
+  theMatrixStep = callbackNoteZero(row2, column2, value1, value2, theMatrixStep);
+  globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
+  if (globalVar.areNotesShowing === true) {
+    recurrent.hideNotes(globalVar.theMatrix[globalVar.currentStep]);
+    };
+  globalVar.areNotesShowing = true;
+  recurrent.showNotes(globalVar.theMatrix[globalVar.currentStep]);
+  globalVar.discardNoteSuccess = true;
+  discardAllExceptHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
+};
+
 const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method) => {
   console.log("--------------------------------------------");
   console.log("Remember, all I’m offering is the truth. Nothing more. - Morpheus");
@@ -184,7 +202,8 @@ const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, se
   newdiscardOneCandidateArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>Method ${method}</h4>
-  <p>Notes Discarded in ${mainaxis} ${mainaxisvalue + 1}, all candidates with value ${value} that do not belong to ${secondaryaxis} ${secondaryaxisvalue + 1} have been deleted</p>
+  <p>Notes Discarded in ${mainaxis} ${mainaxisvalue + 1}</p>
+  <p>All candidates with value ${value} that do not belong to ${secondaryaxis} ${secondaryaxisvalue + 1} have been deleted</p>
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newdiscardOneCandidateArticle);
@@ -216,4 +235,30 @@ const discardTwoCandidatesHTML = (blockvalue, mainaxis, row1, row2, column1, col
   main.prepend(newdiscardTwoCandidatesArticle);
 };
 
-export { gettingDetailedInfo, discardOneCandidate, discardTwoCandidates, discardOneCandidateHTML, discardTwoCandidatesHTML }
+const discardAllExceptHTML = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method) => {
+  console.log("--------------------------------------------");
+  console.log("We are still here! – Morpheus");
+  console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
+  console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
+  console.log("We found an Hidden Pair!")
+  if (mainaxis === "square") { blockvalue--} //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  console.log(`We are looking at ${mainaxis} ${blockvalue + 1}, the first cell is row${row1 + 1} column${column1 + 1}, and the second cell is row${row2 + 1} column${column2 + 1}`)
+  console.log(`The hidden pair notes are ${value1} and ${value2}, these are kept and all other notes in those two cells have been deleted`);
+  document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
+  document.querySelector("#button-reload").classList.add("active");
+  document.querySelector("#button-reload").classList.remove("inactive");
+  let newdiscardAllExceptArticle = document.createElement("article");
+  newdiscardAllExceptArticle.classList.add("newdiscardAllExceptHiddenPair");
+  newdiscardAllExceptArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  newdiscardAllExceptArticle.innerHTML = `
+  <h3>Step ${globalVar.currentStep}</h3>
+  <h4>Method ${method}</h4>
+  <p>Notes Discarded in ${mainaxis} ${blockvalue + 1}.</p>
+  <p>The notes kept are ${value1} and ${value2}, all other candidates in these cells have been deleted</p>
+  <p> the first cell is row${row1 + 1} column${column1 + 1}, and the second cell is row${row2 + 1} column${column2 + 1}.</p>
+  `;
+  const main = document.querySelector(".stepsDetails > div");
+  main.prepend(newdiscardAllExceptArticle);
+};
+
+export { gettingDetailedInfo, discardOneCandidate, discardTwoCandidates, discardAllExcept, discardOneCandidateHTML, discardTwoCandidatesHTML, discardAllExceptHTML }

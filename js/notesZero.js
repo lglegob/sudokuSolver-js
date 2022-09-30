@@ -47,4 +47,12 @@ const noteZeroSquareRC = (row, column, currentCellValue, theMatrixStep) => {
   return theMatrixStep;
 };
 
-export { noteZeroRow, noteZeroColumn, noteZeroSquareSQ, noteZeroSquareRC };
+//Here, focused in one specific cell, to delete the notes except the ones specified
+const noteZeroCellExcept = (row, column, candidate1, candidate2, theMatrixStep) => {
+      theMatrixStep[row][column] = [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0];
+      theMatrixStep[row][column][candidate1] = 1;
+      theMatrixStep[row][column][candidate2] = 1;
+  return theMatrixStep;
+};
+
+export { noteZeroRow, noteZeroColumn, noteZeroSquareSQ, noteZeroSquareRC, noteZeroCellExcept };

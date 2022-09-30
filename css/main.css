@@ -142,6 +142,10 @@ h2 {
   padding-bottom: 5px;
 }
 
+.stepsDetails article p {
+  padding: 15px 0;
+}
+
 .content-wrap {
   max-width: 500px;
   width: 95%;

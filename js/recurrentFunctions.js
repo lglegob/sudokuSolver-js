@@ -85,6 +85,12 @@ const defineRowColumnFromSquareRelative = (square, relativeRow, relativeColumn) 
   return { realRow, realColumn }
 };
 
+const defineRowColumnFromCellRelative = (square, relativeCell) => {
+  let realRow = (3 *(Math.floor((square-1) / 3))) + Math.floor(relativeCell / 3);
+  let realColumn = ( 3 * ((square-1) % 3)) + (relativeCell % 3);
+  return { realRow, realColumn }
+};
+
 //Function used to add html config with a 9 cells grid per each of the original divs to show the notes of each cell
 const showNotes = (theMatrixStep) => {
   for (let row = 0; row <= 8; row++) {
@@ -139,4 +145,4 @@ const hideNotes = (theMatrixStep) => {
   togglebutton.innerText = "Show Notes";
 };
 
-export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineRowColumnFromSquareRelative, showNotes, hideNotes };
+export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineRowColumnFromSquareRelative, defineRowColumnFromCellRelative, showNotes, hideNotes };
