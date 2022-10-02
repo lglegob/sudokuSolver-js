@@ -16,7 +16,7 @@ html {
   box-sizing: inherit;
 }
 
-.button-rectangle, .card3d-body-front .button-rectangle {
+.button-rectangle {
   font-size: 8px;
   color: white;
   background: blue;
@@ -28,7 +28,7 @@ html {
 }
 
 @media screen and (min-width: 576px) {
-  .button-rectangle, .card3d-body-front .button-rectangle {
+  .button-rectangle {
     font-size: 10px;
   }
 }
@@ -128,7 +128,7 @@ h2 {
 }
 
 .stepsDetails {
-  margin: 0 auto;
+  margin: 0 30px;
   text-align: center;
   font-size: 1rem;
 }
@@ -320,7 +320,7 @@ input[type=number] {
   padding: 4px;
 }
 
-@media screen and (min-width: 576px) {
+@media screen and (min-width: 992px) {
   .button-rectangle {
     width: 170px;
   }
@@ -341,14 +341,14 @@ input[type=number] {
 
 @media screen and (min-width: 768px) {
   .index-grid {
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 25% 75%;
     grid-template-areas: "theButtons		theMatrix" "theButtons 	solveIt" "theButtons 	stepsDetails";
   }
 }
 
 @media screen and (min-width: 992px) {
   .index-grid {
-    grid-template-columns: 25% 50% 25%;
+    grid-template-columns: 20% 50% 30%;
     grid-template-areas: "solveIt 		solveIt			solveIt" "theButtons		theMatrix		stepsDetails";
   }
 }
@@ -375,9 +375,9 @@ input[type=number] {
 ***************************************************************************/
 .card3d {
   cursor: pointer;
-  width: calc(100% - 1em);
+  width: 100%;
   max-width: 600px;
-  margin: 20px 30px;
+  margin: 20px auto;
 }
 
 .card3d:hover .card3d-body {
@@ -389,52 +389,16 @@ input[type=number] {
   position: relative;
   transition: all 2.25s;
   background-color: white;
-  padding: 1em;
   transform-style: preserve-3d;
-  height: 100%;
   border-radius: 30px;
   border: 1px solid black;
   box-shadow: 15px 15px 30px gray, -15px -15px 30px white;
-  height: 100%;
 }
 
 .card3d-body-front, .card3d-body-back {
   padding: 1em;
   transform-style: preserve-3d;
   backface-visibility: hidden;
-}
-
-.card3d-body-front-image {
-  object-fit: scale-down;
-  width: 90%;
-  height: auto;
-  transform: translateZ(6rem);
-  object-fit: scale-down;
-  width: 100%;
-  height: auto;
-  margin: 0 auto;
-  border-radius: 30px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-}
-
-.card3d-body-front-title {
-  transform: translateZ(8rem);
-  border-bottom: 3px solid black;
-  font-size: calc(min(7vw, 2rem));
-}
-
-.card3d-body-front .button-rectangle {
-  display: none;
-  padding: 8px;
-  margin-bottom: 8px;
-}
-
-@media (hover: none) {
-  .card3d-body-front .button-rectangle {
-    display: inline-block;
-  }
 }
 
 .card3d-body-back {
@@ -449,27 +413,6 @@ input[type=number] {
 
 @media (hover: hover) {
   .card3d-body-back {
-    background-color: red;
-  }
-}
-
-.card3d-body-back-description {
-  transform: translateZ(6rem);
-  font-size: calc(min(4vw, 1.3rem));
-}
-
-.card3d-body-back-price {
-  transform: translateZ(4rem);
-  margin: 5px;
-  padding: 5px;
-}
-
-.card3d-body-back-salir {
-  display: none;
-}
-
-@media (hover: none) {
-  .card3d-body-back-salir {
-    display: inherit;
+    background-color: white;
   }
 }

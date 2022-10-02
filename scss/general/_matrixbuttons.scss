@@ -2,7 +2,7 @@
     @extend %button-rectangle;
     width: 120px;
     padding: 4px;
-    @include size-sm {
+    @include size-lg {
         width: 170px;
     }
     &.active {

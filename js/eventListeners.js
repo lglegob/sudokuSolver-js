@@ -77,12 +77,12 @@ const toggleNotesListener = () => {
       globalVar.areNotesShowing = true;
       console.log("--------------------------------------------");
       console.log("I can only show you the door, you're the one that has to walk through it – Morpheus");
-      recurrent.showNotes(globalVar.theMatrix[globalVar.currentStep]);
+      // recurrent.showNotes(globalVar.theMatrix[globalVar.currentStep]);
     } else {
       globalVar.areNotesShowing = false;
       console.log("--------------------------------------------");
       console.log("Ignorance is bliss – Cypher");
-      recurrent.hideNotes(globalVar.theMatrix[globalVar.currentStep]);
+      // recurrent.hideNotes(globalVar.theMatrix[globalVar.currentStep]);
     };
   });
 };

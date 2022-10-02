@@ -36,7 +36,8 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);
   console.log(`the value in row ${itemrow}, column ${itemcolumn} is ${currentCellValue} by ${method} method`);
   // document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", currentCellValue);
-  document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").value = currentCellValue;
+  document.querySelector(".theMatrix " + ".row" + itemrow + ".column" + itemcolumn + " input").value = currentCellValue;
+  document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn + " input").value = currentCellValue;
   let newfoundvalueArticle = document.createElement("article");
   newfoundvalueArticle.classList.add("newfoundvalue");
   newfoundvalueArticle.setAttribute("id", "Step" + globalVar.currentStep );

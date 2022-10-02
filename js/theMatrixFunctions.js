@@ -34,10 +34,12 @@ const loadMatrix = (initialMatrixValues) => {
       if (cellValue > 0 && cellValue <=9) {
         howManyDigits++;
         console.log(`Value at row ${row}, column ${column} is ${cellValue}`);
-        document.querySelector(".row" + row + ".column" + column + " input").setAttribute("value", cellValue);
+        document.querySelector(".theMatrix " + ".row" + row + ".column" + column + " input").setAttribute("value", cellValue);
+        document.querySelector(".theMatrixNotes " + ".row" + row + ".column" + column + " input").setAttribute("value", cellValue);
       } else {
         //In case the user had inserted any value in the inputs
-        document.querySelector(".row" + row + ".column" + column + " input").value = "";
+        document.querySelector(".theMatrix " + ".row" + row + ".column" + column + " input").value = "";
+        document.querySelector(".theMatrixNotes " + ".row" + row + ".column" + column + " input").value = "";
       } 
     };
     if (howManyDigits < 17) {
@@ -49,6 +51,7 @@ const loadMatrix = (initialMatrixValues) => {
       let theMatrixStep = validateMatrix(globalVar.theMatrix[0]);
       const { theMatrixStepanalysis } = analyzeMatrix(theMatrixStep);
       globalVar.theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStepanalysis));
+      recurrent.reviewNotes(globalVar.theMatrix[0]);
     }
   } else {
     console.log("--------------------------------------------");
@@ -168,10 +171,12 @@ const matrixReloaded = (theMatrixDestinedStep) => {
       let itemcolumn = column + 1;
       if (theMatrixDestinedStep[row][column][0] !== 0) {
         // document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", theMatrixDestinedStep[row][column][0]);
-        document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").value = theMatrixDestinedStep[row][column][0];
+        document.querySelector(".theMatrix " + ".row" + itemrow + ".column" + itemcolumn + " input").value = theMatrixDestinedStep[row][column][0];
+        document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn + " input").value = theMatrixDestinedStep[row][column][0];
       } else {
         // document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", "");
-        document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").value = "";
+        document.querySelector(".theMatrix " + ".row" + itemrow + ".column" + itemcolumn + " input").value = "";
+        document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn + " input").value = "";
       };
     };
   };

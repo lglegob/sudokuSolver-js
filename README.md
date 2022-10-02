@@ -6,9 +6,20 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.3.4b (branch rotateNotes - Rebuilding Notes) 2022-10-02
+
+- ** This version is not operational **
+- In order for the 3D rotation of the Sudoku game to work (and show notes in the back of the card), the whole process of show/hide notes is being rebuilt
+- CSS - theMatrixCard3d is being adjusted to work with the Sudoku Game, several sections not applicable in comments
+- Several points of the code, the querySelector for .theMatrix was complemented or replace with .theMatrixNotes depending of each case.
+- New Function created (recurrent.reviewNotes) to replace the previous functions showNotes and hideNotes, and optimize the process by not calling but functions to refresh the candidates Notes
+
+---
+
 ### Version 0.3.4a (branch rotateNotes 3D card introduction) 2022-09-30
 
-- the 3D model card for the Matrix has been initially introduced (this version is not operational)
+- ** This branch version is not operational **
+- the 3D model card for the Matrix has been initially introduced
 
 ---
 
