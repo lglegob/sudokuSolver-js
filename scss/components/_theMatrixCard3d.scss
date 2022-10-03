@@ -34,6 +34,7 @@
 
         &-front, &-back {
             padding: 0.4em;
+            border-radius: 30px; 
             @include size-sm {
                 padding: 1em;
             }
@@ -42,33 +43,38 @@
         }
 
         &-front {
-            & .value1 {
-                transform: translateZ(1rem);
+            & .theMatrix {
+                transform: translateZ(16rem);
             }
-            & .value2 {
-                transform: translateZ(2rem);
-            }
-            & .value3 {
-                transform: translateZ(3rem);
-            }
-            & .value4 {
-                transform: translateZ(4rem);
-            }
-            & .value5 {
-                transform: translateZ(5rem);
-            }
-            & .value6 {
-                transform: translateZ(6rem);
-            }
-            & .value7 {
-                transform: translateZ(7rem);
-            }
-            & .value8 {
-                transform: translateZ(8rem);
-            }
-            & .value9 {
-                transform: translateZ(9rem);
-            }
+            // & .value1 {
+            //     transform: translateZ(1rem);
+            // }
+            // & .value2 {
+            //     transform: translateZ(2rem);
+            // }
+            // & .value3 {
+            //     transform: translateZ(3rem);
+            // }
+            // & .value4 {
+            //     transform: translateZ(4rem);
+            // }
+            // & .value5 {
+            //     transform: translateZ(5rem);
+            // }
+            // & .value6 {
+            //     transform: translateZ(6rem);
+            // }
+            // & .value7 {
+            //     transform: translateZ(7rem);
+            // }
+            // & .value8 {
+            //     transform: translateZ(8rem);
+            // }
+            // & .value9 {
+            //     transform: translateZ(9rem);
+            // }
+
+
             // &-image {
             //     object-fit: scale-down;
             //     width: 90%;
@@ -110,33 +116,37 @@
                 background-color: white;
             }
 
-            & .value1 {
-                transform: translateZ(1rem);
+            & .theMatrixNotes {
+                transform: translateZ(16rem);
             }
-            & .value2 {
-                transform: translateZ(2rem);
-            }
-            & .value3 {
-                transform: translateZ(3rem);
-            }
-            & .value4 {
-                transform: translateZ(4rem);
-            }
-            & .value5 {
-                transform: translateZ(5rem);
-            }
-            & .value6 {
-                transform: translateZ(6rem);
-            }
-            & .value7 {
-                transform: translateZ(7rem);
-            }
-            & .value8 {
-                transform: translateZ(8rem);
-            }
-            & .value9 {
-                transform: translateZ(9rem);
-            }
+
+            // & .value1 {
+            //     transform: translateZ(1rem);
+            // }
+            // & .value2 {
+            //     transform: translateZ(2rem);
+            // }
+            // & .value3 {
+            //     transform: translateZ(3rem);
+            // }
+            // & .value4 {
+            //     transform: translateZ(4rem);
+            // }
+            // & .value5 {
+            //     transform: translateZ(5rem);
+            // }
+            // & .value6 {
+            //     transform: translateZ(6rem);
+            // }
+            // & .value7 {
+            //     transform: translateZ(7rem);
+            // }
+            // & .value8 {
+            //     transform: translateZ(8rem);
+            // }
+            // & .value9 {
+            //     transform: translateZ(9rem);
+            // }
 
             // &-description {
             //     transform: translateZ(6rem);
