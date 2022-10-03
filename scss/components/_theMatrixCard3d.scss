@@ -1,0 +1,158 @@
+
+/***************************************************************************
+***                        Products cards 3D                             ***
+***************************************************************************/
+
+
+
+.card3d {
+    cursor: pointer;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+
+    & .transform-3D-active {
+        transform: rotateY(0.5turn);
+    }
+
+    // &:hover &-body {
+    //     transform: rotateY(0.5turn);
+    // }
+
+    &-body {
+        text-align: center;
+        position: relative;
+        transition: all 2.25s;
+        background-color: white;
+        // padding: 1em;
+        transform-style: preserve-3d;
+        // height: 100%;
+        border-radius: 30px; 
+        border: 1px solid black;
+        box-shadow: 15px 15px 30px gray,
+        -15px -15px 30px white;
+
+        &-front, &-back {
+            padding: 0.4em;
+            @include size-sm {
+                padding: 1em;
+            }
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+        }
+
+        &-front {
+            & .value1 {
+                transform: translateZ(1rem);
+            }
+            & .value2 {
+                transform: translateZ(2rem);
+            }
+            & .value3 {
+                transform: translateZ(3rem);
+            }
+            & .value4 {
+                transform: translateZ(4rem);
+            }
+            & .value5 {
+                transform: translateZ(5rem);
+            }
+            & .value6 {
+                transform: translateZ(6rem);
+            }
+            & .value7 {
+                transform: translateZ(7rem);
+            }
+            & .value8 {
+                transform: translateZ(8rem);
+            }
+            & .value9 {
+                transform: translateZ(9rem);
+            }
+            // &-image {
+            //     object-fit: scale-down;
+            //     width: 90%;
+            //     height: auto;
+            //     transform: translateZ(6rem);
+            //     object-fit: scale-down;
+            //     width: 100%;
+            //     height: auto;
+            //     margin: 0 auto;
+            //     border-radius: 30px;
+            //     display: flex; 
+            //     justify-content: center;
+            //     align-content: center;
+            // }
+            // &-title {
+            //     transform: translateZ(8rem);
+            //     border-bottom: 3px solid black;
+            //     font-size: calc(min(7vw, 2rem));
+            // }
+            // & .button-rectangle {
+            //     display: none;
+            //     @extend %button-rectangle;
+            //     padding: 8px;
+            //     margin-bottom: 8px;
+            //     @media (hover: none) {
+            //         display: inline-block;
+            //     }
+            // }
+        }
+        &-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            transform: rotateY(0.5turn);
+            border-radius: 30px; 
+            @media (hover: hover ) {
+                background-color: white;
+            }
+
+            & .value1 {
+                transform: translateZ(1rem);
+            }
+            & .value2 {
+                transform: translateZ(2rem);
+            }
+            & .value3 {
+                transform: translateZ(3rem);
+            }
+            & .value4 {
+                transform: translateZ(4rem);
+            }
+            & .value5 {
+                transform: translateZ(5rem);
+            }
+            & .value6 {
+                transform: translateZ(6rem);
+            }
+            & .value7 {
+                transform: translateZ(7rem);
+            }
+            & .value8 {
+                transform: translateZ(8rem);
+            }
+            & .value9 {
+                transform: translateZ(9rem);
+            }
+
+            // &-description {
+            //     transform: translateZ(6rem);
+            //     font-size: calc(min(4vw, 1.3rem));
+            // }
+            // &-price {
+            //     transform: translateZ(4rem);
+            //     margin: 5px;
+            //     padding: 5px;
+            // }
+            // &-salir {
+            //     display: none;
+            //     @media (hover: none) {
+            //         display: inherit;
+            //     }
+            // }
+        }
+    }
+}

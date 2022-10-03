@@ -133,11 +133,9 @@ const discardOneCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, second
     };
   };
 
-  if (globalVar.areNotesShowing === true) {
-    recurrent.hideNotes(globalVar.theMatrix[globalVar.currentStep]);
-    };
-  globalVar.areNotesShowing = true;
-  recurrent.showNotes(globalVar.theMatrix[globalVar.currentStep]);
+  globalVar.areNotesShowing = false;
+  recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
+  recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
   discardOneCandidateHTML(mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method);
 };
@@ -156,11 +154,9 @@ const discardTwoCandidates = (blockvalue, mainaxis, row1, row2, column1, column2
   globalVar.theMatrix[globalVar.currentStep][row1][column1][value2] = 1;
   globalVar.theMatrix[globalVar.currentStep][row2][column2][value1] = 1;
   globalVar.theMatrix[globalVar.currentStep][row2][column2][value2] = 1;
-  if (globalVar.areNotesShowing === true) {
-    recurrent.hideNotes(globalVar.theMatrix[globalVar.currentStep]);
-    };
-  globalVar.areNotesShowing = true;
-  recurrent.showNotes(globalVar.theMatrix[globalVar.currentStep]);
+  globalVar.areNotesShowing = false;
+  recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
+  recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
   discardTwoCandidatesHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
 };
@@ -174,11 +170,9 @@ const discardAllExcept = (blockvalue, mainaxis, row1, row2, column1, column2, va
   let theMatrixStep = callbackNoteZero(row1, column1, value1, value2, globalVar.theMatrix[globalVar.currentStep]);
   theMatrixStep = callbackNoteZero(row2, column2, value1, value2, theMatrixStep);
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
-  if (globalVar.areNotesShowing === true) {
-    recurrent.hideNotes(globalVar.theMatrix[globalVar.currentStep]);
-    };
-  globalVar.areNotesShowing = true;
-  recurrent.showNotes(globalVar.theMatrix[globalVar.currentStep]);
+  globalVar.areNotesShowing = false;
+  recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
+  recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
   discardAllExceptHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
 };

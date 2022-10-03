@@ -128,7 +128,7 @@ h2 {
 }
 
 .stepsDetails {
-  margin: 0 auto;
+  margin: 0 30px;
   text-align: center;
   font-size: 1rem;
 }
@@ -153,23 +153,28 @@ h2 {
   padding: 5px 0 5px;
 }
 
-.theMatrix > div {
+.theMatrixNotes, .theMatrix {
   display: grid;
   justify-content: start;
   grid-template-columns: repeat(9, 1fr);
-  border: 2px solid blue;
   margin: 5px auto;
   padding: 5px;
 }
 
-.theMatrix > div .cell {
+@media screen and (min-width: 576px) {
+  .theMatrixNotes, .theMatrix {
+    border: 2px solid blue;
+  }
+}
+
+.theMatrixNotes .cell, .theMatrix .cell {
   width: 100%;
   padding-top: 100%;
   /* 1:1 Aspect Ratio */
   position: relative;
 }
 
-.theMatrix > div .cell > input {
+.theMatrixNotes .cell > input, .theMatrix .cell > input {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -182,30 +187,30 @@ h2 {
 }
 
 @media screen and (min-width: 440px) {
-  .theMatrix > div .cell > input {
+  .theMatrixNotes .cell > input, .theMatrix .cell > input {
     font-size: 1.8rem;
   }
 }
 
 @media screen and (min-width: 576px) {
-  .theMatrix > div .cell > input {
+  .theMatrixNotes .cell > input, .theMatrix .cell > input {
     font-size: 2.2rem;
   }
 }
 
 @media screen and (min-width: 768px) {
-  .theMatrix > div .cell > input {
+  .theMatrixNotes .cell > input, .theMatrix .cell > input {
     font-size: 2.8rem;
   }
 }
 
 @media screen and (min-width: 992px) {
-  .theMatrix > div .cell > input {
+  .theMatrixNotes .cell > input, .theMatrix .cell > input {
     font-size: 3.2rem;
   }
 }
 
-.theMatrix > div .cell > div {
+.theMatrixNotes .cell > div, .theMatrix .cell > div {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -223,25 +228,25 @@ h2 {
 }
 
 @media screen and (min-width: 440px) {
-  .theMatrix > div .cell > div {
+  .theMatrixNotes .cell > div, .theMatrix .cell > div {
     font-size: 0.6rem;
   }
 }
 
 @media screen and (min-width: 576px) {
-  .theMatrix > div .cell > div {
+  .theMatrixNotes .cell > div, .theMatrix .cell > div {
     font-size: 0.7rem;
   }
 }
 
 @media screen and (min-width: 768px) {
-  .theMatrix > div .cell > div {
+  .theMatrixNotes .cell > div, .theMatrix .cell > div {
     font-size: 0.8rem;
   }
 }
 
 @media screen and (min-width: 1200px) {
-  .theMatrix > div .cell > div {
+  .theMatrixNotes .cell > div, .theMatrix .cell > div {
     font-size: 0.9rem;
   }
 }
@@ -320,7 +325,7 @@ input[type=number] {
   padding: 4px;
 }
 
-@media screen and (min-width: 576px) {
+@media screen and (min-width: 992px) {
   .button-rectangle {
     width: 170px;
   }
@@ -341,20 +346,20 @@ input[type=number] {
 
 @media screen and (min-width: 768px) {
   .index-grid {
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 25% 75%;
     grid-template-areas: "theButtons		theMatrix" "theButtons 	solveIt" "theButtons 	stepsDetails";
   }
 }
 
 @media screen and (min-width: 992px) {
   .index-grid {
-    grid-template-columns: 25% 50% 25%;
+    grid-template-columns: 20% 50% 30%;
     grid-template-areas: "solveIt 		solveIt			solveIt" "theButtons		theMatrix		stepsDetails";
   }
 }
 
 /* index page */
-.theMatrix {
+.theMatrixCard {
   grid-area: theMatrix;
 }
 
@@ -368,4 +373,129 @@ input[type=number] {
 
 .stepsDetails {
   grid-area: stepsDetails;
+}
+
+/***************************************************************************
+***                        Products cards 3D                             ***
+***************************************************************************/
+.card3d {
+  cursor: pointer;
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.card3d .transform-3D-active {
+  transform: rotateY(0.5turn);
+}
+
+.card3d-body {
+  text-align: center;
+  position: relative;
+  transition: all 2.25s;
+  background-color: white;
+  transform-style: preserve-3d;
+  border-radius: 30px;
+  border: 1px solid black;
+  box-shadow: 15px 15px 30px gray, -15px -15px 30px white;
+}
+
+.card3d-body-front, .card3d-body-back {
+  padding: 0.4em;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+@media screen and (min-width: 576px) {
+  .card3d-body-front, .card3d-body-back {
+    padding: 1em;
+  }
+}
+
+.card3d-body-front .value1 {
+  transform: translateZ(1rem);
+}
+
+.card3d-body-front .value2 {
+  transform: translateZ(2rem);
+}
+
+.card3d-body-front .value3 {
+  transform: translateZ(3rem);
+}
+
+.card3d-body-front .value4 {
+  transform: translateZ(4rem);
+}
+
+.card3d-body-front .value5 {
+  transform: translateZ(5rem);
+}
+
+.card3d-body-front .value6 {
+  transform: translateZ(6rem);
+}
+
+.card3d-body-front .value7 {
+  transform: translateZ(7rem);
+}
+
+.card3d-body-front .value8 {
+  transform: translateZ(8rem);
+}
+
+.card3d-body-front .value9 {
+  transform: translateZ(9rem);
+}
+
+.card3d-body-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  transform: rotateY(0.5turn);
+  border-radius: 30px;
+}
+
+@media (hover: hover) {
+  .card3d-body-back {
+    background-color: white;
+  }
+}
+
+.card3d-body-back .value1 {
+  transform: translateZ(1rem);
+}
+
+.card3d-body-back .value2 {
+  transform: translateZ(2rem);
+}
+
+.card3d-body-back .value3 {
+  transform: translateZ(3rem);
+}
+
+.card3d-body-back .value4 {
+  transform: translateZ(4rem);
+}
+
+.card3d-body-back .value5 {
+  transform: translateZ(5rem);
+}
+
+.card3d-body-back .value6 {
+  transform: translateZ(6rem);
+}
+
+.card3d-body-back .value7 {
+  transform: translateZ(7rem);
+}
+
+.card3d-body-back .value8 {
+  transform: translateZ(8rem);
+}
+
+.card3d-body-back .value9 {
+  transform: translateZ(9rem);
 }

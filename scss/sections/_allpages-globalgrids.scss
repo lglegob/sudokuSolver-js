@@ -12,7 +12,7 @@
 	"stepsDetails"
 	;
 	@include size-md {
-		grid-template-columns: 20% 80%;
+		grid-template-columns: 25% 75%;
 		grid-template-areas: 
 		"theButtons		theMatrix"
 		"theButtons 	solveIt"
@@ -21,7 +21,7 @@
 		;
 	}
 	@include size-lg {
-		grid-template-columns: 25% 50% 25%;
+		grid-template-columns: 20% 50% 30%;
 		grid-template-areas: 
 		"solveIt 		solveIt			solveIt"
 		"theButtons		theMatrix		stepsDetails"
@@ -31,7 +31,7 @@
 }
 
 /* index page */
-.theMatrix {			
+.theMatrixCard {			
 	grid-area: theMatrix;
 }
 .theButtons {			

@@ -6,7 +6,7 @@ import * as notesZero from "./notesZero.js";
 
 
 ////////////////////////////////////////////////////////////////////////////////
-//                            DISCARDING TECHNIQUES                          //
+//                  DISCARDING TECHNIQUES - OBVIOUS PAIRS                    //
 //////////////////////////////////////////////////////////////////////////////
 
 // Function to detect when a row has obvious pairs

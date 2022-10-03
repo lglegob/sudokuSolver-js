@@ -16,7 +16,6 @@ const cellValueFound = (row, column, currentCellValue, method) => {
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
-  if (globalVar.areNotesShowing === true)  recurrent.hideNotes(theMatrixStepCellFound);
   // here the currentCellValue is set in theMatrix variable, and the corresponding notes in the cells of the same row, column and squatre deleted
   theMatrixStepCellFound[row][column] = [currentCellValue, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   let theMatrixStep = notesZero.noteZeroRow(row, currentCellValue, theMatrixStepCellFound);
@@ -36,7 +35,26 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);
   console.log(`the value in row ${itemrow}, column ${itemcolumn} is ${currentCellValue} by ${method} method`);
   // document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", currentCellValue);
-  document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").value = currentCellValue;
+  // document.querySelector(".theMatrix " + ".row" + itemrow + ".column" + itemcolumn + " input").value = currentCellValue;
+
+  //Config for modifying the html matrixes
+  let newfoundInput = document.createElement("div");
+  newfoundInput.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "value" + currentCellValue);
+  newfoundInput.innerHTML = `
+    <input type="number" min="1" max="9" value=${currentCellValue}>
+  `;
+  const mainMatrix = document.querySelector(".theMatrix .row" + itemrow +".column" + itemcolumn);
+  mainMatrix.replaceWith(newfoundInput);
+
+  let newfoundInputNotes = document.createElement("div");
+  newfoundInputNotes.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "value" + currentCellValue);
+  newfoundInputNotes.innerHTML = `
+    <input type="number" min="1" max="9" value=${currentCellValue}>
+  `;
+  const mainMatrixNotes = document.querySelector(".theMatrixNotes .row" + itemrow +".column" + itemcolumn);
+  mainMatrixNotes.replaceWith(newfoundInputNotes);
+
+  //Config for adding the description and card in stepsDetails Section
   let newfoundvalueArticle = document.createElement("article");
   newfoundvalueArticle.classList.add("newfoundvalue");
   newfoundvalueArticle.setAttribute("id", "Step" + globalVar.currentStep );
@@ -48,7 +66,7 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newfoundvalueArticle);
-  if (globalVar.areNotesShowing === true) recurrent.showNotes(theMatrixStep);
+  recurrent.reviewNotes(theMatrixStep);
 };
 
 export { cellValueFound, newfoundvalueHTML };

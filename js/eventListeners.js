@@ -27,7 +27,7 @@ const loadMatrixListener = () => {
   button_load.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    matrixFunctions.loadMatrix(initialMatrixpuzzle.hard02str);
+    matrixFunctions.loadMatrix(initialMatrixpuzzle.expert03str);
   });
 };
 
@@ -68,26 +68,16 @@ const resetMatrixListener = () => {
   });
 };
 
-// Add event listener to the showNotes button
+// Add event listener to the toggleNotes button
 const toggleNotesListener = () => {
   button_togglenotes.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    if (globalVar.areNotesShowing === false) {
-      globalVar.areNotesShowing = true;
-      console.log("--------------------------------------------");
-      console.log("I can only show you the door, you're the one that has to walk through it – Morpheus");
-      recurrent.showNotes(globalVar.theMatrix[globalVar.currentStep]);
-    } else {
-      globalVar.areNotesShowing = false;
-      console.log("--------------------------------------------");
-      console.log("Ignorance is bliss – Cypher");
-      recurrent.hideNotes(globalVar.theMatrix[globalVar.currentStep]);
-    };
+    recurrent.toggleNotes();
   });
 };
 
-// Add event listener to the showNotes button
+// Add event listener to the input cells action
 const inputCellsListener = () => {
   input_cellvalues.forEach(item => {
     item.addEventListener("change", () => {
