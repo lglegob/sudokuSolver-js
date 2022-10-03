@@ -6,6 +6,16 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.1 (Sudoku 3D rorate) 2022-10-03
+
+- the 3d Rotation is limited to the complete Sudoku board, as with the individual cells, it became kind of slugish in mobile and it is not that pretty.
+
+### Version 0.4.0 (Merge Branch rotateNotes) 2022-10-02
+
+- rotateNotes branch changes integrated to main branch.
+
+---
+
 ### Version 0.3.4c (branch rotateNotes Operational) 2022-10-02
 
 - ** This version is ALREADY operational **

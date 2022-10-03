@@ -402,6 +402,7 @@ input[type=number] {
 
 .card3d-body-front, .card3d-body-back {
   padding: 0.4em;
+  border-radius: 30px;
   transform-style: preserve-3d;
   backface-visibility: hidden;
 }
@@ -412,40 +413,8 @@ input[type=number] {
   }
 }
 
-.card3d-body-front .value1 {
-  transform: translateZ(1rem);
-}
-
-.card3d-body-front .value2 {
-  transform: translateZ(2rem);
-}
-
-.card3d-body-front .value3 {
-  transform: translateZ(3rem);
-}
-
-.card3d-body-front .value4 {
-  transform: translateZ(4rem);
-}
-
-.card3d-body-front .value5 {
-  transform: translateZ(5rem);
-}
-
-.card3d-body-front .value6 {
-  transform: translateZ(6rem);
-}
-
-.card3d-body-front .value7 {
-  transform: translateZ(7rem);
-}
-
-.card3d-body-front .value8 {
-  transform: translateZ(8rem);
-}
-
-.card3d-body-front .value9 {
-  transform: translateZ(9rem);
+.card3d-body-front .theMatrix {
+  transform: translateZ(16rem);
 }
 
 .card3d-body-back {
@@ -464,38 +433,6 @@ input[type=number] {
   }
 }
 
-.card3d-body-back .value1 {
-  transform: translateZ(1rem);
-}
-
-.card3d-body-back .value2 {
-  transform: translateZ(2rem);
-}
-
-.card3d-body-back .value3 {
-  transform: translateZ(3rem);
-}
-
-.card3d-body-back .value4 {
-  transform: translateZ(4rem);
-}
-
-.card3d-body-back .value5 {
-  transform: translateZ(5rem);
-}
-
-.card3d-body-back .value6 {
-  transform: translateZ(6rem);
-}
-
-.card3d-body-back .value7 {
-  transform: translateZ(7rem);
-}
-
-.card3d-body-back .value8 {
-  transform: translateZ(8rem);
-}
-
-.card3d-body-back .value9 {
-  transform: translateZ(9rem);
+.card3d-body-back .theMatrixNotes {
+  transform: translateZ(16rem);
 }
