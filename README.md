@@ -1,10 +1,22 @@
 # sudokuSolver-js
 
-Repository dedicated for the configuration and development of a Sudoku Solver based on JavaScript, by using solution methods like a human would solve it, so to be able to solve each sudoku puzzle like a tutorial, no backtracking algorith.
+Repository dedicated for the configuration and development of a Sudoku Solver based on JavaScript, by using logical solution methods like a human would solve it. This is to be able to solve each sudoku puzzle that a user ingress, like a tutorial, with step and step explanations and methods definitios. No backtracking algorithm. No brute Force algorithm.
 
 ![Sudoku Image](/images/6710716.jpg)
 
 ## Change Control and Versioning
+
+### Version 0.3.4c (branch rotateNotes Operational) 2022-10-02
+
+- ** This version is ALREADY operational **
+- in the HTML, the Matrix and MatrixNotes definitions were optmized to not used one div level and section level to be able to manipulate (if wanted) the 3D effect per value
+- Process added to have in the class of each cell the current value
+- Changes in CSS to have the rotation based on class .transform-3D-active instead of depending on hover
+- Changes in CSS file to rotate based in current value
+- Rebuilt of show/hide notes was completed
+- the processes to modify the DOM when a value was found or when reloading 1 step, was redefined based on several bugs encounter during the coding process
+
+---
 
 ### Version 0.3.4b (branch rotateNotes - Rebuilding Notes) 2022-10-02
 

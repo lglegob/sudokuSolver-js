@@ -35,7 +35,9 @@ const loadMatrix = (initialMatrixValues) => {
         howManyDigits++;
         console.log(`Value at row ${row}, column ${column} is ${cellValue}`);
         document.querySelector(".theMatrix " + ".row" + row + ".column" + column + " input").setAttribute("value", cellValue);
+        document.querySelector(".theMatrix " + ".row" + row + ".column" + column).classList.add("value" + cellValue);
         document.querySelector(".theMatrixNotes " + ".row" + row + ".column" + column + " input").setAttribute("value", cellValue);
+        document.querySelector(".theMatrixNotes " + ".row" + row + ".column" + column).classList.add("value" + cellValue);
       } else {
         //In case the user had inserted any value in the inputs
         document.querySelector(".theMatrix " + ".row" + row + ".column" + column + " input").value = "";
@@ -84,6 +86,7 @@ const validateMatrix = (theMatrixStep) => {
       let itemcolumn = column + 1;
       let currentcell = document.querySelector(".row" + itemrow + ".column" + itemcolumn);
       let currentCellValue = Number(currentcell.querySelector("input").value);
+      currentcell.classList.add("value" + currentCellValue);
       theMatrixStep[row][column] = [currentCellValue, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     };
   };
@@ -158,7 +161,6 @@ const matrixReloaded = (theMatrixDestinedStep) => {
   document.querySelector("#button-togglenotes").disabled = false;
   document.querySelector("#button-togglenotes").classList.add("active");
   document.querySelector("#button-togglenotes").classList.remove("inactive");
-  if (globalVar.areNotesShowing === true) recurrent.hideNotes(theMatrixDestinedStep);
   if (globalVar.currentStep === 0) {
     document.querySelector("#button-reload").disabled = true;
     document.querySelector("#button-reload").classList.remove("active");
@@ -169,20 +171,36 @@ const matrixReloaded = (theMatrixDestinedStep) => {
       globalVar.loopsExecuted++;
       let itemrow = row + 1;
       let itemcolumn = column + 1;
+      let newfoundInput = document.createElement("div");
+      newfoundInput.classList.add("cell", "row" + itemrow, "column" + itemcolumn);
+      let newfoundInputNotes = document.createElement("div");
+      newfoundInputNotes.classList.add("cell", "row" + itemrow, "column" + itemcolumn);
       if (theMatrixDestinedStep[row][column][0] !== 0) {
-        // document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", theMatrixDestinedStep[row][column][0]);
-        document.querySelector(".theMatrix " + ".row" + itemrow + ".column" + itemcolumn + " input").value = theMatrixDestinedStep[row][column][0];
-        document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn + " input").value = theMatrixDestinedStep[row][column][0];
+        let currentCellValue = theMatrixDestinedStep[row][column][0];
+        //Config for modifying the html matrixes
+        newfoundInput.classList.add("value" + currentCellValue);
+        newfoundInput.innerHTML = `
+          <input type="number" min="1" max="9" value=${currentCellValue}>
+        `;
+        newfoundInputNotes.classList.add("value" + currentCellValue);
+        newfoundInputNotes.innerHTML = `
+        <input type="number" min="1" max="9" value=${currentCellValue}>
+      `;
       } else {
-        // document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", "");
-        document.querySelector(".theMatrix " + ".row" + itemrow + ".column" + itemcolumn + " input").value = "";
-        document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn + " input").value = "";
+        newfoundInput.innerHTML = `
+        <input type="number" min="1" max="9" value="">
+        `;
+        newfoundInputNotes.innerHTML = `
+        <input type="number" min="1" max="9" value="">
+        `;
       };
+      document.querySelector(".theMatrix .row" + itemrow +".column" + itemcolumn).replaceWith(newfoundInput);
+      document.querySelector(".theMatrixNotes .row" + itemrow +".column" + itemcolumn).replaceWith(newfoundInputNotes);
     };
   };
   console.log("--------------------------------------------");
   console.log("Denial is the most predictable of all human responses – The Architect"); 
-  if (globalVar.areNotesShowing === true) recurrent.showNotes(theMatrixDestinedStep);
+  recurrent.reviewNotes(theMatrixDestinedStep);
 };
 
 export { createMatrix, loadMatrix, loadMatrixManually, validateMatrix, analyzeMatrix, resetMatrix, matrixReloaded };

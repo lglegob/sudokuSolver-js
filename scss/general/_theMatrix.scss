@@ -1,8 +1,10 @@
-.theMatrixNotes > div, .theMatrix > div {
+.theMatrixNotes, .theMatrix {
   display: grid;
   justify-content: start;
   grid-template-columns: repeat(9, 1fr);
-  border: 2px solid blue;
+  @include size-sm {
+    border: 2px solid blue;
+  }
   margin: 5px auto;
   padding: 5px;
 

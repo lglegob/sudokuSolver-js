@@ -91,34 +91,23 @@ const defineRowColumnFromCellRelative = (square, relativeCell) => {
   return { realRow, realColumn }
 };
 
-//Function used to add html config with a 9 cells grid per each of the original divs to show the notes of each cell
-const showNotes = (theMatrixStep) => {
-  for (let row = 0; row <= 8; row++) {
-    for (let column = 0; column <= 8; column++) {
-      let itemrow = row + 1;
-      let itemcolumn = column + 1;
-      if (theMatrixStep[row][column][0] === 0) {
-        document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn + " input").remove();
-        document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn).classList.add("notes")
-        let newdivcandidate = document.createElement("div");
-        for (let note = 1; note <= 9; note++) {
-          globalVar.loopsExecuted++;
-          let newnote = document.createElement("p");
-          newnote.classList.add(`note${note}`);
-          if (theMatrixStep[row][column][note] !== 0) {
-            newnote.innerHTML = `
-            ${note}
-            `;
-          }
-          newdivcandidate.append(newnote);
-        };
-        const main = document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn);
-        main.append(newdivcandidate);
-      };
-    };
+// Function used to add html config with a 9 cells grid per each of the original divs to show the notes of each cell
+const toggleNotes = () => {
+  if (globalVar.areNotesShowing === false) {
+    globalVar.areNotesShowing = true;
+    console.log("--------------------------------------------");
+    console.log("I can only show you the door, you're the one that has to walk through it – Morpheus");
+    document.querySelector(".card3d-body").classList.add("transform-3D-active");
+    let togglebutton = document.querySelector("#button-togglenotes");
+    togglebutton.innerText = "Hide Notes";
+  } else {
+    globalVar.areNotesShowing = false;
+    console.log("--------------------------------------------");
+    console.log("Ignorance is bliss – Cypher");
+    document.querySelector(".card3d-body").classList.remove("transform-3D-active");
+    let togglebutton = document.querySelector("#button-togglenotes");
+    togglebutton.innerText = "Show Notes";
   };
-  let togglebutton = document.querySelector("#button-togglenotes");
-  togglebutton.innerText = "Hide Notes";
 };
 
 //Function used to add html config with a 9 cells grid per each of the original divs to show the notes of each cell
@@ -142,7 +131,6 @@ const reviewNotes = (theMatrixStep) => {
           }
           internaldiv.append(newnote);
           newdivcandidate.append(internaldiv);
-
         };
         const main = document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn);
         main.replaceWith(newdivcandidate);
@@ -151,28 +139,4 @@ const reviewNotes = (theMatrixStep) => {
   };
 };
 
-//Function used to remove the notes and replace them with the div reserved to the final number (currently blank)
-const hideNotes = (theMatrixStep) => {
-  for (let row = 0; row <= 8; row++) {
-    for (let column = 0; column <= 8; column++) {
-      globalVar.loopsExecuted++;
-      if (theMatrixStep[row][column][0] === 0) {
-        let itemrow = row + 1;
-        let itemcolumn = column + 1;
-        let newdivcandidate;
-        document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn).classList.remove("notes");
-        newdivcandidate = document.createElement("div");
-        newdivcandidate.classList.add("cell", `row${itemrow}`, `column${itemcolumn}`);
-        newdivcandidate.innerHTML = `
-        <input type="number" min="1" max="9">
-        `;
-        const main = document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn);
-        main.replaceWith(newdivcandidate);
-      };
-    };
-  };
-  let togglebutton = document.querySelector("#button-togglenotes");
-  togglebutton.innerText = "Show Notes";
-};
-
-export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineRowColumnFromSquareRelative, defineRowColumnFromCellRelative, showNotes, reviewNotes, hideNotes };
+export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineRowColumnFromSquareRelative, defineRowColumnFromCellRelative, toggleNotes, reviewNotes };

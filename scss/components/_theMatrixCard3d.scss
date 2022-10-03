@@ -2,15 +2,23 @@
 /***************************************************************************
 ***                        Products cards 3D                             ***
 ***************************************************************************/
+
+
+
 .card3d {
     cursor: pointer;
     width: 100%;
     max-width: 600px;
     margin: 20px auto;
 
-    &:hover &-body {
+    & .transform-3D-active {
         transform: rotateY(0.5turn);
     }
+
+    // &:hover &-body {
+    //     transform: rotateY(0.5turn);
+    // }
+
     &-body {
         text-align: center;
         position: relative;
@@ -25,12 +33,42 @@
         -15px -15px 30px white;
 
         &-front, &-back {
-            padding: 1em;
+            padding: 0.4em;
+            @include size-sm {
+                padding: 1em;
+            }
             transform-style: preserve-3d;
             backface-visibility: hidden;
         }
 
         &-front {
+            & .value1 {
+                transform: translateZ(1rem);
+            }
+            & .value2 {
+                transform: translateZ(2rem);
+            }
+            & .value3 {
+                transform: translateZ(3rem);
+            }
+            & .value4 {
+                transform: translateZ(4rem);
+            }
+            & .value5 {
+                transform: translateZ(5rem);
+            }
+            & .value6 {
+                transform: translateZ(6rem);
+            }
+            & .value7 {
+                transform: translateZ(7rem);
+            }
+            & .value8 {
+                transform: translateZ(8rem);
+            }
+            & .value9 {
+                transform: translateZ(9rem);
+            }
             // &-image {
             //     object-fit: scale-down;
             //     width: 90%;
@@ -70,6 +108,34 @@
             border-radius: 30px; 
             @media (hover: hover ) {
                 background-color: white;
+            }
+
+            & .value1 {
+                transform: translateZ(1rem);
+            }
+            & .value2 {
+                transform: translateZ(2rem);
+            }
+            & .value3 {
+                transform: translateZ(3rem);
+            }
+            & .value4 {
+                transform: translateZ(4rem);
+            }
+            & .value5 {
+                transform: translateZ(5rem);
+            }
+            & .value6 {
+                transform: translateZ(6rem);
+            }
+            & .value7 {
+                transform: translateZ(7rem);
+            }
+            & .value8 {
+                transform: translateZ(8rem);
+            }
+            & .value9 {
+                transform: translateZ(9rem);
             }
 
             // &-description {
