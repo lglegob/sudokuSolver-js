@@ -40,12 +40,8 @@
         color: green;
         background-color: lightgreen;
       }
-      &.justDeletedNote {
-        background-color: red;
-      }
-
-
     }
+
     & > div {
       position: absolute;
       top: 0;
@@ -74,6 +70,12 @@
       grid-template-rows: repeat(3, 1fr);
       justify-content: start;
       text-align: center;
+      & .justDeletedNote {
+        background-color: red;
+      }
+      & .noteKept {
+        background-color: lightgreen;
+      }
     }
   }
 }

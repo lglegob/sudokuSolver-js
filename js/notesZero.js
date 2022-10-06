@@ -11,9 +11,11 @@ const noteZeroRow = (row, currentCellValue, theMatrixStep) => {
   
   theMatrixStep[row].forEach(function(column_item, columnindex) {
     globalVar.loopsExecuted++;
-    if (column_item[currentCellValue] !== 0) {
-      document.querySelector(".theMatrixNotes " + ".row" + (row + 1) + ".column" + (columnindex + 1)).classList.add("justDeletedNote");
+    if (column_item[currentCellValue] !== 0 && column_item[0] === 0) {
       column_item[currentCellValue] = 0;
+      if(document.querySelector("#highlightChanges").checked) {
+        document.querySelector(".theMatrixNotes " + ".row" + (row + 1) + ".column" + (columnindex + 1) + " .note" + currentCellValue).classList.add("justDeletedNote");
+      };
     };
   });
 
@@ -24,7 +26,12 @@ const noteZeroRow = (row, currentCellValue, theMatrixStep) => {
 const noteZeroColumn = (column, currentCellValue, theMatrixStep) => {
   for (let row_within_column = 0; row_within_column < 9; row_within_column++) {
     globalVar.loopsExecuted++;
-    theMatrixStep[row_within_column][column][currentCellValue] = 0;
+    if (theMatrixStep[row_within_column][column][currentCellValue] !== 0 && theMatrixStep[row_within_column][column][0] === 0) {
+      theMatrixStep[row_within_column][column][currentCellValue] = 0;
+      if(document.querySelector("#highlightChanges").checked) {
+        document.querySelector(".theMatrixNotes " + ".row" + (row_within_column + 1) + ".column" + (column + 1) + " .note" + currentCellValue).classList.add("justDeletedNote");
+      };
+    };
   };
   return theMatrixStep;
 };
@@ -35,7 +42,12 @@ const noteZeroSquareSQ = (square, currentCellValue, theMatrixStep) => {
   for (let square_row = fromrow; square_row <= maximumrow; square_row++) {
     for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) {
       globalVar.loopsExecuted++;
-      theMatrixStep[square_row][square_column][currentCellValue] = 0;
+      if (theMatrixStep[square_row][square_column][currentCellValue] !== 0 && theMatrixStep[square_row][square_column][0] === 0) {
+        theMatrixStep[square_row][square_column][currentCellValue] = 0;
+        if(document.querySelector("#highlightChanges").checked) {
+          document.querySelector(".theMatrixNotes " + ".row" + (square_row + 1) + ".column" + (square_column + 1) + " .note" + currentCellValue).classList.add("justDeletedNote");
+        };
+      };
     };
   };
   return theMatrixStep;
@@ -47,7 +59,12 @@ const noteZeroSquareRC = (row, column, currentCellValue, theMatrixStep) => {
   for (let square_row = fromrow; square_row <= maximumrow; square_row++) {
     for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) {
       globalVar.loopsExecuted++;
-      theMatrixStep[square_row][square_column][currentCellValue] = 0;
+      if (theMatrixStep[square_row][square_column][currentCellValue] !== 0 && theMatrixStep[square_row][square_column][0] === 0) {
+        theMatrixStep[square_row][square_column][currentCellValue] = 0;
+        if(document.querySelector("#highlightChanges").checked) {
+          document.querySelector(".theMatrixNotes " + ".row" + (square_row + 1) + ".column" + (square_column + 1) + " .note" + currentCellValue).classList.add("justDeletedNote");
+        };
+      };
     };
   };
   return theMatrixStep;
@@ -55,9 +72,19 @@ const noteZeroSquareRC = (row, column, currentCellValue, theMatrixStep) => {
 
 //Here, focused in one specific cell, to delete the notes except the ones specified
 const noteZeroCellExcept = (row, column, candidate1, candidate2, theMatrixStep) => {
-      theMatrixStep[row][column] = [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0];
-      theMatrixStep[row][column][candidate1] = 1;
-      theMatrixStep[row][column][candidate2] = 1;
+  for (let possibleCandidate = 1; possibleCandidate <=9; possibleCandidate++) {
+    if (possibleCandidate !== candidate1 && possibleCandidate !== candidate2) {
+      if(document.querySelector("#highlightChanges").checked && theMatrixStep[row][column][possibleCandidate] !== 0) {
+        document.querySelector(".theMatrixNotes " + ".row" + (row + 1) + ".column" + (column + 1) + " .note" + possibleCandidate).classList.add("justDeletedNote");
+      };
+      theMatrixStep[row][column][possibleCandidate] = 0;
+    } else {
+      theMatrixStep[row][column][possibleCandidate] = 1;
+      if(document.querySelector("#highlightChanges").checked) {
+        document.querySelector(".theMatrixNotes " + ".row" + (row + 1) + ".column" + (column + 1) + " .note" + possibleCandidate).classList.add("noteKept");
+      };
+    };
+  };
   return theMatrixStep;
 };
 

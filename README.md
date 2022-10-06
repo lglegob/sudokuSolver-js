@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.3 (Steps Highlights) 2022-10-06
+
+- WHAT'S NEW?!
+- The process to highlight the changes in previous step is extended to highlight the candidates deleted at each step, being careful of also showing those candidate notes not deleted by green.
+
+- FIXED BUGs
+- Previous Update broke the capability to fill the sudoku puzzle directly in the cells, since now the HTML is dinamically created at the start, and the event listener did not find anymore the input fields. This has been solved by recolating the event listener position and input-cellvalues const definition
+
 ### Version 0.4.2 (Dynamic Matrix, highlights) 2022-10-05
 
 - WHAT'S NEW?!

@@ -21,7 +21,8 @@ const button_resolve = document.querySelector("#button-resolve");
 const button_reset = document.querySelector("#button-reset");
 const button_togglenotes = document.querySelector("#button-togglenotes");
 const button_reload = document.querySelector("#button-reload");
-const input_cellvalues = document.querySelectorAll(".theMatrix input");
+// const input_cellvalues = document.querySelectorAll(".theMatrix input");
+
 
 // Add event listener to the Load button
 const loadMatrixListener = () => {
@@ -61,6 +62,7 @@ const validateMatrixListener = () => {
     recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
     recurrent.toggleNotes();
     recurrent.reviewCertainValues(globalVar.theMatrix[globalVar.currentStep]);
+    recurrent.deleteLastShowMe();
   });
 };
 
@@ -83,7 +85,7 @@ const toggleNotesListener = () => {
 };
 
 // Add event listener to the input cells action
-const inputCellsListener = () => {
+const inputCellsListener = (input_cellvalues) => {
   input_cellvalues.forEach(item => {
     item.addEventListener("change", () => {
       document.querySelector("#button-load").disabled = true;
@@ -166,7 +168,6 @@ const resolveMatrixListener = () => {
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
       xwing.xwingColumn();
     };
-
 
     //FAILURE (NOT SOLVED)
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {

@@ -3,6 +3,7 @@ import globalVar from "./globalVar.js";
 import initialMatrixpuzzle from "./data.js";
 import * as notesZero from "./notesZero.js";
 import * as recurrent from "./recurrentFunctions.js";
+import * as eventListeners from "./eventListeners.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                            MATRIX FUNCTIONS                               //
@@ -19,45 +20,41 @@ const createMatrix = () => {
       let itemrow = row + 1;
       let itemcolumn = column + 1;
       let newDivInput = document.createElement("div");
-      let newDivInputNotes = document.createElement("div");
       newDivInput.classList.add("cell", "row" + itemrow, "column" + itemcolumn);
-      newDivInputNotes.classList.add("cell", "row" + itemrow, "column" + itemcolumn);
       newDivInput.innerHTML = `
-      <input type="number" min="1" max="9" value="">
-      `;
-      newDivInputNotes.innerHTML = `
       <input type="number" min="1" max="9" value="">
       `;
       const mainMatrix = document.querySelector(".theMatrix");
       mainMatrix.append(newDivInput);
+      let newDivInputNotes = recurrent.createNewDivCandidateNotes(theMatrixStep, row, column);
       const mainMatrixNotes = document.querySelector(".theMatrixNotes");
       mainMatrixNotes.append(newDivInputNotes);
     };
   };
   globalVar.theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStep));
+  //This Listener for input fields has to be loaded after HTML theMatrix structure has been already create by function createMatrix()
+  const input_cellvalues = document.querySelectorAll(".theMatrix input");
+  eventListeners.inputCellsListener(input_cellvalues);
 };
 
 const loadMatrix = (initialMatrixValues) => {
-  console.log(`La cadena que ingresaste fue: ${initialMatrixValues}`)
-  console.log(`lenght is: ${initialMatrixValues.length}`)
   if (initialMatrixValues.length >= 17) {
     let howManyDigits = 0;
     for (let cellCounter = 0; cellCounter < Math.min(initialMatrixValues.length, 81); cellCounter++) {
       globalVar.loopsExecuted++;
-      let row = Math.floor(cellCounter / 9) + 1;
-      let column = (cellCounter % 9) + 1;
-      let cellValue = initialMatrixValues.charAt(cellCounter);
-      if (cellValue > 0 && cellValue <=9) {
+      let row = Math.floor(cellCounter / 9);
+      let column = (cellCounter % 9);
+      let itemrow = row + 1;
+      let itemcolumn = column + 1;
+      let currentCellValue = initialMatrixValues.charAt(cellCounter);
+      if (currentCellValue > 0 && currentCellValue <=9) {
         howManyDigits++;
-        // console.log(`Value at row ${row}, column ${column} is ${cellValue}`);
-        document.querySelector(".theMatrix " + ".row" + row + ".column" + column + " input").setAttribute("value", cellValue);
-        document.querySelector(".theMatrix " + ".row" + row + ".column" + column).classList.add("value" + cellValue);
-        document.querySelector(".theMatrixNotes " + ".row" + row + ".column" + column + " input").setAttribute("value", cellValue);
-        document.querySelector(".theMatrixNotes " + ".row" + row + ".column" + column).classList.add("value" + cellValue);
+        recurrent.createNewDivCertainValue(row, column, currentCellValue);
       } else {
         //In case the user had inserted any value in the inputs
-        document.querySelector(".theMatrix " + ".row" + row + ".column" + column + " input").value = "";
-        document.querySelector(".theMatrixNotes " + ".row" + row + ".column" + column + " input").value = "";
+        document.querySelector(".theMatrix " + ".row" + itemrow + ".column" + itemcolumn + " input").value = "";
+        recurrent.createNewDivCandidateNotes(globalVar.theMatrix[globalVar.currentStep], row, column);
+        // document.querySelector(".theMatrixNotes " + ".row" + row + ".column" + column + " input").value = "";
       } 
     };
     if (howManyDigits < 17) {
@@ -70,6 +67,7 @@ const loadMatrix = (initialMatrixValues) => {
       const { theMatrixStepanalysis } = analyzeMatrix(theMatrixStep);
       globalVar.theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStepanalysis));
       recurrent.reviewNotes(globalVar.theMatrix[0]);
+      recurrent.deleteLastShowMe();
     }
   } else {
     console.log("--------------------------------------------");
@@ -89,7 +87,7 @@ const loadMatrixManually = () => {
   prompttext += "Less than 81 will be filled with empty cells";
   prompttext += newLine;
   prompttext += "More than 81 will be discarded";
-  let manualMatrixValues = prompt(prompttext, initialMatrixpuzzle.hard03str)
+  let manualMatrixValues = prompt(prompttext, initialMatrixpuzzle.expert04str)
   loadMatrix(manualMatrixValues);
 };
 

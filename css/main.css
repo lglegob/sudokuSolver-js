@@ -215,10 +215,6 @@ h2 {
   background-color: lightgreen;
 }
 
-.theMatrixNotes .cell > input.justDeletedNote, .theMatrix .cell > input.justDeletedNote {
-  background-color: red;
-}
-
 .theMatrixNotes .cell > div, .theMatrix .cell > div {
   position: absolute;
   top: 0;
@@ -258,6 +254,14 @@ h2 {
   .theMatrixNotes .cell > div, .theMatrix .cell > div {
     font-size: 0.9rem;
   }
+}
+
+.theMatrixNotes .cell > div .justDeletedNote, .theMatrix .cell > div .justDeletedNote {
+  background-color: red;
+}
+
+.theMatrixNotes .cell > div .noteKept, .theMatrix .cell > div .noteKept {
+  background-color: lightgreen;
 }
 
 .notes .note1, .notes .note4, .notes .note7 {
