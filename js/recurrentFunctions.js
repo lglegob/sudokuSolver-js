@@ -139,4 +139,45 @@ const reviewNotes = (theMatrixStep) => {
   };
 };
 
-export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineRowColumnFromSquareRelative, defineRowColumnFromCellRelative, toggleNotes, reviewNotes };
+//Function used to add html config with a 9 cells grid per each of the original divs to show the notes of each cell
+const reviewCertainValues = (theMatrixStep) => {
+  for (let row = 0; row <= 8; row++) {
+    for (let column = 0; column <= 8; column++) {
+      let itemrow = row + 1;
+      let itemcolumn = column + 1;
+      let currentCellValue = theMatrixStep[row][column][0]
+      if (currentCellValue !== 0) {
+        let newfoundInput = document.createElement("div");
+        newfoundInput.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "value" + currentCellValue);
+        newfoundInput.innerHTML = `
+        <input type="number" min="1" max="9" value=${currentCellValue}>
+        `;
+        const mainMatrix = document.querySelector(".theMatrix .row" + itemrow +".column" + itemcolumn);
+        mainMatrix.replaceWith(newfoundInput);
+
+        let newfoundInputNotes = document.createElement("div");
+        newfoundInputNotes.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "value" + currentCellValue);
+        newfoundInputNotes.innerHTML = `
+        <input type="number" min="1" max="9" value=${currentCellValue}>
+        `;
+        const mainMatrixNotes = document.querySelector(".theMatrixNotes .row" + itemrow +".column" + itemcolumn);
+        mainMatrixNotes.replaceWith(newfoundInputNotes);
+      };
+    };
+  };
+};
+
+const deleteLastShowMe = () => {
+  if (document.querySelector(".justFoundCell") != null) {
+    document.querySelectorAll(".justFoundCell").forEach((e) => {
+      e.classList.remove("justFoundCell");
+    });
+  };
+  if (document.querySelector(".justDeletedNote") != null) {
+    document.querySelectorAll(".justDeletedNote").forEach((e) => {
+      e.classList.remove("justDeletedNote");
+    });
+  };
+}; 
+
+export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineRowColumnFromSquareRelative, defineRowColumnFromCellRelative, toggleNotes, reviewNotes, reviewCertainValues, deleteLastShowMe };

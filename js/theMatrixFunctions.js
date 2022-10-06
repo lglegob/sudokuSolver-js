@@ -16,6 +16,22 @@ const createMatrix = () => {
     for (let column = 0; column <= 8; column++) {
       globalVar.loopsExecuted++;
       theMatrixStep[row][column] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+      let itemrow = row + 1;
+      let itemcolumn = column + 1;
+      let newDivInput = document.createElement("div");
+      let newDivInputNotes = document.createElement("div");
+      newDivInput.classList.add("cell", "row" + itemrow, "column" + itemcolumn);
+      newDivInputNotes.classList.add("cell", "row" + itemrow, "column" + itemcolumn);
+      newDivInput.innerHTML = `
+      <input type="number" min="1" max="9" value="">
+      `;
+      newDivInputNotes.innerHTML = `
+      <input type="number" min="1" max="9" value="">
+      `;
+      const mainMatrix = document.querySelector(".theMatrix");
+      mainMatrix.append(newDivInput);
+      const mainMatrixNotes = document.querySelector(".theMatrixNotes");
+      mainMatrixNotes.append(newDivInputNotes);
     };
   };
   globalVar.theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStep));
@@ -33,7 +49,7 @@ const loadMatrix = (initialMatrixValues) => {
       let cellValue = initialMatrixValues.charAt(cellCounter);
       if (cellValue > 0 && cellValue <=9) {
         howManyDigits++;
-        console.log(`Value at row ${row}, column ${column} is ${cellValue}`);
+        // console.log(`Value at row ${row}, column ${column} is ${cellValue}`);
         document.querySelector(".theMatrix " + ".row" + row + ".column" + column + " input").setAttribute("value", cellValue);
         document.querySelector(".theMatrix " + ".row" + row + ".column" + column).classList.add("value" + cellValue);
         document.querySelector(".theMatrixNotes " + ".row" + row + ".column" + column + " input").setAttribute("value", cellValue);
@@ -79,17 +95,26 @@ const loadMatrixManually = () => {
 
 //Get the values from the form input into the Matrix
 const validateMatrix = (theMatrixStep) => {
+  let initialMatrixValues = "";   
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
       globalVar.loopsExecuted++;
       let itemrow = row + 1;
       let itemcolumn = column + 1;
-      let currentcell = document.querySelector(".row" + itemrow + ".column" + itemcolumn);
+      let currentcell = document.querySelector(".theMatrix .row" + itemrow + ".column" + itemcolumn);
       let currentCellValue = Number(currentcell.querySelector("input").value);
+      if (currentCellValue !== 0) {
+        initialMatrixValues += currentCellValue;
+      }
+      else {
+        initialMatrixValues += "-";
+      };
       currentcell.classList.add("value" + currentCellValue);
       theMatrixStep[row][column] = [currentCellValue, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     };
   };
+  console.log(`La cadena que ingresaste fue: ${initialMatrixValues}`);
+  console.log(`lenght is: ${initialMatrixValues.length}`);
   return theMatrixStep;
 };
 

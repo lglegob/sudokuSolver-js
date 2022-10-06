@@ -6,7 +6,21 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
-### Version 0.4.1 (Sudoku 3D rorate) 2022-10-03
+### Version 0.4.2 (Dynamic Matrix, highlights) 2022-10-05
+
+- WHAT'S NEW?!
+- Solution Methods - 2 New Discarding Techniques added based on the X-Wing Method (for rows, and for columns)
+- Visual Highlights - Dynamic class .justFoundCell added when a new cell is solved to be highlighted using CSS
+- Automation - The process of creating the HTML code for theMatrix and theMatrixNotes is now added to the function createMatrix, so all that code is deleted from the HTML
+- Outputs - The manual method to add a Sudoku Puzzle using the Input cells directly in the HTML, has been improved by showing the ingressed puzzle in console. This way any new puzzle can be copied and pasted for future loads
+- Functions - recurrent Function deleteLastShowMe added to help with the visualization process
+- Functions - recurrent Function reviewCertainValues added to the Validation process of already certain values. Function to be used to standardize other validation process during the solving in the future.
+- Visual Highlights - Code for a Test with Function noteZeroRow added, to add visual highlights to those candidates deleted in previous step _Not yet operational _
+
+- FIXED BUGs
+- Previous update broke the process to show notes and certain values when the sudoku puzzle was inserted using the cells in the HTML. To solve it the new function reviewCertainValues as well as reviewnotes and togglenotes are using during the validation process to solve it.
+
+### Version 0.4.1 (Sudoku 3D rotate) 2022-10-03
 
 - the 3d Rotation is limited to the complete Sudoku board, as with the individual cells, it became kind of slugish in mobile and it is not that pretty.
 

@@ -133,11 +133,43 @@ const discardOneCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, second
     };
   };
 
-  globalVar.areNotesShowing = false;
+  globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
   recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
   recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
   discardOneCandidateHTML(mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method);
+};
+
+//Consolidated function for the 2 Blocks (row, column), when one value can be discarded in X-Wing Detection technique
+const discardOneCandidateFrom2Blocks = (mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method, callbackNoteZero) => {
+  globalVar.currentStep++;
+  globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
+  globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
+
+  //This process deletes the candidate from the two mainaxis blocks
+  secondaryaxisvalues.forEach((secondaryaxisvalue)  => {
+      //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
+      let theMatrixStep = callbackNoteZero(secondaryaxisvalue, value, globalVar.theMatrix[globalVar.currentStep]);
+      globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
+  });
+  //Here we restablished the candidate in the 4 cells
+  if (mainaxis === "row") {
+    globalVar.theMatrix[globalVar.currentStep][mainaxisvalues[0]][secondaryaxisvalues[0]][value] = 1;
+    globalVar.theMatrix[globalVar.currentStep][mainaxisvalues[0]][secondaryaxisvalues[1]][value] = 1;
+    globalVar.theMatrix[globalVar.currentStep][mainaxisvalues[1]][secondaryaxisvalues[0]][value] = 1;
+    globalVar.theMatrix[globalVar.currentStep][mainaxisvalues[1]][secondaryaxisvalues[1]][value] = 1;
+  } else { //mainaxis is column
+    globalVar.theMatrix[globalVar.currentStep][secondaryaxisvalues[0]][mainaxisvalues[0]][value] = 1;
+    globalVar.theMatrix[globalVar.currentStep][secondaryaxisvalues[0]][mainaxisvalues[1]][value] = 1;
+    globalVar.theMatrix[globalVar.currentStep][secondaryaxisvalues[1]][mainaxisvalues[0]][value] = 1;
+    globalVar.theMatrix[globalVar.currentStep][secondaryaxisvalues[1]][mainaxisvalues[1]][value] = 1;
+  };
+
+  globalVar.areNotesShowing = false;
+  recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
+  recurrent.toggleNotes();
+  globalVar.discardNoteSuccess = true;
+  discardOneCandidateFrom2BlocksHTML(mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method);
 };
 
 //Consolidated function for the 3 Blocks (row, column and square), when a pair of values can be discarded
@@ -203,6 +235,30 @@ const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, se
   main.prepend(newdiscardOneCandidateArticle);
 };
 
+const discardOneCandidateFrom2BlocksHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method) => {
+  console.log("--------------------------------------------");
+  console.log("All the time. It's called mescaline, it's the only way to fly. - Choi");
+  console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
+  console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
+  console.log("We found an X-Wing Candidate!")
+  console.log(`For the ${mainaxis}s ${mainaxisvalues[0] + 1} and ${mainaxisvalues[1] + 1}, the candidate note ${value} is chained in X-Wing`)
+  console.log(`Candidates notes for ${value} in ${secondaryaxis}s ${secondaryaxisvalues[0] + 1} and ${secondaryaxisvalues[1] + 1} other other than the ${mainaxis}s specified above have been deleted`);
+  document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
+  document.querySelector("#button-reload").classList.add("active");
+  document.querySelector("#button-reload").classList.remove("inactive");
+  let newdiscardOneCandidateArticle = document.createElement("article");
+  newdiscardOneCandidateArticle.classList.add("newdiscardOneCandidate");
+  newdiscardOneCandidateArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  newdiscardOneCandidateArticle.innerHTML = `
+  <h3>Step ${globalVar.currentStep}</h3>
+  <h4>Method ${method}</h4>
+  <p>Notes Discarded in ${secondaryaxis}s ${secondaryaxisvalues[0] + 1} and ${secondaryaxisvalues[1] + 1}</p>
+  <p>All candidates with value ${value} that do not belong to ${mainaxis}s ${mainaxisvalues[0] + 1} and ${mainaxisvalues[1] + 1} have been deleted</p>
+  `;
+  const main = document.querySelector(".stepsDetails > div");
+  main.prepend(newdiscardOneCandidateArticle);
+};
+
 const discardTwoCandidatesHTML = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method) => {
   console.log("--------------------------------------------");
   console.log("There are only two possible explanations: either no one told me, or no one knows. - Neo");
@@ -255,4 +311,4 @@ const discardAllExceptHTML = (blockvalue, mainaxis, row1, row2, column1, column2
   main.prepend(newdiscardAllExceptArticle);
 };
 
-export { gettingDetailedInfo, discardOneCandidate, discardTwoCandidates, discardAllExcept, discardOneCandidateHTML, discardTwoCandidatesHTML, discardAllExceptHTML }
+export { gettingDetailedInfo, discardOneCandidate, discardOneCandidateFrom2Blocks, discardTwoCandidates, discardAllExcept, discardOneCandidateHTML, discardTwoCandidatesHTML, discardAllExceptHTML }

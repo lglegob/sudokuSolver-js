@@ -8,10 +8,16 @@ import * as recurrent from "./recurrentFunctions.js";
 
 //Here, it is mark as zero, each cell in the same row, which contains the currentCellValue as candidate yet
 const noteZeroRow = (row, currentCellValue, theMatrixStep) => {
-  theMatrixStep[row].forEach(function(column_item) {
-    column_item[currentCellValue] = 0;
+  
+  theMatrixStep[row].forEach(function(column_item, columnindex) {
+    globalVar.loopsExecuted++;
+    if (column_item[currentCellValue] !== 0) {
+      document.querySelector(".theMatrixNotes " + ".row" + (row + 1) + ".column" + (columnindex + 1)).classList.add("justDeletedNote");
+      column_item[currentCellValue] = 0;
+    };
   });
-return theMatrixStep;
+
+  return theMatrixStep;
 }
 
 //Here, it is mark as zero, each cell in the same column, which contains the currentCellValue as candidate yet

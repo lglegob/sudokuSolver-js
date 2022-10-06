@@ -35,7 +35,7 @@ let hard01 = [
   [9, 3, 1],[9, 7, 4],[9, 8, 7]
 ]
 
-//This is getting to Step 15 after locked candidate Square to Row
+//This is getting to Step 37 after locked candidate column to square (Xwing first)
 const hard02 = [
   [1, 4, 6],[1, 6, 4],
   [2, 2, 3],[2, 7, 2],
@@ -91,7 +91,7 @@ const expert02 = [
 ]
 const expert02str = "--4---7-38--9-2----3--------891-----5-------8-----926--------2----8-4--56-5---1--";
 
-//This is getting to Step 5 after locked candidate Square to Column
+//SOLVED
 const expert03 = [
   [1, 1, 7],[1, 6, 2],[1, 7, 9],
   [2, 2, 3],[2, 5, 4],

@@ -40,17 +40,29 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
   //Config for modifying the html matrixes
   let newfoundInput = document.createElement("div");
   newfoundInput.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "value" + currentCellValue);
-  newfoundInput.innerHTML = `
+  if(document.querySelector("#highlightChanges").checked) {
+    newfoundInput.innerHTML = `
+    <input type="number" min="1" max="9" value=${currentCellValue} class="justFoundCell">
+    `;
+  } else {
+    newfoundInput.innerHTML = `
     <input type="number" min="1" max="9" value=${currentCellValue}>
-  `;
+    `;
+  };
   const mainMatrix = document.querySelector(".theMatrix .row" + itemrow +".column" + itemcolumn);
   mainMatrix.replaceWith(newfoundInput);
 
   let newfoundInputNotes = document.createElement("div");
   newfoundInputNotes.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "value" + currentCellValue);
-  newfoundInputNotes.innerHTML = `
+  if(document.querySelector("#highlightChanges").checked) {
+    newfoundInputNotes.innerHTML = `
+    <input type="number" min="1" max="9" value=${currentCellValue} class="justFoundCell">
+    `;
+  } else {
+    newfoundInputNotes.innerHTML = `
     <input type="number" min="1" max="9" value=${currentCellValue}>
-  `;
+    `;
+  };
   const mainMatrixNotes = document.querySelector(".theMatrixNotes .row" + itemrow +".column" + itemcolumn);
   mainMatrixNotes.replaceWith(newfoundInputNotes);
 

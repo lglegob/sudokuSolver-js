@@ -7,6 +7,7 @@ import * as solvingTechniques from "./solvingTechniques.js";
 import * as obviousPairs from "./discardingTechniquesObviousPairs.js";
 import * as lockedCandidates from "./discardingTechniquesLockedCandidate.js";
 import * as hiddenPairs from "./discardingTechniquesHiddenPairs.js";
+import * as xwing from "./discardingTechniquesXWing.js"
 
 ////////////////////////////////////////////////////////////////////////////////
 //                            EVENT LISTENERS                                //
@@ -27,7 +28,7 @@ const loadMatrixListener = () => {
   button_load.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    matrixFunctions.loadMatrix(initialMatrixpuzzle.expert03str);
+    matrixFunctions.loadMatrix(initialMatrixpuzzle.hard03str);
   });
 };
 
@@ -56,6 +57,10 @@ const validateMatrixListener = () => {
     let theMatrixStep = matrixFunctions.validateMatrix(globalVar.theMatrix[0]);
     const {theMatrixStepanalysis } = matrixFunctions.analyzeMatrix(theMatrixStep);
     globalVar.theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStepanalysis));
+    globalVar.areNotesShowing = true;  //toggleNotes lo dejara en False
+    recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
+    recurrent.toggleNotes();
+    recurrent.reviewCertainValues(globalVar.theMatrix[globalVar.currentStep]);
   });
 };
 
@@ -102,6 +107,8 @@ const resolveMatrixListener = () => {
   button_resolve.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
+
+    recurrent.deleteLastShowMe();
 
     //NAKED SINGLE METHOD
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
@@ -152,6 +159,15 @@ const resolveMatrixListener = () => {
       hiddenPairs.hiddenPairsSquare();
     };
 
+    //X-WING CANDIDATES METHOD
+    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+      xwing.xwingRow();
+    };
+    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+      xwing.xwingColumn();
+    };
+
+
     //FAILURE (NOT SOLVED)
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
       console.log("--------------------------------------------");
@@ -174,6 +190,7 @@ const resolveMatrixListener = () => {
 
     globalVar.iterationSuccess = false;
     globalVar.discardNoteSuccess = false;
+    //In case the Sudoku has been resolved with this last step
     if (globalVar.cellsResolved === 81) {
       document.querySelector("#button-resolve").disabled = true;
       document.querySelector("#button-resolve").classList.remove("active");

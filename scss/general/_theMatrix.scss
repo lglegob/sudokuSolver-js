@@ -23,6 +23,7 @@
       width: 100%;
       text-align: center;
       font-size: 1rem;
+
       @include size-xs {
         font-size: 1.8rem;
       }
@@ -34,6 +35,13 @@
       }
       @include size-lg {
         font-size: 3.2rem;
+      }
+      &.justFoundCell {
+        color: green;
+        background-color: lightgreen;
+      }
+      &.justDeletedNote {
+        background-color: red;
       }
 
 
@@ -98,16 +106,16 @@
 }
 
 .column1, .column4 {
-  border-left: 3px solid black;
+  border-left: 4px solid black;
 }
 .column6, .column9 {
-  border-right: 3px solid black;
+  border-right: 4px solid black;
 }
 .row1, .row4 {
-  border-top: 3px solid black;
+  border-top: 4px solid black;
 }
 .row6, .row9 {
-  border-bottom: 3px solid black;
+  border-bottom: 4px solid black;
 }
 
 /* Configuration to hide the scroll bars for the inputs inside theMatrix */
