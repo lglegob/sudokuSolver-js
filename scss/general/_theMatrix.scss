@@ -79,8 +79,9 @@
     }
   }
 }
-.notes {
 
+/*Configuration for Candidates Borders*/
+.notes {
     & .note1, .note4, .note7 {
       border-left: 1px solid black;
       @include size-md {
@@ -107,6 +108,7 @@
     }
 }
 
+/*Configuration for Square Borders*/
 .column1, .column4 {
   border-left: 4px solid black;
 }

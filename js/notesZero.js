@@ -8,7 +8,6 @@ import * as recurrent from "./recurrentFunctions.js";
 
 //Here, it is mark as zero, each cell in the same row, which contains the currentCellValue as candidate yet
 const noteZeroRow = (row, currentCellValue, theMatrixStep) => {
-  
   theMatrixStep[row].forEach(function(column_item, columnindex) {
     globalVar.loopsExecuted++;
     if (column_item[currentCellValue] !== 0 && column_item[0] === 0) {

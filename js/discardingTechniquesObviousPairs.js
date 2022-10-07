@@ -4,7 +4,6 @@ import * as recurrent from "./recurrentFunctions.js";
 import * as discardingFunctions from "./discardingProcessFunctions.js"
 import * as notesZero from "./notesZero.js";
 
-
 ////////////////////////////////////////////////////////////////////////////////
 //                  DISCARDING TECHNIQUES - OBVIOUS PAIRS                    //
 //////////////////////////////////////////////////////////////////////////////
@@ -13,7 +12,6 @@ import * as notesZero from "./notesZero.js";
 const obviousPairsRow = () => {
   for (let row = 0; row <= 8; row++) { 
     const { howmanycellswiththisnote, howmanynotesinthiscell } = discardingFunctions.gettingDetailedInfo ( row, row, 0, 8, "row" );
-
     //third loop to define if there are cells with 2 same values.
     //column1 evaluates up to column7 to let space to compare with column8
     for (let column1 = 0; column1<= 7; column1++) {
@@ -46,7 +44,6 @@ const obviousPairsColumn = () => {
   
   for (let column = 0; column <= 8; column++) { 
     const { howmanycellswiththisnote, howmanynotesinthiscell } = discardingFunctions.gettingDetailedInfo ( 0, 8, column, column, "column" );
-
     //third loop to define if there are cells with 2 same values.
     //column1 evaluates up to row7 to let space to compare with row8
     for (let row1 = 0; row1<= 7; row1++) {
@@ -80,7 +77,6 @@ const obviousPairsSquare = () => {
   for (let square = 1; square <= 9; square++) {
     const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineSquareCoordinatesSQ(square);
     const { howmanycellswiththisnote, howmanynotesinthiscell } = discardingFunctions.gettingDetailedInfo ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square );
-
     //third loop to define if there are cells with 2 same values.
     //cell1 evaluates up to cell7 to let space to compare with cell8
     for (let cell1 = 0; cell1<= 7; cell1++) {
@@ -111,6 +107,5 @@ const obviousPairsSquare = () => {
     if (globalVar.discardNoteSuccess) break;
   };
 };
-
 
 export {obviousPairsRow, obviousPairsColumn, obviousPairsSquare };

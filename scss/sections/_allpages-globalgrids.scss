@@ -11,20 +11,12 @@
 	"theButtons"
 	"stepsDetails"
 	;
-	@include size-md {
-		grid-template-columns: 25% 75%;
-		grid-template-areas: 
-		"theButtons		theMatrix"
-		"theButtons 	solveIt"
-		"theButtons 	stepsDetails"
-
-		;
-	}
 	@include size-lg {
-		grid-template-columns: 20% 50% 30%;
+		grid-template-columns: 50% 50%;
 		grid-template-areas: 
-		"solveIt 		solveIt			solveIt"
-		"theButtons		theMatrix		stepsDetails"
+		". 		solveIt"
+		"theButtons		theMatrix"
+		"stepsDetails   theMatrix"
 
 		;
 	}

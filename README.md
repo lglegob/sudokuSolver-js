@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.3 (Minor Changes) 2022-10-06
+
+- Separated New discardingDOMFunctions.js file for the DOM related functions
+- CSS grid changed to have in large screens the steps below the buttons, and leave only two columns
+- Minor changes and improvements to code structure.
+
+---
+
 ### Version 0.4.3 (Steps Highlights) 2022-10-06
 
 - WHAT'S NEW?!
@@ -13,6 +21,8 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 - FIXED BUGs
 - Previous Update broke the capability to fill the sudoku puzzle directly in the cells, since now the HTML is dinamically created at the start, and the event listener did not find anymore the input fields. This has been solved by recolating the event listener position and input-cellvalues const definition
+
+---
 
 ### Version 0.4.2 (Dynamic Matrix, highlights) 2022-10-05
 
@@ -27,6 +37,8 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 - FIXED BUGs
 - Previous update broke the process to show notes and certain values when the sudoku puzzle was inserted using the cells in the HTML. To solve it the new function reviewCertainValues as well as reviewnotes and togglenotes are using during the validation process to solve it.
+
+---
 
 ### Version 0.4.1 (Sudoku 3D rotate) 2022-10-03
 

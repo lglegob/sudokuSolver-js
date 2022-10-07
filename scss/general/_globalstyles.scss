@@ -39,7 +39,7 @@ h2 {
 	flex-wrap: wrap;
 	justify-content: space-evenly;
 	}
-	@include size-md {
+	@include size-lg {
 		justify-content: center;
 		& form {
 			flex-wrap: nowrap;
@@ -50,11 +50,12 @@ h2 {
 
 .solveIt {
 	margin: 0 auto;
+	padding-top: 30px;
 	& form {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
-	@include size-md {
+	@include size-sm {
 		flex-wrap: nowrap;
 	}
 
@@ -63,6 +64,7 @@ h2 {
 
 .stepsDetails {
     margin: 0 30px;
+	padding-top: 40px;
 	text-align: center;
 	font-size: 1rem;
 	& article {

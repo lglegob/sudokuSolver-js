@@ -7,19 +7,6 @@ import * as solvingFunctions from "./solvingProcessFunctions.js"
 //                             SUDOKU TECHNIQUES                             //
 //////////////////////////////////////////////////////////////////////////////
 
-// SOLUTION PHASES
-// Check NO repeated numbers per row, column and square
-
-// DONE - Delete notes from rows, columns and squares
-
-// Nested Loops
-// DONE Second Step - check cells with just one note
-// DONE Third Step - hidden singles - check rows, columns and squares where any number appears just once
-// DONE Fourth step - check for obvious pairs per row, column and square
-// Fifth Step - check numbers per row and column, that appear only in one of the squares, and delete the possibilities in any other cell in the square
-// Sixth Step - hidden pairs - square
-// Sixth Step - Obvious Triples (even with doubles)
-
 // Function to detect when a cell has just 1 candidate (note)
 const singleCandidate = () => {
   for (let row = 0; row <= 8; row++) {

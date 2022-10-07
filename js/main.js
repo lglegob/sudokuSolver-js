@@ -23,4 +23,3 @@ eventListeners.reloadMatrixListener();
 eventListeners.loadMatrixListener();
 eventListeners.loadMatrixManuallyListener();
 eventListeners.toggleNotesListener();
-// eventListeners.inputCellsListener();

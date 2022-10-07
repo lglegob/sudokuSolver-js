@@ -29,7 +29,7 @@ const loadMatrixListener = () => {
   button_load.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    matrixFunctions.loadMatrix(initialMatrixpuzzle.hard03str);
+    matrixFunctions.loadMatrix(initialMatrixpuzzle.expert06str);
   });
 };
 

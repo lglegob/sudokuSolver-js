@@ -20,8 +20,7 @@ const lockedCandidateRow = () => {
         let finalThird = whereisthisnote[possibleCandidate][6] + whereisthisnote[possibleCandidate][7] + whereisthisnote[possibleCandidate][8];
         let firstThirdOnly = (firstThird > 1 && secondThird === 0 && finalThird === 0);
         let secondThirdOnly = (firstThird === 0 && secondThird > 1 && finalThird === 0);
-        let finalThirdOnly = (firstThird === 0 && secondThird === 0 && finalThird > 1);
-        
+        let finalThirdOnly = (firstThird === 0 && secondThird === 0 && finalThird > 1);      
         if ( firstThirdOnly || secondThirdOnly || finalThirdOnly ) {
           //This calculation will give the left column of the square where the third with candidadates is located
           let baseColumn = (3*secondThirdOnly + 6*finalThirdOnly);
@@ -45,7 +44,6 @@ const lockedCandidateRow = () => {
 const lockedCandidateColumn = () => {
   for (let column = 0; column <= 8; column++) {
     const { howmanycellswiththisnote, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote } = discardingFunctions.gettingDetailedInfo ( 0, 8, column, column, "column" );
-
     let howmanycellswiththisnoteColumn = howmanycellswiththisnote;
     for (let possibleCandidate = 1; possibleCandidate <= 9; possibleCandidate++) {
       globalVar.loopsExecuted++;
@@ -55,8 +53,7 @@ const lockedCandidateColumn = () => {
         let finalThird = whereisthisnote[possibleCandidate][6] + whereisthisnote[possibleCandidate][7] + whereisthisnote[possibleCandidate][8];
         let firstThirdOnly = (firstThird > 1 && secondThird === 0 && finalThird === 0);
         let secondThirdOnly = (firstThird === 0 && secondThird > 1 && finalThird === 0);
-        let finalThirdOnly = (firstThird === 0 && secondThird === 0 && finalThird > 1);
-        
+        let finalThirdOnly = (firstThird === 0 && secondThird === 0 && finalThird > 1);       
         if ( firstThirdOnly || secondThirdOnly || finalThirdOnly ) {
           //This calculation will give the upper row of the square where the third with candidadates is located
           let baseRow = (3*secondThirdOnly + 6*finalThirdOnly);
@@ -71,7 +68,6 @@ const lockedCandidateColumn = () => {
             break;
           };
         };
-
       };
     };
     if (globalVar.discardNoteSuccess) break;
@@ -82,7 +78,6 @@ const lockedCandidateSquare = () => {
   for (let square = 1; square <= 9; square++) {
     const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineSquareCoordinatesSQ(square);
     const { howmanycellswiththisnote, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote } = discardingFunctions.gettingDetailedInfo ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square );
-
     let howmanycellswiththisnoteSquare = howmanycellswiththisnote;
     for (let possibleCandidate = 1; possibleCandidate <= 9; possibleCandidate++) {
       globalVar.loopsExecuted++;
@@ -90,19 +85,15 @@ const lockedCandidateSquare = () => {
         let firstThirdRow = whereisthisnote[possibleCandidate][0] + whereisthisnote[possibleCandidate][1] + whereisthisnote[possibleCandidate][2];
         let secondThirdRow = whereisthisnote[possibleCandidate][3] + whereisthisnote[possibleCandidate][4] + whereisthisnote[possibleCandidate][5];
         let finalThirdRow = whereisthisnote[possibleCandidate][6] + whereisthisnote[possibleCandidate][7] + whereisthisnote[possibleCandidate][8];
-
         let firstThirdColumn = whereisthisnote[possibleCandidate][0] + whereisthisnote[possibleCandidate][3] + whereisthisnote[possibleCandidate][6];
         let secondThirdColumn = whereisthisnote[possibleCandidate][1] + whereisthisnote[possibleCandidate][4] + whereisthisnote[possibleCandidate][7];
         let finalThirdColumn = whereisthisnote[possibleCandidate][2] + whereisthisnote[possibleCandidate][5] + whereisthisnote[possibleCandidate][8];
-
         let firstThirdRowOnly = (firstThirdRow > 1 && secondThirdRow === 0 && finalThirdRow === 0);
         let secondThirdRowOnly = (firstThirdRow === 0 && secondThirdRow > 1 && finalThirdRow === 0);
         let finalThirdRowOnly = (firstThirdRow === 0 && secondThirdRow === 0 && finalThirdRow > 1);
-
         let firstThirdColumnOnly = (firstThirdColumn > 1 && secondThirdColumn === 0 && finalThirdColumn === 0);
         let secondThirdColumnOnly = (firstThirdColumn === 0 && secondThirdColumn > 1 && finalThirdColumn === 0);
-        let finalThirdColumnOnly = (firstThirdColumn === 0 && secondThirdColumn === 0 && finalThirdColumn > 1);
-        
+        let finalThirdColumnOnly = (firstThirdColumn === 0 && secondThirdColumn === 0 && finalThirdColumn > 1);        
         if ( firstThirdRowOnly || secondThirdRowOnly || finalThirdRowOnly ) {
           //This calculation will give the real row and real column of the square where the third with candidadates is located
           const { realRow, realColumn } = recurrent.defineRowColumnFromSquareRelative(square, secondThirdRowOnly+2*finalThirdRowOnly, secondThirdColumnOnly+2*finalThirdColumnOnly);
@@ -113,7 +104,6 @@ const lockedCandidateSquare = () => {
             break;
           };
         };
-
         if ( firstThirdColumnOnly || secondThirdColumnOnly || finalThirdColumnOnly ) {
           //This calculation will give the real row and real column of the square where the third with candidadates is located
           const { realRow, realColumn } = recurrent.defineRowColumnFromSquareRelative(square, secondThirdRowOnly+2*finalThirdRowOnly, secondThirdColumnOnly+2*finalThirdColumnOnly);

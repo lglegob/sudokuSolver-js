@@ -101,7 +101,7 @@ h2 {
   justify-content: space-evenly;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
   .theButtons {
     justify-content: center;
   }
@@ -113,6 +113,7 @@ h2 {
 
 .solveIt {
   margin: 0 auto;
+  padding-top: 30px;
 }
 
 .solveIt form {
@@ -121,7 +122,7 @@ h2 {
   justify-content: space-evenly;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 576px) {
   .solveIt form {
     flex-wrap: nowrap;
   }
@@ -129,6 +130,7 @@ h2 {
 
 .stepsDetails {
   margin: 0 30px;
+  padding-top: 40px;
   text-align: center;
   font-size: 1rem;
 }
@@ -264,6 +266,7 @@ h2 {
   background-color: lightgreen;
 }
 
+/*Configuration for Candidates Borders*/
 .notes .note1, .notes .note4, .notes .note7 {
   border-left: 1px solid black;
 }
@@ -304,6 +307,7 @@ h2 {
   }
 }
 
+/*Configuration for Square Borders*/
 .column1, .column4 {
   border-left: 4px solid black;
 }
@@ -357,17 +361,10 @@ input[type=number] {
   grid-template-areas: "solveIt" "theMatrix" "theButtons" "stepsDetails";
 }
 
-@media screen and (min-width: 768px) {
-  .index-grid {
-    grid-template-columns: 25% 75%;
-    grid-template-areas: "theButtons		theMatrix" "theButtons 	solveIt" "theButtons 	stepsDetails";
-  }
-}
-
 @media screen and (min-width: 992px) {
   .index-grid {
-    grid-template-columns: 20% 50% 30%;
-    grid-template-areas: "solveIt 		solveIt			solveIt" "theButtons		theMatrix		stepsDetails";
+    grid-template-columns: 50% 50%;
+    grid-template-areas: ". 		solveIt" "theButtons		theMatrix" "stepsDetails   theMatrix";
   }
 }
 

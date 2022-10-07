@@ -38,7 +38,6 @@ const xwingRow = () => {
                 break;
               };
             };
-
           };
         };
         if (globalVar.discardNoteSuccess) break;
@@ -78,7 +77,6 @@ const xwingColumn = () => {
                 break;
               };
             };
-
           };
         };
         if (globalVar.discardNoteSuccess) break;
