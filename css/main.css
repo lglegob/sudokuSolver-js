@@ -208,6 +208,12 @@ h2 {
 
 @media screen and (min-width: 992px) {
   .theMatrixNotes .cell > input, .theMatrix .cell > input {
+    font-size: 2.6rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .theMatrixNotes .cell > input, .theMatrix .cell > input {
     font-size: 3.2rem;
   }
 }
@@ -249,6 +255,12 @@ h2 {
 @media screen and (min-width: 768px) {
   .theMatrixNotes .cell > div, .theMatrix .cell > div {
     font-size: 0.8rem;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .theMatrixNotes .cell > div, .theMatrix .cell > div {
+    font-size: 0.7rem;
   }
 }
 

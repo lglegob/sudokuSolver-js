@@ -6,6 +6,12 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.5 (Font Adjustment) 2022-10-07
+
+- When the scheme changes to a grid of two columns, the fonts were reduced to be growth again in XL size.
+
+---
+
 ### Version 0.4.4 (Puzzle Width Adjustment) 2022-10-07
 
 - Light Adjustment to the width of the puzzle to give some margin at the sides

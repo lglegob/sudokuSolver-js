@@ -34,6 +34,9 @@
         font-size: 2.8rem;
       }
       @include size-lg {
+        font-size: 2.6rem;
+      }
+      @include size-xl {
         font-size: 3.2rem;
       }
       &.justFoundCell {
@@ -59,6 +62,9 @@
       }
       @include size-md {
         font-size: 0.8rem;
+      }
+      @include size-lg {
+        font-size: 0.7rem;
       }
       @include size-xl {
         font-size: 0.9rem;
