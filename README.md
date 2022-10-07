@@ -6,6 +6,13 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.4 (Puzzle Width Adjustment) 2022-10-07
+
+- Light Adjustment to the width of the puzzle to give some margin at the sides
+- Light adjustment to the grid, to make the "go back" and Resolve" buttons centered related to the puzzle
+
+---
+
 ### Version 0.4.3 (Minor Changes) 2022-10-06
 
 - Separated New discardingDOMFunctions.js file for the DOM related functions

@@ -356,6 +356,8 @@ input[type=number] {
 ***                         Global Grids (All Pages)                     ***
 ***************************************************************************/
 .index-grid {
+  width: 90%;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 100%;
   grid-template-areas: "solveIt" "theMatrix" "theButtons" "stepsDetails";
@@ -364,7 +366,7 @@ input[type=number] {
 @media screen and (min-width: 992px) {
   .index-grid {
     grid-template-columns: 50% 50%;
-    grid-template-areas: ". 		solveIt" "theButtons		theMatrix" "stepsDetails   theMatrix";
+    grid-template-areas: ". 				solveIt" "theButtons		theMatrix" "stepsDetails   theMatrix";
   }
 }
 

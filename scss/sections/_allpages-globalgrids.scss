@@ -3,6 +3,8 @@
 ***************************************************************************/
 
 .index-grid {
+	width: 90%;
+	margin: 0 auto;
 	display: grid;
 	grid-template-columns: 100%;
 	grid-template-areas: 
@@ -14,7 +16,7 @@
 	@include size-lg {
 		grid-template-columns: 50% 50%;
 		grid-template-areas: 
-		". 		solveIt"
+		". 				solveIt"
 		"theButtons		theMatrix"
 		"stepsDetails   theMatrix"
 
