@@ -41,7 +41,7 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
   //Config for modifying the html matrixes
   let newfoundInput = document.createElement("div");
   newfoundInput.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "value" + currentCellValue);
-  if(document.querySelector("#highlightChanges").checked) {
+  if(globalVar.areHighlightsOn === true) {
     newfoundInput.innerHTML = `
     <input type="number" min="1" max="9" value=${currentCellValue} class="justFoundCell">
     `;
@@ -55,7 +55,7 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
 
   let newfoundInputNotes = document.createElement("div");
   newfoundInputNotes.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "value" + currentCellValue);
-  if(document.querySelector("#highlightChanges").checked) {
+  if(globalVar.areHighlightsOn === true) {
     newfoundInputNotes.innerHTML = `
     <input type="number" min="1" max="9" value=${currentCellValue} class="justFoundCell">
     `;

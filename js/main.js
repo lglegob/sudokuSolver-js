@@ -13,7 +13,8 @@ document.querySelector("#button-validate").disabled = true
 document.querySelector("#button-reload").disabled = true
 document.querySelector("#button-resolve").disabled = true
 document.querySelector("#button-togglenotes").disabled = true
-document.querySelector("#button-reset").disabled = true
+document.querySelector("#button-clear").disabled = true
+document.querySelector("#button-togglehighlights").disabled = true
 
 //activate the Listeners
 eventListeners.validateMatrixListener();
@@ -23,3 +24,4 @@ eventListeners.reloadMatrixListener();
 eventListeners.loadMatrixListener();
 eventListeners.loadMatrixManuallyListener();
 eventListeners.toggleNotesListener();
+eventListeners.togglehighlightsListener();

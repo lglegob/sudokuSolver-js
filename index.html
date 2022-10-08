@@ -13,10 +13,11 @@
       <div class="content-wrap">
         <h1>Sudoku Solver</h1>
         <h2>by LeGo</h2>
-        <p>To start, please use one of these 3 methods</p>
-        <p>1. Preload button to fill it with a pre-defined game</p>
-        <p>2. Fill the cells directly (Use Tab key to move between cells)</p>
-        <p>3. Manually load your puzzle with an string</p>
+        <p>To start, use one of these options...</p>
+        <p>1. Preload Sudoku.</p>
+        <p>2. Load with an string.</p>
+        <p>3. Click the Sudoku and fill the cells (Use Tab key to move).</p>
+
     </div>
     </header>
     <main>
@@ -37,24 +38,18 @@
         </article>
         <section class="theButtons">
           <form class="content-wrap">
-            <button class="button-rectangle active" id="button-load">Preload Sudoku</button>
-            <button class="button-rectangle active" id="button-loadmanually">Load Manually</button>
-            <button class="button-rectangle inactive" id="button-validate">Validate</button>
-            <button class="button-rectangle inactive" id="button-reset">Reset Sudoku</button>
-            <button class="button-rectangle inactive" id="button-togglenotes">Show Notes</button>
-            <hr>
-            <div class="form-check form-switch">
-              <input type="checkbox" checked name="highlightChanges" id="highlightChanges">
-              <label for="highlightChanges">
-                Highlight Changes
-              </label>
-            </div>
+            <button class="hoverMeButton active" id="button-load">Preload Sudoku</button>
+            <button class="hoverMeButton active" id="button-loadmanually">Load Manually</button>
+            <button class="hoverMeButton inactive" id="button-validate">Validate</button>
+            <button class="hoverMeButton inactive" id="button-clear">Clear Sudoku</button>
+            <button class="hoverMeButton inactive" id="button-togglenotes">Show Notes</button>
+            <button class="hoverMeButton inactive" id="button-togglehighlights">Hide Changes</button>
           </form>
         </section>
         <section class="solveIt">
           <form class="content-wrap">
-            <button class="button-rectangle inactive" id="button-reload">Go back an step</button>
-            <button class="button-rectangle inactive" id="button-resolve">Resolve</button>
+            <button class="hoverMeButton inactive" id="button-reload">Go back an step</button>
+            <button class="hoverMeButton inactive" id="button-resolve">Resolve</button>
           </form>
         </section>
         <section class="stepsDetails">

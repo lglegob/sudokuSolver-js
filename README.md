@@ -6,6 +6,17 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.7 (Highlight last Step) 2022-10-08
+
+- The process to highlight with Colours the changes of the last solving step has been redefined and improved
+- Instead of using a checkbox, a new button with its corresponding EventListener togglehighlightsListener has been defined.
+- In order to toggle the highlights when reversing steps as well, the already built functions have been used to go back one more step than needed and then solve just one step, so the solving process takes care of defining again the classes needed for highlighting the sudoku puzzle last step changes.
+- The buttons style was redefine (new SCSS file hoverMeButton.scss) to match the shadows of the sudoku puzzle
+- The Steps details sections styles were redefined to match the shadows of the sudoku puzzle
+- The SCSS files (matrixbuttons.scss and placeholders.scss) were eliminated, they contained the rectangular button styles no longer in use
+
+---
+
 ### Version 0.4.6 (Go Back to Step X) 2022-10-08
 
 - The whole process to go back to an Specific Step has been defined. Not only limited to previous Step but any previous Step from 1 to currentStep

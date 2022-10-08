@@ -160,9 +160,9 @@ const analyzeMatrix = (theMatrixStepanalysis) => {
     document.querySelector("#button-togglenotes").disabled = false;
     document.querySelector("#button-togglenotes").classList.add("active");
     document.querySelector("#button-togglenotes").classList.remove("inactive");
-    document.querySelector("#button-reset").disabled = false;
-    document.querySelector("#button-reset").classList.add("active");
-    document.querySelector("#button-reset").classList.remove("inactive");
+    document.querySelector("#button-clear").disabled = false;
+    document.querySelector("#button-clear").classList.add("active");
+    document.querySelector("#button-clear").classList.remove("inactive");
     console.log("--------------------------------------------");
     console.log("The Matrix has you...")
   } else {
@@ -199,6 +199,9 @@ const matrixReloaded = (theMatrixDestinedStep, GoBackToStep) => {
     document.querySelector("#button-reload").disabled = true;
     document.querySelector("#button-reload").classList.remove("active");
     document.querySelector("#button-reload").classList.add("inactive");
+    document.querySelector("#button-togglehighlights").disabled = true;
+    document.querySelector("#button-togglehighlights").classList.remove("active");
+    document.querySelector("#button-togglehighlights").classList.add("inactive");
   }
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {

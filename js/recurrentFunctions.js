@@ -1,5 +1,6 @@
 'use strict';
 import globalVar from "./globalVar.js";
+import * as matrixFunctions from "./theMatrixFunctions.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                         RECURRENT FUNCTIONS                               //
@@ -93,21 +94,40 @@ const defineRowColumnFromCellRelative = (square, relativeCell) => {
 
 // Function used to add html config with a 9 cells grid per each of the original divs to show the notes of each cell
 const toggleNotes = () => {
+  console.log("--------------------------------------------");
   if (globalVar.areNotesShowing === false) {
-    globalVar.areNotesShowing = true;
-    console.log("--------------------------------------------");
     console.log("I can only show you the door, you're the one that has to walk through it – Morpheus");
     document.querySelector(".card3d-body").classList.add("transform-3D-active");
     let togglebutton = document.querySelector("#button-togglenotes");
     togglebutton.innerText = "Hide Notes";
   } else {
-    globalVar.areNotesShowing = false;
-    console.log("--------------------------------------------");
     console.log("Ignorance is bliss – Cypher");
     document.querySelector(".card3d-body").classList.remove("transform-3D-active");
     let togglebutton = document.querySelector("#button-togglenotes");
     togglebutton.innerText = "Show Notes";
   };
+  globalVar.areNotesShowing = !globalVar.areNotesShowing;
+};
+
+// Function used to define the status of highlights button
+const togglehighlights = () => {
+  console.log("--------------------------------------------");
+  if (globalVar.areHighlightsOn === false) {
+    console.log("No one can be told what the Matrix is. You have to see it for yourself - Morpheus");
+    let togglebutton = document.querySelector("#button-togglehighlights");
+    togglebutton.innerText = "Hide Changes";
+    globalVar.areHighlightsOn = !globalVar.areHighlightsOn;
+    //To load again the highlights over the sudoku puzzle, we go back an step and run again the resolve, so the complete process rebuilds the classes accordingly.
+    matrixFunctions.matrixReloaded(globalVar.theMatrix[globalVar.currentStep - 1], globalVar.currentStep - 1 );
+    document.querySelector("#button-resolve").click();
+  } else {
+    console.log("You have to let it all go, Neo - Fear, doubt, and disbelief. Free your mind! - Morpheus");
+    let togglebutton = document.querySelector("#button-togglehighlights");
+    togglebutton.innerText = "Show Changes";
+    globalVar.areHighlightsOn = !globalVar.areHighlightsOn;
+    deleteLastShowMe();
+  };
+
 };
 
 //Function used to add html config with a 9 cells grid per each of the original divs to show the notes of each cell
@@ -204,4 +224,4 @@ const deleteLastShowMe = () => {
   };
 }; 
 
-export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineRowColumnFromSquareRelative, defineRowColumnFromCellRelative, toggleNotes, reviewNotes, createNewDivCandidateNotes, reviewCertainValues, createNewDivCertainValue, deleteLastShowMe };
+export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineRowColumnFromSquareRelative, defineRowColumnFromCellRelative, toggleNotes, togglehighlights, reviewNotes, createNewDivCandidateNotes, reviewCertainValues, createNewDivCertainValue, deleteLastShowMe };

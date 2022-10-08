@@ -133,7 +133,7 @@ const discardOneCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, second
       globalVar.loopsExecuted++;
       globalVar.theMatrix[globalVar.currentStep][the3CellsRow][the3CellsColumn] = the3Cells.shift();
       if (globalVar.theMatrix[globalVar.currentStep][the3CellsRow][the3CellsColumn][value] !== 0 && globalVar.theMatrix[globalVar.currentStep][the3CellsRow][the3CellsColumn][0] === 0) {
-        if(document.querySelector("#highlightChanges").checked) {
+        if(globalVar.areHighlightsOn === true) {
           document.querySelector(".theMatrixNotes " + ".row" + (the3CellsRow + 1) + ".column" + (the3CellsColumn + 1) + " .note" + value).classList.remove("justDeletedNote");
           document.querySelector(".theMatrixNotes " + ".row" + (the3CellsRow + 1) + ".column" + (the3CellsColumn + 1) + " .note" + value).classList.add("noteKept");
         };
@@ -166,7 +166,7 @@ const discardOneCandidateFrom2Blocks = (mainaxisvalues, mainaxis, secondaryaxisv
     globalVar.theMatrix[globalVar.currentStep][mainaxisvalues[0]][secondaryaxisvalues[1]][value] = 1;
     globalVar.theMatrix[globalVar.currentStep][mainaxisvalues[1]][secondaryaxisvalues[0]][value] = 1;
     globalVar.theMatrix[globalVar.currentStep][mainaxisvalues[1]][secondaryaxisvalues[1]][value] = 1;
-    if(document.querySelector("#highlightChanges").checked) {
+    if(globalVar.areHighlightsOn === true) {
       document.querySelector(".theMatrixNotes " + ".row" + (mainaxisvalues[0] + 1) + ".column" + (secondaryaxisvalues[0] + 1) + " .note" + value).classList.remove("justDeletedNote");
       document.querySelector(".theMatrixNotes " + ".row" + (mainaxisvalues[0] + 1) + ".column" + (secondaryaxisvalues[0] + 1) + " .note" + value).classList.add("noteKept");
       document.querySelector(".theMatrixNotes " + ".row" + (mainaxisvalues[0] + 1) + ".column" + (secondaryaxisvalues[1] + 1) + " .note" + value).classList.remove("justDeletedNote");
@@ -181,7 +181,7 @@ const discardOneCandidateFrom2Blocks = (mainaxisvalues, mainaxis, secondaryaxisv
     globalVar.theMatrix[globalVar.currentStep][secondaryaxisvalues[0]][mainaxisvalues[1]][value] = 1;
     globalVar.theMatrix[globalVar.currentStep][secondaryaxisvalues[1]][mainaxisvalues[0]][value] = 1;
     globalVar.theMatrix[globalVar.currentStep][secondaryaxisvalues[1]][mainaxisvalues[1]][value] = 1;
-    if(document.querySelector("#highlightChanges").checked) {    
+    if(globalVar.areHighlightsOn === true) {    
       document.querySelector(".theMatrixNotes " + ".row" + (secondaryaxisvalues[0] + 1) + ".column" + (mainaxisvalues[0] + 1) + " .note" + value).classList.remove("justDeletedNote");
       document.querySelector(".theMatrixNotes " + ".row" + (secondaryaxisvalues[0] + 1) + ".column" + (mainaxisvalues[0] + 1) + " .note" + value).classList.add("noteKept");
       document.querySelector(".theMatrixNotes " + ".row" + (secondaryaxisvalues[0] + 1) + ".column" + (mainaxisvalues[1] + 1) + " .note" + value).classList.remove("justDeletedNote");
@@ -214,7 +214,7 @@ const discardTwoCandidates = (blockvalue, mainaxis, row1, row2, column1, column2
   globalVar.theMatrix[globalVar.currentStep][row1][column1][value2] = 1;
   globalVar.theMatrix[globalVar.currentStep][row2][column2][value1] = 1;
   globalVar.theMatrix[globalVar.currentStep][row2][column2][value2] = 1;
-  if(document.querySelector("#highlightChanges").checked) { 
+  if(globalVar.areHighlightsOn === true) { 
     document.querySelector(".theMatrixNotes " + ".row" + (row1 + 1) + ".column" + (column1 + 1) + " .note" + value1).classList.remove("justDeletedNote");
     document.querySelector(".theMatrixNotes " + ".row" + (row1 + 1) + ".column" + (column1 + 1) + " .note" + value1).classList.add("noteKept");
     document.querySelector(".theMatrixNotes " + ".row" + (row1 + 1) + ".column" + (column1 + 1) + " .note" + value2).classList.remove("justDeletedNote");

@@ -12,7 +12,7 @@ const noteZeroRow = (row, currentCellValue, theMatrixStep) => {
     globalVar.loopsExecuted++;
     if (column_item[currentCellValue] !== 0 && column_item[0] === 0) {
       column_item[currentCellValue] = 0;
-      if(document.querySelector("#highlightChanges").checked) {
+      if(globalVar.areHighlightsOn === true) {
         document.querySelector(".theMatrixNotes " + ".row" + (row + 1) + ".column" + (columnindex + 1) + " .note" + currentCellValue).classList.add("justDeletedNote");
       };
     };
@@ -27,7 +27,7 @@ const noteZeroColumn = (column, currentCellValue, theMatrixStep) => {
     globalVar.loopsExecuted++;
     if (theMatrixStep[row_within_column][column][currentCellValue] !== 0 && theMatrixStep[row_within_column][column][0] === 0) {
       theMatrixStep[row_within_column][column][currentCellValue] = 0;
-      if(document.querySelector("#highlightChanges").checked) {
+      if(globalVar.areHighlightsOn === true) {
         document.querySelector(".theMatrixNotes " + ".row" + (row_within_column + 1) + ".column" + (column + 1) + " .note" + currentCellValue).classList.add("justDeletedNote");
       };
     };
@@ -43,7 +43,7 @@ const noteZeroSquareSQ = (square, currentCellValue, theMatrixStep) => {
       globalVar.loopsExecuted++;
       if (theMatrixStep[square_row][square_column][currentCellValue] !== 0 && theMatrixStep[square_row][square_column][0] === 0) {
         theMatrixStep[square_row][square_column][currentCellValue] = 0;
-        if(document.querySelector("#highlightChanges").checked) {
+        if(globalVar.areHighlightsOn === true) {
           document.querySelector(".theMatrixNotes " + ".row" + (square_row + 1) + ".column" + (square_column + 1) + " .note" + currentCellValue).classList.add("justDeletedNote");
         };
       };
@@ -60,7 +60,7 @@ const noteZeroSquareRC = (row, column, currentCellValue, theMatrixStep) => {
       globalVar.loopsExecuted++;
       if (theMatrixStep[square_row][square_column][currentCellValue] !== 0 && theMatrixStep[square_row][square_column][0] === 0) {
         theMatrixStep[square_row][square_column][currentCellValue] = 0;
-        if(document.querySelector("#highlightChanges").checked) {
+        if(globalVar.areHighlightsOn === true) {
           document.querySelector(".theMatrixNotes " + ".row" + (square_row + 1) + ".column" + (square_column + 1) + " .note" + currentCellValue).classList.add("justDeletedNote");
         };
       };
@@ -73,13 +73,13 @@ const noteZeroSquareRC = (row, column, currentCellValue, theMatrixStep) => {
 const noteZeroCellExcept = (row, column, candidate1, candidate2, theMatrixStep) => {
   for (let possibleCandidate = 1; possibleCandidate <=9; possibleCandidate++) {
     if (possibleCandidate !== candidate1 && possibleCandidate !== candidate2) {
-      if(document.querySelector("#highlightChanges").checked && theMatrixStep[row][column][possibleCandidate] !== 0) {
+      if(globalVar.areHighlightsOn === true && theMatrixStep[row][column][possibleCandidate] !== 0) {
         document.querySelector(".theMatrixNotes " + ".row" + (row + 1) + ".column" + (column + 1) + " .note" + possibleCandidate).classList.add("justDeletedNote");
       };
       theMatrixStep[row][column][possibleCandidate] = 0;
     } else {
       theMatrixStep[row][column][possibleCandidate] = 1;
-      if(document.querySelector("#highlightChanges").checked) {
+      if(globalVar.areHighlightsOn === true) {
         document.querySelector(".theMatrixNotes " + ".row" + (row + 1) + ".column" + (column + 1) + " .note" + possibleCandidate).classList.add("noteKept");
       };
     };

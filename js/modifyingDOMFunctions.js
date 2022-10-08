@@ -115,7 +115,7 @@ const discardAllExceptHTML = (blockvalue, mainaxis, row1, row2, column1, column2
 const addGoBackToStepButton = () => {
   if (globalVar.currentStep > 1) {
     let newbackToStepButton = document.createElement("button");
-    newbackToStepButton.classList.add("button-rectangle", "active", "goBackToStep", `goBackToStep${globalVar.currentStep -1}`);
+    newbackToStepButton.classList.add("hoverMeButton", "active", "goBackToStep", `goBackToStep${globalVar.currentStep -1}`);
     newbackToStepButton.setAttribute("name", `step${globalVar.currentStep -1}`)
     newbackToStepButton.innerHTML = `
     Go back to Step ${globalVar.currentStep - 1}
