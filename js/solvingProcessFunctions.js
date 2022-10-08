@@ -2,6 +2,7 @@
 import globalVar from "./globalVar.js";
 import * as recurrent from "./recurrentFunctions.js";
 import * as notesZero from "./notesZero.js";
+import * as modifyDOM from "./modifyingDOMFunctions.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                      SOLVING PROCESSES FUNCTIONS                          //
@@ -74,11 +75,12 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>Method ${method}</h4>
   <p>New Value Found in row ${itemrow}, column ${itemcolumn}.</p>
-  <p>The Value is ${currentCellValue}.</p>
+  <p>The Value is <strong>${currentCellValue}.</strong></p>
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newfoundvalueArticle);
   recurrent.reviewNotes(theMatrixStep);
+  modifyDOM.addGoBackToStepButton();
 };
 
 export { cellValueFound, newfoundvalueHTML };

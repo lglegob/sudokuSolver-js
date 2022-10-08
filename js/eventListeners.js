@@ -22,6 +22,7 @@ const button_reset = document.querySelector("#button-reset");
 const button_togglenotes = document.querySelector("#button-togglenotes");
 const button_reload = document.querySelector("#button-reload");
 // const input_cellvalues = document.querySelectorAll(".theMatrix input");
+const button_goBackToStep = document.querySelectorAll
 
 
 // Add event listener to the Load button
@@ -46,7 +47,7 @@ const reloadMatrixListener = () => {
   button_reload.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    matrixFunctions.matrixReloaded(globalVar.theMatrix[globalVar.currentStep - 1]);
+    matrixFunctions.matrixReloaded(globalVar.theMatrix[globalVar.currentStep - 1], globalVar.currentStep - 1 );
   });
 };
 
@@ -109,7 +110,6 @@ const resolveMatrixListener = () => {
   button_resolve.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-
     recurrent.deleteLastShowMe();
 
     //NAKED SINGLE METHOD
@@ -206,4 +206,19 @@ const resolveMatrixListener = () => {
   });
 };
 
-export { loadMatrixListener, loadMatrixManuallyListener, reloadMatrixListener, validateMatrixListener, resetMatrixListener, toggleNotesListener, inputCellsListener, resolveMatrixListener }
+// Add event listener to the dinamically created buttons for goBackToStepX
+const goBackToStepListener = (button_goBackToStep) => {
+  button_goBackToStep.addEventListener("click", (e) => {
+      // Stop form from reloading the page
+      e.preventDefault();
+      let destinedStep = button_goBackToStep.name.slice(4);
+      matrixFunctions.matrixReloaded(globalVar.theMatrix[destinedStep], destinedStep );
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      console.log("--------------------------------------------");
+      console.log("Neo, sooner or later you're going to realize just as I did that there's a difference between knowing the path and walking the path – Morpheus");
+    });
+};
+
+
+
+export { loadMatrixListener, loadMatrixManuallyListener, reloadMatrixListener, validateMatrixListener, resetMatrixListener, toggleNotesListener, inputCellsListener, resolveMatrixListener, goBackToStepListener }

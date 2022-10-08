@@ -1,7 +1,7 @@
 'use strict';
 import globalVar from "./globalVar.js";
 import * as recurrent from "./recurrentFunctions.js";
-import * as discardDOM from "./discardingDOMFunctions.js";
+import * as modifyDOM from "./modifyingDOMFunctions.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                     DISCARDING PROCESS FUNCTIONS                          //
@@ -145,7 +145,7 @@ const discardOneCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, second
   recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
   recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
-  discardDOM.discardOneCandidateHTML(mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method);
+  modifyDOM.discardOneCandidateHTML(mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method);
 };
 
 //Consolidated function for the 2 Blocks (row, column), when one value can be discarded in X-Wing Detection technique
@@ -197,7 +197,7 @@ const discardOneCandidateFrom2Blocks = (mainaxisvalues, mainaxis, secondaryaxisv
   recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
   recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
-  discardDOM.discardOneCandidateFrom2BlocksHTML(mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method);
+  modifyDOM.discardOneCandidateFrom2BlocksHTML(mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method);
 };
 
 //Consolidated function for the 3 Blocks (row, column and square), when a pair of values can be discarded
@@ -228,7 +228,7 @@ const discardTwoCandidates = (blockvalue, mainaxis, row1, row2, column1, column2
   recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
   recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
-  discardDOM.discardTwoCandidatesHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
+  modifyDOM.discardTwoCandidatesHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
 };
 
 //Consolidated function for the 3 Blocks (row, column and square), when a pair of values must be kept and discard all others in one cell
@@ -244,7 +244,7 @@ const discardAllExcept = (blockvalue, mainaxis, row1, row2, column1, column2, va
   recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
   recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
-  discardDOM.discardAllExceptHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
+  modifyDOM.discardAllExceptHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
 };
 
 export { gettingDetailedInfo, discardOneCandidate, discardOneCandidateFrom2Blocks, discardTwoCandidates, discardAllExcept }

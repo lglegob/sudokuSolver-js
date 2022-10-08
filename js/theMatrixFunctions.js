@@ -111,7 +111,9 @@ const validateMatrix = (theMatrixStep) => {
       theMatrixStep[row][column] = [currentCellValue, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     };
   };
-  console.log(`La cadena que ingresaste fue: ${initialMatrixValues}`);
+  console.log("--------------------------------------------");
+  console.log("But there's way too much information to decode the Matrix. You get used to it. – Cypher");
+  console.log(`The string chain you ingressed was: ${initialMatrixValues}`);
   console.log(`lenght is: ${initialMatrixValues.length}`);
   return theMatrixStep;
 };
@@ -173,11 +175,20 @@ const analyzeMatrix = (theMatrixStepanalysis) => {
 };
 
 //Reload the Matrix (html values and notes) based on a previous step
-const matrixReloaded = (theMatrixDestinedStep) => {
-  if (globalVar.stepsDetail[globalVar.currentStep][0] === true) globalVar.cellsResolved--;   
-  globalVar.currentStep--;
-  const main = document.querySelector(".stepsDetails > div");
-  main.removeChild(main.firstElementChild);
+const matrixReloaded = (theMatrixDestinedStep, GoBackToStep) => {
+  //Loop to go bask as many steps as needed
+  for (let stepsBack = globalVar.currentStep - GoBackToStep; stepsBack >0; stepsBack--) {
+    if (globalVar.stepsDetail[globalVar.currentStep][0] === true) globalVar.cellsResolved--;   
+    globalVar.currentStep--;
+    const main = document.querySelector(".stepsDetails > div");
+    main.removeChild(main.firstElementChild);
+    //Config to remove the button of the new current step
+    let currentArticle = document.querySelector(`#Step${globalVar.currentStep}`);
+    if (globalVar.currentStep > 0) {
+      currentArticle.removeChild(currentArticle.lastChild);
+    };
+  };
+
   document.querySelector("#button-resolve").disabled = false;
   document.querySelector("#button-resolve").classList.add("active");
   document.querySelector("#button-resolve").classList.remove("inactive");

@@ -6,6 +6,13 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.6 (Go Back to Step X) 2022-10-08
+
+- The whole process to go back to an Specific Step has been defined. Not only limited to previous Step but any previous Step from 1 to currentStep
+- For this process a new EventListener goBackToStepListener has been defined, and activate on demand each time a new step is created.
+
+---
+
 ### Version 0.4.5 (Font Adjustment) 2022-10-07
 
 - When the scheme changes to a grid of two columns, the fonts were reduced to be growth again in XL size.

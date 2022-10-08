@@ -1,5 +1,6 @@
 'use strict';
 import globalVar from "./globalVar.js";
+import * as eventListeners from "./eventListeners.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                       DISCARDING DOM FUNCTIONS                            //
@@ -29,6 +30,7 @@ const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, se
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newdiscardOneCandidateArticle);
+  addGoBackToStepButton();
 };
 
 const discardOneCandidateFrom2BlocksHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method) => {
@@ -53,6 +55,7 @@ const discardOneCandidateFrom2BlocksHTML = (mainaxisvalues, mainaxis, secondarya
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newdiscardOneCandidateArticle);
+  addGoBackToStepButton();
 };
 
 const discardTwoCandidatesHTML = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method) => {
@@ -79,6 +82,7 @@ const discardTwoCandidatesHTML = (blockvalue, mainaxis, row1, row2, column1, col
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newdiscardTwoCandidatesArticle);
+  addGoBackToStepButton();
 };
 
 const discardAllExceptHTML = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method) => {
@@ -105,6 +109,23 @@ const discardAllExceptHTML = (blockvalue, mainaxis, row1, row2, column1, column2
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newdiscardAllExceptArticle);
+  addGoBackToStepButton();
 };
 
-export { discardOneCandidateHTML, discardOneCandidateFrom2BlocksHTML, discardTwoCandidatesHTML, discardAllExceptHTML }
+const addGoBackToStepButton = () => {
+  if (globalVar.currentStep > 1) {
+    let newbackToStepButton = document.createElement("button");
+    newbackToStepButton.classList.add("button-rectangle", "active", "goBackToStep", `goBackToStep${globalVar.currentStep -1}`);
+    newbackToStepButton.setAttribute("name", `step${globalVar.currentStep -1}`)
+    newbackToStepButton.innerHTML = `
+    Go back to Step ${globalVar.currentStep - 1}
+    `;
+    const previousArticleStep = document.querySelector(`#Step${globalVar.currentStep - 1}`);
+    previousArticleStep.append(newbackToStepButton);
+    //creating the Event Listeners to the recently created button
+    const button_goBackToStep = document.querySelector(`.goBackToStep${globalVar.currentStep -1}`);
+    eventListeners.goBackToStepListener(button_goBackToStep);
+  };
+};
+
+export { discardOneCandidateHTML, discardOneCandidateFrom2BlocksHTML, discardTwoCandidatesHTML, discardAllExceptHTML, addGoBackToStepButton }
