@@ -73,7 +73,7 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
   newfoundvalueArticle.setAttribute("id", "Step" + globalVar.currentStep );
   newfoundvalueArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
-  <h4>Method ${method}</h4>
+  <h4>${method}</h4>
   <p>New Value Found in row ${itemrow}, column ${itemcolumn}.</p>
   <p>The Value is <strong>${currentCellValue}.</strong></p>
   `;
@@ -83,4 +83,22 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
   modifyDOM.addGoBackToStepButton();
 };
 
-export { cellValueFound, newfoundvalueHTML };
+const newSudokuPuzzleArticle = () => {
+  //Config for adding the description and card in stepsDetails Section
+  let newfoundvalueArticle = document.createElement("article");
+  newfoundvalueArticle.classList.add("newsudokupuzzle");
+  newfoundvalueArticle.setAttribute("id", "Step" + globalVar.currentStep );
+  newfoundvalueArticle.innerHTML = `
+  <h3>Step ${globalVar.currentStep}</h3>
+  <h4>New Sudoku Puzzle</h4>
+  <p>A new Sudoku Puzzle has been created. In this space you will find one card for each step you advance in the tutorial for your personalized Sudoku Puzzle</p>
+  <p>Please use the buttons above the Puzzle to resolve or go back.</p>
+  <p>You can return to the initial state of the puzzle by coming back to this card.</p>
+  <p>Enjoy it and learn a lot about how solving your puzzle.</p>
+
+  `;
+  const main = document.querySelector(".stepsDetails > div");
+  main.prepend(newfoundvalueArticle);
+};
+
+export { cellValueFound, newfoundvalueHTML, newSudokuPuzzleArticle };

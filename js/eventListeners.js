@@ -232,7 +232,7 @@ const goBackToStepListener = (button_goBackToStep) => {
       // Stop form from reloading the page
       e.preventDefault();
       let destinedStep = button_goBackToStep.name.slice(4);
-      if (globalVar.areHighlightsOn) {
+      if (globalVar.areHighlightsOn && destinedStep > 0) {
         //To load again the highlights over the sudoku puzzle, we go back one more step and run again the resolve one time, so the complete resolution process rebuilds the classes accordingly.
         matrixFunctions.matrixReloaded(globalVar.theMatrix[destinedStep - 1], destinedStep - 1 );
         document.querySelector("#button-resolve").click();

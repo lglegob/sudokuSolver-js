@@ -13,15 +13,38 @@
 	"theButtons"
 	"stepsDetails"
 	;
+	// @include size-md {
+	// 	grid-template-columns: 20% 80%;
+	// 	grid-template-areas: 
+	// 	". 				solveIt"
+	// 	"theButtons		theMatrix"
+	// 	"stepsDetails   stepsDetails"
+	// 	;
+	// }
+	// @include size-lg {
+	// 	grid-template-columns: 30% 70%;
+	// 	grid-template-areas: 
+	// 	". 				solveIt"
+	// 	"theButtons		theMatrix"
+	// 	"stepsDetails   theMatrix"
+	// 	;
+	// }
 	@include size-lg {
 		grid-template-columns: 50% 50%;
 		grid-template-areas: 
-		". 				solveIt"
-		"theButtons		theMatrix"
-		"stepsDetails   theMatrix"
-
+		".				solveIt"
+		"stepsDetails	theMatrix"
+		"stepsDetails 	theButtons"
+		"stepsDetails	."
 		;
 	}
+	// @include size-xxl {
+	// 	grid-template-columns: 15% 45% 40%;
+	// 	grid-template-areas: 
+	// 	".				. 				solveIt"
+	// 	"theButtons		stepsDetails	theMatrix"
+	// 	;
+	// }
 }
 
 /* index page */

@@ -1,5 +1,5 @@
 @mixin size-xs {
-    @media screen and (min-width:440px) {
+    @media screen and (min-width:320px) {
         @content;
     }
 }

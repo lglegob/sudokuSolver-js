@@ -4,6 +4,7 @@ import initialMatrixpuzzle from "./data.js";
 import * as notesZero from "./notesZero.js";
 import * as recurrent from "./recurrentFunctions.js";
 import * as eventListeners from "./eventListeners.js";
+import * as solvingFunctions from "./solvingProcessFunctions.js"
 
 ////////////////////////////////////////////////////////////////////////////////
 //                            MATRIX FUNCTIONS                               //
@@ -115,6 +116,9 @@ const validateMatrix = (theMatrixStep) => {
   console.log("But there's way too much information to decode the Matrix. You get used to it. – Cypher");
   console.log(`The string chain you ingressed was: ${initialMatrixValues}`);
   console.log(`lenght is: ${initialMatrixValues.length}`);
+  solvingFunctions.newSudokuPuzzleArticle();
+  const instructions = document.querySelector(".instructions");
+  instructions.remove();
   return theMatrixStep;
 };
 
@@ -184,9 +188,9 @@ const matrixReloaded = (theMatrixDestinedStep, GoBackToStep) => {
     main.removeChild(main.firstElementChild);
     //Config to remove the button of the new current step
     let currentArticle = document.querySelector(`#Step${globalVar.currentStep}`);
-    if (globalVar.currentStep > 0) {
+
       currentArticle.removeChild(currentArticle.lastChild);
-    };
+
   };
 
   document.querySelector("#button-resolve").disabled = false;

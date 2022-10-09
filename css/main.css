@@ -75,16 +75,6 @@ h2 {
   justify-content: space-evenly;
 }
 
-@media screen and (min-width: 992px) {
-  .theButtons {
-    justify-content: center;
-  }
-  .theButtons form {
-    flex-wrap: nowrap;
-    flex-direction: column;
-  }
-}
-
 .solveIt {
   margin: 0 auto;
   padding-top: 10px;
@@ -96,7 +86,7 @@ h2 {
   justify-content: space-evenly;
 }
 
-@media screen and (min-width: 440px) {
+@media screen and (min-width: 320px) {
   .solveIt form {
     flex-wrap: nowrap;
   }
@@ -104,9 +94,16 @@ h2 {
 
 .stepsDetails {
   margin: 0 30px;
-  padding-top: 40px;
+  padding-top: 20px;
   text-align: center;
   font-size: 1rem;
+}
+
+@media screen and (min-width: 992px) {
+  .stepsDetails {
+    padding-top: 0;
+    margin-top: -15px;
+  }
 }
 
 .stepsDetails article {
@@ -124,6 +121,16 @@ h2 {
 
 .stepsDetails article p {
   padding: 15px 0;
+}
+
+.stepsDetails .instructions h3 {
+  font-size: 30px;
+  padding: 10px;
+}
+
+.stepsDetails .instructions p {
+  font-size: 20px;
+  padding: 10px;
 }
 
 .content-wrap {
@@ -166,7 +173,7 @@ h2 {
   font-size: 1rem;
 }
 
-@media screen and (min-width: 440px) {
+@media screen and (min-width: 320px) {
   .theMatrixNotes .cell > input, .theMatrix .cell > input {
     font-size: 1.8rem;
   }
@@ -218,7 +225,7 @@ h2 {
   text-align: center;
 }
 
-@media screen and (min-width: 440px) {
+@media screen and (min-width: 320px) {
   .theMatrixNotes .cell > div, .theMatrix .cell > div {
     font-size: 0.6rem;
   }
@@ -341,7 +348,7 @@ input[type=number] {
 @media screen and (min-width: 992px) {
   .index-grid {
     grid-template-columns: 50% 50%;
-    grid-template-areas: ". 				solveIt" "theButtons		theMatrix" "stepsDetails   theMatrix";
+    grid-template-areas: ".				solveIt" "stepsDetails	theMatrix" "stepsDetails 	theButtons" "stepsDetails	.";
   }
 }
 
@@ -426,10 +433,11 @@ input[type=number] {
 
 /* From uiverse.io by @shah1345 */
 .hoverMeButton {
-  width: 120px;
-  height: 60px;
+  width: 100px;
+  height: 40px;
   padding: 4px;
   margin: 10px;
+  font-size: 12px;
   display: inline-block;
   transition: all 0.2s ease-in;
   position: relative;
@@ -437,16 +445,15 @@ input[type=number] {
   z-index: 1;
   color: #090909;
   padding: 0.7em 1.7em;
-  font-size: 18px;
   border-radius: 0.5em;
   background: #e8e8e8;
   border: 1px solid #e8e8e8;
   box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
   .hoverMeButton {
-    width: 170px;
+    width: 120px;
   }
 }
 

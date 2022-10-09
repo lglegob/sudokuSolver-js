@@ -1,12 +1,18 @@
 /* From uiverse.io by @shah1345 */
 .hoverMeButton {
-  width: 120px;
-  height: 60px;
+  width: 100px;
+  height: 40px;
   padding: 4px;
   margin: 10px;
-  @include size-lg {
-    width: 170px;
+  font-size: 12px;
+  @include size-md {
+    width: 120px;
   }
+  // @include size-lg {
+  //   width: 170px;    
+  //   height: 60px;
+  //   font-size: 18px;
+  // }
   display: inline-block;
   transition: all 0.2s ease-in;
   position: relative;
@@ -14,7 +20,7 @@
   z-index: 1;
   color: #090909;
   padding: 0.7em 1.7em;
-  font-size: 18px;
+
   border-radius: 0.5em;
   background: #e8e8e8;
   border: 1px solid #e8e8e8;

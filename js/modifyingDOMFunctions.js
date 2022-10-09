@@ -24,7 +24,7 @@ const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, se
   newdiscardOneCandidateArticle.setAttribute("id", "Step" + globalVar.currentStep);
   newdiscardOneCandidateArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
-  <h4>Method ${method}</h4>
+  <h4>${method}</h4>
   <p>Notes Discarded in ${mainaxis} ${mainaxisvalue + 1}</p>
   <p>All candidates with value ${value} that do not belong to ${secondaryaxis} ${secondaryaxisvalue + 1} have been deleted</p>
   `;
@@ -49,7 +49,7 @@ const discardOneCandidateFrom2BlocksHTML = (mainaxisvalues, mainaxis, secondarya
   newdiscardOneCandidateArticle.setAttribute("id", "Step" + globalVar.currentStep);
   newdiscardOneCandidateArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
-  <h4>Method ${method}</h4>
+  <h4>${method}</h4>
   <p>Notes Discarded in ${secondaryaxis}s ${secondaryaxisvalues[0] + 1} and ${secondaryaxisvalues[1] + 1}</p>
   <p>All candidates with value ${value} that do not belong to ${mainaxis}s ${mainaxisvalues[0] + 1} and ${mainaxisvalues[1] + 1} have been deleted</p>
   `;
@@ -75,7 +75,7 @@ const discardTwoCandidatesHTML = (blockvalue, mainaxis, row1, row2, column1, col
   newdiscardTwoCandidatesArticle.setAttribute("id", "Step" + globalVar.currentStep);
   newdiscardTwoCandidatesArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
-  <h4>Method ${method}</h4>
+  <h4>${method}</h4>
   <p>Notes Discarded in ${mainaxis} ${blockvalue + 1}.</p>
   <p>The notes discarded are ${value1} and ${value2}, they have been deleted from other cells in the ${mainaxis} ${blockvalue + 1}</p>
   <p> the first cell is row${row1 + 1} column${column1 + 1}, and the second cell is row${row2 + 1} column${column2 + 1}.</p>
@@ -102,7 +102,7 @@ const discardAllExceptHTML = (blockvalue, mainaxis, row1, row2, column1, column2
   newdiscardAllExceptArticle.setAttribute("id", "Step" + globalVar.currentStep);
   newdiscardAllExceptArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
-  <h4>Method ${method}</h4>
+  <h4>${method}</h4>
   <p>Notes Discarded in ${mainaxis} ${blockvalue + 1}.</p>
   <p>The notes kept are ${value1} and ${value2}, all other candidates in these cells have been deleted</p>
   <p> the first cell is row${row1 + 1} column${column1 + 1}, and the second cell is row${row2 + 1} column${column2 + 1}.</p>
@@ -113,7 +113,7 @@ const discardAllExceptHTML = (blockvalue, mainaxis, row1, row2, column1, column2
 };
 
 const addGoBackToStepButton = () => {
-  if (globalVar.currentStep > 1) {
+  if (globalVar.currentStep > 0) {
     let newbackToStepButton = document.createElement("button");
     newbackToStepButton.classList.add("hoverMeButton", "active", "goBackToStep", `goBackToStep${globalVar.currentStep -1}`);
     newbackToStepButton.setAttribute("name", `step${globalVar.currentStep -1}`)

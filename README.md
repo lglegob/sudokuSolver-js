@@ -6,6 +6,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.8 (Step 0 card) 2022-10-09
+
+- New Step 0 card in stepDetails added, to give clarity about the Sudoku procedure, to standardize the way to go back to a previousstep (including original sudoku) and to have a card already in place for format.
+- Grid sizes and distribution changes
+- Instructions to fill the sudoku are deleted once the user has executed that process, and the sudoku puzzle is ready to start
+- Initial instructions are shown in a card style, so all the time that space is occupied, and the format is standard.
+
+---
+
 ### Version 0.4.7 (Highlight last Step) 2022-10-08
 
 - The process to highlight with Colours the changes of the last solving step has been redefined and improved
@@ -74,6 +83,8 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 ### Version 0.4.1 (Sudoku 3D rotate) 2022-10-03
 
 - the 3d Rotation is limited to the complete Sudoku board, as with the individual cells, it became kind of slugish in mobile and it is not that pretty.
+
+---
 
 ### Version 0.4.0 (Merge Branch rotateNotes) 2022-10-02
 
@@ -343,3 +354,5 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 - Base structure defined
 - the values from the Sudoku grid are being captured in theMatrix variable
 - the first resolution series of loops focus on cells with single value options. Just for really Easy Sudokus
+
+---
