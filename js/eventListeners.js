@@ -62,14 +62,8 @@ const validateMatrixListener = () => {
   button_validate.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    let theMatrixStep = matrixFunctions.validateMatrix(globalVar.theMatrix[0]);
-    const {theMatrixStepanalysis } = matrixFunctions.analyzeMatrix(theMatrixStep);
-    globalVar.theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStepanalysis));
-    globalVar.areNotesShowing = true;  //toggleNotes lo dejara en False
-    recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
-    recurrent.toggleNotes();
-    recurrent.reviewCertainValues(globalVar.theMatrix[globalVar.currentStep]);
-    recurrent.deleteLastShowMe();
+    let inputString = matrixFunctions.createString();
+    matrixFunctions.loadMatrix(inputString);
   });
 };
 
@@ -244,7 +238,5 @@ const goBackToStepListener = (button_goBackToStep) => {
       console.log("Neo, sooner or later you're going to realize just as I did that there's a difference between knowing the path and walking the path – Morpheus");
     });
 };
-
-
 
 export { loadMatrixListener, loadMatrixManuallyListener, reloadMatrixListener, validateMatrixListener, resetMatrixListener, toggleNotesListener, togglehighlightsListener, inputCellsListener, resolveMatrixListener, goBackToStepListener }

@@ -6,7 +6,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
-### Version 0.4.9 (Current Card StpesDetail Format)) 2022-10-10
+### Version 0.4.10 (Standardize ingress Data) 2022-10-11
+
+- Starting to standardize the data ingress process, specifically when the data is ingressed using the input fields, now a new function matrixFunctions.createString creates the string from the input fields. Then it is inserted into the same process (loadMatrix) as when the data is ingressed from pre-defined puzzles or manual (prompt).
+- The functions to create the internal div (with input) for theMatrix and the div (with p) for the MatrixNotes are standardized to be using the same in the creation, the load and the normal flow, it just changes if after calling the functions (recurrent.createNewDivInput and recurrent.createNewDivCandidateNotes), we execute an append or a replaceWith.
+- recurrent.createNewDivCertainValue and recurrent.reviewCertainValues are deprecated.
+
+---
+
+### Version 0.4.9 (Current Card StepsDetail Format) 2022-10-10
 
 - The format for the current Card has been changed to show it is the most recent.
 - The Empty cells in the Matrix with No notes have been filled with an empty div and class "emptycell" so they show transparent when rotating to/from Notes

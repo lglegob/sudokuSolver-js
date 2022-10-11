@@ -10,6 +10,7 @@ import * as solvingFunctions from "./solvingProcessFunctions.js"
 //                            MATRIX FUNCTIONS                               //
 //////////////////////////////////////////////////////////////////////////////
 
+//Function to create theMatrix Variable with generic values, and create the Input Fields in the HTML
 const createMatrix = () => {
   console.log("Wake Up, Neo...")
   let theMatrixStep = [];
@@ -18,20 +19,19 @@ const createMatrix = () => {
     for (let column = 0; column <= 8; column++) {
       globalVar.loopsExecuted++;
       theMatrixStep[row][column] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-      let itemrow = row + 1;
-      let itemcolumn = column + 1;
-      let newDivInput = document.createElement("div");
-      newDivInput.classList.add("cell", "row" + itemrow, "column" + itemcolumn);
-      newDivInput.innerHTML = `
-      <input type="number" min="1" max="9" value="">
-      `;
+
+      //Function to create a new input field for the HTML
+      let newDivInput = recurrent.createNewDivInput( row, column, 0 );
       const mainMatrix = document.querySelector(".theMatrix");
       mainMatrix.append(newDivInput);
-      let newDivInputNotes = recurrent.createNewDivCandidateNotes(theMatrixStep, row, column);
+
+      //Function to create a new div element with notes for the HTML
+      let newDivInputNotes = recurrent.createNewDivCandidateNotes(theMatrixStep[row][column], row, column);
       const mainMatrixNotes = document.querySelector(".theMatrixNotes");
       mainMatrixNotes.append(newDivInputNotes);
     };
   };
+
   globalVar.theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStep));
   //This Listener for input fields has to be loaded after HTML theMatrix structure has been already create by function createMatrix()
   const input_cellvalues = document.querySelectorAll(".theMatrix input");
@@ -40,6 +40,7 @@ const createMatrix = () => {
 
 const loadMatrix = (initialMatrixValues) => {
   if (initialMatrixValues.length >= 17) {
+    //This section is to load the string (from load or load manually) into the inputs
     let howManyDigits = 0;
     for (let cellCounter = 0; cellCounter < Math.min(initialMatrixValues.length, 81); cellCounter++) {
       globalVar.loopsExecuted++;
@@ -48,15 +49,21 @@ const loadMatrix = (initialMatrixValues) => {
       let itemrow = row + 1;
       let itemcolumn = column + 1;
       let currentCellValue = initialMatrixValues.charAt(cellCounter);
+      
       if (currentCellValue > 0 && currentCellValue <=9) {
         howManyDigits++;
-        recurrent.createNewDivCertainValue(row, column, currentCellValue);
       } else {
-        //In case the user had inserted any value in the inputs
-        document.querySelector(".theMatrix " + ".row" + itemrow + ".column" + itemcolumn + " input").value = "";
-        recurrent.createNewDivCandidateNotes(globalVar.theMatrix[globalVar.currentStep], row, column);
-        // document.querySelector(".theMatrixNotes " + ".row" + row + ".column" + column + " input").value = "";
+        currentCellValue = 0;
       } 
+
+      let newDivInput = recurrent.createNewDivInput( row, column, currentCellValue );
+      const mainMatrix = document.querySelector(".theMatrix .row" + itemrow +".column" + itemcolumn);
+      mainMatrix.replaceWith(newDivInput);
+
+      let newDivInputNotes = recurrent.createNewDivCandidateNotes([currentCellValue,1,1,1,1,1,1,1,1,1], row, column);
+      const mainMatrixNotes = document.querySelector(".theMatrixNotes .row" + itemrow +".column" + itemcolumn);
+      mainMatrixNotes.replaceWith(newDivInputNotes);
+
     };
     if (howManyDigits < 17) {
       console.log("--------------------------------------------");
@@ -90,6 +97,36 @@ const loadMatrixManually = () => {
   prompttext += "More than 81 will be discarded";
   let manualMatrixValues = prompt(prompttext, initialMatrixpuzzle.expert04str)
   loadMatrix(manualMatrixValues);
+};
+
+//Get the values from the form input into the Matrix
+const createString = () => {
+  let initialMatrixValues = "";   
+  for (let row = 0; row <= 8; row++) {
+    for (let column = 0; column <= 8; column++) {
+      globalVar.loopsExecuted++;
+      let itemrow = row + 1;
+      let itemcolumn = column + 1;
+      let currentcell = document.querySelector(".theMatrix .row" + itemrow + ".column" + itemcolumn);
+      let currentCellValue = Number(currentcell.querySelector("input").value);
+      if (currentCellValue !== 0) {
+        initialMatrixValues += currentCellValue;
+      }
+      else {
+        initialMatrixValues += "-";
+        //empty cell to keep the transparency when rotating for the Notes
+        currentcell.innerHTML = `
+        <div class="emptycell"></div>
+        `;
+      };
+      currentcell.classList.add("value" + currentCellValue);
+    };
+  };
+  console.log("--------------------------------------------");
+  console.log("But there's way too much information to decode the Matrix. You get used to it. – Cypher");
+  console.log(`The string chain you ingressed was: ${initialMatrixValues}`);
+  console.log(`lenght is: ${initialMatrixValues.length}`);
+  return initialMatrixValues;
 };
 
 //Get the values from the form input into the Matrix
@@ -246,4 +283,4 @@ const matrixReloaded = (theMatrixDestinedStep, GoBackToStep) => {
   recurrent.reviewNotes(theMatrixDestinedStep);
 };
 
-export { createMatrix, loadMatrix, loadMatrixManually, validateMatrix, analyzeMatrix, resetMatrix, matrixReloaded };
+export { createMatrix, loadMatrix, loadMatrixManually, createString, validateMatrix, analyzeMatrix, resetMatrix, matrixReloaded };

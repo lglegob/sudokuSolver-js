@@ -137,73 +137,72 @@ const reviewNotes = (theMatrixStep) => {
       if (theMatrixStep[row][column][0] === 0) {
         let itemrow = row + 1;
         let itemcolumn = column + 1;
-        const newdivcandidate = createNewDivCandidateNotes(theMatrixStep, row, column);
-        const main = document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn);
-        main.replaceWith(newdivcandidate);
+        const newdivcandidate = createNewDivCandidateNotes(theMatrixStep[row][column], row, column);
+        const mainMatrixNotes = document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn);
+        mainMatrixNotes.replaceWith(newdivcandidate);
       };
     };
   };
 };
 
-const createNewDivCandidateNotes = (theMatrixStep, row, column) => {
+const createNewDivInput = ( row, column, currentCellValue ) => {
   let itemrow = row + 1;
   let itemcolumn = column + 1;
-  let newdivcandidate = document.createElement("div");
-  newdivcandidate.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "notes");
-  let internaldiv = document.createElement("div");
-  for (let note = 1; note <= 9; note++) {
-    globalVar.loopsExecuted++;
-    let newnote = document.createElement("p");
-    newnote.classList.add(`note${note}`);
-    if (theMatrixStep[row][column][note] !== 0) {
-      newnote.innerHTML = `
-      ${note}
-      `;
-    }
-    //This If process detects if current candidate value has the class .justDeletedNote as recently deleted, to keep it in the new div created
-    if (document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn + " .note" + note + ".justDeletedNote") !== null) {
-      newnote.classList.add("justDeletedNote");
+  let newDivInput = document.createElement("div");
+  newDivInput.classList.add("cell", "row" + itemrow, "column" + itemcolumn);
+  if (currentCellValue > 0 && currentCellValue <=9) {
+    newDivInput.classList.add("value" + currentCellValue);
+    newDivInput.innerHTML = `
+    <input type="number" min="1" max="9" value=${currentCellValue}>
+    `;
+  } else {
+    newDivInput.innerHTML = `
+    <input type="number" min="1" max="9" value="">
+    `;
+  }
+  return newDivInput;
+};
+
+const createNewDivCandidateNotes = (theMatrixCell, row, column) => {
+  let itemrow = row + 1;
+  let itemcolumn = column + 1;
+  let newdivcandidate;
+
+  if (theMatrixCell[0] === 0) {
+    //This process is when the value has not been found yet, so the 9 notes have to be defined
+    newdivcandidate = document.createElement("div");
+    newdivcandidate.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "notes");
+    let internaldiv = document.createElement("div");
+    for (let note = 1; note <= 9; note++) {
+      globalVar.loopsExecuted++;
+      let newnote = document.createElement("p");
+      newnote.classList.add(`note${note}`);
+      if (theMatrixCell[note] !== 0) {
+        newnote.innerHTML = `
+        ${note}
+        `;
+      }
+      //This If process detects if current candidate value has the class .justDeletedNote as recently deleted, to keep it in the new div created
+      if (document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn + " .note" + note + ".justDeletedNote") !== null) {
+        newnote.classList.add("justDeletedNote");
+      };
+      //This If process detects if current candidate value has the class .noteKept as recently deleted, to keep it in the new div created
+      if (document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn + " .note" + note + ".noteKept") !== null) {
+        newnote.classList.add("noteKept");
+      };
+      internaldiv.append(newnote);
+      newdivcandidate.append(internaldiv);
     };
-    //This If process detects if current candidate value has the class .noteKept as recently deleted, to keep it in the new div created
-    if (document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn + " .note" + note + ".noteKept") !== null) {
-      newnote.classList.add("noteKept");
-    };
-    internaldiv.append(newnote);
-    newdivcandidate.append(internaldiv);
+  } else {
+    //This process is when the value has already been found, no more notes, only the value
+    let currentCellValue = theMatrixCell[0];
+    newdivcandidate = document.createElement("div");
+    newdivcandidate.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "value" + currentCellValue);
+    newdivcandidate.innerHTML = `
+    <input type="number" min="1" max="9" value=${currentCellValue}>
+    `;
   };
   return newdivcandidate;
-};
-
-//Function used to add html config with a 9 cells grid per each of the original divs to show the notes of each cell
-const reviewCertainValues = (theMatrixStep) => {
-  for (let row = 0; row <= 8; row++) {
-    for (let column = 0; column <= 8; column++) {
-      let currentCellValue = theMatrixStep[row][column][0];
-      if (currentCellValue !== 0) {
-        createNewDivCertainValue(row, column, currentCellValue);
-      };
-    };
-  };
-};
-
-const createNewDivCertainValue = (row, column, currentCellValue) => {
-  let itemrow = row + 1;
-  let itemcolumn = column + 1;
-  let newfoundInput = document.createElement("div");
-  newfoundInput.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "value" + currentCellValue);
-  newfoundInput.innerHTML = `
-  <input type="number" min="1" max="9" value=${currentCellValue}>
-  `;
-  const mainMatrix = document.querySelector(".theMatrix .row" + itemrow +".column" + itemcolumn);
-  mainMatrix.replaceWith(newfoundInput);
-
-  let newfoundInputNotes = document.createElement("div");
-  newfoundInputNotes.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "value" + currentCellValue);
-  newfoundInputNotes.innerHTML = `
-  <input type="number" min="1" max="9" value=${currentCellValue}>
-  `;
-  const mainMatrixNotes = document.querySelector(".theMatrixNotes .row" + itemrow +".column" + itemcolumn);
-  mainMatrixNotes.replaceWith(newfoundInputNotes);
 };
 
 const deleteLastShowMe = () => {
@@ -224,4 +223,4 @@ const deleteLastShowMe = () => {
   };
 }; 
 
-export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineRowColumnFromSquareRelative, defineRowColumnFromCellRelative, toggleNotes, togglehighlights, reviewNotes, createNewDivCandidateNotes, reviewCertainValues, createNewDivCertainValue, deleteLastShowMe };
+export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineRowColumnFromSquareRelative, defineRowColumnFromCellRelative, toggleNotes, togglehighlights, reviewNotes, createNewDivInput, createNewDivCandidateNotes, deleteLastShowMe };

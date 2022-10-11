@@ -193,7 +193,7 @@ const discardOneCandidateFrom2Blocks = (mainaxisvalues, mainaxis, secondaryaxisv
     };
   };
 
-  globalVar.areNotesShowing = false;
+  globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
   recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
   recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
@@ -224,7 +224,7 @@ const discardTwoCandidates = (blockvalue, mainaxis, row1, row2, column1, column2
     document.querySelector(".theMatrixNotes " + ".row" + (row2 + 1) + ".column" + (column2 + 1) + " .note" + value2).classList.remove("justDeletedNote");
     document.querySelector(".theMatrixNotes " + ".row" + (row2 + 1) + ".column" + (column2 + 1) + " .note" + value2).classList.add("noteKept");
   };
-  globalVar.areNotesShowing = false;
+  globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
   recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
   recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
@@ -240,7 +240,7 @@ const discardAllExcept = (blockvalue, mainaxis, row1, row2, column1, column2, va
   let theMatrixStep = callbackNoteZero(row1, column1, value1, value2, globalVar.theMatrix[globalVar.currentStep]);
   theMatrixStep = callbackNoteZero(row2, column2, value1, value2, theMatrixStep);
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
-  globalVar.areNotesShowing = false;
+  globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
   recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
   recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;

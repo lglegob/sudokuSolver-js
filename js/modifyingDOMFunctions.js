@@ -118,7 +118,7 @@ const addGoBackToStepButton = () => {
     newbackToStepButton.classList.add("hoverMeButton", "active", "goBackToStep", `goBackToStep${globalVar.currentStep -1}`);
     newbackToStepButton.setAttribute("name", `step${globalVar.currentStep -1}`)
     newbackToStepButton.innerHTML = `
-    Go back to Step ${globalVar.currentStep - 1}
+    Go back to <strong>Step ${globalVar.currentStep - 1}</strong>
     `;
     const previousArticleStep = document.querySelector(`#Step${globalVar.currentStep - 1}`);
     previousArticleStep.append(newbackToStepButton);
