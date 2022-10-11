@@ -3,7 +3,7 @@
   justify-content: start;
   grid-template-columns: repeat(9, 1fr);
   @include size-sm {
-    border: 2px solid blue;
+    border: 2px solid $clr-main-color;
   }
   margin: 5px auto;
   padding: 5px;
@@ -112,6 +112,9 @@
         border-top: 1px dashed black;
       }
     }
+}
+.emptycell {
+  border: 1px solid black;
 }
 
 /*Configuration for Square Borders*/

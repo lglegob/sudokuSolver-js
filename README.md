@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.9 (Current Card StpesDetail Format)) 2022-10-10
+
+- The format for the current Card has been changed to show it is the most recent.
+- The Empty cells in the Matrix with No notes have been filled with an empty div and class "emptycell" so they show transparent when rotating to/from Notes
+- Main color nos has been declared as SCSS variable
+
+---
+
 ### Version 0.4.8 (Step 0 card) 2022-10-09
 
 - New Step 0 card in stepDetails added, to give clarity about the Sudoku procedure, to standardize the way to go back to a previousstep (including original sudoku) and to have a card already in place for format.

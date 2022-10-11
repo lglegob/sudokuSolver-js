@@ -107,6 +107,10 @@ const validateMatrix = (theMatrixStep) => {
       }
       else {
         initialMatrixValues += "-";
+        //empty cell to keep the transparency when rotating for the Notes
+        currentcell.innerHTML = `
+        <div class="emptycell"></div>
+        `;
       };
       currentcell.classList.add("value" + currentCellValue);
       theMatrixStep[row][column] = [currentCellValue, 1, 1, 1, 1, 1, 1, 1, 1, 1];
@@ -228,11 +232,9 @@ const matrixReloaded = (theMatrixDestinedStep, GoBackToStep) => {
         <input type="number" min="1" max="9" value=${currentCellValue}>
       `;
       } else {
+        //empty cell to keep the transparency when rotating for the Notes
         newfoundInput.innerHTML = `
-        <input type="number" min="1" max="9" value="">
-        `;
-        newfoundInputNotes.innerHTML = `
-        <input type="number" min="1" max="9" value="">
+        <div class="emptycell"></div>
         `;
       };
       document.querySelector(".theMatrix .row" + itemrow +".column" + itemcolumn).replaceWith(newfoundInput);

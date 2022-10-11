@@ -16,6 +16,22 @@ html {
   box-sizing: inherit;
 }
 
+/***************************************************************************
+***                            Color Palette                             ***
+***************************************************************************/
+/*
+
+TBD
+Exmaple Kaffa
+https://coolors.co/bf1e2e-343434-4392f1-f9e0d9-f9f9f9
+#BF1E2E Red NCS 					- rgb(191,30,46)
+#343434 Dark Gray (Almost black) 	- rgb(52,52,52)
+#4392F1 Dodger Blue 				- rgb(67,146,241)
+#F9E0D9 Misty Rose 					- rgb(249,224,217)
+#F9F9F9 Cultured (Almost White) 	- rgb(249,249,249)
+
+*/
+@use "sass:color";
 body {
   overflow-y: scroll;
 }
@@ -108,11 +124,11 @@ h2 {
 
 .stepsDetails article {
   padding: 10px;
-  margin: 30px 0;
+  margin: 30px auto;
   border: 1px solid black;
   border-radius: 30px;
-  border: 1px solid black;
   box-shadow: 15px 15px 30px gray, -15px -15px 30px white;
+  max-width: 80%;
 }
 
 .stepsDetails article h3 {
@@ -123,14 +139,24 @@ h2 {
   padding: 15px 0;
 }
 
-.stepsDetails .instructions h3 {
-  font-size: 30px;
-  padding: 10px;
+.stepsDetails article:first-of-type {
+  border: 3px solid #4392F1;
+  margin-top: 30px auto;
+  max-width: 100%;
 }
 
-.stepsDetails .instructions p {
-  font-size: 20px;
+.stepsDetails article:first-of-type h3 {
+  font-size: 25px;
   padding: 10px;
+  color: #4392F1;
+}
+
+.stepsDetails article:first-of-type h4 {
+  font-size: 20px;
+}
+
+.stepsDetails article:first-of-type p {
+  font-size: 20px;
 }
 
 .content-wrap {
@@ -150,7 +176,7 @@ h2 {
 
 @media screen and (min-width: 576px) {
   .theMatrixNotes, .theMatrix {
-    border: 2px solid blue;
+    border: 2px solid #4392F1;
   }
 }
 
@@ -302,6 +328,10 @@ h2 {
   .notes .note7, .notes .note8, .notes .note9 {
     border-top: 1px dashed black;
   }
+}
+
+.emptycell {
+  border: 1px solid black;
 }
 
 /*Configuration for Square Borders*/
@@ -489,7 +519,7 @@ input[type=number] {
   top: 180%;
   width: 160%;
   height: 190%;
-  background-color: blue;
+  background-color: #4392F1;
   border-radius: 50%;
   display: block;
   transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
@@ -498,17 +528,17 @@ input[type=number] {
 
 .hoverMeButton.active:hover {
   color: #ffffff;
-  border: 1px solid blue;
+  border: 1px solid #4392F1;
 }
 
 .hoverMeButton.active:hover:before {
   top: -35%;
-  background-color: blue;
+  background-color: #4392F1;
   transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
 }
 
 .hoverMeButton.active:hover:after {
   top: -45%;
-  background-color: blue;
+  background-color: #4392F1;
   transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
 }
