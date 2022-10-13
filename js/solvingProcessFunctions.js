@@ -9,7 +9,7 @@ import * as modifyDOM from "./modifyingDOMFunctions.js";
 //////////////////////////////////////////////////////////////////////////////
 
 //function called each time a new value is found by any method
-const cellValueFound = (row, column, currentCellValue, method) => {
+const cellValueFound = (row, column, currentCellValue, method, mainBlock, mainBlockValue) => {
   globalVar.cellsResolved++;
   globalVar.currentStep++;
   globalVar.stepsDetail[globalVar.currentStep] = [true, method, [row, column, currentCellValue]];
@@ -26,11 +26,12 @@ const cellValueFound = (row, column, currentCellValue, method) => {
   // here the foundvalue is set in the html document to be shown, by calling the function newfoundvalueHTML
   let itemrow = row + 1;
   let itemcolumn = column + 1;
-  newfoundvalueHTML(itemrow, itemcolumn, currentCellValue, theMatrixStepCellFound, method);
+  newfoundvalueHTML(itemrow, itemcolumn, currentCellValue, theMatrixStepCellFound, method, mainBlock, mainBlockValue);
   return { theMatrixStepCellFound}
 };
 
-const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep, method) => {
+//This Function is called by SOLVING Techniques where a Cell Value is now certain. It can by NAKED Singles or HIDDEN Singles
+const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep, method, mainBlock, mainBlockValue) => {
   console.log("--------------------------------------------");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);
@@ -71,12 +72,22 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
   let newfoundvalueArticle = document.createElement("article");
   newfoundvalueArticle.classList.add("newfoundvalue");
   newfoundvalueArticle.setAttribute("id", "Step" + globalVar.currentStep );
-  newfoundvalueArticle.innerHTML = `
-  <h3>Step ${globalVar.currentStep}</h3>
-  <h4>${method}</h4>
-  <p>New Value Found in row ${itemrow}, column ${itemcolumn}.</p>
-  <p>The Value is <strong>${currentCellValue}.</strong></p>
-  `;
+  //At this point, it is defined if the value Found was by NAKED singles technique or by HIDDEN singles technique to give the appropiate message in stepsDetails
+  if (method === "Detecting Singles") {
+    newfoundvalueArticle.innerHTML = `
+    <h3>Step ${globalVar.currentStep}</h3>
+    <h4>${method}</h4>
+    <p>Cell R${itemrow}C${itemcolumn} (Row ${itemrow}, Column ${itemcolumn}) had just one possible Candidate (${currentCellValue}) left.</p>
+    <p>The certain Value for this Cell is <strong>${currentCellValue}.</strong></p>
+    `;
+  } else {
+    newfoundvalueArticle.innerHTML = `
+    <h3>Step ${globalVar.currentStep}</h3>
+    <h4>${method}</h4>
+    <p>Cell R${itemrow}C${itemcolumn} (Row ${itemrow}, Column ${itemcolumn}) within the ${mainBlock} ${mainBlockValue} was the only cell with Candidate (${currentCellValue}).</p>
+    <p>The certain Value for this Cell is <strong>${currentCellValue}.</strong></p>
+    `;
+  }
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newfoundvalueArticle);
   recurrent.reviewNotes(theMatrixStep);

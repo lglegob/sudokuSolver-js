@@ -542,3 +542,17 @@ input[type=number] {
   background-color: #4392F1;
   transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
 }
+
+.stepsDetails .hoverMeButton {
+  width: 140px;
+  height: 50px;
+  padding: 5px;
+  margin: 12px;
+  font-size: 18px;
+}
+
+@media screen and (min-width: 768px) {
+  .stepsDetails .hoverMeButton {
+    width: 200px;
+  }
+}

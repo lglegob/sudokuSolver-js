@@ -66,6 +66,7 @@ const gettingDetailedInfo = ( fromrow, maximumrow, fromcolumn, maximumcolumn, bl
 };
 
 //Consolidated function for the 3 Blocks (row, column and square), when one value can be discarded
+//This Function is called by LOCKEDCANDIDATE Techniques
 const discardOneCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method, callbackNoteZero) => {
 
   let fromRowD;
@@ -149,6 +150,7 @@ const discardOneCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, second
 };
 
 //Consolidated function for the 2 Blocks (row, column), when one value can be discarded in X-Wing Detection technique
+//This Function is called by X-WING Techniques
 const discardOneCandidateFrom2Blocks = (mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method, callbackNoteZero) => {
   globalVar.currentStep++;
   globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
@@ -201,6 +203,7 @@ const discardOneCandidateFrom2Blocks = (mainaxisvalues, mainaxis, secondaryaxisv
 };
 
 //Consolidated function for the 3 Blocks (row, column and square), when a pair of values can be discarded
+//This Function is called by OBVIOUSPAIRS Techniques
 const discardTwoCandidates = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method, callbackNoteZero) => {
   globalVar.currentStep++;
   globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
@@ -232,6 +235,7 @@ const discardTwoCandidates = (blockvalue, mainaxis, row1, row2, column1, column2
 };
 
 //Consolidated function for the 3 Blocks (row, column and square), when a pair of values must be kept and discard all others in one cell
+//This Function is called by HIDDENPAIRS Techniques
 const discardAllExcept = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method, callbackNoteZero) => {
   globalVar.currentStep++;
   globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];

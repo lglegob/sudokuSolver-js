@@ -31,7 +31,7 @@ const lockedCandidateRow = () => {
           const { howmanycellswiththisnote, howmanynotesinthiscellSquare, answersCurrentBlockSquare, whereisthisnoteSquare } = discardingFunctions.gettingDetailedInfo ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", locatedSquare );
           if ( howmanycellswiththisnoteRow[possibleCandidate] != howmanycellswiththisnote[possibleCandidate]) {
             // console.log(`Tenemos un Locked Candidate, option ${possibleCandidate} in row ${row + 1} have other notes in square ${locatedSquare} that can be deleted`)
-            discardingFunctions.discardOneCandidate(locatedSquare, "square", row, "row", possibleCandidate, "Detecting Locked Candidate in Row to delete in Square", notesZero.noteZeroSquareSQ );
+            discardingFunctions.discardOneCandidate(locatedSquare, "square", row, "row", possibleCandidate, "Locked Candidate (Type2) From Row confined in Square", notesZero.noteZeroSquareSQ );
             break;
           };
         };
@@ -64,7 +64,7 @@ const lockedCandidateColumn = () => {
           const { howmanycellswiththisnote, howmanynotesinthiscellSquare, answersCurrentBlockSquare, whereisthisnoteSquare } = discardingFunctions.gettingDetailedInfo ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", locatedSquare );
           if ( howmanycellswiththisnoteColumn[possibleCandidate] != howmanycellswiththisnote[possibleCandidate]) {
             // console.log(`Tenemos un Locked Candidate, option ${possibleCandidate} in column ${column + 1} have other notes in square ${locatedSquare} that can be deleted`)
-            discardingFunctions.discardOneCandidate(locatedSquare, "square", column, "column", possibleCandidate, "Detecting Locked Candidate in Column to delete in Square", notesZero.noteZeroSquareSQ );
+            discardingFunctions.discardOneCandidate(locatedSquare, "square", column, "column", possibleCandidate, "Locked Candidate (Type2) From Column confined in Square", notesZero.noteZeroSquareSQ );
             break;
           };
         };
@@ -100,7 +100,7 @@ const lockedCandidateSquare = () => {
           const { howmanycellswiththisnote, howmanynotesinthiscellSquare, answersCurrentBlockSquare, whereisthisnoteSquare } = discardingFunctions.gettingDetailedInfo ( realRow, realRow, 0, 8, "row" );
           if ( howmanycellswiththisnoteSquare[possibleCandidate] != howmanycellswiththisnote[possibleCandidate]) {
             console.log(`Tenemos un Locked Candidate, option ${possibleCandidate} in square ${square} have other notes in row ${realRow + 1} that can be deleted`)
-            discardingFunctions.discardOneCandidate(realRow, "row", square, "square", possibleCandidate, "Detecting Locked Candidate in Square to delete in Row", notesZero.noteZeroRow );
+            discardingFunctions.discardOneCandidate(realRow, "row", square, "square", possibleCandidate, "Locked Candidate (Type1) From Square confined in Row", notesZero.noteZeroRow );
             break;
           };
         };
@@ -110,7 +110,7 @@ const lockedCandidateSquare = () => {
           const { howmanycellswiththisnote, howmanynotesinthiscellSquare, answersCurrentBlockSquare, whereisthisnoteSquare } = discardingFunctions.gettingDetailedInfo ( 0, 8, realColumn, realColumn, "column" );
           if ( howmanycellswiththisnoteSquare[possibleCandidate] != howmanycellswiththisnote[possibleCandidate]) {
             console.log(`Tenemos un Locked Candidate, option ${possibleCandidate} in square ${square} have other notes in column ${realColumn + 1} that can be deleted`)
-            discardingFunctions.discardOneCandidate(realColumn, "column", square, "square", possibleCandidate, "Detecting Locked Candidate in Square to delete in Column", notesZero.noteZeroColumn );
+            discardingFunctions.discardOneCandidate(realColumn, "column", square, "square", possibleCandidate, "Locked Candidate (Type1) From Square confined in Column", notesZero.noteZeroColumn );
             break;
           };
         };

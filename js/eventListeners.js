@@ -148,17 +148,6 @@ const resolveMatrixListener = () => {
       obviousPairs.obviousPairsSquare();
     };
 
-    //LOCKED CANDIDATE METHODS
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      lockedCandidates.lockedCandidateRow();
-    };
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      lockedCandidates.lockedCandidateColumn();
-    };
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      lockedCandidates.lockedCandidateSquare();
-    };
-
     //HIDDEN PAIRS METHODS
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
       hiddenPairs.hiddenPairsRow();
@@ -170,6 +159,17 @@ const resolveMatrixListener = () => {
       hiddenPairs.hiddenPairsSquare();
     };
 
+    //LOCKED CANDIDATE METHODS
+    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+      lockedCandidates.lockedCandidateRow();
+    };
+    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+      lockedCandidates.lockedCandidateColumn();
+    };
+    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+      lockedCandidates.lockedCandidateSquare();
+    };
+
     //X-WING CANDIDATES METHOD
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
       xwing.xwingRow();
@@ -177,6 +177,8 @@ const resolveMatrixListener = () => {
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
       xwing.xwingColumn();
     };
+
+
 
     //FAILURE (NOT SOLVED)
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {

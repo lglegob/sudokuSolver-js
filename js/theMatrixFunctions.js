@@ -19,19 +19,12 @@ const createMatrix = () => {
     for (let column = 0; column <= 8; column++) {
       globalVar.loopsExecuted++;
       theMatrixStep[row][column] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-
       //Function to create a new input field for the HTML
       let newDivInput = recurrent.createNewDivInput( row, column, 0 );
       const mainMatrix = document.querySelector(".theMatrix");
       mainMatrix.append(newDivInput);
-
-      //Function to create a new div element with notes for the HTML
-      let newDivInputNotes = recurrent.createNewDivCandidateNotes(theMatrixStep[row][column], row, column);
-      const mainMatrixNotes = document.querySelector(".theMatrixNotes");
-      mainMatrixNotes.append(newDivInputNotes);
     };
   };
-
   globalVar.theMatrix[0] = JSON.parse(JSON.stringify(theMatrixStep));
   //This Listener for input fields has to be loaded after HTML theMatrix structure has been already create by function createMatrix()
   const input_cellvalues = document.querySelectorAll(".theMatrix input");
@@ -39,7 +32,6 @@ const createMatrix = () => {
 };
 
 const loadMatrix = (initialMatrixValues) => {
-  if (initialMatrixValues.length >= 17) {
     //This section is to load the string (from load or load manually) into the inputs
     let howManyDigits = 0;
     for (let cellCounter = 0; cellCounter < Math.min(initialMatrixValues.length, 81); cellCounter++) {
@@ -61,8 +53,8 @@ const loadMatrix = (initialMatrixValues) => {
       mainMatrix.replaceWith(newDivInput);
 
       let newDivInputNotes = recurrent.createNewDivCandidateNotes([currentCellValue,1,1,1,1,1,1,1,1,1], row, column);
-      const mainMatrixNotes = document.querySelector(".theMatrixNotes .row" + itemrow +".column" + itemcolumn);
-      mainMatrixNotes.replaceWith(newDivInputNotes);
+      const mainMatrixNotes = document.querySelector(".theMatrixNotes");
+      mainMatrixNotes.append(newDivInputNotes);
 
     };
     if (howManyDigits < 17) {
@@ -77,11 +69,7 @@ const loadMatrix = (initialMatrixValues) => {
       recurrent.reviewNotes(globalVar.theMatrix[0]);
       recurrent.deleteLastShowMe();
     }
-  } else {
-    console.log("--------------------------------------------");
-    console.log("Not like this. Not like this – Switch");
-    alert("Ingress at least 17 digits different than zero, Not enough Digits");
-  };
+
 };
 
 const loadMatrixManually = () => {

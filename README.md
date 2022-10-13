@@ -6,6 +6,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.11 (stepsDetails fine tuning) 2022-10-12
+
+- WHAT'S NEW!?
+- Dynamic DOM - Giving more details in the DOM for each of the solving steps, so the user understands why some of the sudoku steps
+- Styles - Bigger fonts for the GoBack stepDetails buttons
+- Code Optimization - Within matrixFunctions.createMatrix, the process to create the divs for theMatrixNotes is not necessary, redundant and duplicated at this point. They are created later when loading the information for the puzzle.
+
+---
+
 ### Version 0.4.10 (Standardize ingress Data) 2022-10-11
 
 - Starting to standardize the data ingress process, specifically when the data is ingressed using the input fields, now a new function matrixFunctions.createString creates the string from the input fields. Then it is inserted into the same process (loadMatrix) as when the data is ingressed from pre-defined puzzles or manual (prompt).
