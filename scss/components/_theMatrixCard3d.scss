@@ -19,7 +19,7 @@
         transform-style: preserve-3d;
         // height: 100%;
         border-radius: 30px; 
-        border: 1px solid black;
+        border: 1px solid $clr-dark-gray;
         box-shadow: 15px 15px 30px gray,
         -15px -15px 30px white;
         &-front, &-back {

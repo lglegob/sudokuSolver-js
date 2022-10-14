@@ -80,6 +80,11 @@ const defineSquareCoordinatesSQ = (square) => {
   return {fromrow, maximumrow, fromcolumn, maximumcolumn};
 };
 
+const defineSquareFromRC = (row, column) => {
+  let square = 3 * Math.floor(row / 3) + Math.ceil((column + 1) / 3);
+  return square;
+};
+
 const defineRowColumnFromSquareRelative = (square, relativeRow, relativeColumn) => {
   let realRow = (3 *(Math.floor((square-1) / 3))) + relativeRow;
   let realColumn = ( 3 * ((square-1) % 3)) + relativeColumn;
@@ -137,9 +142,9 @@ const reviewNotes = (theMatrixStep) => {
       if (theMatrixStep[row][column][0] === 0) {
         let itemrow = row + 1;
         let itemcolumn = column + 1;
-        const newdivcandidate = createNewDivCandidateNotes(theMatrixStep[row][column], row, column);
+        const newDivCandidate = createNewDivCandidateNotes(row, column, theMatrixStep[row][column]);
         const mainMatrixNotes = document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn);
-        mainMatrixNotes.replaceWith(newdivcandidate);
+        mainMatrixNotes.replaceWith(newDivCandidate);
       };
     };
   };
@@ -150,6 +155,8 @@ const createNewDivInput = ( row, column, currentCellValue ) => {
   let itemcolumn = column + 1;
   let newDivInput = document.createElement("div");
   newDivInput.classList.add("cell", "row" + itemrow, "column" + itemcolumn);
+  let square = defineSquareFromRC(row, column);
+  newDivInput.classList.add("square" + square);
   if (currentCellValue > 0 && currentCellValue <=9) {
     newDivInput.classList.add("value" + currentCellValue);
     newDivInput.innerHTML = `
@@ -163,15 +170,17 @@ const createNewDivInput = ( row, column, currentCellValue ) => {
   return newDivInput;
 };
 
-const createNewDivCandidateNotes = (theMatrixCell, row, column) => {
+const createNewDivCandidateNotes = (row, column, theMatrixCell) => {
   let itemrow = row + 1;
   let itemcolumn = column + 1;
-  let newdivcandidate;
+  let newDivCandidate;
 
   if (theMatrixCell[0] === 0) {
     //This process is when the value has not been found yet, so the 9 notes have to be defined
-    newdivcandidate = document.createElement("div");
-    newdivcandidate.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "notes");
+    newDivCandidate = document.createElement("div");
+    newDivCandidate.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "notes");
+    let square = defineSquareFromRC(row, column);
+    newDivCandidate.classList.add("square" + square);
     let internaldiv = document.createElement("div");
     for (let note = 1; note <= 9; note++) {
       globalVar.loopsExecuted++;
@@ -182,27 +191,34 @@ const createNewDivCandidateNotes = (theMatrixCell, row, column) => {
         ${note}
         `;
       }
-      //This If process detects if current candidate value has the class .justDeletedNote as recently deleted, to keep it in the new div created
-      if (document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn + " .note" + note + ".justDeletedNote") !== null) {
-        newnote.classList.add("justDeletedNote");
+
+      //This If process is to prevent when going back steps, the step zero must not keep any classes related to highlights, all other steps is to prevent the deletion of the highlight classes
+      if (globalVar.currentStep > 0) {
+        //This If process detects if current candidate value has the class .justDeletedNote as recently deleted, to keep it in the new div created
+        if (document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn + " .note" + note + ".justDeletedNote") !== null) {
+          newnote.classList.add("justDeletedNote");
+        };
+        //This If process detects if current candidate value has the class .noteKept as recently deleted, to keep it in the new div created
+        if (document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn + " .note" + note + ".noteKept") !== null) {
+          newnote.classList.add("noteKept");
+        };
       };
-      //This If process detects if current candidate value has the class .noteKept as recently deleted, to keep it in the new div created
-      if (document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn + " .note" + note + ".noteKept") !== null) {
-        newnote.classList.add("noteKept");
-      };
+
       internaldiv.append(newnote);
-      newdivcandidate.append(internaldiv);
+      newDivCandidate.append(internaldiv);
     };
   } else {
     //This process is when the value has already been found, no more notes, only the value
     let currentCellValue = theMatrixCell[0];
-    newdivcandidate = document.createElement("div");
-    newdivcandidate.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "value" + currentCellValue);
-    newdivcandidate.innerHTML = `
+    newDivCandidate = document.createElement("div");
+    newDivCandidate.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "value" + currentCellValue);
+    let square = defineSquareFromRC(row, column);
+    newDivCandidate.classList.add("square" + square);
+    newDivCandidate.innerHTML = `
     <input type="number" min="1" max="9" value=${currentCellValue}>
     `;
   };
-  return newdivcandidate;
+  return newDivCandidate;
 };
 
 const deleteLastShowMe = () => {
@@ -221,6 +237,26 @@ const deleteLastShowMe = () => {
       e.classList.remove("noteKept");
     });
   };
+  if (document.querySelector(".highlightedCell") != null) {
+    document.querySelectorAll(".highlightedCell").forEach((e) => {
+      e.classList.remove("highlightedCell");
+    });
+  };  
+  if (document.querySelector(".highlightedRow") != null) {
+    document.querySelectorAll(".highlightedRow").forEach((e) => {
+      e.classList.remove("highlightedRow");
+    });
+  };
+  if (document.querySelector(".highlightedColumn") != null) {
+    document.querySelectorAll(".highlightedColumn").forEach((e) => {
+      e.classList.remove("highlightedColumn");
+    });
+  };
+  if (document.querySelector(".highlightedSquare") != null) {
+    document.querySelectorAll(".highlightedSquare").forEach((e) => {
+      e.classList.remove("highlightedSquare");
+    });
+  };
 }; 
 
-export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineRowColumnFromSquareRelative, defineRowColumnFromCellRelative, toggleNotes, togglehighlights, reviewNotes, createNewDivInput, createNewDivCandidateNotes, deleteLastShowMe };
+export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineSquareFromRC, defineRowColumnFromSquareRelative, defineRowColumnFromCellRelative, toggleNotes, togglehighlights, reviewNotes, createNewDivInput, createNewDivCandidateNotes, deleteLastShowMe };

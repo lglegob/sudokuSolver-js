@@ -27,7 +27,7 @@ const cellValueFound = (row, column, currentCellValue, method, mainBlock, mainBl
   let itemrow = row + 1;
   let itemcolumn = column + 1;
   newfoundvalueHTML(itemrow, itemcolumn, currentCellValue, theMatrixStepCellFound, method, mainBlock, mainBlockValue);
-  return { theMatrixStepCellFound}
+  return { theMatrixStepCellFound};
 };
 
 //This Function is called by SOLVING Techniques where a Cell Value is now certain. It can by NAKED Singles or HIDDEN Singles
@@ -41,7 +41,10 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
 
   //Config for modifying the html matrixes
   let newfoundInput = document.createElement("div");
-  newfoundInput.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "value" + currentCellValue);
+  newfoundInput.classList.add("cell", "row" + itemrow, "column" + itemcolumn);
+  let square = recurrent.defineSquareFromRC(itemrow - 1, itemcolumn - 1);
+  newfoundInput.classList.add("square" + square);
+  newfoundInput.classList.add("value" + currentCellValue);
   if(globalVar.areHighlightsOn === true) {
     newfoundInput.innerHTML = `
     <input type="number" min="1" max="9" value=${currentCellValue} class="justFoundCell">
@@ -55,7 +58,9 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
   mainMatrix.replaceWith(newfoundInput);
 
   let newfoundInputNotes = document.createElement("div");
-  newfoundInputNotes.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "value" + currentCellValue);
+  newfoundInputNotes.classList.add("cell", "row" + itemrow, "column" + itemcolumn);
+  newfoundInputNotes.classList.add("square" + square);
+  newfoundInputNotes.classList.add("value" + currentCellValue);
   if(globalVar.areHighlightsOn === true) {
     newfoundInputNotes.innerHTML = `
     <input type="number" min="1" max="9" value=${currentCellValue} class="justFoundCell">
@@ -87,11 +92,13 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
     <p>Cell R${itemrow}C${itemcolumn} (Row ${itemrow}, Column ${itemcolumn}) within the ${mainBlock} ${mainBlockValue} was the only cell with Candidate (${currentCellValue}).</p>
     <p>The certain Value for this Cell is <strong>${currentCellValue}.</strong></p>
     `;
-  }
+  };
+
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newfoundvalueArticle);
   recurrent.reviewNotes(theMatrixStep);
   modifyDOM.addGoBackToStepButton();
+  modifyDOM.settingHighlightedBlock(mainBlock, mainBlockValue);
 };
 
 const newSudokuPuzzleArticle = () => {

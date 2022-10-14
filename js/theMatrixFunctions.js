@@ -52,7 +52,7 @@ const loadMatrix = (initialMatrixValues) => {
       const mainMatrix = document.querySelector(".theMatrix .row" + itemrow +".column" + itemcolumn);
       mainMatrix.replaceWith(newDivInput);
 
-      let newDivInputNotes = recurrent.createNewDivCandidateNotes([currentCellValue,1,1,1,1,1,1,1,1,1], row, column);
+      let newDivInputNotes = recurrent.createNewDivCandidateNotes(row, column, [currentCellValue,1,1,1,1,1,1,1,1,1]);
       const mainMatrixNotes = document.querySelector(".theMatrixNotes");
       mainMatrixNotes.append(newDivInputNotes);
 
@@ -217,8 +217,7 @@ const matrixReloaded = (theMatrixDestinedStep, GoBackToStep) => {
     main.removeChild(main.firstElementChild);
     //Config to remove the button of the new current step
     let currentArticle = document.querySelector(`#Step${globalVar.currentStep}`);
-
-      currentArticle.removeChild(currentArticle.lastChild);
+    currentArticle.removeChild(currentArticle.lastChild);
 
   };
 
@@ -239,31 +238,17 @@ const matrixReloaded = (theMatrixDestinedStep, GoBackToStep) => {
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
       globalVar.loopsExecuted++;
+
       let itemrow = row + 1;
       let itemcolumn = column + 1;
-      let newfoundInput = document.createElement("div");
-      newfoundInput.classList.add("cell", "row" + itemrow, "column" + itemcolumn);
-      let newfoundInputNotes = document.createElement("div");
-      newfoundInputNotes.classList.add("cell", "row" + itemrow, "column" + itemcolumn);
-      if (theMatrixDestinedStep[row][column][0] !== 0) {
-        let currentCellValue = theMatrixDestinedStep[row][column][0];
-        //Config for modifying the html matrixes
-        newfoundInput.classList.add("value" + currentCellValue);
-        newfoundInput.innerHTML = `
-          <input type="number" min="1" max="9" value=${currentCellValue}>
-        `;
-        newfoundInputNotes.classList.add("value" + currentCellValue);
-        newfoundInputNotes.innerHTML = `
-        <input type="number" min="1" max="9" value=${currentCellValue}>
-      `;
-      } else {
-        //empty cell to keep the transparency when rotating for the Notes
-        newfoundInput.innerHTML = `
-        <div class="emptycell"></div>
-        `;
-      };
-      document.querySelector(".theMatrix .row" + itemrow +".column" + itemcolumn).replaceWith(newfoundInput);
-      document.querySelector(".theMatrixNotes .row" + itemrow +".column" + itemcolumn).replaceWith(newfoundInputNotes);
+      let newDivInput = recurrent.createNewDivInput( row, column, theMatrixDestinedStep[row][column][0] );
+      const mainMatrix = document.querySelector(".theMatrix .row" + itemrow +".column" + itemcolumn);
+      mainMatrix.replaceWith(newDivInput);
+
+      const newDivCandidate = recurrent.createNewDivCandidateNotes(row, column, theMatrixDestinedStep[row][column]);
+      const mainMatrixNotes = document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn);
+      mainMatrixNotes.replaceWith(newDivCandidate);
+
     };
   };
   console.log("--------------------------------------------");

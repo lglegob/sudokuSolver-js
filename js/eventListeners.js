@@ -178,8 +178,6 @@ const resolveMatrixListener = () => {
       xwing.xwingColumn();
     };
 
-
-
     //FAILURE (NOT SOLVED)
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
       console.log("--------------------------------------------");

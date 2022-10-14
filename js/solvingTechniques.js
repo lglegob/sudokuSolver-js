@@ -22,7 +22,7 @@ const singleCandidate = () => {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentCellValue
         globalVar.iterationSuccess = true;
         currentCellValue = globalVar.theMatrix[globalVar.currentStep][row][column].findIndex((one, index) => one === 1 && index > 0);
-        const { theMatrixStepCellFound} = solvingFunctions.cellValueFound(row, column, currentCellValue, "Detecting Singles");
+        const { theMatrixStepCellFound} = solvingFunctions.cellValueFound(row, column, currentCellValue, "Detecting Singles", "cell", [row + 1, column + 1]);
         globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
         break;
         };
@@ -54,7 +54,7 @@ const hiddenSinglesRow = () => {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentCellValue
         globalVar.iterationSuccess = true;
         currentCellValue = possibleCandidate;
-        const {theMatrixStepCellFound} = solvingFunctions.cellValueFound(row, columnfound, currentCellValue, "Detecting Hidden Singles (row)", "Row", row + 1);
+        const {theMatrixStepCellFound} = solvingFunctions.cellValueFound(row, columnfound, currentCellValue, "Detecting Hidden Singles (row)", "row", row + 1);
         globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
         break;
       };
@@ -86,7 +86,7 @@ const hiddenSinglesColumn = () => {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentCellValue
         globalVar.iterationSuccess = true;
         currentCellValue = possibleCandidate;
-        const {theMatrixStepCellFound} = solvingFunctions.cellValueFound(rowfound, column, currentCellValue, "Detecting Hidden Singles (column)", "Column", column + 1);
+        const {theMatrixStepCellFound} = solvingFunctions.cellValueFound(rowfound, column, currentCellValue, "Detecting Hidden Singles (column)", "column", column + 1);
         globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
         break;
       };
@@ -124,7 +124,7 @@ const hiddenSinglesSquare = () => {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentCellValue
         globalVar.iterationSuccess = true;
         currentCellValue = possibleCandidate;
-        const {theMatrixStepCellFound} = solvingFunctions.cellValueFound(rowfound, columnfound, currentCellValue, "Detecting Hidden Singles (square)", "Square", square);
+        const {theMatrixStepCellFound} = solvingFunctions.cellValueFound(rowfound, columnfound, currentCellValue, "Detecting Hidden Singles (square)", "square", square);
         globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
         break;
       };

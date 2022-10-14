@@ -32,6 +32,7 @@ const discardTwoCandidatesHTML = (blockvalue, mainaxis, row1, row2, column1, col
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newdiscardTwoCandidatesArticle);
   addGoBackToStepButton();
+  settingHighlightedBlock(mainaxis, blockvalue + 1);
 };
 
 //This Function is called by HIDDENPAIRS Techniques
@@ -60,6 +61,7 @@ const discardAllExceptHTML = (blockvalue, mainaxis, row1, row2, column1, column2
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newdiscardAllExceptArticle);
   addGoBackToStepButton();
+  settingHighlightedBlock(mainaxis, blockvalue + 1);
 };
 
 //This Function is called by LOCKEDCANDIDATE Techniques
@@ -89,6 +91,7 @@ const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, se
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newdiscardOneCandidateArticle);
   addGoBackToStepButton();
+  settingHighlightedBlock(secondaryaxis, secondaryaxisvalue + 1);
 };
 
 //This Function is called by X-WING Techniques
@@ -133,6 +136,8 @@ const discardOneCandidateFrom2BlocksHTML = (mainaxisvalues, mainaxis, secondarya
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newdiscardOneCandidateArticle);
   addGoBackToStepButton();
+  settingHighlightedBlock(mainaxis, mainaxisvalues[0] + 1);
+  settingHighlightedBlock(mainaxis, mainaxisvalues[1] + 1);
 };
 
 const addGoBackToStepButton = () => {
@@ -151,4 +156,28 @@ const addGoBackToStepButton = () => {
   };
 };
 
-export { discardOneCandidateHTML, discardOneCandidateFrom2BlocksHTML, discardTwoCandidatesHTML, discardAllExceptHTML, addGoBackToStepButton }
+const settingHighlightedBlock = (mainBlock, mainBlockValue) => {
+  //It evaluates which Block (cell, row, column or square involved in finding the value for this cell)
+  if (globalVar.areHighlightsOn) {
+    switch (mainBlock) {
+      case "cell":
+        let highlightedCell = document.querySelectorAll(`.row${mainBlockValue[0]}.column${mainBlockValue[1]}`);
+        highlightedCell.forEach( (cell) => {cell.classList.add("highlightedCell")});
+      break;
+      case "row":
+        let highlightedRow = document.querySelectorAll(`.row${mainBlockValue}`);
+        highlightedRow.forEach( (cell) => {cell.classList.add("highlightedRow")});
+      break;
+      case "column":
+        let highlightedColumn = document.querySelectorAll(`.column${mainBlockValue}`);
+        highlightedColumn.forEach( (cell) => {cell.classList.add("highlightedColumn")});
+      break;
+      case "square":
+        let highlightedSquare = document.querySelectorAll(`.square${mainBlockValue}`);
+        highlightedSquare.forEach( (cell) => {cell.classList.add("highlightedSquare")});
+      break;
+    };
+  };
+};
+
+export { discardOneCandidateHTML, discardOneCandidateFrom2BlocksHTML, discardTwoCandidatesHTML, discardAllExceptHTML, addGoBackToStepButton, settingHighlightedBlock }

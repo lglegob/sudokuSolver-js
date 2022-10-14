@@ -6,6 +6,17 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.12 (borders Highlighted) 2022-10-13
+
+- WHAT'S NEW!?
+- Dynamic DOM - >The process to highlight by borders the block (cell, row, column or square) currently in evaluation has been defined. It is already showing for each of the current solving processes.
+- To execute this highlighting, a new function has been defined (modifyDOM.settingHighlightedBlock)
+- Wide modifications in SCSS to achieve the highlighting
+- the internal process of reloadMatrix, now use the functions already defined (recurrent.createNewDivInput and recurrent.createNewDivCandidateNotes) to modify theMatrix and theMatrixNotes divs.
+- First draft for the color palette defined and used by the highlighting.
+
+---
+
 ### Version 0.4.11 (stepsDetails fine tuning) 2022-10-12
 
 - WHAT'S NEW!?

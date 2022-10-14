@@ -40,8 +40,7 @@
         font-size: 3.2rem;
       }
       &.justFoundCell {
-        color: green;
-        background-color: lightgreen;
+        background-color: $clr-right;
       }
     }
 
@@ -77,10 +76,48 @@
       justify-content: start;
       text-align: center;
       & .justDeletedNote {
-        background-color: red;
+        background-color: $clr-wrong;
       }
       & .noteKept {
-        background-color: lightgreen;
+        background-color: $clr-right;
+      }
+    }
+    /* Configuration to highlight current step blocks*/
+    &.highlightedCell {
+      border: 6px solid $clr-main-color;
+    }
+    &.highlightedRow {
+      border-top: 6px solid $clr-main-color;
+      border-bottom: 6px solid $clr-main-color;
+      &.column1 {
+        border-left: 6px solid $clr-main-color;
+      }
+      &.column9 {
+        border-right: 6px solid $clr-main-color;
+      }
+    }
+    &.highlightedColumn {
+      border-left: 6px solid $clr-main-color;
+      border-right: 6px solid $clr-main-color;
+      &.row1 {
+        border-top: 6px solid $clr-main-color;
+      }
+      &.row9 {
+        border-bottom: 6px solid $clr-main-color;
+      }
+    }
+    &.highlightedSquare {
+      &.row1,&.row4,&.row7 {
+        border-top: 6px solid $clr-main-color;
+      }
+      &.row3,&.row6,&.row9 {
+        border-bottom: 6px solid $clr-main-color;
+      }
+      &.column1,&.column4,&.column7 {
+        border-left: 6px solid $clr-main-color;
+      }
+      &.column3,&.column6,&.column9 {
+        border-right: 6px solid $clr-main-color;
       }
     }
   }
@@ -89,46 +126,46 @@
 /*Configuration for Candidates Borders*/
 .notes {
     & .note1, .note4, .note7 {
-      border-left: 1px solid black;
+      border-left: 1px solid $clr-dark-gray;
       @include size-md {
-        border-right: 1px dashed black;
+        border-right: 1px dashed $clr-dark-gray;
       }
     }
     & .note3, .note6, .note9 {
-      border-right: 1px solid black;
+      border-right: 1px solid $clr-dark-gray;
       @include size-md {
-        border-left: 1px dashed black;
+        border-left: 1px dashed $clr-dark-gray;
       }
     } 
     & .note1, .note2, .note3 {
-      border-top: 1px solid black;
+      border-top: 1px solid $clr-dark-gray;
       @include size-md {
-        border-bottom: 1px dashed black;
+        border-bottom: 1px dashed $clr-dark-gray;
       }
     }
     & .note7, .note8, .note9 {
-      border-bottom: 1px solid black;
+      border-bottom: 1px solid $clr-dark-gray;
       @include size-md {
-        border-top: 1px dashed black;
+        border-top: 1px dashed $clr-dark-gray;
       }
     }
 }
 .emptycell {
-  border: 1px solid black;
+  border: 1px solid $clr-dark-gray;
 }
 
 /*Configuration for Square Borders*/
 .column1, .column4 {
-  border-left: 4px solid black;
+  border-left: 4px solid $clr-dark-gray;
 }
 .column6, .column9 {
-  border-right: 4px solid black;
+  border-right: 4px solid $clr-dark-gray;
 }
 .row1, .row4 {
-  border-top: 4px solid black;
+  border-top: 4px solid $clr-dark-gray;
 }
 .row6, .row9 {
-  border-bottom: 4px solid black;
+  border-bottom: 4px solid $clr-dark-gray;
 }
 
 /* Configuration to hide the scroll bars for the inputs inside theMatrix */

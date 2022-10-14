@@ -4,14 +4,11 @@
 
 
 /*
-
-TBD
-Exmaple Kaffa
-https://coolors.co/bf1e2e-343434-4392f1-f9e0d9-f9f9f9
-#BF1E2E Red NCS 					- rgb(191,30,46)
+https://coolors.co/e3170a-343434-d7fcd4-9ac4f8-f9f9f9
+#E3170A Vermilion					- rgb()
 #343434 Dark Gray (Almost black) 	- rgb(52,52,52)
-#4392F1 Dodger Blue 				- rgb(67,146,241)
-#F9E0D9 Misty Rose 					- rgb(249,224,217)
+#D7FCD4 Tea Green    				- rgb()
+#9AC4F8 Baby Blue Eyes 				- rgb()
 #F9F9F9 Cultured (Almost White) 	- rgb(249,249,249)
 
 */ 
@@ -22,11 +19,15 @@ https://coolors.co/bf1e2e-343434-4392f1-f9e0d9-f9f9f9
 
 @use "sass:color";
 
-$clr-main-color: #4392F1; // Dodger Blue //;
-$clr-main-color-rgba: #{transparentize($clr-main-color, 0.8)};
+$clr-main-color: #9AC4F8; // Baby Blue Eyes //;
+$clr-main-color-transparent: #{transparentize($clr-main-color, 0.8)};
+
+$clr-wrong: #E3170A;    // Vermilion //
+$clr-wrong-transparent: #{transparentize($clr-wrong, 0.4)};
+
+$clr-right: #D7FCD4;    // Tea Green //
+$clr-wrong-transparent: #{transparentize($clr-wrong, 0.4)};
+
 $clr-light-background: #F9F9F9; // Cultured (Almost White) //
 $clr-dark-gray: #343434; // Dark Gray (Almost black) //
 $clr-light-gray: #{transparentize($clr-dark-gray, 0.4)};
-$clr-secondary-color: red;
-$clr-secondary-color-rgba: #{transparentize($clr-secondary-color, 0.4)};
-
