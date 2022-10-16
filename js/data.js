@@ -72,7 +72,7 @@ const hardestSudokuEver = "8----------36------7--9-2---5---7-------457-----1---3
 
 //SOLVED
 const seed001Numbers = "7----29---3--4----2--1----8--5--7---42-----35---3--8--5----4--9----8--5---12----7";
-const seed001String = "--i-g-----h-d-------c----bha-----fg--b--ac-d--d---gh--f---c-----a-------------bhd";
+const seed001String = "g----bi---c--d----b--a----h--e--g---db-----ce---c--h--e----d--i----h--e---ab----g";
 
 //SOLVED - Example Locked Candidates Square to Column
 const seed002Numbers = "--9-7-----8-4-------3----281-----67--2--13-4--4---78--6---3-----1-------------284";

@@ -6,6 +6,13 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.14 (Randomizing by Columns) 2022-10-16
+
+- WHAT'S NEW!?
+- Added the randomize process by Columns
+
+---
+
 ### Version 0.4.13 (Random Sudokus! and Checks) 2022-10-16
 
 - WHAT'S NEW!? (Major Upgrade. This one should have been a pull request and change of Numbering)
