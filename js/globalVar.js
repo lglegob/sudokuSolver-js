@@ -26,4 +26,5 @@ let iterationSuccess = false;
 let discardNoteSuccess = false;
 let areNotesShowing = false;
 let areHighlightsOn = true;
-export default { theMatrix, stepsDetail, currentStep, loopsExecuted, cellsResolved, iterationSuccess, discardNoteSuccess, areNotesShowing, areHighlightsOn };
+let stepByStep = true;
+export default { theMatrix, stepsDetail, currentStep, loopsExecuted, cellsResolved, iterationSuccess, discardNoteSuccess, areNotesShowing, areHighlightsOn, stepByStep };

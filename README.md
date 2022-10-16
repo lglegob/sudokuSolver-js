@@ -6,6 +6,17 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.13 (Random Sudokus! and Checks) 2022-10-16
+
+- WHAT'S NEW!? (Major Upgrade. This one should have been a pull request and change of Numbering)
+- The functionality to generate "random" sudokus based on several seeds has been defined. The randomness comes for now from mixing the rows order (between blocks of rows) and mixing the values, by assiging first as letters from a to i, and then randomly assigning them to the 9 numbers.
+- Several improvements in code, base on the first flow chart drawn as a draft, where several optimizations have been found like (not creating the divs for theMatrixNotes before really needed)
+- The solving process has been defined in a new file (out of the Listeners file) to be give the future functionality of solving the puzzle beforehand and give the users warnings before starting
+- The process to check if the puzzle inserted by user is valid has started, the app will show an alert if there are duplicated values within a block (row, column or square)
+- The page is no longer hard resetted when encountering with a problem with the initial puzzle, a light reset (Deleting everything inside .theMatrixNotes) is executed to give the user the opportunity to build a right initial puzzle using as base the digits already inserted.
+
+---
+
 ### Version 0.4.12 (borders Highlighted) 2022-10-13
 
 - WHAT'S NEW!?

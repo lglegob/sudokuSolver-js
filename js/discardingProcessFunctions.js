@@ -10,7 +10,7 @@ import * as modifyDOM from "./modifyingDOMFunctions.js";
 //Function used by discarding methods to get the detailed info regardless of what kind of block (row, column or square) is currently in evaluation. 
 const gettingDetailedInfo = ( fromrow, maximumrow, fromcolumn, maximumcolumn, blockType, square ) => { 
 
-  //It is consolidated in one array (1*10 first index value (0) not used) the answers for this square already known
+  //It is consolidated in one array (1*10 first index value (0) not used) the answers for this block already known
   let answersCurrentBlock = [0,0,0,0,0,0,0,0,0,0];
   //It is consolidated in one array (1*10 first index value (0) not used) how many notes for each possibleCandidate in this square
   let howmanycellswiththisnote = [0,0,0,0,0,0,0,0,0,0];
@@ -24,8 +24,7 @@ const gettingDetailedInfo = ( fromrow, maximumrow, fromcolumn, maximumcolumn, bl
       globalVar.loopsExecuted++;
       if (globalVar.theMatrix[globalVar.currentStep][infoRow][infoColumn][0] !== 0) {
         //It is consolidated in one array (1*10 first index value (0) not used) the answers for this block
-        answersCurrentBlock[globalVar.theMatrix[globalVar.currentStep][infoRow][infoColumn][0]] = 1
-        
+        answersCurrentBlock[globalVar.theMatrix[globalVar.currentStep][infoRow][infoColumn][0]]++
       };
     };
   };

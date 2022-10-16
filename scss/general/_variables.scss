@@ -19,13 +19,13 @@ https://coolors.co/e3170a-343434-d7fcd4-9ac4f8-f9f9f9
 
 @use "sass:color";
 
-$clr-main-color: #9AC4F8; // Baby Blue Eyes //;
+$clr-main-color: orange;
 $clr-main-color-transparent: #{transparentize($clr-main-color, 0.8)};
 
 $clr-wrong: #E3170A;    // Vermilion //
 $clr-wrong-transparent: #{transparentize($clr-wrong, 0.4)};
 
-$clr-right: #D7FCD4;    // Tea Green //
+$clr-right: lightgreen;    // Tea Green //
 $clr-wrong-transparent: #{transparentize($clr-wrong, 0.4)};
 
 $clr-light-background: #F9F9F9; // Cultured (Almost White) //

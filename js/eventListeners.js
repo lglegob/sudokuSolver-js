@@ -1,13 +1,9 @@
 'use strict';
 import globalVar from "./globalVar.js";
-import initialMatrixpuzzle from "./data.js";
 import * as recurrent from "./recurrentFunctions.js";
 import * as matrixFunctions from "./theMatrixFunctions.js";
-import * as solvingTechniques from "./solvingTechniques.js";
-import * as obviousPairs from "./discardingTechniquesObviousPairs.js";
-import * as lockedCandidates from "./discardingTechniquesLockedCandidate.js";
-import * as hiddenPairs from "./discardingTechniquesHiddenPairs.js";
-import * as xwing from "./discardingTechniquesXWing.js"
+import * as solving from "./solvingProcess.js";
+import * as randomSudoku from "./randomPuzzle.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                            EVENT LISTENERS                                //
@@ -30,7 +26,8 @@ const loadMatrixListener = () => {
   button_load.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    matrixFunctions.loadMatrix(initialMatrixpuzzle.expert06str);
+    let randomPuzzle = randomSudoku.randomizePuzzle();
+    matrixFunctions.loadMatrix(randomPuzzle);
   });
 };
 
@@ -120,63 +117,7 @@ const resolveMatrixListener = () => {
     // Stop form from reloading the page
     e.preventDefault();
     recurrent.deleteLastShowMe();
-
-    //NAKED SINGLE METHOD
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-    solvingTechniques.singleCandidate();
-    };
-
-    //HIDDEN SINGLE METHODS
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      solvingTechniques.hiddenSinglesSquare();
-    };
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      solvingTechniques.hiddenSinglesRow();
-    };
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      solvingTechniques.hiddenSinglesColumn();
-    };
-
-    //OBVIOUS PAIRS METHODS
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      obviousPairs.obviousPairsRow();
-    };
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      obviousPairs.obviousPairsColumn();
-    };
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      obviousPairs.obviousPairsSquare();
-    };
-
-    //HIDDEN PAIRS METHODS
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      hiddenPairs.hiddenPairsRow();
-    };
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      hiddenPairs.hiddenPairsColumn();
-    };
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      hiddenPairs.hiddenPairsSquare();
-    };
-
-    //LOCKED CANDIDATE METHODS
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      lockedCandidates.lockedCandidateRow();
-    };
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      lockedCandidates.lockedCandidateColumn();
-    };
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      lockedCandidates.lockedCandidateSquare();
-    };
-
-    //X-WING CANDIDATES METHOD
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      xwing.xwingRow();
-    };
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      xwing.xwingColumn();
-    };
+    solving.solvingProcess();
 
     //FAILURE (NOT SOLVED)
     if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {

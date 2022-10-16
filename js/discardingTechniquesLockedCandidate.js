@@ -9,9 +9,7 @@ import * as notesZero from "./notesZero.js";
 //////////////////////////////////////////////////////////////////////////////
 const lockedCandidateRow = () => {
   for (let row = 0; row <= 8; row++) {
-    const { howmanycellswiththisnote, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote } = discardingFunctions.gettingDetailedInfo ( row, row, 0, 8, "row" );
-    //TO REVIEW why the scope does not let these properties to reach the second if
-    let howmanycellswiththisnoteRow = howmanycellswiththisnote;
+    const { howmanycellswiththisnote:howmanycellswiththisnoteRow, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote } = discardingFunctions.gettingDetailedInfo ( row, row, 0, 8, "row" );
     for (let possibleCandidate = 1; possibleCandidate <= 9; possibleCandidate++) {
       globalVar.loopsExecuted++;
       if (answersCurrentBlock[possibleCandidate] === 0) {
@@ -28,8 +26,8 @@ const lockedCandidateRow = () => {
           let locatedSquare = (3 * Math.floor(row / 3) + Math.floor(baseColumn / 3) + 1);
           // console.log(`candidate ${possibleCandidate} in row ${row + 1 } has ${howmanycellswiththisnoteRow[possibleCandidate]} ocurrences in the square ${locatedSquare}`);
           const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineSquareCoordinatesSQ(locatedSquare);
-          const { howmanycellswiththisnote, howmanynotesinthiscellSquare, answersCurrentBlockSquare, whereisthisnoteSquare } = discardingFunctions.gettingDetailedInfo ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", locatedSquare );
-          if ( howmanycellswiththisnoteRow[possibleCandidate] != howmanycellswiththisnote[possibleCandidate]) {
+          const { howmanycellswiththisnote:howmanycellswiththisnoteSquare, howmanynotesinthiscellSquare, answersCurrentBlockSquare, whereisthisnoteSquare } = discardingFunctions.gettingDetailedInfo ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", locatedSquare );
+          if ( howmanycellswiththisnoteRow[possibleCandidate] != howmanycellswiththisnoteSquare[possibleCandidate]) {
             // console.log(`Tenemos un Locked Candidate, option ${possibleCandidate} in row ${row + 1} have other notes in square ${locatedSquare} that can be deleted`)
             discardingFunctions.discardOneCandidate(locatedSquare, "square", row, "row", possibleCandidate, "Locked Candidate (Type2) From Row confined in Square", notesZero.noteZeroSquareSQ );
             break;
@@ -43,8 +41,7 @@ const lockedCandidateRow = () => {
 
 const lockedCandidateColumn = () => {
   for (let column = 0; column <= 8; column++) {
-    const { howmanycellswiththisnote, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote } = discardingFunctions.gettingDetailedInfo ( 0, 8, column, column, "column" );
-    let howmanycellswiththisnoteColumn = howmanycellswiththisnote;
+    const { howmanycellswiththisnote:howmanycellswiththisnoteColumn, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote } = discardingFunctions.gettingDetailedInfo ( 0, 8, column, column, "column" );
     for (let possibleCandidate = 1; possibleCandidate <= 9; possibleCandidate++) {
       globalVar.loopsExecuted++;
       if (answersCurrentBlock[possibleCandidate] === 0) {
@@ -61,8 +58,8 @@ const lockedCandidateColumn = () => {
           let locatedSquare = (3 * Math.floor(baseRow / 3) + Math.floor(column / 3) + 1);
           // console.log(`candidate ${possibleCandidate} in row ${row + 1 } has ${howmanycellswiththisnoteRow[possibleCandidate]} ocurrences in the square ${locatedSquare}`);
           const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineSquareCoordinatesSQ(locatedSquare);
-          const { howmanycellswiththisnote, howmanynotesinthiscellSquare, answersCurrentBlockSquare, whereisthisnoteSquare } = discardingFunctions.gettingDetailedInfo ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", locatedSquare );
-          if ( howmanycellswiththisnoteColumn[possibleCandidate] != howmanycellswiththisnote[possibleCandidate]) {
+          const { howmanycellswiththisnote:howmanycellswiththisnoteSquare, howmanynotesinthiscellSquare, answersCurrentBlockSquare, whereisthisnoteSquare } = discardingFunctions.gettingDetailedInfo ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", locatedSquare );
+          if ( howmanycellswiththisnoteColumn[possibleCandidate] != howmanycellswiththisnoteSquare[possibleCandidate]) {
             // console.log(`Tenemos un Locked Candidate, option ${possibleCandidate} in column ${column + 1} have other notes in square ${locatedSquare} that can be deleted`)
             discardingFunctions.discardOneCandidate(locatedSquare, "square", column, "column", possibleCandidate, "Locked Candidate (Type2) From Column confined in Square", notesZero.noteZeroSquareSQ );
             break;
@@ -77,8 +74,7 @@ const lockedCandidateColumn = () => {
 const lockedCandidateSquare = () => {
   for (let square = 1; square <= 9; square++) {
     const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineSquareCoordinatesSQ(square);
-    const { howmanycellswiththisnote, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote } = discardingFunctions.gettingDetailedInfo ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square );
-    let howmanycellswiththisnoteSquare = howmanycellswiththisnote;
+    const { howmanycellswiththisnote:howmanycellswiththisnoteSquare, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote } = discardingFunctions.gettingDetailedInfo ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square );
     for (let possibleCandidate = 1; possibleCandidate <= 9; possibleCandidate++) {
       globalVar.loopsExecuted++;
       if (answersCurrentBlock[possibleCandidate] === 0) {
@@ -95,20 +91,20 @@ const lockedCandidateSquare = () => {
         let secondThirdColumnOnly = (firstThirdColumn === 0 && secondThirdColumn > 1 && finalThirdColumn === 0);
         let finalThirdColumnOnly = (firstThirdColumn === 0 && secondThirdColumn === 0 && finalThirdColumn > 1);        
         if ( firstThirdRowOnly || secondThirdRowOnly || finalThirdRowOnly ) {
-          //This calculation will give the real row and real column of the square where the third with candidadates is located
+          //This calculation will give the real row and real Row of the square where the third with candidadates is located
           const { realRow, realColumn } = recurrent.defineRowColumnFromSquareRelative(square, secondThirdRowOnly+2*finalThirdRowOnly, secondThirdColumnOnly+2*finalThirdColumnOnly);
-          const { howmanycellswiththisnote, howmanynotesinthiscellSquare, answersCurrentBlockSquare, whereisthisnoteSquare } = discardingFunctions.gettingDetailedInfo ( realRow, realRow, 0, 8, "row" );
-          if ( howmanycellswiththisnoteSquare[possibleCandidate] != howmanycellswiththisnote[possibleCandidate]) {
+          const { howmanycellswiththisnote:howmanycellswiththisnoteRow, howmanynotesinthiscellSquare, answersCurrentBlockSquare, whereisthisnoteSquare } = discardingFunctions.gettingDetailedInfo ( realRow, realRow, 0, 8, "row" );
+          if ( howmanycellswiththisnoteSquare[possibleCandidate] != howmanycellswiththisnoteRow[possibleCandidate]) {
             console.log(`Tenemos un Locked Candidate, option ${possibleCandidate} in square ${square} have other notes in row ${realRow + 1} that can be deleted`)
             discardingFunctions.discardOneCandidate(realRow, "row", square, "square", possibleCandidate, "Locked Candidate (Type1) From Square confined in Row", notesZero.noteZeroRow );
             break;
           };
         };
         if ( firstThirdColumnOnly || secondThirdColumnOnly || finalThirdColumnOnly ) {
-          //This calculation will give the real row and real column of the square where the third with candidadates is located
+          //This calculation will give the real row and real Column of the square where the third with candidadates is located
           const { realRow, realColumn } = recurrent.defineRowColumnFromSquareRelative(square, secondThirdRowOnly+2*finalThirdRowOnly, secondThirdColumnOnly+2*finalThirdColumnOnly);
-          const { howmanycellswiththisnote, howmanynotesinthiscellSquare, answersCurrentBlockSquare, whereisthisnoteSquare } = discardingFunctions.gettingDetailedInfo ( 0, 8, realColumn, realColumn, "column" );
-          if ( howmanycellswiththisnoteSquare[possibleCandidate] != howmanycellswiththisnote[possibleCandidate]) {
+          const { howmanycellswiththisnote:howmanycellswiththisnoteColumn, howmanynotesinthiscellSquare, answersCurrentBlockSquare, whereisthisnoteSquare } = discardingFunctions.gettingDetailedInfo ( 0, 8, realColumn, realColumn, "column" );
+          if ( howmanycellswiththisnoteSquare[possibleCandidate] != howmanycellswiththisnoteColumn[possibleCandidate]) {
             console.log(`Tenemos un Locked Candidate, option ${possibleCandidate} in square ${square} have other notes in column ${realColumn + 1} that can be deleted`)
             discardingFunctions.discardOneCandidate(realColumn, "column", square, "square", possibleCandidate, "Locked Candidate (Type1) From Square confined in Column", notesZero.noteZeroColumn );
             break;
