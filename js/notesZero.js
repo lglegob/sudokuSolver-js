@@ -87,4 +87,13 @@ const noteZeroCellExcept = (row, column, candidate1, candidate2, theMatrixStep) 
   return theMatrixStep;
 };
 
-export { noteZeroRow, noteZeroColumn, noteZeroSquareSQ, noteZeroSquareRC, noteZeroCellExcept };
+//Here, focused in one specific cell, to delete one specific note
+const noteZeroCell = (row, column, candidate, theMatrixStep) => {
+  if(globalVar.areHighlightsOn === true) {
+    document.querySelector(".theMatrixNotes " + ".row" + (row + 1) + ".column" + (column + 1) + " .note" + candidate).classList.add("justDeletedNote");
+  };
+  theMatrixStep[row][column][candidate] = 0;
+  return theMatrixStep;
+};
+
+export { noteZeroRow, noteZeroColumn, noteZeroSquareSQ, noteZeroSquareRC, noteZeroCellExcept, noteZeroCell };

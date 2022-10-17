@@ -6,6 +6,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.15 (Y-Wing Discarding) 2022-10-17
+
+- WHAT'S NEW!?
+
+  - Y-Wing discarding strategy added. At this instance it is detecting the row-column pattern. Pending for implementation to include y-Wings that include pincers in squares.
+  - For this discarding strategy to work a new js file created for Y-Wing strategies (discardingTechniquesYWing.js), a new notesZero function (noteZeroCell), a new discardProcessFunction (discardYWing), and a new modifyingDOMFunction (discardYWingHTML).
+
+---
+
 ### Version 0.4.14 (Randomizing by Columns) 2022-10-16
 
 - WHAT'S NEW!?

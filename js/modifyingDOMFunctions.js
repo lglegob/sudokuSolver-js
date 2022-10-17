@@ -140,6 +140,41 @@ const discardOneCandidateFrom2BlocksHTML = (mainaxisvalues, mainaxis, secondarya
   settingHighlightedBlock(mainaxis, mainaxisvalues[1] + 1);
 };
 
+//This Function is called by Y-WING Techniques
+const discardYWingHTML = (pincer1AxisValues, pincer1Axis, pincer2AxisValues, pincer2Axis, pincerX, pincerY, pincerZ, method) => {
+  console.log("--------------------------------------------");
+  console.log("You must know it by now! You can't win! It's pointless to keep fighting! Why, Mr. Anderson?! Why? WHY DO YOU PERSIST?. - Agent Smith");
+  console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
+  console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
+  console.log("We found an Y-Wing Candidate!")
+  document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
+  document.querySelector("#button-reload").classList.add("active");
+  document.querySelector("#button-reload").classList.remove("inactive");
+  let newdiscardOneCandidateArticle = document.createElement("article");
+  newdiscardOneCandidateArticle.classList.add("newdiscardOneCandidate");
+  newdiscardOneCandidateArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  
+  if (pincer2Axis !== "square") {
+    newdiscardOneCandidateArticle.innerHTML =  `
+    <h3>Step ${globalVar.currentStep}</h3>
+    <h4>${method}</h4>
+    <p>Cells in Y-Wing configuration have been found, Pivot cell is R${pincer1AxisValues[0] + 1}C${pincer2AxisValues[0] + 1} (Row ${pincer1AxisValues[0] + 1}, Column ${pincer2AxisValues[0] + 1}), with Candidates ${pincerX} and ${pincerY}.</p>
+    <p>First Pincer found in the same Row ${pincer1AxisValues[0] + 1}, sharing the Candidate ${pincerX}.</p>
+    <p>Second Pincer found in the same Column ${pincer2AxisValues[0] + 1}, sharing the Candidate ${pincerY}.</p>
+    <p>No matter the case, the candidate ${pincerZ} will be either in R${pincer1AxisValues[0] + 1}C${pincer2AxisValues[1] + 1} OR in R${pincer1AxisValues[1] + 1}C${pincer2AxisValues[0] + 1}</p>
+    <p>Either case, for Cell R${pincer1AxisValues[1] + 1}C${pincer2AxisValues[1] + 1} is not possible to have the value ${pincerZ}, so, it has been deleted as candidate</p>
+    `;
+  } else {
+    
+  };
+
+  const main = document.querySelector(".stepsDetails > div");
+  main.prepend(newdiscardOneCandidateArticle);
+  addGoBackToStepButton();
+  settingHighlightedBlock("row", pincer1AxisValues[0] + 1);
+  settingHighlightedBlock("column", pincer2AxisValues[0] + 1);
+};
+
 const addGoBackToStepButton = () => {
   if (globalVar.currentStep > 0) {
     let newbackToStepButton = document.createElement("button");
@@ -180,4 +215,4 @@ const settingHighlightedBlock = (mainBlock, mainBlockValue) => {
   };
 };
 
-export { discardOneCandidateHTML, discardOneCandidateFrom2BlocksHTML, discardTwoCandidatesHTML, discardAllExceptHTML, addGoBackToStepButton, settingHighlightedBlock }
+export { discardOneCandidateHTML, discardOneCandidateFrom2BlocksHTML, discardTwoCandidatesHTML, discardAllExceptHTML, discardYWingHTML, addGoBackToStepButton, settingHighlightedBlock }

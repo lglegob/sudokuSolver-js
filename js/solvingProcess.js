@@ -4,7 +4,8 @@ import * as solvingTechniques from "./solvingTechniques.js";
 import * as obviousPairs from "./discardingTechniquesObviousPairs.js";
 import * as lockedCandidates from "./discardingTechniquesLockedCandidate.js";
 import * as hiddenPairs from "./discardingTechniquesHiddenPairs.js";
-import * as xwing from "./discardingTechniquesXWing.js"
+import * as xwing from "./discardingTechniquesXWing.js";
+import * as ywing from "./discardingTechniquesYWing.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                            SOLVING PROCESS                                //
@@ -50,16 +51,16 @@ const solvingProcess = () => {
     hiddenPairs.hiddenPairsSquare();
   };
 
-    //LOCKED CANDIDATE METHODS
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      lockedCandidates.lockedCandidateRow();
-    };
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      lockedCandidates.lockedCandidateColumn();
-    };
-    if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-      lockedCandidates.lockedCandidateSquare();
-    };
+  //LOCKED CANDIDATE METHODS
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+    lockedCandidates.lockedCandidateRow();
+  };
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+    lockedCandidates.lockedCandidateColumn();
+  };
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+    lockedCandidates.lockedCandidateSquare();
+  };
 
   //X-WING CANDIDATES METHOD
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
@@ -67,6 +68,11 @@ const solvingProcess = () => {
   };
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
     xwing.xwingColumn();
+  };
+
+  //Y-WING CANDIDATES METHOD
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+    ywing.yWingRow();
   };
 };
 

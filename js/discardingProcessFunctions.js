@@ -64,6 +64,56 @@ const gettingDetailedInfo = ( fromrow, maximumrow, fromcolumn, maximumcolumn, bl
   return { howmanycellswiththisnote, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote };
 };
 
+//Consolidated function for the 3 Blocks (row, column and square), when a pair of values can be discarded
+//This Function is called by OBVIOUSPAIRS Techniques
+const discardTwoCandidates = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method, callbackNoteZero) => {
+  globalVar.currentStep++;
+  globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
+  globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
+  //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
+  let theMatrixStep = callbackNoteZero(blockvalue, value1, globalVar.theMatrix[globalVar.currentStep]);
+  theMatrixStep = callbackNoteZero(blockvalue, value2, theMatrixStep);
+  globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
+  //But here, it is restablished as notes for the pair of cells
+  globalVar.theMatrix[globalVar.currentStep][row1][column1][value1] = 1;
+  globalVar.theMatrix[globalVar.currentStep][row1][column1][value2] = 1;
+  globalVar.theMatrix[globalVar.currentStep][row2][column2][value1] = 1;
+  globalVar.theMatrix[globalVar.currentStep][row2][column2][value2] = 1;
+  if(globalVar.areHighlightsOn === true) { 
+    document.querySelector(".theMatrixNotes " + ".row" + (row1 + 1) + ".column" + (column1 + 1) + " .note" + value1).classList.remove("justDeletedNote");
+    document.querySelector(".theMatrixNotes " + ".row" + (row1 + 1) + ".column" + (column1 + 1) + " .note" + value1).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (row1 + 1) + ".column" + (column1 + 1) + " .note" + value2).classList.remove("justDeletedNote");
+    document.querySelector(".theMatrixNotes " + ".row" + (row1 + 1) + ".column" + (column1 + 1) + " .note" + value2).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (row2 + 1) + ".column" + (column2 + 1) + " .note" + value1).classList.remove("justDeletedNote");
+    document.querySelector(".theMatrixNotes " + ".row" + (row2 + 1) + ".column" + (column2 + 1) + " .note" + value1).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (row2 + 1) + ".column" + (column2 + 1) + " .note" + value2).classList.remove("justDeletedNote");
+    document.querySelector(".theMatrixNotes " + ".row" + (row2 + 1) + ".column" + (column2 + 1) + " .note" + value2).classList.add("noteKept");
+  };
+  globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
+  recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
+  recurrent.toggleNotes();
+  globalVar.discardNoteSuccess = true;
+  modifyDOM.discardTwoCandidatesHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
+};
+
+//Consolidated function for the 3 Blocks (row, column and square), when a pair of values must be kept and discard all others in one cell
+//This Function is called by HIDDENPAIRS Techniques
+const discardAllExcept = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method, callbackNoteZero) => {
+  globalVar.currentStep++;
+  globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
+  globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
+  //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
+  let theMatrixStep = callbackNoteZero(row1, column1, value1, value2, globalVar.theMatrix[globalVar.currentStep]);
+  theMatrixStep = callbackNoteZero(row2, column2, value1, value2, theMatrixStep);
+  globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
+  
+  globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
+  recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
+  recurrent.toggleNotes();
+  globalVar.discardNoteSuccess = true;
+  modifyDOM.discardAllExceptHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
+};
+
 //Consolidated function for the 3 Blocks (row, column and square), when one value can be discarded
 //This Function is called by LOCKEDCANDIDATE Techniques
 const discardOneCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method, callbackNoteZero) => {
@@ -111,7 +161,7 @@ const discardOneCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, second
     break;
   };
 
-  //This process saves in a temporal variable (the3Cells), the 3 intersecting values where the candadites must not change, to recover them after the notesZero process
+  //This process saves in a temporal variable (the3Cells), the 3 intersecting values where the candidates must not change, to recover them after the notesZero process
   let the3Cells = [];
   for (let the3CellsRow = fromRowD; the3CellsRow <= maximumRowD; the3CellsRow++) { 
     for (let the3CellsColumn = fromColumnD; the3CellsColumn <= maximumColumnD; the3CellsColumn++) {
@@ -201,53 +251,34 @@ const discardOneCandidateFrom2Blocks = (mainaxisvalues, mainaxis, secondaryaxisv
   modifyDOM.discardOneCandidateFrom2BlocksHTML(mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method);
 };
 
-//Consolidated function for the 3 Blocks (row, column and square), when a pair of values can be discarded
-//This Function is called by OBVIOUSPAIRS Techniques
-const discardTwoCandidates = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method, callbackNoteZero) => {
+//Consolidated function for the Y-Wing Combinations, where one value can be discarded in one or several cells
+//This Function is called by Y-WING Techniques
+const discardYWing = (pincer1AxisValues, pincer1Axis, pincer2AxisValues, pincer2Axis, pincerX, pincerY, pincerZ, method, callbackNoteZero) => {
   globalVar.currentStep++;
   globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
-  //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
-  let theMatrixStep = callbackNoteZero(blockvalue, value1, globalVar.theMatrix[globalVar.currentStep]);
-  theMatrixStep = callbackNoteZero(blockvalue, value2, theMatrixStep);
-  globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
-  //But here, it is restablished as notes for the pair of cells
-  globalVar.theMatrix[globalVar.currentStep][row1][column1][value1] = 1;
-  globalVar.theMatrix[globalVar.currentStep][row1][column1][value2] = 1;
-  globalVar.theMatrix[globalVar.currentStep][row2][column2][value1] = 1;
-  globalVar.theMatrix[globalVar.currentStep][row2][column2][value2] = 1;
-  if(globalVar.areHighlightsOn === true) { 
-    document.querySelector(".theMatrixNotes " + ".row" + (row1 + 1) + ".column" + (column1 + 1) + " .note" + value1).classList.remove("justDeletedNote");
-    document.querySelector(".theMatrixNotes " + ".row" + (row1 + 1) + ".column" + (column1 + 1) + " .note" + value1).classList.add("noteKept");
-    document.querySelector(".theMatrixNotes " + ".row" + (row1 + 1) + ".column" + (column1 + 1) + " .note" + value2).classList.remove("justDeletedNote");
-    document.querySelector(".theMatrixNotes " + ".row" + (row1 + 1) + ".column" + (column1 + 1) + " .note" + value2).classList.add("noteKept");
-    document.querySelector(".theMatrixNotes " + ".row" + (row2 + 1) + ".column" + (column2 + 1) + " .note" + value1).classList.remove("justDeletedNote");
-    document.querySelector(".theMatrixNotes " + ".row" + (row2 + 1) + ".column" + (column2 + 1) + " .note" + value1).classList.add("noteKept");
-    document.querySelector(".theMatrixNotes " + ".row" + (row2 + 1) + ".column" + (column2 + 1) + " .note" + value2).classList.remove("justDeletedNote");
-    document.querySelector(".theMatrixNotes " + ".row" + (row2 + 1) + ".column" + (column2 + 1) + " .note" + value2).classList.add("noteKept");
+
+  //This process deletes the candidate from the cells determined
+  if (pincer2Axis !== "square") { //This case is for the pincers found in Row-Column
+    //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
+    let theMatrixStep = callbackNoteZero(pincer1AxisValues[1], pincer2AxisValues[1], pincerZ, globalVar.theMatrix[globalVar.currentStep]);
+    globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
   };
+
+  if(globalVar.areHighlightsOn === true) { 
+    document.querySelector(".theMatrixNotes " + ".row" + (pincer1AxisValues[0] + 1) + ".column" + (pincer2AxisValues[0] + 1) + " .note" + pincerX).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (pincer1AxisValues[0] + 1) + ".column" + (pincer2AxisValues[0] + 1) + " .note" + pincerY).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (pincer1AxisValues[0] + 1) + ".column" + (pincer2AxisValues[1] + 1) + " .note" + pincerX).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (pincer1AxisValues[0] + 1) + ".column" + (pincer2AxisValues[1] + 1) + " .note" + pincerZ).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (pincer1AxisValues[1] + 1) + ".column" + (pincer2AxisValues[0] + 1) + " .note" + pincerY).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (pincer1AxisValues[1] + 1) + ".column" + (pincer2AxisValues[0] + 1) + " .note" + pincerZ).classList.add("noteKept");
+  };
+
   globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
   recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
   recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
-  modifyDOM.discardTwoCandidatesHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
+  modifyDOM.discardYWingHTML(pincer1AxisValues, pincer1Axis, pincer2AxisValues, pincer2Axis, pincerX, pincerY, pincerZ, method);
 };
 
-//Consolidated function for the 3 Blocks (row, column and square), when a pair of values must be kept and discard all others in one cell
-//This Function is called by HIDDENPAIRS Techniques
-const discardAllExcept = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method, callbackNoteZero) => {
-  globalVar.currentStep++;
-  globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
-  globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
-  //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
-  let theMatrixStep = callbackNoteZero(row1, column1, value1, value2, globalVar.theMatrix[globalVar.currentStep]);
-  theMatrixStep = callbackNoteZero(row2, column2, value1, value2, theMatrixStep);
-  globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
-  globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
-  recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
-  recurrent.toggleNotes();
-  globalVar.discardNoteSuccess = true;
-  modifyDOM.discardAllExceptHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
-};
-
-export { gettingDetailedInfo, discardOneCandidate, discardOneCandidateFrom2Blocks, discardTwoCandidates, discardAllExcept }
+export { gettingDetailedInfo, discardOneCandidate, discardOneCandidateFrom2Blocks, discardTwoCandidates, discardAllExcept, discardYWing }
