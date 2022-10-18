@@ -36,6 +36,7 @@ const loadMatrix = (initialMatrixValues) => {
   //This section is to load the string (from load or load manually) into the inputs
   let howManyDigits = 0;
   let validPuzzle = true;
+  let quantityPerValue = [0,0,0,0,0,0,0,0,0,0]; //Array to count how many cells are filled with each Digit (the 0 index not used)
   //By setting 81, if there are less characters, the for loop will continue trying to get a value, in such cases it will default to zero. If there are more characters, they will be simply ignored by the counter
   for (let cellCounter = 0; cellCounter < 81; cellCounter++) {
     globalVar.loopsExecuted++;
@@ -47,13 +48,13 @@ const loadMatrix = (initialMatrixValues) => {
     
     if (currentCellValue >= 1 && currentCellValue <=9) {
       howManyDigits++;
+      quantityPerValue[currentCellValue]++
     } else {
       currentCellValue = 0;
     } 
     let newDivInput = recurrent.createNewDivInput( row, column, currentCellValue );
     const mainMatrix = document.querySelector(".theMatrix .row" + itemrow +".column" + itemcolumn);
     mainMatrix.replaceWith(newDivInput);
-
   };
 
   //Check if there are enough Digits
@@ -67,6 +68,9 @@ const loadMatrix = (initialMatrixValues) => {
     console.log("Not like this. Not like this – Switch");
     alert("Ingress at least 17 digits different than zero, Not enough Digits");
   };
+
+  //Check if there are enough kind of digits for unique solution (At least 8 or 9 of the possible options)
+  validPuzzle = validPuzzleCheck.enoughDiversityDigits(validPuzzle, quantityPerValue);
 
   //Check if there are duplicated digits within the blocks (row, column and square)
   validPuzzle = validPuzzleCheck.validPuzzleRow(validPuzzle);

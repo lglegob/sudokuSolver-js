@@ -59,4 +59,26 @@ const areWithinBlockDuplicatedValues = (candidateRepetitions, candidate, blockTy
   }
 }
 
-export { validPuzzleRow, validPuzzleColumn, validPuzzleSquare }
+//Check if there are enough kind of digits for unique solution (At least 8 or 9 of the possible options)
+const enoughDiversityDigits = (validPuzzle, quantityPerValue) => {
+  if (validPuzzle) {
+    let howManyZeros = quantityPerValue.filter(e => e === 0);
+    if (howManyZeros.length >=3 ) { //Not counting the index 0, if equal or greater than 2, there are not enough candidate types
+
+      console.log("Not Valid Puzzle, it needs to have at least 8 of the 9 posssibilities present to have an unique solution");
+      let valuesMissing = [];
+      quantityPerValue.shift();
+      quantityPerValue.forEach((element, index) => {
+        if (element === 0) {
+          valuesMissing.push(index + 1);
+        }
+      });    
+
+      alert(`This is Not a Valid Puzzle, it will have multiple solutions, since to have an unique solution, it needs to have at least 8 of the 9 posssibilities present . The Digits missing are ${valuesMissing}`);
+      validPuzzle = false;
+    };
+  };
+  return validPuzzle;
+};
+
+export { validPuzzleRow, validPuzzleColumn, validPuzzleSquare, enoughDiversityDigits }

@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.17 (Puzzle Check - min 8 options) 2022-10-18
+
+- WHAT'S NEW!?
+
+  - (Puzzle Validation) A new puzzle check has been added. For a Sudoku puzzle to have an unique solution, it must have at least 8 of the 9 possible values defined in at least 1 cell each. The check is configured and added to the chain of initial puzzle validation.
+
+---
+
 ### Version 0.4.16 (Y-Wing Strategy Completed) 2022-10-17
 
 - WHAT'S NEW!?
