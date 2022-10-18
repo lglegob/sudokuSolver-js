@@ -253,32 +253,30 @@ const discardOneCandidateFrom2Blocks = (mainaxisvalues, mainaxis, secondaryaxisv
 
 //Consolidated function for the Y-Wing Combinations, where one value can be discarded in one or several cells
 //This Function is called by Y-WING Techniques
-const discardYWing = (pincer1AxisValues, pincer1Axis, pincer2AxisValues, pincer2Axis, pincerX, pincerY, pincerZ, method, callbackNoteZero) => {
+const discardYWing = (pivotValues, pincer1Values, pincer1Axis, pincer2Values, pincer2Axis, pincerX, pincerY, pincerZ, method, callbackNoteZero, positiveforZvalue) => {
   globalVar.currentStep++;
   globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
 
   //This process deletes the candidate from the cells determined
-  if (pincer2Axis !== "square") { //This case is for the pincers found in Row-Column
-    //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
-    let theMatrixStep = callbackNoteZero(pincer1AxisValues[1], pincer2AxisValues[1], pincerZ, globalVar.theMatrix[globalVar.currentStep]);
-    globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
-  };
+  //Here we take advantage of the functions to delete the notes of found values, a callback function is used in loop for all the cells set as positive for PincerZ
+  let theMatrixStep = callbackNoteZero(positiveforZvalue, pincerZ, globalVar.theMatrix[globalVar.currentStep]);
+  globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
 
   if(globalVar.areHighlightsOn === true) { 
-    document.querySelector(".theMatrixNotes " + ".row" + (pincer1AxisValues[0] + 1) + ".column" + (pincer2AxisValues[0] + 1) + " .note" + pincerX).classList.add("noteKept");
-    document.querySelector(".theMatrixNotes " + ".row" + (pincer1AxisValues[0] + 1) + ".column" + (pincer2AxisValues[0] + 1) + " .note" + pincerY).classList.add("noteKept");
-    document.querySelector(".theMatrixNotes " + ".row" + (pincer1AxisValues[0] + 1) + ".column" + (pincer2AxisValues[1] + 1) + " .note" + pincerX).classList.add("noteKept");
-    document.querySelector(".theMatrixNotes " + ".row" + (pincer1AxisValues[0] + 1) + ".column" + (pincer2AxisValues[1] + 1) + " .note" + pincerZ).classList.add("noteKept");
-    document.querySelector(".theMatrixNotes " + ".row" + (pincer1AxisValues[1] + 1) + ".column" + (pincer2AxisValues[0] + 1) + " .note" + pincerY).classList.add("noteKept");
-    document.querySelector(".theMatrixNotes " + ".row" + (pincer1AxisValues[1] + 1) + ".column" + (pincer2AxisValues[0] + 1) + " .note" + pincerZ).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (pivotValues[0] + 1) + ".column" + (pivotValues[1] + 1) + " .note" + pincerX).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (pivotValues[0] + 1) + ".column" + (pivotValues[1] + 1) + " .note" + pincerY).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (pincer1Values[0] + 1) + ".column" + (pincer1Values[1] + 1) + " .note" + pincerX).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (pincer1Values[0] + 1) + ".column" + (pincer1Values[1] + 1) + " .note" + pincerZ).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (pincer2Values[0] + 1) + ".column" + (pincer2Values[1] + 1) + " .note" + pincerY).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (pincer2Values[0] + 1) + ".column" + (pincer2Values[1] + 1) + " .note" + pincerZ).classList.add("noteKept");
   };
 
   globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
   recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
   recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
-  modifyDOM.discardYWingHTML(pincer1AxisValues, pincer1Axis, pincer2AxisValues, pincer2Axis, pincerX, pincerY, pincerZ, method);
+  modifyDOM.discardYWingHTML(pivotValues, pincer1Values, pincer1Axis, pincer2Values, pincer2Axis, pincerX, pincerY, pincerZ, method);
 };
 
 export { gettingDetailedInfo, discardOneCandidate, discardOneCandidateFrom2Blocks, discardTwoCandidates, discardAllExcept, discardYWing }

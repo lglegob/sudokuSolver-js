@@ -50,7 +50,6 @@ const loadMatrix = (initialMatrixValues) => {
     } else {
       currentCellValue = 0;
     } 
-
     let newDivInput = recurrent.createNewDivInput( row, column, currentCellValue );
     const mainMatrix = document.querySelector(".theMatrix .row" + itemrow +".column" + itemcolumn);
     mainMatrix.replaceWith(newDivInput);
@@ -69,6 +68,7 @@ const loadMatrix = (initialMatrixValues) => {
     alert("Ingress at least 17 digits different than zero, Not enough Digits");
   };
 
+  //Check if there are duplicated digits within the blocks (row, column and square)
   validPuzzle = validPuzzleCheck.validPuzzleRow(validPuzzle);
   validPuzzle = validPuzzleCheck.validPuzzleColumn(validPuzzle);
   validPuzzle = validPuzzleCheck.validPuzzleSquare(validPuzzle);

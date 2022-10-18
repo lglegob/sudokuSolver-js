@@ -220,13 +220,6 @@ const createNewDivCandidateNotes = (row, column, theMatrixCell) => {
   return newDivCandidate;
 };
 
-const areWithinBlockDuplicatedValues = (candidateRepetitions, candidate, blockType, blockValue) => {
-  if (candidateRepetitions > 1) {
-    alert(`There are duplicates values within a Block, Candidate ${candidate} in ${blockType} ${blockValue} is ${candidateRepetitions} times. This is not a valid puzzle, please correct it a try to validate again`);
-    return candidateRepetitions > 1;
-  }
-}
-
 const deleteLastShowMe = () => {
   if (document.querySelector(".justFoundCell") != null) {
     document.querySelectorAll(".justFoundCell").forEach((e) => {
@@ -265,4 +258,4 @@ const deleteLastShowMe = () => {
   };
 }; 
 
-export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineSquareFromRC, defineRowColumnFromSquareRelative, defineRowColumnFromCellRelative, toggleNotes, togglehighlights, reviewNotes, createNewDivInput, createNewDivCandidateNotes, areWithinBlockDuplicatedValues, deleteLastShowMe };
+export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineSquareFromRC, defineRowColumnFromSquareRelative, defineRowColumnFromCellRelative, toggleNotes, togglehighlights, reviewNotes, createNewDivInput, createNewDivCandidateNotes, deleteLastShowMe };

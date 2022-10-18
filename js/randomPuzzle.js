@@ -1,5 +1,5 @@
 'use strict';
-import initialMatrixpuzzle from "./data.js";
+import initialMatrixpuzzle from "./data.js"; //This import is needed as it is used in eval() function.
 
 ////////////////////////////////////////////////////////////////////////////////
 //                       RANDOM SUDOKU PUZZLE                                //
@@ -8,8 +8,9 @@ import initialMatrixpuzzle from "./data.js";
 const randomizePuzzle = () => {
   //Several functions using the Fisher-Yates-Durstenfeld shuffle based on https://stackoverflow.com/questions/3718282/javascript-shuffling-objects-inside-an-object-randomize
   //First Step, we get a random seed from data.js
-  let randomseed = Math.floor(Math.random() * 4) + 1;
+  let randomseed = Math.floor(Math.random() * 5) + 1;
   let randomPuzzle = eval(`initialMatrixpuzzle.seed00${randomseed}String`);
+  console.log(`seed puzzle is ${randomseed}`)
   let newRandomPuzzle = "";
   console.log(`The Seed puzzle is: ${randomPuzzle}`);
 
@@ -29,11 +30,9 @@ const randomizePuzzle = () => {
     newRandomPuzzle += baseArray.join('');
   };
   randomPuzzle = newRandomPuzzle;
-  console.log(`the Row Randomize Puzzle is: ${randomPuzzle}`);
 
   //Ranzomize Columns
   //Third Step, process to randomize the columns per block. Meaning, columns 0, 1 and 2 can be randomize between them and mantain tha puzzle validity, then columns 3, 4 and 5, and finally columns 6, 7 and 8
-
   newRandomPuzzle = ""
   for (let blockColumn=0; blockColumn<=2; blockColumn++) {
     let string0 = "";
@@ -61,10 +60,7 @@ const randomizePuzzle = () => {
       randomPuzzle = randomPuzzle.substring(0,indexString + 1) + baseArray[1][character] + randomPuzzle.substring(indexString + 1 + 1);
       randomPuzzle = randomPuzzle.substring(0,indexString + 2) + baseArray[2][character] + randomPuzzle.substring(indexString + 2 + 1);
     };
-  console.log(`the Column Randomize Puzzle is: ${randomPuzzle}`);
   };
-
-
 
   //Randomize characters
   //Final Step, to randomize the character assignments, up to this point characters from a to i have been used, at this function the mapping from thos charcaters to numbers 1 to 9 is made randomly as well

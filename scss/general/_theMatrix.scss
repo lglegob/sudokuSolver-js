@@ -128,46 +128,46 @@
 /*Configuration for Candidates Borders*/
 .notes {
     & .note1, .note4, .note7 {
-      border-left: 1px solid $clr-dark-gray;
+      border-left: 1px solid $clr-light-gray;
       @include size-md {
-        border-right: 1px dashed $clr-dark-gray;
+        border-right: 1px dashed $clr-light-gray;
       }
     }
     & .note3, .note6, .note9 {
-      border-right: 1px solid $clr-dark-gray;
+      border-right: 1px solid $clr-light-gray;
       @include size-md {
-        border-left: 1px dashed $clr-dark-gray;
+        border-left: 1px dashed $clr-light-gray;
       }
     } 
     & .note1, .note2, .note3 {
-      border-top: 1px solid $clr-dark-gray;
+      border-top: 1px solid $clr-light-gray;
       @include size-md {
-        border-bottom: 1px dashed $clr-dark-gray;
+        border-bottom: 1px dashed $clr-light-gray;
       }
     }
     & .note7, .note8, .note9 {
-      border-bottom: 1px solid $clr-dark-gray;
+      border-bottom: 1px solid $clr-light-gray;
       @include size-md {
-        border-top: 1px dashed $clr-dark-gray;
+        border-top: 1px dashed $clr-light-gray;
       }
     }
 }
 .emptycell {
-  border: 1px solid $clr-dark-gray;
+  border: 1px solid $clr-light-gray;
 }
 
 /*Configuration for Square Borders*/
 .column1, .column4 {
-  border-left: 4px solid $clr-dark-gray;
+  border-left: 4px solid $clr-light-gray;
 }
 .column6, .column9 {
-  border-right: 4px solid $clr-dark-gray;
+  border-right: 4px solid $clr-light-gray;
 }
 .row1, .row4 {
-  border-top: 4px solid $clr-dark-gray;
+  border-top: 4px solid $clr-light-gray;
 }
 .row6, .row9 {
-  border-bottom: 4px solid $clr-dark-gray;
+  border-bottom: 4px solid $clr-light-gray;
 }
 
 /* Configuration to hide the scroll bars for the inputs inside theMatrix */

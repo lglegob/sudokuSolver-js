@@ -132,7 +132,6 @@ const discardOneCandidateFrom2BlocksHTML = (mainaxisvalues, mainaxis, secondarya
     `;
   };
 
-
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newdiscardOneCandidateArticle);
   addGoBackToStepButton();
@@ -141,7 +140,7 @@ const discardOneCandidateFrom2BlocksHTML = (mainaxisvalues, mainaxis, secondarya
 };
 
 //This Function is called by Y-WING Techniques
-const discardYWingHTML = (pincer1AxisValues, pincer1Axis, pincer2AxisValues, pincer2Axis, pincerX, pincerY, pincerZ, method) => {
+const discardYWingHTML = (pivotValues, pincer1Values, pincer1Axis, pincer2Values, pincer2Axis, pincerX, pincerY, pincerZ, method) => {
   console.log("--------------------------------------------");
   console.log("You must know it by now! You can't win! It's pointless to keep fighting! Why, Mr. Anderson?! Why? WHY DO YOU PERSIST?. - Agent Smith");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
@@ -154,25 +153,22 @@ const discardYWingHTML = (pincer1AxisValues, pincer1Axis, pincer2AxisValues, pin
   newdiscardOneCandidateArticle.classList.add("newdiscardOneCandidate");
   newdiscardOneCandidateArticle.setAttribute("id", "Step" + globalVar.currentStep);
   
-  if (pincer2Axis !== "square") {
-    newdiscardOneCandidateArticle.innerHTML =  `
-    <h3>Step ${globalVar.currentStep}</h3>
-    <h4>${method}</h4>
-    <p>Cells in Y-Wing configuration have been found, Pivot cell is R${pincer1AxisValues[0] + 1}C${pincer2AxisValues[0] + 1} (Row ${pincer1AxisValues[0] + 1}, Column ${pincer2AxisValues[0] + 1}), with Candidates ${pincerX} and ${pincerY}.</p>
-    <p>First Pincer found in the same Row ${pincer1AxisValues[0] + 1}, sharing the Candidate ${pincerX}.</p>
-    <p>Second Pincer found in the same Column ${pincer2AxisValues[0] + 1}, sharing the Candidate ${pincerY}.</p>
-    <p>No matter the case, the candidate ${pincerZ} will be either in R${pincer1AxisValues[0] + 1}C${pincer2AxisValues[1] + 1} OR in R${pincer1AxisValues[1] + 1}C${pincer2AxisValues[0] + 1}</p>
-    <p>Either case, for Cell R${pincer1AxisValues[1] + 1}C${pincer2AxisValues[1] + 1} is not possible to have the value ${pincerZ}, so, it has been deleted as candidate</p>
-    `;
-  } else {
-    
-  };
+  newdiscardOneCandidateArticle.innerHTML =  `
+  <h3>Step ${globalVar.currentStep}</h3>
+  <h4>${method}</h4>
+  <p>Cells in Y-Wing configuration have been found, Pivot cell is R${pivotValues[0] + 1}C${pivotValues[1] + 1} (Row ${pivotValues[0] + 1}, Column ${pivotValues[1] + 1}), with Candidates ${pincerX} and ${pincerY}.</p>
+  <p>First Pincer found in the same ${pincer1Axis} in cell R${pincer1Values[0] + 1}C${pincer1Values[1] + 1}, sharing the Candidate ${pincerX}.</p>
+  <p>Second Pincer found in the same ${pincer2Axis} in cell R${pincer2Values[0] + 1}C${pincer2Values[1] + 1}, sharing the Candidate ${pincerY}.</p>
+  <p>No matter the case, the candidate ${pincerZ} present in both Pincer cells will be either in R${pincer1Values[0] + 1}C${pincer1Values[1] + 1} OR in R${pincer2Values[0] + 1}C${pincer2Values[1] + 1}</p>
+  <p>Either case, for Cells "seen" by both Pincers is not possible to have the value ${pincerZ}, so, it has been deleted as candidate in those cells</p>
+  `;
 
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newdiscardOneCandidateArticle);
   addGoBackToStepButton();
-  settingHighlightedBlock("row", pincer1AxisValues[0] + 1);
-  settingHighlightedBlock("column", pincer2AxisValues[0] + 1);
+  settingHighlightedBlock("cell", [pivotValues[0] + 1, pivotValues[1] + 1]);
+  settingHighlightedBlock("cell", [pincer1Values[0] + 1, pincer1Values[1] + 1]);
+  settingHighlightedBlock("cell", [pincer2Values[0] + 1, pincer2Values[1] + 1]);
 };
 
 const addGoBackToStepButton = () => {

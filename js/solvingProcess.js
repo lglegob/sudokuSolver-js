@@ -72,8 +72,9 @@ const solvingProcess = () => {
 
   //Y-WING CANDIDATES METHOD
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-    ywing.yWingRow();
+    ywing.yWing();
   };
+
 };
 
 export { solvingProcess };

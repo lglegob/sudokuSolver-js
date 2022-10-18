@@ -1,157 +1,194 @@
 # sudokuSolver-js
 
-Repository dedicated for the configuration and development of a Sudoku Solver based on JavaScript, by using logical solution methods like a human would solve it. This is to be able to solve each sudoku puzzle that a user ingress, like a tutorial, with step and step explanations and methods definitios. No backtracking algorithm. No brute Force algorithm.
+Repository dedicated for the configuration and development of a Sudoku Solver based on JavaScript. It is being created by using logical solution methods like a human would solve it. This with the purpose to be able to solve each sudoku puzzle that a user ingress, like a tutorial, with step and step explanations and methods definitions. No brute Force algorithm. No backtracking algorithm.
 
 ![Sudoku Image](/images/6710716.jpg)
 
 ## Change Control and Versioning
 
+### Version 0.4.16 (Y-Wing Strategy Completed) 2022-10-17
+
+- WHAT'S NEW!?
+
+  - (Puzzle Solving Strategies) Y-Wing strategy is complete for scenarios which involved pincers in squares as well.
+  - (Puzzle Solving Strategies) The complete Y-Wing strategy was optimized as well, including the previous row-column, separating a couple of cuntions and making everything to work with any of the Y-Wing cases
+
+---
+
 ### Version 0.4.15 (Y-Wing Discarding) 2022-10-17
 
 - WHAT'S NEW!?
 
-  - Y-Wing discarding strategy added. At this instance it is detecting the row-column pattern. Pending for implementation to include y-Wings that include pincers in squares.
-  - For this discarding strategy to work a new js file created for Y-Wing strategies (discardingTechniquesYWing.js), a new notesZero function (noteZeroCell), a new discardProcessFunction (discardYWing), and a new modifyingDOMFunction (discardYWingHTML).
+  - (Puzzle Solving Strategies) Y-Wing discarding strategy added. At this instance it is detecting the row-column pattern. Pending for implementation to include y-Wings that include pincers in squares.
+  - (Puzzle Solving Strategies) For this discarding strategy to work a new js file created for Y-Wing strategies (discardingTechniquesYWing.js), a new notesZero function (noteZeroCell), a new discardProcessFunction (discardYWing), and a new modifyingDOMFunction (discardYWingHTML).
 
 ---
 
 ### Version 0.4.14 (Randomizing by Columns) 2022-10-16
 
 - WHAT'S NEW!?
-- Added the randomize process by Columns
+
+  - (Puzzle Creation) Added the randomize process by Columns to the puzzle creation.
 
 ---
 
 ### Version 0.4.13 (Random Sudokus! and Checks) 2022-10-16
 
 - WHAT'S NEW!? (Major Upgrade. This one should have been a pull request and change of Numbering)
-- The functionality to generate "random" sudokus based on several seeds has been defined. The randomness comes for now from mixing the rows order (between blocks of rows) and mixing the values, by assiging first as letters from a to i, and then randomly assigning them to the 9 numbers.
-- Several improvements in code, base on the first flow chart drawn as a draft, where several optimizations have been found like (not creating the divs for theMatrixNotes before really needed)
-- The solving process has been defined in a new file (out of the Listeners file) to be give the future functionality of solving the puzzle beforehand and give the users warnings before starting
-- The process to check if the puzzle inserted by user is valid has started, the app will show an alert if there are duplicated values within a block (row, column or square)
-- The page is no longer hard resetted when encountering with a problem with the initial puzzle, a light reset (Deleting everything inside .theMatrixNotes) is executed to give the user the opportunity to build a right initial puzzle using as base the digits already inserted.
+
+  - (Puzzle Creation) The functionality to generate "random" sudokus based on several seeds has been defined. The randomness comes for now from mixing the rows order (between blocks of rows) and mixing the values, by defining them first as letters from a to i, and then randomly assigning them to the 9 numbers.
+  - (Code Improvements) Several improvements in code, base on the first flow chart drawn as a draft, where several optimizations have been found like (not creating the divs for theMatrixNotes before really needed).
+  - (Puzzle Solving Strategies) The solving process has been defined in a new file (out of the Listeners file) to be able to define the future functionality of solving the puzzle beforehand and give the users warnings before starting.
+  - (Puzzle Validation) The process to check if the puzzle inserted by user is valid has started, the app will show an alert if there are duplicated values within a block (row, column or square).
+  - (User Experience) The page is no longer hard resetted when encountering with a problem with the initial puzzle, a light reset (Deleting everything inside .theMatrixNotes) is executed to give the user the opportunity to build a right initial puzzle using as base the digits already inserted.
 
 ---
 
 ### Version 0.4.12 (borders Highlighted) 2022-10-13
 
 - WHAT'S NEW!?
-- Dynamic DOM - >The process to highlight by borders the block (cell, row, column or square) currently in evaluation has been defined. It is already showing for each of the current solving processes.
-- To execute this highlighting, a new function has been defined (modifyDOM.settingHighlightedBlock)
-- Wide modifications in SCSS to achieve the highlighting
-- the internal process of reloadMatrix, now use the functions already defined (recurrent.createNewDivInput and recurrent.createNewDivCandidateNotes) to modify theMatrix and theMatrixNotes divs.
-- First draft for the color palette defined and used by the highlighting.
+
+  - (Dynamic DOM) The process to highlight by borders the block (cell, row, column or square) currently in evaluation has been defined. It is already showing for each of the current solving processes.
+  - (Dynamic DOM) To execute this highlighting, a new function has been defined (modifyDOM.settingHighlightedBlock).
+  - (Dynamic DOM) Wide modifications in SCSS to achieve the highlighting.
+  - (Code Improvements) the internal process of reloadMatrix, now use the functions already defined (recurrent.createNewDivInput and recurrent.createNewDivCandidateNotes) to modify theMatrix and theMatrixNotes divs.
+  - (Styling) First draft for the color palette defined and used by the highlighting.
 
 ---
 
 ### Version 0.4.11 (stepsDetails fine tuning) 2022-10-12
 
 - WHAT'S NEW!?
-- Dynamic DOM - Giving more details in the DOM for each of the solving steps, so the user understands why some of the sudoku steps
-- Styles - Bigger fonts for the GoBack stepDetails buttons
-- Code Optimization - Within matrixFunctions.createMatrix, the process to create the divs for theMatrixNotes is not necessary, redundant and duplicated at this point. They are created later when loading the information for the puzzle.
+
+  - (Dynamic DOM) Giving more details in the DOM for each of the solving steps, so the user understands why some of the sudoku steps.
+  - (Styling) Bigger fonts for the GoBack stepDetails buttons.
+  - (Code Improvements) Within matrixFunctions.createMatrix, the process to create the divs for theMatrixNotes is not necessary, redundant and duplicated at this point. They are created later when loading the information for the puzzle.
 
 ---
 
 ### Version 0.4.10 (Standardize ingress Data) 2022-10-11
 
-- Starting to standardize the data ingress process, specifically when the data is ingressed using the input fields, now a new function matrixFunctions.createString creates the string from the input fields. Then it is inserted into the same process (loadMatrix) as when the data is ingressed from pre-defined puzzles or manual (prompt).
-- The functions to create the internal div (with input) for theMatrix and the div (with p) for the MatrixNotes are standardized to be using the same in the creation, the load and the normal flow, it just changes if after calling the functions (recurrent.createNewDivInput and recurrent.createNewDivCandidateNotes), we execute an append or a replaceWith.
-- recurrent.createNewDivCertainValue and recurrent.reviewCertainValues are deprecated.
+- WHAT'S NEW!?
+
+  - (Code Improvements) Starting to standardize the data ingress process, specifically when the data is ingressed using the input fields, now a new function matrixFunctions.createString creates the string from the input fields. Then it is inserted into the same process (loadMatrix) as when the data is ingressed from pre-defined puzzles or manual (prompt).
+  - (Code Improvements) The functions to create the internal div (with input) for theMatrix and the div (with p) for the MatrixNotes are standardized to be using the same in the creation, the load and the normal flow, it just changes if after calling the functions (recurrent.createNewDivInput and recurrent.createNewDivCandidateNotes), we execute an append or a replaceWith.
+  - (Code Improvements) recurrent.createNewDivCertainValue and recurrent.reviewCertainValues are deprecated.
 
 ---
 
 ### Version 0.4.9 (Current Card StepsDetail Format) 2022-10-10
 
-- The format for the current Card has been changed to show it is the most recent.
-- The Empty cells in the Matrix with No notes have been filled with an empty div and class "emptycell" so they show transparent when rotating to/from Notes
-- Main color nos has been declared as SCSS variable
+- WHAT'S NEW!?
+
+  - (Styling) The format for the current Card has been changed to show it is the most recent.
+  - (Styling) The Empty cells in the Matrix with No notes have been filled with an empty div and class "emptycell" so they show transparent when rotating to/from Notes.
+  - (Code Improvements) Main color has been declared as SCSS variable.
 
 ---
 
 ### Version 0.4.8 (Step 0 card) 2022-10-09
 
-- New Step 0 card in stepDetails added, to give clarity about the Sudoku procedure, to standardize the way to go back to a previousstep (including original sudoku) and to have a card already in place for format.
-- Grid sizes and distribution changes
-- Instructions to fill the sudoku are deleted once the user has executed that process, and the sudoku puzzle is ready to start
-- Initial instructions are shown in a card style, so all the time that space is occupied, and the format is standard.
+- WHAT'S NEW!?
+
+  - (Styling) New Step 0 card in stepDetails added, to give clarity about the Sudoku procedure, to standardize the way to go back to a previousstep (including original sudoku) and to have a card already in place for format.
+  - (Styling) Grid sizes and distribution changes.
+  - (Dynamic DOM) Instructions to fill the sudoku are deleted once the user has executed that process, and the sudoku puzzle is ready to start.
+  - (Dynamic DOM) Initial instructions are shown in a card style, so all the time that space is occupied, and the format is standard.
 
 ---
 
 ### Version 0.4.7 (Highlight last Step) 2022-10-08
 
-- The process to highlight with Colours the changes of the last solving step has been redefined and improved
-- Instead of using a checkbox, a new button with its corresponding EventListener togglehighlightsListener has been defined.
-- In order to toggle the highlights when reversing steps as well, the already built functions have been used to go back one more step than needed and then solve just one step, so the solving process takes care of defining again the classes needed for highlighting the sudoku puzzle last step changes.
-- The buttons style was redefine (new SCSS file hoverMeButton.scss) to match the shadows of the sudoku puzzle
-- The Steps details sections styles were redefined to match the shadows of the sudoku puzzle
-- The SCSS files (matrixbuttons.scss and placeholders.scss) were eliminated, they contained the rectangular button styles no longer in use
+- WHAT'S NEW!?
+
+  - (Code Improvements) The process to highlight with Colours the changes of the last solving step has been redefined and improved.
+  - (User Experience) Instead of using a checkbox, a new button with its corresponding EventListener togglehighlightsListener has been defined.
+  - (Code Improvements) In order to toggle the highlights when reversing steps as well, the already built functions have been used to go back one more step than needed and then solve just one step, so the solving process takes care of defining again the classes needed for highlighting the sudoku puzzle last step changes.
+  - (Styling) The buttons style was redefine (new SCSS file hoverMeButton.scss) to match the shadows of the sudoku puzzle.
+  - (Styling) The Steps details sections styles were redefined to match the shadows of the sudoku puzzle.
+  - (Code Improvements) The SCSS files (matrixbuttons.scss and placeholders.scss) were eliminated, they contained the rectangular button styles no longer in use.
 
 ---
 
 ### Version 0.4.6 (Go Back to Step X) 2022-10-08
 
-- The whole process to go back to an Specific Step has been defined. Not only limited to previous Step but any previous Step from 1 to currentStep
-- For this process a new EventListener goBackToStepListener has been defined, and activate on demand each time a new step is created.
+- WHAT'S NEW!?
+
+  - (User Experience) The whole process to go back to an Specific Step has been defined. Not only limited to previous Step but any previous Step from 1 to currentStep.
+  - (User Experience) For this process a new EventListener goBackToStepListener has been defined, and activated on demand each time a new step is created.
 
 ---
 
 ### Version 0.4.5 (Font Adjustment) 2022-10-07
 
-- When the scheme changes to a grid of two columns, the fonts were reduced to be growth again in XL size.
+- WHAT'S NEW!?
+
+  - (Styling) When the scheme changes to a grid of two columns, the fonts were reduced to be growth again in XL size.
 
 ---
 
 ### Version 0.4.4 (Puzzle Width Adjustment) 2022-10-07
 
-- Light Adjustment to the width of the puzzle to give some margin at the sides
-- Light adjustment to the grid, to make the "go back" and Resolve" buttons centered related to the puzzle
+- WHAT'S NEW!?
+
+  - (Styling) Light Adjustment to the width of the puzzle to give some margin at the sides.
+  - (Styling) Light adjustment to the grid, to make the "go back" and Resolve" buttons centered related to the puzzle.
 
 ---
 
-### Version 0.4.3 (Minor Changes) 2022-10-06
+### Version 0.4.3a (Minor Changes) 2022-10-06
 
-- Separated New discardingDOMFunctions.js file for the DOM related functions
-- CSS grid changed to have in large screens the steps below the buttons, and leave only two columns
-- Minor changes and improvements to code structure.
+- WHAT'S NEW!?
+
+  - (Code Improvements) Separated New discardingDOMFunctions.js file for the DOM related functions.
+  - (Styling) CSS grid changed to have in large screens the steps below the buttons, and leave only two columns.
+  - (Code Improvements) Minor changes and improvements to code structure.
 
 ---
 
 ### Version 0.4.3 (Steps Highlights) 2022-10-06
 
 - WHAT'S NEW?!
-- The process to highlight the changes in previous step is extended to highlight the candidates deleted at each step, being careful of also showing those candidate notes not deleted by green.
+
+  - (User Experience) The process to highlight the changes in previous step is extended to highlight the candidates deleted at each step, being careful of also showing those candidate notes not deleted by green.
 
 - FIXED BUGs
-- Previous Update broke the capability to fill the sudoku puzzle directly in the cells, since now the HTML is dinamically created at the start, and the event listener did not find anymore the input fields. This has been solved by recolating the event listener position and input-cellvalues const definition
+
+  - (Code Improvements) Previous Update had broken the capability to fill the sudoku puzzle directly in the cells, since now the HTML is dinamically created at the start, and the event listener did not find anymore the input fields when activated. This issue has been solved by relocating the event listener position and input-cellvalues const definition.
 
 ---
 
 ### Version 0.4.2 (Dynamic Matrix, highlights) 2022-10-05
 
 - WHAT'S NEW?!
-- Solution Methods - 2 New Discarding Techniques added based on the X-Wing Method (for rows, and for columns)
-- Visual Highlights - Dynamic class .justFoundCell added when a new cell is solved to be highlighted using CSS
-- Automation - The process of creating the HTML code for theMatrix and theMatrixNotes is now added to the function createMatrix, so all that code is deleted from the HTML
-- Outputs - The manual method to add a Sudoku Puzzle using the Input cells directly in the HTML, has been improved by showing the ingressed puzzle in console. This way any new puzzle can be copied and pasted for future loads
-- Functions - recurrent Function deleteLastShowMe added to help with the visualization process
-- Functions - recurrent Function reviewCertainValues added to the Validation process of already certain values. Function to be used to standardize other validation process during the solving in the future.
-- Visual Highlights - Code for a Test with Function noteZeroRow added, to add visual highlights to those candidates deleted in previous step _Not yet operational _
+
+  - (Puzzle Solving Strategies) 2 New Discarding Techniques added based on the X-Wing Method (for rows, and for columns).
+  - (User Experience) Visual Highlights - Dynamic class .justFoundCell added when a new cell is solved to be highlighted using CSS
+  - (Code Improvements) The process of creating the HTML code for theMatrix and theMatrixNotes is now added to the function createMatrix, so all that code is deleted from the HTML
+  - (Code Improvements) The manual method to add a Sudoku Puzzle using the Input cells directly in the HTML, has been improved by showing the ingressed puzzle in console. This way any new puzzle can be copied and pasted for future loads
+  - (User Experience) recurrent Function deleteLastShowMe added to help with the visualization process
+  - (User Experience) recurrent Function reviewCertainValues added to the Validation process of already certain values. Function to be used to standardize other validation process during the solving in the future.
+  - Not Operational Yet (User Experience) Code for a Test with Function noteZeroRow added, to add visual highlights to those candidates deleted in previous step.
 
 - FIXED BUGs
-- Previous update broke the process to show notes and certain values when the sudoku puzzle was inserted using the cells in the HTML. To solve it the new function reviewCertainValues as well as reviewnotes and togglenotes are using during the validation process to solve it.
+
+  - (User Experience) Previous update had broken the process to show notes and certain values when the sudoku puzzle was inserted using the cells in the HTML. To solve it the new function reviewCertainValues as well as reviewnotes and togglenotes are using during the validation process to solve it.
 
 ---
 
 ### Version 0.4.1 (Sudoku 3D rotate) 2022-10-03
 
-- the 3d Rotation is limited to the complete Sudoku board, as with the individual cells, it became kind of slugish in mobile and it is not that pretty.
+- WHAT'S NEW?!
+
+  - (User Experience)(Styling) The 3D Rotation is limited to the complete Sudoku board, as with the individual cells, it became kind of slugish in mobile and it is not that pretty.
 
 ---
 
 ### Version 0.4.0 (Merge Branch rotateNotes) 2022-10-02
 
-- rotateNotes branch changes integrated to main branch.
+- WHAT'S NEW?!
+
+  - (Branch Merge) rotateNotes branch changes integrated to main branch with the changes from 0.3.4a 0.3.4b and 0.3.4c now part of main.
 
 ---
 
