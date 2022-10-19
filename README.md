@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.18a (Minor margin Changes) 2022-10-19
+
+- WHAT'S NEW!?
+
+  - (User Experience) Some minor changes to margin sizez, focused on making better the experience in mobile.
+
+---
+
 ### Version 0.4.18 (Buttons invisible) 2022-10-19
 
 - WHAT'S NEW!?
