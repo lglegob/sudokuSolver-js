@@ -13,7 +13,7 @@ const discardTwoCandidatesHTML = (blockvalue, mainaxis, row1, row2, column1, col
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
   console.log("We found an Obvious Pair!")
-  if (mainaxis === "square") { blockvalue--} //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  mainaxis === "square" ? blockvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
   console.log(`We are looking at ${mainaxis} ${blockvalue + 1}, the first cell is row${row1 + 1} column${column1 + 1}, and the second cell is row${row2 + 1} column${column2 + 1}`)
   console.log(`The common pair notes are ${value1} and ${value2}, they have been deleted from other cells in the ${mainaxis} ${blockvalue + 1}`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
@@ -22,6 +22,7 @@ const discardTwoCandidatesHTML = (blockvalue, mainaxis, row1, row2, column1, col
   let newdiscardTwoCandidatesArticle = document.createElement("article");
   newdiscardTwoCandidatesArticle.classList.add("newdiscardTwoCandidates");
   newdiscardTwoCandidatesArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  newdiscardTwoCandidatesArticle.style.zIndex = -globalVar.currentStep;
   newdiscardTwoCandidatesArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>${method}</h4>
@@ -42,7 +43,7 @@ const discardAllExceptHTML = (blockvalue, mainaxis, row1, row2, column1, column2
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
   console.log("We found an Hidden Pair!")
-  if (mainaxis === "square") { blockvalue--} //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  mainaxis === "square" ? blockvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
   console.log(`We are looking at ${mainaxis} ${blockvalue + 1}, the first cell is row${row1 + 1} column${column1 + 1}, and the second cell is row${row2 + 1} column${column2 + 1}`)
   console.log(`The hidden pair notes are ${value1} and ${value2}, these are kept and all other notes in those two cells have been deleted`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
@@ -51,6 +52,7 @@ const discardAllExceptHTML = (blockvalue, mainaxis, row1, row2, column1, column2
   let newdiscardAllExceptArticle = document.createElement("article");
   newdiscardAllExceptArticle.classList.add("newdiscardAllExceptHiddenPair");
   newdiscardAllExceptArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  newdiscardAllExceptArticle.style.zIndex = -globalVar.currentStep;
   newdiscardAllExceptArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>${method}</h4>
@@ -71,8 +73,8 @@ const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, se
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
   console.log("We found a locked Candidate!")
-  if (mainaxis === "square") { mainaxisvalue--} //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
-  if (secondaryaxis === "square") { secondaryaxisvalue--} //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  mainaxis === "square" ? mainaxisvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  secondaryaxis === "square" ? secondaryaxisvalue-- : false //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
   console.log(`For the ${secondaryaxis} ${secondaryaxisvalue + 1}, all the candidates value of ${value} are contained in the ${mainaxis} ${mainaxisvalue + 1}`)
   console.log(`Candidates notes for ${value} in other ${secondaryaxis}s within the same ${mainaxis} ${mainaxisvalue + 1} have been deleted`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
@@ -81,6 +83,7 @@ const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, se
   let newdiscardOneCandidateArticle = document.createElement("article");
   newdiscardOneCandidateArticle.classList.add("newdiscardOneCandidate");
   newdiscardOneCandidateArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  newdiscardOneCandidateArticle.style.zIndex = -globalVar.currentStep;
   newdiscardOneCandidateArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>${method}</h4>
@@ -109,6 +112,7 @@ const discardOneCandidateFrom2BlocksHTML = (mainaxisvalues, mainaxis, secondarya
   let newdiscardOneCandidateArticle = document.createElement("article");
   newdiscardOneCandidateArticle.classList.add("newdiscardOneCandidate");
   newdiscardOneCandidateArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  newdiscardOneCandidateArticle.style.zIndex = -globalVar.currentStep;
   
   if (mainaxis === "row") {
     newdiscardOneCandidateArticle.innerHTML =  `
@@ -152,6 +156,7 @@ const discardYWingHTML = (pivotValues, pincer1Values, pincer1Axis, pincer2Values
   let newdiscardOneCandidateArticle = document.createElement("article");
   newdiscardOneCandidateArticle.classList.add("newdiscardOneCandidate");
   newdiscardOneCandidateArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  newdiscardOneCandidateArticle.style.zIndex = -globalVar.currentStep;
   
   newdiscardOneCandidateArticle.innerHTML =  `
   <h3>Step ${globalVar.currentStep}</h3>

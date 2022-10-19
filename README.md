@@ -6,6 +6,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.18 (Buttons invisible) 2022-10-19
+
+- WHAT'S NEW!?
+
+  - (User Experience) Some of the buttons (not necessary when starting) are made invisible, and depending of the user interaction anf program flow, are made visible and others invisible to optimize the user interface.
+  - (User Experience) When showing/hiding Notes, the Sudoku Puzzle now rotates vertically instead of horinzontally.
+
+---
+
 ### Version 0.4.17 (Puzzle Check - min 8 options) 2022-10-18
 
 - WHAT'S NEW!?

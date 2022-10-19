@@ -77,6 +77,7 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
   let newfoundvalueArticle = document.createElement("article");
   newfoundvalueArticle.classList.add("newfoundvalue");
   newfoundvalueArticle.setAttribute("id", "Step" + globalVar.currentStep );
+  newfoundvalueArticle.style.zIndex = -globalVar.currentStep;
   //At this point, it is defined if the value Found was by NAKED singles technique or by HIDDEN singles technique to give the appropiate message in stepsDetails
   if (method === "Detecting Singles") {
     newfoundvalueArticle.innerHTML = `
@@ -106,6 +107,7 @@ const newSudokuPuzzleArticle = () => {
   let newfoundvalueArticle = document.createElement("article");
   newfoundvalueArticle.classList.add("newsudokupuzzle");
   newfoundvalueArticle.setAttribute("id", "Step" + globalVar.currentStep );
+  newfoundvalueArticle.style.zIndex = -globalVar.currentStep;
   newfoundvalueArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>New Sudoku Puzzle</h4>

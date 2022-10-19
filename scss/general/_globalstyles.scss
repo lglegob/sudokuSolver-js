@@ -38,14 +38,13 @@ h2 {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
+	@include size-sm {
+		flex-wrap: nowrap;
 	}
-	// @include size-lg {
-	// 	justify-content: center;
-	// 	& form {
-	// 		flex-wrap: nowrap;
-	// 		flex-direction: column;
-	// 	}
-	// }
+	}
+	& .invisible {
+		display: none;
+	}
 }
 
 .solveIt {
@@ -57,7 +56,9 @@ h2 {
 	@include size-xs {
 		flex-wrap: nowrap;
 	}
-
+	& .invisible {
+		display: none;
+	}
 	}
 }
 
@@ -78,7 +79,7 @@ h2 {
         box-shadow: 15px 15px 30px gray,
         -15px -15px 30px white;
 		max-width: 80%;
-		
+		background-color: white;
 		& h3 {
 			padding-bottom: 5px;
 		}

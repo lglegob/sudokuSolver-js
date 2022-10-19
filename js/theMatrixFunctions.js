@@ -6,6 +6,7 @@ import * as eventListeners from "./eventListeners.js";
 import * as solvingFunctions from "./solvingProcessFunctions.js";
 import * as validPuzzleCheck from "./validPuzzleChecks.js";
 import * as randomSudoku from "./randomPuzzle.js";
+import { solvingProcess } from "./solvingProcess.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                            MATRIX FUNCTIONS                               //
@@ -77,6 +78,11 @@ const loadMatrix = (initialMatrixValues) => {
   validPuzzle = validPuzzleCheck.validPuzzleColumn(validPuzzle);
   validPuzzle = validPuzzleCheck.validPuzzleSquare(validPuzzle);
 
+  //Check if the puzzle has one only answer by solving it
+  // while (globalVar.cellsResolved <81 && globalVar.failure === false ) {
+  //   solvingProcess();
+  // };
+
   //Finally, check if Puzzle is valid
   if (validPuzzle) {
     thePuzzleisValid();
@@ -129,23 +135,28 @@ const thePuzzleisValid = () => {
   
   //Activating buttons
   document.querySelector("#button-load").disabled = true;
-  document.querySelector("#button-load").classList.remove("active");
-  document.querySelector("#button-load").classList.add("inactive");
+  document.querySelector("#button-load").classList.remove("active", "visible");
+  document.querySelector("#button-load").classList.add("inactive", "invisible");
   document.querySelector("#button-loadmanually").disabled = true;
-  document.querySelector("#button-loadmanually").classList.remove("active");
-  document.querySelector("#button-loadmanually").classList.add("inactive");
+  document.querySelector("#button-loadmanually").classList.remove("active", "visible");
+  document.querySelector("#button-loadmanually").classList.add("inactive", "invisible");
   document.querySelector("#button-validate").disabled = true;
-  document.querySelector("#button-validate").classList.remove("active");
-  document.querySelector("#button-validate").classList.add("inactive");
+  document.querySelector("#button-validate").classList.remove("active", "visible");
+  document.querySelector("#button-validate").classList.add("inactive", "invisible");
   document.querySelector("#button-resolve").disabled = false;
-  document.querySelector("#button-resolve").classList.add("active");
-  document.querySelector("#button-resolve").classList.remove("inactive");
+  document.querySelector("#button-resolve").classList.add("active", "visible");
+  document.querySelector("#button-resolve").classList.remove("inactive", "invisible");
   document.querySelector("#button-togglenotes").disabled = false;
-  document.querySelector("#button-togglenotes").classList.add("active");
-  document.querySelector("#button-togglenotes").classList.remove("inactive");
+  document.querySelector("#button-togglenotes").classList.add("active", "visible");
+  document.querySelector("#button-togglenotes").classList.remove("inactive", "invisible");
   document.querySelector("#button-clear").disabled = false;
   document.querySelector("#button-clear").classList.add("active");
   document.querySelector("#button-clear").classList.remove("inactive");
+  //ToggleHighlights and is just made visible, but not yet active
+  document.querySelector("#button-togglehighlights").classList.add("visible");
+  document.querySelector("#button-togglehighlights").classList.remove("invisible");
+  document.querySelector("#button-reload").classList.remove("invisible");
+  document.querySelector("#button-reload").classList.add("visible");
   console.log("--------------------------------------------");
   console.log("The Matrix has you...")
   

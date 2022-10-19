@@ -86,13 +86,16 @@
     }
   }
 }
-.stepsDetails .hoverMeButton {
-  width: 140px;
-  height: 50px;
+.stepsDetails .hoverMeButton, .solveIt .hoverMeButton{
+  width: 120px;
+  height: 60px;
   padding: 5px;
   margin: 12px;
   font-size: 18px;
+  color: $clr-main-color;
+  
   @include size-md {
     width: 200px;
+    height: 50px;
   }
 }

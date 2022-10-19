@@ -19,7 +19,7 @@ https://coolors.co/e3170a-343434-d7fcd4-9ac4f8-f9f9f9
 
 @use "sass:color";
 
-$clr-main-color: orange;
+$clr-main-color: #CC5500;
 $clr-main-color-transparent: #{transparentize($clr-main-color, 0.8)};
 
 $clr-wrong: #E3170A;    // Vermilion //
