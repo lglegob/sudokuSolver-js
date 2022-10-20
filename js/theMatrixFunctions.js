@@ -54,6 +54,7 @@ const loadMatrix = (initialMatrixValues) => {
       currentCellValue = 0;
     } 
     let newDivInput = recurrent.createNewDivInput( row, column, currentCellValue );
+    currentCellValue !== 0 ? newDivInput.classList.add("startingCellValue") : false;
     const mainMatrix = document.querySelector(".theMatrix .row" + itemrow +".column" + itemcolumn);
     mainMatrix.replaceWith(newDivInput);
   };

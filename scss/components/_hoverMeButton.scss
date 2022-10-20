@@ -1,17 +1,18 @@
 /* From uiverse.io by @shah1345 */
 .hoverMeButton {
-  width: 80px;
+  width: 60px;
   height: 30px;
   padding: 3px;
   margin: 5px;
   font-size: 10px;
+  cursor: pointer;
   @include size-xs {
-    width: 100px;
+    width: 80px;
     height: 40px;
     padding: 4px;
     font-size: 12px;
   }
-  @include size-md {
+  @include size-sm {
     width: 120px;
     margin: 10px;
   }

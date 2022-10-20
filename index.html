@@ -17,7 +17,13 @@
     </header>
     <main>
       <div class="index-grid">
-        <article class="theMatrixCard card3d">
+        <section class="solveIt">
+          <form class="content-wrap">
+            <button class="hoverMeButton inactive invisible" id="button-reload">Go back an step</button>
+            <button class="hoverMeButton inactive invisible" id="button-resolve">Resolve</button>
+          </form>
+        </section>
+        <section class="theMatrixCard card3d">
           <div class="card3d-body">
             <div class="card3d-body-front">
               <div class="theMatrix">
@@ -30,7 +36,7 @@
               </div>
             </div>
           </div>
-        </article>
+        </section>
         <section class="theButtons">
           <form class="content-wrap">
             <button class="hoverMeButton active visible" id="button-load">Random Sudoku</button>
@@ -39,12 +45,6 @@
             <button class="hoverMeButton inactive visible" id="button-clear">Clear Sudoku</button>
             <button class="hoverMeButton inactive invisible" id="button-togglenotes">Show Notes</button>
             <button class="hoverMeButton inactive invisible" id="button-togglehighlights">Hide Changes</button>
-          </form>
-        </section>
-        <section class="solveIt">
-          <form class="content-wrap">
-            <button class="hoverMeButton inactive invisible" id="button-reload">Go back an step</button>
-            <button class="hoverMeButton inactive invisible" id="button-resolve">Resolve</button>
           </form>
         </section>
         <section class="stepsDetails">

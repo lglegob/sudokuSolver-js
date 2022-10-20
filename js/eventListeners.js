@@ -160,4 +160,25 @@ const goBackToStepListener = (button_goBackToStep) => {
     });
 };
 
-export { loadMatrixListener, loadMatrixManuallyListener, reloadMatrixListener, validateMatrixListener, resetMatrixListener, toggleNotesListener, togglehighlightsListener, inputCellsListener, resolveMatrixListener, goBackToStepListener }
+// Add event listener to the dinamically created buttons for goBackToStepX
+const spanRowColumnCoordinatesListener = (rcSpan) => {
+  rcSpan.addEventListener("mouseover", (e) => {
+    let rowColumnClass = rcSpan.dataset.cellcoordinates;
+    if (globalVar.areHighlightsOn) {
+      document.querySelector(".theMatrix " + rowColumnClass).classList.add("hoveredCoordinates")
+      document.querySelector(".theMatrixNotes " + rowColumnClass).classList.add("hoveredCoordinates")
+    };
+    console.log("--------------------------------------------");
+    console.log("Ever have that feeling where you're not sure if you're awake or dreaming? – Neo");
+  });
+  rcSpan.addEventListener("mouseout", (e) => {
+    let rowColumnClass = rcSpan.dataset.cellcoordinates;
+    if (globalVar.areHighlightsOn) {
+      document.querySelector(".theMatrix " + rowColumnClass).classList.remove("hoveredCoordinates");
+      document.querySelector(".theMatrixNotes " + rowColumnClass).classList.remove("hoveredCoordinates");
+    };
+  });
+
+};
+
+export { loadMatrixListener, loadMatrixManuallyListener, reloadMatrixListener, validateMatrixListener, resetMatrixListener, toggleNotesListener, togglehighlightsListener, inputCellsListener, resolveMatrixListener, goBackToStepListener, spanRowColumnCoordinatesListener }

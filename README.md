@@ -6,11 +6,19 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.19 (RowColumn Hover highlights) 2022-10-19
+
+- WHAT'S NEW!?
+
+  - (User Experience) New functionality to have the RowColumn references (RC) within each of the stepDetails, linked to the reall cell, so, when hovered over the span reference, the corresponding cell is highlighted (dashed border)
+
+---
+
 ### Version 0.4.18a (Minor margin Changes) 2022-10-19
 
 - WHAT'S NEW!?
 
-  - (User Experience) Some minor changes to margin sizez, focused on making better the experience in mobile.
+  - (User Experience) Some minor changes to margin sizes, focused on making better the experience in mobile.
 
 ---
 

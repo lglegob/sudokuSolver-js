@@ -85,6 +85,10 @@ h2 {
 		& p {
 			padding: 15px 0;
 		}
+		& span {
+			border: 1px solid $clr-main-color;
+			cursor: pointer;
+		}
 	}
 	& article:first-of-type {
 		border: 3px solid $clr-main-color;

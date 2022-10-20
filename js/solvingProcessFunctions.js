@@ -3,6 +3,7 @@ import globalVar from "./globalVar.js";
 import * as recurrent from "./recurrentFunctions.js";
 import * as notesZero from "./notesZero.js";
 import * as modifyDOM from "./modifyingDOMFunctions.js";
+import * as eventListeners from "./eventListeners.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                      SOLVING PROCESSES FUNCTIONS                          //
@@ -83,20 +84,30 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
     newfoundvalueArticle.innerHTML = `
     <h3>Step ${globalVar.currentStep}</h3>
     <h4>${method}</h4>
-    <p>Cell R${itemrow}C${itemcolumn} (Row ${itemrow}, Column ${itemcolumn}) had just one possible Candidate (${currentCellValue}) left.</p>
+    <p>Cell 
+      <strong><span data-cellcoordinates=".row${itemrow}.column${itemcolumn}">R${itemrow}C${itemcolumn}</span></strong> 
+      had just one possible Candidate (${currentCellValue}) left.
+    </p>
     <p>The certain Value for this Cell is <strong>${currentCellValue}.</strong></p>
     `;
   } else {
     newfoundvalueArticle.innerHTML = `
     <h3>Step ${globalVar.currentStep}</h3>
     <h4>${method}</h4>
-    <p>Cell R${itemrow}C${itemcolumn} (Row ${itemrow}, Column ${itemcolumn}) within the ${mainBlock} ${mainBlockValue} was the only cell with Candidate (${currentCellValue}).</p>
+    <p>Cell 
+      <strong><span data-cellcoordinates=".row${itemrow}.column${itemcolumn}">R${itemrow}C${itemcolumn}</span></strong> 
+      within the ${mainBlock} ${mainBlockValue} was the only cell with Candidate (${currentCellValue}).
+    </p>
     <p>The certain Value for this Cell is <strong>${currentCellValue}.</strong></p>
     `;
   };
-
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newfoundvalueArticle);
+
+  //creating the Event Listeners to the recently created RC spans
+  const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
+  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+
   recurrent.reviewNotes(theMatrixStep);
   modifyDOM.addGoBackToStepButton();
   modifyDOM.settingHighlightedBlock(mainBlock, mainBlockValue);

@@ -26,12 +26,21 @@ const discardTwoCandidatesHTML = (blockvalue, mainaxis, row1, row2, column1, col
   newdiscardTwoCandidatesArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>${method}</h4>
-  <p>Cells R${row1 + 1}C${column1 + 1} (Row ${row1 + 1}, Column ${column1 + 1}) and R${row2 + 1}C${column2 + 1} (Row ${row2 + 1}, Column ${column2 + 1}) contain an obvious pair (Cells with the same two only candidates)</p>
+  <p>Cells 
+    <strong><span data-cellcoordinates=".row${row1 + 1}.column${column1 + 1}">R${row1 + 1}C${column1 + 1}</span></strong> and 
+    <strong><span data-cellcoordinates=".row${row2 + 1}.column${column2 + 1}"> R${row2 + 1}C${column2 + 1}</span></strong> 
+    contain an obvious pair (Cells with the same two only candidates)
+  </p>
   <p>The two cells are within the same Block (${mainaxis} ${blockvalue + 1}), and the candidates are ${value1} and ${value2}</p>
   <p>These Candidates, ${value1} and ${value2}, have been deleted from other cells within the ${mainaxis} ${blockvalue + 1}</p>
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newdiscardTwoCandidatesArticle);
+
+  //creating the Event Listeners to the recently created RC spans
+  const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
+  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+
   addGoBackToStepButton();
   settingHighlightedBlock(mainaxis, blockvalue + 1);
 };
@@ -56,12 +65,21 @@ const discardAllExceptHTML = (blockvalue, mainaxis, row1, row2, column1, column2
   newdiscardAllExceptArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>${method}</h4>
-  <p>Cells R${row1 + 1}C${column1 + 1} (Row ${row1 + 1}, Column ${column1 + 1}) and R${row2 + 1}C${column2 + 1} (Row ${row2 + 1}, Column ${column2 + 1}) contain a hidden pair (The only two Cells within a block with the same two candidates)</p>
+  <p>Cells 
+    <strong><span data-cellcoordinates=".row${row1 + 1}.column${column1 + 1}">R${row1 + 1}C${column1 + 1}</span></strong> and 
+    <strong><span data-cellcoordinates=".row${row2 + 1}.column${column2 + 1}"> R${row2 + 1}C${column2 + 1}</span></strong> 
+    contain a hidden pair (The only two Cells within a block with the same two candidates)
+  </p>
   <p>The two cells are within the same Block (${mainaxis} ${blockvalue + 1}), and the candidates are ${value1} and ${value2}</p>
   <p>These Candidates, ${value1} and ${value2}, are the only ones kept, all other candidates have been deleted within the ${mainaxis} ${blockvalue + 1} in those two cells</p>
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newdiscardAllExceptArticle);
+
+  //creating the Event Listeners to the recently created RC spans
+  const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
+  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+
   addGoBackToStepButton();
   settingHighlightedBlock(mainaxis, blockvalue + 1);
 };
@@ -93,6 +111,7 @@ const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, se
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newdiscardOneCandidateArticle);
+
   addGoBackToStepButton();
   settingHighlightedBlock(secondaryaxis, secondaryaxisvalue + 1);
 };
@@ -118,7 +137,13 @@ const discardOneCandidateFrom2BlocksHTML = (mainaxisvalues, mainaxis, secondarya
     newdiscardOneCandidateArticle.innerHTML =  `
     <h3>Step ${globalVar.currentStep}</h3>
     <h4>${method}</h4>
-    <p>4 Cells in X-Wing configuration shared a candidate, the cells are R${mainaxisvalues[0] + 1}C${secondaryaxisvalues[0] + 1}, R${mainaxisvalues[0] + 1}C${secondaryaxisvalues[1] + 1}, R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[0] + 1} and R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[1] + 1}</p>
+    <p>
+      4 Cells in X-Wing configuration shared a candidate, the cells are 
+      <strong><span data-cellcoordinates=".row${mainaxisvalues[0] + 1}.column${secondaryaxisvalues[0] + 1}">R${mainaxisvalues[0] + 1}C${secondaryaxisvalues[0] + 1}</span></strong>, 
+      <strong><span data-cellcoordinates=".row${mainaxisvalues[0] + 1}.column${secondaryaxisvalues[1] + 1}">R${mainaxisvalues[0] + 1}C${secondaryaxisvalues[1] + 1}</span></strong>, 
+      <strong><span data-cellcoordinates=".row${mainaxisvalues[1] + 1}.column${secondaryaxisvalues[0] + 1}">R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[0] + 1}</span></strong> and 
+      <strong><span data-cellcoordinates=".row${mainaxisvalues[1] + 1}.column${secondaryaxisvalues[1] + 1}">R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[1] + 1}</span></strong>.
+    </p>
     <p>These 4 cells are the crosspoints between Rows R${mainaxisvalues[0] + 1} and R${mainaxisvalues[1] + 1}, and Columns C${secondaryaxisvalues[0] + 1} and C${secondaryaxisvalues[1] + 1}</p>
     <p>Since no more candidates with option ${value} exist within the two Rows, we know for sure those two ${value}s must exist in two of those 4 cells in a diagonal (R${mainaxisvalues[0] + 1}C${secondaryaxisvalues[0] + 1} and R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[1] + 1} will be ${value} OR R${mainaxisvalues[0] + 1}C${secondaryaxisvalues[1] + 1} and R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[0] + 1} will be ${value})</p>
     <p>Because having those two mandatory ${value}s in two of the cells, we are sure that the two Columns will already have the ${value}</p>
@@ -128,9 +153,22 @@ const discardOneCandidateFrom2BlocksHTML = (mainaxisvalues, mainaxis, secondarya
     newdiscardOneCandidateArticle.innerHTML =  `
     <h3>Step ${globalVar.currentStep}</h3>
     <h4>${method}</h4>
-    <p>4 Cells in X-Wing configuration shared a candidate, the cells are R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[0] + 1}, R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[1] + 1}, R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[0] + 1} and R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[1] + 1}</p>
+    <p>
+      4 Cells in X-Wing configuration shared a candidate, the cells are 
+      <strong><span data-cellcoordinates=".row${secondaryaxisvalues[0] + 1}.column${mainaxisvalues[0] + 1}">R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[0] + 1}</span></strong>, 
+      <strong><span data-cellcoordinates=".row${secondaryaxisvalues[0] + 1}.column${mainaxisvalues[1] + 1}">R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[1] + 1}</span></strong>, 
+      <strong><span data-cellcoordinates=".row${secondaryaxisvalues[1] + 1}.column${mainaxisvalues[0] + 1}">R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[0] + 1}</span></strong> and 
+      <strong><span data-cellcoordinates=".row${secondaryaxisvalues[1] + 1}.column${mainaxisvalues[1] + 1}">R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[1] + 1}</span></strong>.
+    </p>
     <p>These 4 cells are the crosspoints between Rows R${secondaryaxisvalues[0] + 1} and R${secondaryaxisvalues[1] + 1}, and Columns C${mainaxisvalues[0] + 1} and C${mainaxisvalues[1] + 1}</p>
-    <p>Since no more candidates with option ${value} exist within the two Columns, we know for sure those two ${value}s must exist in two of those 4 cells in a diagonal (R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[0] + 1} and R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[1] + 1} will be ${value} OR R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[1] + 1} and R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[0] + 1} will be ${value})</p>
+    <p>
+      Since no more candidates with option ${value} exist within the two Columns, we know for sure those two ${value}s must exist in two of those 4 cells in a diagonal, either  
+      (<strong><span data-cellcoordinates=".row${secondaryaxisvalues[0] + 1}.column${mainaxisvalues[0] + 1}">R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[0] + 1}</span></strong> and 
+      <strong><span data-cellcoordinates=".row${secondaryaxisvalues[1] + 1}.column${mainaxisvalues[1] + 1}">R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[1] + 1}</span></strong> 
+      will be ${value} OR 
+      <strong><span data-cellcoordinates=".row${secondaryaxisvalues[0] + 1}.column${mainaxisvalues[1] + 1}">R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[1] + 1}</span></strong> and 
+      <strong><span data-cellcoordinates=".row${secondaryaxisvalues[1] + 1}.column${mainaxisvalues[0] + 1}">R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[0] + 1}</span></strong> will be ${value})
+    </p>
     <p>Because having those two mandatory ${value}s in two of the cells, we are sure that the two Rows will already have the ${value}</p>
     <p>So, all candidates with value ${value} in Rows R${secondaryaxisvalues[0] + 1} and R${secondaryaxisvalues[1] + 1}, that do not belong to Columns C${mainaxisvalues[0] + 1} and C${mainaxisvalues[1] + 1} have been deleted</p>
     `;
@@ -138,6 +176,11 @@ const discardOneCandidateFrom2BlocksHTML = (mainaxisvalues, mainaxis, secondarya
 
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newdiscardOneCandidateArticle);
+
+  //creating the Event Listeners to the recently created RC spans
+  const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
+  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+
   addGoBackToStepButton();
   settingHighlightedBlock(mainaxis, mainaxisvalues[0] + 1);
   settingHighlightedBlock(mainaxis, mainaxisvalues[1] + 1);
@@ -161,15 +204,37 @@ const discardYWingHTML = (pivotValues, pincer1Values, pincer1Axis, pincer2Values
   newdiscardOneCandidateArticle.innerHTML =  `
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>${method}</h4>
-  <p>Cells in Y-Wing configuration have been found, Pivot cell is R${pivotValues[0] + 1}C${pivotValues[1] + 1} (Row ${pivotValues[0] + 1}, Column ${pivotValues[1] + 1}), with Candidates ${pincerX} and ${pincerY}.</p>
-  <p>First Pincer found in the same ${pincer1Axis} in cell R${pincer1Values[0] + 1}C${pincer1Values[1] + 1}, sharing the Candidate ${pincerX}.</p>
-  <p>Second Pincer found in the same ${pincer2Axis} in cell R${pincer2Values[0] + 1}C${pincer2Values[1] + 1}, sharing the Candidate ${pincerY}.</p>
-  <p>No matter the case, the candidate ${pincerZ} present in both Pincer cells will be either in R${pincer1Values[0] + 1}C${pincer1Values[1] + 1} OR in R${pincer2Values[0] + 1}C${pincer2Values[1] + 1}</p>
-  <p>Either case, for Cells "seen" by both Pincers is not possible to have the value ${pincerZ}, so, it has been deleted as candidate in those cells</p>
+  <p>
+    Cells in Y-Wing configuration have been found, Pivot cell is 
+    <strong><span data-cellcoordinates=".row${pivotValues[0] + 1}.column${pivotValues[1] + 1}">R${pivotValues[0] + 1}C${pivotValues[1] + 1}</span></strong>, 
+    with Candidates ${pincerX} and ${pincerY}.
+  </p>
+  <p>
+    First Pincer found in the same ${pincer1Axis} in cell 
+    <strong><span data-cellcoordinates=".row${pincer1Values[0] + 1}.column${pincer1Values[1] + 1}">R${pincer1Values[0] + 1}C${pincer1Values[1] + 1}</span></strong>, 
+    sharing the Candidate ${pincerX}.
+  </p>
+  <p>
+    Second Pincer found in the same ${pincer2Axis} in cell 
+    <strong><span data-cellcoordinates=".row${pincer2Values[0] + 1}.column${pincer2Values[1] + 1}">R${pincer2Values[0] + 1}C${pincer2Values[1] + 1}</span></strong>, 
+    sharing the Candidate ${pincerY}.
+    </p>
+  <p>
+    No matter the case, the candidate ${pincerZ} present in both Pincer cells will be either in 
+    <strong><span data-cellcoordinates=".row${pincer1Values[0] + 1}.column${pincer1Values[1] + 1}">R${pincer1Values[0] + 1}C${pincer1Values[1] + 1}</span></strong> 
+    OR in 
+    <strong><span data-cellcoordinates=".row${pincer2Values[0] + 1}.column${pincer2Values[1] + 1}">R${pincer2Values[0] + 1}C${pincer2Values[1] + 1}</span></strong>.
+  </p>
+  <p>Either case, for Cells "seen" by both Pincers is not possible to have the value ${pincerZ}, so, it has been deleted as candidate in those cells.</p>
   `;
 
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newdiscardOneCandidateArticle);
+
+  //creating the Event Listeners to the recently created RC spans
+  const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
+  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+
   addGoBackToStepButton();
   settingHighlightedBlock("cell", [pivotValues[0] + 1, pivotValues[1] + 1]);
   settingHighlightedBlock("cell", [pincer1Values[0] + 1, pincer1Values[1] + 1]);

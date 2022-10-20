@@ -149,6 +149,11 @@ h2 {
   padding: 15px 0;
 }
 
+.stepsDetails article span {
+  border: 1px solid #CC5500;
+  cursor: pointer;
+}
+
 .stepsDetails article:first-of-type {
   border: 3px solid #CC5500;
   margin-top: 30px auto;
@@ -184,12 +189,6 @@ h2 {
   padding: 5px;
 }
 
-@media screen and (min-width: 576px) {
-  .theMatrixNotes, .theMatrix {
-    border: 2px solid #CC5500;
-  }
-}
-
 .theMatrixNotes .cell, .theMatrix .cell {
   width: 100%;
   padding-top: 100%;
@@ -210,6 +209,7 @@ h2 {
   font-size: 1rem;
   border-style: none;
   border: 1px solid rgba(52, 52, 52, 0.6);
+  color: #343434;
 }
 
 @media screen and (min-width: 320px) {
@@ -301,50 +301,50 @@ h2 {
   background-color: lightgreen;
 }
 
-.theMatrixNotes .cell.highlightedCell, .theMatrix .cell.highlightedCell {
-  border: 4px solid #CC5500;
-}
-
 .theMatrixNotes .cell.highlightedRow, .theMatrix .cell.highlightedRow {
-  border-top: 4px solid #CC5500;
-  border-bottom: 4px solid #CC5500;
+  border-top: 3px solid #CC5500;
+  border-bottom: 3px solid #CC5500;
 }
 
 .theMatrixNotes .cell.highlightedRow.column1, .theMatrix .cell.highlightedRow.column1 {
-  border-left: 4px solid #CC5500;
+  border-left: 3px solid #CC5500;
 }
 
 .theMatrixNotes .cell.highlightedRow.column9, .theMatrix .cell.highlightedRow.column9 {
-  border-right: 4px solid #CC5500;
+  border-right: 3px solid #CC5500;
 }
 
 .theMatrixNotes .cell.highlightedColumn, .theMatrix .cell.highlightedColumn {
-  border-left: 4px solid #CC5500;
-  border-right: 4px solid #CC5500;
+  border-left: 3px solid #CC5500;
+  border-right: 3px solid #CC5500;
 }
 
 .theMatrixNotes .cell.highlightedColumn.row1, .theMatrix .cell.highlightedColumn.row1 {
-  border-top: 4px solid #CC5500;
+  border-top: 3px solid #CC5500;
 }
 
 .theMatrixNotes .cell.highlightedColumn.row9, .theMatrix .cell.highlightedColumn.row9 {
-  border-bottom: 4px solid #CC5500;
+  border-bottom: 3px solid #CC5500;
 }
 
 .theMatrixNotes .cell.highlightedSquare.row1, .theMatrixNotes .cell.highlightedSquare.row4, .theMatrixNotes .cell.highlightedSquare.row7, .theMatrix .cell.highlightedSquare.row1, .theMatrix .cell.highlightedSquare.row4, .theMatrix .cell.highlightedSquare.row7 {
-  border-top: 4px solid #CC5500;
+  border-top: 3px solid #CC5500;
 }
 
 .theMatrixNotes .cell.highlightedSquare.row3, .theMatrixNotes .cell.highlightedSquare.row6, .theMatrixNotes .cell.highlightedSquare.row9, .theMatrix .cell.highlightedSquare.row3, .theMatrix .cell.highlightedSquare.row6, .theMatrix .cell.highlightedSquare.row9 {
-  border-bottom: 4px solid #CC5500;
+  border-bottom: 3px solid #CC5500;
 }
 
 .theMatrixNotes .cell.highlightedSquare.column1, .theMatrixNotes .cell.highlightedSquare.column4, .theMatrixNotes .cell.highlightedSquare.column7, .theMatrix .cell.highlightedSquare.column1, .theMatrix .cell.highlightedSquare.column4, .theMatrix .cell.highlightedSquare.column7 {
-  border-left: 4px solid #CC5500;
+  border-left: 3px solid #CC5500;
 }
 
 .theMatrixNotes .cell.highlightedSquare.column3, .theMatrixNotes .cell.highlightedSquare.column6, .theMatrixNotes .cell.highlightedSquare.column9, .theMatrix .cell.highlightedSquare.column3, .theMatrix .cell.highlightedSquare.column6, .theMatrix .cell.highlightedSquare.column9 {
-  border-right: 4px solid #CC5500;
+  border-right: 3px solid #CC5500;
+}
+
+.theMatrixNotes .cell.hoveredCoordinates input, .theMatrixNotes .cell.hoveredCoordinates div, .theMatrix .cell.hoveredCoordinates input, .theMatrix .cell.hoveredCoordinates div {
+  border: 4px dashed #CC5500 !important;
 }
 
 /*Configuration for Candidates Borders*/
@@ -393,33 +393,33 @@ h2 {
 }
 
 /*Configuration for Square Borders*/
-.column1, .column4 {
-  border-left: 4px solid rgba(52, 52, 52, 0.6);
+.column1, .column4, .column7 {
+  border-left: 3px solid rgba(52, 52, 52, 0.6);
 }
 
-.column6, .column9 {
-  border-right: 4px solid rgba(52, 52, 52, 0.6);
+.column3, .column6, .column9 {
+  border-right: 3px solid rgba(52, 52, 52, 0.6);
 }
 
-.row1, .row4 {
-  border-top: 4px solid rgba(52, 52, 52, 0.6);
+.row1, .row4, .row7 {
+  border-top: 3px solid rgba(52, 52, 52, 0.6);
 }
 
-.row6, .row9 {
-  border-bottom: 4px solid rgba(52, 52, 52, 0.6);
+.row3, .row6, .row9 {
+  border-bottom: 3px solid rgba(52, 52, 52, 0.6);
 }
 
 /* Configuration to hide the scroll bars for the inputs inside theMatrix */
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+  appearance: none;
   margin: 0;
 }
 
 /* Firefox */
 input[type=number] {
-  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 /***************************************************************************
@@ -521,11 +521,12 @@ input[type=number] {
 
 /* From uiverse.io by @shah1345 */
 .hoverMeButton {
-  width: 80px;
+  width: 60px;
   height: 30px;
   padding: 3px;
   margin: 5px;
   font-size: 10px;
+  cursor: pointer;
   display: inline-block;
   transition: all 0.2s ease-in;
   position: relative;
@@ -541,14 +542,14 @@ input[type=number] {
 
 @media screen and (min-width: 320px) {
   .hoverMeButton {
-    width: 100px;
+    width: 80px;
     height: 40px;
     padding: 4px;
     font-size: 12px;
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 576px) {
   .hoverMeButton {
     width: 120px;
     margin: 10px;
