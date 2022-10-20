@@ -25,25 +25,25 @@ const cellValueFound = (row, column, currentCellValue, method, mainBlock, mainBl
   theMatrixStep = notesZero.noteZeroSquareRC(row, column, currentCellValue, theMatrixStep);
   theMatrixStepCellFound = JSON.parse(JSON.stringify(theMatrixStep));
   // here the foundvalue is set in the html document to be shown, by calling the function newfoundvalueHTML
-  let itemrow = row + 1;
-  let itemcolumn = column + 1;
-  newfoundvalueHTML(itemrow, itemcolumn, currentCellValue, theMatrixStepCellFound, method, mainBlock, mainBlockValue);
+  let itemRow = row + 1;
+  let itemColumn = column + 1;
+  newfoundvalueHTML(itemRow, itemColumn, currentCellValue, theMatrixStepCellFound, method, mainBlock, mainBlockValue);
   return { theMatrixStepCellFound};
 };
 
 //This Function is called by SOLVING Techniques where a Cell Value is now certain. It can by NAKED Singles or HIDDEN Singles
-const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep, method, mainBlock, mainBlockValue) => {
+const newfoundvalueHTML = (itemRow, itemColumn, currentCellValue, theMatrixStep, method, mainBlock, mainBlockValue) => {
   console.log("--------------------------------------------");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);
-  console.log(`the value in row ${itemrow}, column ${itemcolumn} is ${currentCellValue} by ${method} method`);
-  // document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").setAttribute("value", currentCellValue);
-  // document.querySelector(".theMatrix " + ".row" + itemrow + ".column" + itemcolumn + " input").value = currentCellValue;
+  console.log(`the value in row ${itemRow}, column ${itemColumn} is ${currentCellValue} by ${method} method`);
+  // document.querySelector(".row" + itemRow + ".column" + itemColumn + " input").setAttribute("value", currentCellValue);
+  // document.querySelector(".theMatrix " + ".row" + itemRow + ".column" + itemColumn + " input").value = currentCellValue;
 
   //Config for modifying the html matrixes
   let newfoundInput = document.createElement("div");
-  newfoundInput.classList.add("cell", "row" + itemrow, "column" + itemcolumn);
-  let square = recurrent.defineSquareFromRC(itemrow - 1, itemcolumn - 1);
+  newfoundInput.classList.add("cell", "row" + itemRow, "column" + itemColumn);
+  let square = recurrent.defineSquareFromRC(itemRow - 1, itemColumn - 1);
   newfoundInput.classList.add("square" + square);
   newfoundInput.classList.add("value" + currentCellValue);
   if(globalVar.areHighlightsOn === true) {
@@ -55,11 +55,11 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
     <input type="number" min="1" max="9" value=${currentCellValue}>
     `;
   };
-  const mainMatrix = document.querySelector(".theMatrix .row" + itemrow +".column" + itemcolumn);
+  const mainMatrix = document.querySelector(".theMatrix .row" + itemRow +".column" + itemColumn);
   mainMatrix.replaceWith(newfoundInput);
 
   let newfoundInputNotes = document.createElement("div");
-  newfoundInputNotes.classList.add("cell", "row" + itemrow, "column" + itemcolumn);
+  newfoundInputNotes.classList.add("cell", "row" + itemRow, "column" + itemColumn);
   newfoundInputNotes.classList.add("square" + square);
   newfoundInputNotes.classList.add("value" + currentCellValue);
   if(globalVar.areHighlightsOn === true) {
@@ -71,7 +71,7 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
     <input type="number" min="1" max="9" value=${currentCellValue}>
     `;
   };
-  const mainMatrixNotes = document.querySelector(".theMatrixNotes .row" + itemrow +".column" + itemcolumn);
+  const mainMatrixNotes = document.querySelector(".theMatrixNotes .row" + itemRow +".column" + itemColumn);
   mainMatrixNotes.replaceWith(newfoundInputNotes);
 
   //Config for adding the description and card in stepsDetails Section
@@ -85,7 +85,7 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
     <h3>Step ${globalVar.currentStep}</h3>
     <h4>${method}</h4>
     <p>Cell 
-      <strong><span data-cellcoordinates=".row${itemrow}.column${itemcolumn}">R${itemrow}C${itemcolumn}</span></strong> 
+      <strong><span data-cellcoordinates=".row${itemRow}.column${itemColumn}">R${itemRow}C${itemColumn}</span></strong> 
       had just one possible Candidate (${currentCellValue}) left.
     </p>
     <p>The certain Value for this Cell is <strong>${currentCellValue}.</strong></p>
@@ -95,7 +95,7 @@ const newfoundvalueHTML = (itemrow, itemcolumn, currentCellValue, theMatrixStep,
     <h3>Step ${globalVar.currentStep}</h3>
     <h4>${method}</h4>
     <p>Cell 
-      <strong><span data-cellcoordinates=".row${itemrow}.column${itemcolumn}">R${itemrow}C${itemcolumn}</span></strong> 
+      <strong><span data-cellcoordinates=".row${itemRow}.column${itemColumn}">R${itemRow}C${itemColumn}</span></strong> 
       within the ${mainBlock} ${mainBlockValue} was the only cell with Candidate (${currentCellValue}).
     </p>
     <p>The certain Value for this Cell is <strong>${currentCellValue}.</strong></p>

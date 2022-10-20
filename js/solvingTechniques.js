@@ -15,17 +15,17 @@ const singleCandidate = () => {
       let currentCellValue = globalVar.theMatrix[globalVar.currentStep][row][column][0];
       //method reduce to obtain the sum of the candidates in this cell
       const sum = globalVar.theMatrix[globalVar.currentStep][row][column].reduce(add, 0);
-        function add(accumulator, a) {
-          return accumulator + a;
-        };
-        if (sum-currentCellValue === 1) {
+      function add(accumulator, a) {
+        return accumulator + a;
+      };
+      if (sum-currentCellValue === 1) {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentCellValue
         globalVar.iterationSuccess = true;
         currentCellValue = globalVar.theMatrix[globalVar.currentStep][row][column].findIndex((one, index) => one === 1 && index > 0);
         const { theMatrixStepCellFound} = solvingFunctions.cellValueFound(row, column, currentCellValue, "Detecting Singles", "cell", [row + 1, column + 1]);
         globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
         break;
-        };
+      };
     };
     if (globalVar.iterationSuccess) break;
   };

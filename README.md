@@ -6,6 +6,17 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.20 (localStorage Puzzles) 2022-10-20
+
+- WHAT'S NEW!?
+
+  - (Data Management) The Inserted puzzles are saved now in LocalStorage. It has been defined a limit of 20 puzzles saved, and the process to delete the oldest one as a new one is inserted if that limit is going to be surpassed.
+  - (Code Improvements) gettingDetailedInfo function taken from discardingProcessFucntions file to an independent file, since this function ahs become the keystone for the Sudoku analysis not only for discarding methods.
+  - Minor camelCase variables changes.
+  - Minor destructuring optimizations (deleting those properties not used in certain functions).
+
+---
+
 ### Version 0.4.19 (RowColumn Hover highlights) 2022-10-19
 
 - WHAT'S NEW!?
@@ -289,7 +300,7 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ### Version 0.2.5a (Branch optimizeDiscards) 2022-09-27
 
-- For the 3 Discard obviousPairs Techniques, the first two loops, where the current status is gathered, were consolidated in just 1 function for a general block (row, column or square) called discardingFunctions.gettingDetailedInfo.
+- For the 3 Discard obviousPairs Techniques, the first two loops, where the current status is gathered, were consolidated in just 1 function for a general block (row, column or square) called gettingInfo.gettingDetailedInfoBlock.
 - Several other name optimizations for variables to follow bem naming scheme and for the file names.
 - Based on the optimization for the 3 obviousPairs discarding techniques, a new technique is being added, which finds the locked candidates (only row for now), this release shows in console the result, next release will discard the corresponding candidates/notes from the Matrix and expand to column and square.
 
@@ -312,7 +323,7 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 ### Version 0.2.3 (Bug Fix) 2022-09-24
 
 - Bug introduced by previous feature added has been fixed
-- The functionality to go back one step had stopped working by adding the feature to manually load the sudoku values. To fix it, now the update of values when using going back one step function uses this method: "document.querySelector(".row" + itemrow + ".column" + itemcolumn + " input").value" instead of modifying the attribute
+- The functionality to go back one step had stopped working by adding the feature to manually load the sudoku values. To fix it, now the update of values when using going back one step function uses this method: "document.querySelector(".row" + itemRow + ".column" + itemColumn + " input").value" instead of modifying the attribute
 - A new Alert has been added in those cases when the Sudoku cannot be solved yet.
 
 ---

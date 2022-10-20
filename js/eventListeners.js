@@ -19,8 +19,6 @@ const button_togglenotes = document.querySelector("#button-togglenotes");
 const button_reload = document.querySelector("#button-reload");
 const button_togglehighlights = document.querySelector("#button-togglehighlights");
 
-// const input_cellvalues = document.querySelectorAll(".theMatrix input");
-
 // Add event listener to the Load button
 const loadMatrixListener = () => {
   button_load.addEventListener("click", (e) => {
@@ -39,7 +37,7 @@ const loadMatrixManuallyListener = () => {
   });
 };
 
-// Add event listener to the Load button
+// Add event listener to the Reload button
 const reloadMatrixListener = () => {
   button_reload.addEventListener("click", (e) => {
     // Stop form from reloading the page
@@ -160,7 +158,7 @@ const goBackToStepListener = (button_goBackToStep) => {
     });
 };
 
-// Add event listener to the dinamically created buttons for goBackToStepX
+// Add event listener to the dinamically created spans hoverings for RC coordinates
 const spanRowColumnCoordinatesListener = (rcSpan) => {
   rcSpan.addEventListener("mouseover", (e) => {
     let rowColumnClass = rcSpan.dataset.cellcoordinates;
@@ -169,7 +167,7 @@ const spanRowColumnCoordinatesListener = (rcSpan) => {
       document.querySelector(".theMatrixNotes " + rowColumnClass).classList.add("hoveredCoordinates")
     };
     console.log("--------------------------------------------");
-    console.log("Ever have that feeling where you're not sure if you're awake or dreaming? – Neo");
+    console.log("We're not here because we're free, we're here because we are not free.  – Agent Smith");
   });
   rcSpan.addEventListener("mouseout", (e) => {
     let rowColumnClass = rcSpan.dataset.cellcoordinates;
@@ -177,6 +175,8 @@ const spanRowColumnCoordinatesListener = (rcSpan) => {
       document.querySelector(".theMatrix " + rowColumnClass).classList.remove("hoveredCoordinates");
       document.querySelector(".theMatrixNotes " + rowColumnClass).classList.remove("hoveredCoordinates");
     };
+    console.log("--------------------------------------------");
+    console.log("Ever have that feeling where you're not sure if you're awake or dreaming? – Neo");
   });
 
 };

@@ -3,6 +3,7 @@ import globalVar from "./globalVar.js";
 import * as discardingFunctions from "./discardingProcessFunctions.js"
 import * as notesZero from "./notesZero.js";
 import * as recurrent from "./recurrentFunctions.js";
+import * as gettingInfo from "./gettingInfoBlock.js";
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -16,7 +17,7 @@ const yWing = () => {
   //Process to detect a possible pivot cell (Cell with 2 candidates)
   for (let rowPivot = 0; rowPivot <= 8; rowPivot++) { 
     const { howmanycellswiththisnote, howmanynotesinthiscell:howmanynotesinthiscellR1, answersCurrentBlock, whereisthisnote } = 
-      discardingFunctions.gettingDetailedInfo ( rowPivot, rowPivot, 0, 8, "row" );
+      gettingInfo.gettingDetailedInfoBlock ( rowPivot, rowPivot, 0, 8, "row" );
     for (let colPivot = 0; colPivot <= 8; colPivot++) {
       if (howmanynotesinthiscellR1[colPivot] === 2) {
         let pivotCellCandidate1 = globalVar.theMatrix[globalVar.currentStep][rowPivot][colPivot].indexOf(1);
@@ -57,7 +58,7 @@ const yWing = () => {
         let square = recurrent.defineSquareFromRC(rowPivot, colPivot);
         const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineSquareCoordinatesSQ(square);
         const { howmanycellswiththisnote, howmanynotesinthiscell:howmanynotesinthiscellS1, answersCurrentBlock, whereisthisnote } = 
-          discardingFunctions.gettingDetailedInfo ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square );
+          gettingInfo.gettingDetailedInfoBlock ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square );
           for (let cell = 0; cell <= 8; cell++) {
             if (howmanynotesinthiscellS1[cell] === 2) {
               const {realRow:rowPincer1, realColumn:colPincer1} = recurrent.defineRowColumnFromCellRelative (square, cell);

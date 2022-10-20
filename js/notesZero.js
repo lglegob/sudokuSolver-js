@@ -89,7 +89,6 @@ const noteZeroCellExcept = (row, column, candidate1, candidate2, theMatrixStep) 
 
 //Here, focused in one specific cell, to delete one specific note
 const noteZeroCell = (cellsToDelete, candidate, theMatrixStep) => {
-
   cellsToDelete.forEach(cellCoordinates => {
     if(globalVar.areHighlightsOn === true) {
       document.querySelector(".theMatrixNotes " + ".row" + (cellCoordinates[0] + 1) + ".column" + (cellCoordinates[1] + 1) + " .note" + candidate).classList.add("justDeletedNote");

@@ -3,6 +3,7 @@ import globalVar from "./globalVar.js";
 import * as recurrent from "./recurrentFunctions.js";
 import * as discardingFunctions from "./discardingProcessFunctions.js"
 import * as notesZero from "./notesZero.js";
+import * as gettingInfo from "./gettingInfoBlock.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                     DISCARDING TECHNIQUES - HIDDEN PAIRS                  //
@@ -10,7 +11,7 @@ import * as notesZero from "./notesZero.js";
 // Function to detect when a row has hidden pairs
 const hiddenPairsRow = () => {
   for (let row = 0; row <= 8; row++) { 
-    const { howmanycellswiththisnote, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote } = discardingFunctions.gettingDetailedInfo ( row, row, 0, 8, "row" );
+    const { howmanycellswiththisnote, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote } = gettingInfo.gettingDetailedInfoBlock ( row, row, 0, 8, "row" );
     //possibleCandidate1 evaluates up to possibleCandidate 8 to let space to compare with possibleCandidate 9
     for (let possibleCandidate1 = 1; possibleCandidate1<= 8; possibleCandidate1++) {
       if (howmanycellswiththisnote[possibleCandidate1] === 2) {
@@ -41,7 +42,7 @@ const hiddenPairsRow = () => {
 // Function to detect when a column has hidden pairs
 const hiddenPairsColumn = () => {
   for (let column = 0; column <= 8; column++) { 
-    const { howmanycellswiththisnote, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote } = discardingFunctions.gettingDetailedInfo ( 0, 8, column, column, "column" );
+    const { howmanycellswiththisnote, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote } = gettingInfo.gettingDetailedInfoBlock ( 0, 8, column, column, "column" );
     //possibleCandidate1 evaluates up to possibleCandidate 8 to let space to compare with possibleCandidate 9
     for (let possibleCandidate1 = 1; possibleCandidate1<= 8; possibleCandidate1++) {
       if (howmanycellswiththisnote[possibleCandidate1] === 2) {
@@ -72,7 +73,7 @@ const hiddenPairsColumn = () => {
 const hiddenPairsSquare = () => {
   for (let square = 1; square <= 9; square++) { 
     const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineSquareCoordinatesSQ(square);
-    const { howmanycellswiththisnote, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote } = discardingFunctions.gettingDetailedInfo ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square  );
+    const { howmanycellswiththisnote, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote } = gettingInfo.gettingDetailedInfoBlock ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square  );
     //possibleCandidate1 evaluates up to possibleCandidate 8 to let space to compare with possibleCandidate 9
     for (let possibleCandidate1 = 1; possibleCandidate1<= 8; possibleCandidate1++) {
       if (howmanycellswiththisnote[possibleCandidate1] === 2) {

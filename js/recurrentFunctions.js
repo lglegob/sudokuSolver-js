@@ -139,10 +139,10 @@ const reviewNotes = (theMatrixStep) => {
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
       if (theMatrixStep[row][column][0] === 0) {
-        let itemrow = row + 1;
-        let itemcolumn = column + 1;
+        let itemRow = row + 1;
+        let itemColumn = column + 1;
         const newDivCandidate = createNewDivCandidateNotes(row, column, theMatrixStep[row][column]);
-        const mainMatrixNotes = document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn);
+        const mainMatrixNotes = document.querySelector(".theMatrixNotes " + ".row" + itemRow + ".column" + itemColumn);
         mainMatrixNotes.replaceWith(newDivCandidate);
       };
     };
@@ -150,10 +150,10 @@ const reviewNotes = (theMatrixStep) => {
 };
 
 const createNewDivInput = ( row, column, currentCellValue ) => {
-  let itemrow = row + 1;
-  let itemcolumn = column + 1;
+  let itemRow = row + 1;
+  let itemColumn = column + 1;
   let newDivInput = document.createElement("div");
-  newDivInput.classList.add("cell", "row" + itemrow, "column" + itemcolumn);
+  newDivInput.classList.add("cell", "row" + itemRow, "column" + itemColumn);
   let square = defineSquareFromRC(row, column);
   newDivInput.classList.add("square" + square);
   if (currentCellValue > 0 && currentCellValue <=9) {
@@ -170,14 +170,14 @@ const createNewDivInput = ( row, column, currentCellValue ) => {
 };
 
 const createNewDivCandidateNotes = (row, column, theMatrixCell) => {
-  let itemrow = row + 1;
-  let itemcolumn = column + 1;
+  let itemRow = row + 1;
+  let itemColumn = column + 1;
   let newDivCandidate;
 
   if (theMatrixCell[0] === 0) {
     //This process is when the value has not been found yet, so the 9 notes have to be defined
     newDivCandidate = document.createElement("div");
-    newDivCandidate.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "notes");
+    newDivCandidate.classList.add("cell", "row" + itemRow, "column" + itemColumn, "notes");
     let square = defineSquareFromRC(row, column);
     newDivCandidate.classList.add("square" + square);
     let internaldiv = document.createElement("div");
@@ -194,11 +194,11 @@ const createNewDivCandidateNotes = (row, column, theMatrixCell) => {
       //This If process is to prevent when going back steps, the step zero must not keep any classes related to highlights, all other steps is to prevent the deletion of the highlight classes
       if (globalVar.currentStep > 0) {
         //This If process detects if current candidate value has the class .justDeletedNote as recently deleted, to keep it in the new div created
-        if (document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn + " .note" + note + ".justDeletedNote") !== null) {
+        if (document.querySelector(".theMatrixNotes " + ".row" + itemRow + ".column" + itemColumn + " .note" + note + ".justDeletedNote") !== null) {
           newnote.classList.add("justDeletedNote");
         };
         //This If process detects if current candidate value has the class .noteKept as recently deleted, to keep it in the new div created
-        if (document.querySelector(".theMatrixNotes " + ".row" + itemrow + ".column" + itemcolumn + " .note" + note + ".noteKept") !== null) {
+        if (document.querySelector(".theMatrixNotes " + ".row" + itemRow + ".column" + itemColumn + " .note" + note + ".noteKept") !== null) {
           newnote.classList.add("noteKept");
         };
       };
@@ -210,7 +210,7 @@ const createNewDivCandidateNotes = (row, column, theMatrixCell) => {
     //This process is when the value has already been found, no more notes, only the value
     let currentCellValue = theMatrixCell[0];
     newDivCandidate = document.createElement("div");
-    newDivCandidate.classList.add("cell", "row" + itemrow, "column" + itemcolumn, "value" + currentCellValue);
+    newDivCandidate.classList.add("cell", "row" + itemRow, "column" + itemColumn, "value" + currentCellValue);
     let square = defineSquareFromRC(row, column);
     newDivCandidate.classList.add("square" + square);
     newDivCandidate.innerHTML = `

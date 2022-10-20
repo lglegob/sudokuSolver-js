@@ -1,6 +1,6 @@
 'use strict';
 import * as recurrent from "./recurrentFunctions.js";
-import * as discardingFunctions from "./discardingProcessFunctions.js";
+import * as gettingInfo from "./gettingInfoBlock.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                            VALID PUZZLE CHECKS                            //
@@ -10,8 +10,9 @@ import * as discardingFunctions from "./discardingProcessFunctions.js";
 const validPuzzleRow = (validPuzzle) => {
   if (validPuzzle) {
     for (let row = 0; row <=8; row++) {
-      const { howmanycellswiththisnote, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote } = discardingFunctions.gettingDetailedInfo ( row, row, 0, 8, "row" );
-      let wasDuplicated = answersCurrentBlock.some((candidateRepetitions, candidate) => areWithinBlockDuplicatedValues(candidateRepetitions, candidate, "row", row + 1));
+      const { answersCurrentBlock } = gettingInfo.gettingDetailedInfoBlock ( row, row, 0, 8, "row" );
+      let itemRow = row + 1;
+      let wasDuplicated = answersCurrentBlock.some((candidateRepetitions, candidate) => areWithinBlockDuplicatedValues(candidateRepetitions, candidate, "row", itemRow));
       if (wasDuplicated) {
         validPuzzle = false;
         return validPuzzle;
@@ -25,8 +26,9 @@ const validPuzzleRow = (validPuzzle) => {
 const validPuzzleColumn = (validPuzzle) => {
   if (validPuzzle) {
     for (let column = 0; column <=8; column++) {
-      const { howmanycellswiththisnote, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote } = discardingFunctions.gettingDetailedInfo ( 0, 8, column, column, "column" );
-      let wasDuplicated = answersCurrentBlock.some((candidateRepetitions, candidate) => areWithinBlockDuplicatedValues(candidateRepetitions, candidate, "column", column + 1));
+      const { answersCurrentBlock } = gettingInfo.gettingDetailedInfoBlock ( 0, 8, column, column, "column" );
+      let itemColumn = column + 1;
+      let wasDuplicated = answersCurrentBlock.some((candidateRepetitions, candidate) => areWithinBlockDuplicatedValues(candidateRepetitions, candidate, "column", itemColumn));
       if (wasDuplicated) {
         validPuzzle = false;
         return validPuzzle;
@@ -41,7 +43,7 @@ const validPuzzleSquare = (validPuzzle) => {
   if (validPuzzle) {
     for (let square = 1; square <=9; square++) {
       const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineSquareCoordinatesSQ(square);
-      const { howmanycellswiththisnote, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote } = discardingFunctions.gettingDetailedInfo ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square );
+      const { answersCurrentBlock } = gettingInfo.gettingDetailedInfoBlock ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square );
       let wasDuplicated = answersCurrentBlock.some((candidateRepetitions, candidate) => areWithinBlockDuplicatedValues(candidateRepetitions, candidate, "square", square));
       if (wasDuplicated) {
         validPuzzle = false;
@@ -64,7 +66,6 @@ const enoughDiversityDigits = (validPuzzle, quantityPerValue) => {
   if (validPuzzle) {
     let howManyZeros = quantityPerValue.filter(e => e === 0);
     if (howManyZeros.length >=3 ) { //Not counting the index 0, if equal or greater than 2, there are not enough candidate types
-
       console.log("Not Valid Puzzle, it needs to have at least 8 of the 9 posssibilities present to have an unique solution");
       let valuesMissing = [];
       quantityPerValue.shift();
