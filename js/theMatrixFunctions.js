@@ -31,9 +31,16 @@ const createMatrix = () => {
   //This Listener for input fields has to be loaded after HTML theMatrix structure has been already created by function createMatrix().
   const input_cellvalues = document.querySelectorAll(".theMatrix input");
   eventListeners.inputCellsListener(input_cellvalues);
+  
   //Process to load previously created Sudokus for the user.
   let previousSudokusRegEx = new RegExp("^SudokuCreated");
   let previousSudokusStrings = findPastSudokus(previousSudokusRegEx);
+  
+  //Process to create a dropdown list selector with the previous Sudoku Puzzles created for the user
+  console.log(previousSudokusStrings);
+  if (previousSudokusStrings.length > 0) {
+
+  }
 };
 
 const loadMatrix = (initialMatrixValues) => {
@@ -70,7 +77,13 @@ const loadMatrix = (initialMatrixValues) => {
     validPuzzle = false;
     console.log("--------------------------------------------");
     console.log("Not like this. Not like this – Switch");
-    alert("Ingress at least 17 digits different than zero, Not enough Digits");
+    // alert("Ingress at least 17 digits different than zero, Not enough Digits");
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Ingress at least 17 digits different than zero, Not enough Digits!',
+      // footer: '<a href="">Why do I have this issue?</a>'
+    })
   };
 
   //Check if there are enough kind of digits for unique solution (At least 8 or 9 of the possible options)
@@ -98,20 +111,39 @@ const loadMatrix = (initialMatrixValues) => {
   }
 };
 
-const loadMatrixManually = () => {
+const loadMatrixManually = async () => {
   let randomPuzzle = randomSudoku.randomizePuzzle();
-  let newLine = "\r\n";
-  let prompttext = "INSTRUCTIONS";
-  prompttext += newLine;
-  prompttext += "Introduce your Sudoku puzzle as a series of 81 digits between 0 and 9.";
-  prompttext += newLine;
-  prompttext += "0 or any different character means empty.";
-  prompttext += newLine;
-  prompttext += newLine;
-  prompttext += "If less than 81 will be filled with empty cells";
-  prompttext += newLine;
-  prompttext += "If more than 81, the excess characters will be discarded";
-  let manualMatrixValues = prompt(prompttext, randomPuzzle)
+  let manualMatrixValues;
+  // let newLine = "\r\n";
+  // let prompttext = "INSTRUCTIONS";
+  // prompttext += newLine;
+  // prompttext += "Introduce your Sudoku puzzle as a series of 81 digits between 0 and 9.";
+  // prompttext += newLine;
+  // prompttext += "0 or any different character means empty.";
+  // prompttext += newLine;
+  // prompttext += newLine;
+  // prompttext += "If less than 81 will be filled with empty cells";
+  // prompttext += newLine;
+  // prompttext += "If more than 81, the excess characters will be discarded";
+  // let manualMatrixValues = prompt(prompttext, randomPuzzle)
+
+  const { value: text } = await Swal.fire({
+    input: 'textarea',
+    title: 'INSTRUCTIONS',
+    inputLabel: 'Introduce your Sudoku puzzle as a series of 81 digits between 0 and 9.',
+    inputAttributes: {
+      'aria-label': 'Ingress your Sudoku puzzle as a series of 81 digits between 0 and 9.',
+    },
+    inputValue : `${randomPuzzle}`,
+    showCancelButton: true,
+    footer : '0 or any different character means empty. If less than 81 will be filled with empty cells. If more than 81, the excess characters will be discarded.'
+  })
+  
+  if (text) {
+    manualMatrixValues = text
+    // Swal.fire(text)
+  }
+  
   loadMatrix(manualMatrixValues);
 };
 
@@ -222,6 +254,7 @@ const thePuzzleisValid = (initialMatrixValues) => {
   solvingFunctions.newSudokuPuzzleArticle();
   const instructions = document.querySelector(".instructions");
   instructions.remove();
+
   //Process to save the current Sudoku Puzzle in Local Storage for future references, as first step it defines if there are more than X puzzle saved to delete the oldest one.
   let previousSudokusRegEx = new RegExp("^SudokuCreated");
   let previousSudokusStrings =  findPastSudokus(previousSudokusRegEx);
@@ -236,6 +269,7 @@ const thePuzzleisValid = (initialMatrixValues) => {
   let currentDate = new Date().toString();
   let keyLocalStorage = `SudokuCreated-${currentDate}`;
   localStorage.setItem(keyLocalStorage, JSON.stringify(initialMatrixValues));
+
   // Process to keep the empty cells and the transparency when rotating for the Notes, also to have the inputs replace as <p>s to avoid any more inputs during the solving process
   for (let row = 0; row <= 8; row++) {
     for (let column = 0; column <= 8; column++) {
@@ -251,7 +285,10 @@ const thePuzzleisValid = (initialMatrixValues) => {
       }; 
     };
   };
-  
+
+  //Process to activate EventListeners when hovering over any of the values set as initial values, so it shows the cells "seen" by that cell hovered.
+  //Pending to be implemented
+
   //Activating buttons
   document.querySelector("#button-load").disabled = true;
   document.querySelector("#button-load").classList.remove("active", "visible");
@@ -323,7 +360,6 @@ const findPastSudokus = (query) => {
       };
     };
   };
-  console.log(previousSudokusStrings);
   return previousSudokusStrings;
 };
 

@@ -32,8 +32,26 @@ const randomizePuzzle = () => {
   };
   randomPuzzle = newRandomPuzzle;
 
+  //Ranzomize Block Rows
+  //Third Step, process to randomize the rows per block. Meaning, rows 0, 1 and 2 can be taken as a block, 3, 4 and 5 another, and 6, 7 and 8 the final one. Then those 3 blocks are randomize.
+  newRandomPuzzle = "";
+  if (true) { //evaluated with true to keep the same structure as the loops for the other steps.
+    let string0 = randomPuzzle.substr(0, 27);
+    let string1 = randomPuzzle.substr(27, 27);
+    let string2 = randomPuzzle.substr(54, 27);
+    let baseArray = [string0, string1, string2];
+    for (let i = 0; i < 2; i++) {
+      let j = i + Math.floor(Math.random() * (3 - i));
+      let temp = baseArray[j];
+      baseArray[j] = baseArray[i];
+      baseArray[i] = temp;
+    };
+    newRandomPuzzle += baseArray.join('');
+  };
+  randomPuzzle = newRandomPuzzle;
+
   //Ranzomize Columns
-  //Third Step, process to randomize the columns per block. Meaning, columns 0, 1 and 2 can be randomize between them and mantain tha puzzle validity, then columns 3, 4 and 5, and finally columns 6, 7 and 8
+  //Fourth Step, process to randomize the columns per block. Meaning, columns 0, 1 and 2 can be randomize between them and mantain tha puzzle validity, then columns 3, 4 and 5, and finally columns 6, 7 and 8
   newRandomPuzzle = ""
   for (let blockColumn=0; blockColumn<=2; blockColumn++) {
     let string0 = "";
@@ -62,9 +80,41 @@ const randomizePuzzle = () => {
     };
   };
 
+  //Ranzomize Block Columns
+  //Fifth Step, process to randomize the columns per block. Meaning, columns 0, 1 and 2 can be taken as a block, 3, 4 and 5 another, and 6, 7 and 8 the final one. Then those 3 blocks are randomize.
+  newRandomPuzzle = ""
+  let string0 = "";
+  let string1 = "";
+  let string2 = "";
+  for (let columnWithinBlock=0; columnWithinBlock<=2; columnWithinBlock++) {
+    for (let character=0; character<=8; character++) { //Here, this process builds the 3 strings (1 per column) by jumping 9 characters every time
+      let indexString = columnWithinBlock + (character * 9);
+      string0 += randomPuzzle.charAt(indexString + 0);
+      string1 += randomPuzzle.charAt(indexString + 3);
+      string2 += randomPuzzle.charAt(indexString + 6);
+    };
+  };
+  let baseArray = [string0, string1, string2];
+  for (let i = 0; i < 2; i++) {
+    let j = i + Math.floor(Math.random() * (3 - i));
+    let temp = baseArray[j];
+    baseArray[j] = baseArray[i];
+    baseArray[i] = temp;
+  };
+  for (let columnWithinBlock=0; columnWithinBlock<=2; columnWithinBlock++) {
+    for (let character=0; character<=8; character++) {
+      let indexString = columnWithinBlock + (character * 9);
+      //Process to replace an specific character taken from https://stackoverflow.com/questions/1431094/how-do-i-replace-a-character-at-a-particular-index-in-javascript
+      //The process takes 3 components (the string up to just before the character to be replaced, the character, and finally the end of the string starting by the next character)
+      randomPuzzle = randomPuzzle.substring(0,indexString + 0) + baseArray[0][(9 * columnWithinBlock) + character] + randomPuzzle.substring(indexString + 0 + 1);
+      randomPuzzle = randomPuzzle.substring(0,indexString + 3) + baseArray[1][(9 * columnWithinBlock) + character] + randomPuzzle.substring(indexString + 3 + 1);
+      randomPuzzle = randomPuzzle.substring(0,indexString + 6) + baseArray[2][(9 * columnWithinBlock) + character] + randomPuzzle.substring(indexString + 6 + 1);
+    };
+  };
+
   //Randomize characters
   //Final Step, to randomize the character assignments, up to this point characters from a to i have been used, at this function the mapping from those characters to numbers 1 to 9 is executed randomly as well
-  let baseArray = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
+  baseArray = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
   for (let i = 0; i < 8; i++) {
     let j = i + Math.floor(Math.random() * (9 - i));
     let temp = baseArray[j];

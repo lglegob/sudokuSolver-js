@@ -56,7 +56,13 @@ const validPuzzleSquare = (validPuzzle) => {
 
 const areWithinBlockDuplicatedValues = (candidateRepetitions, candidate, blockType, blockValue) => {
   if (candidateRepetitions > 1) {
-    alert(`There are duplicates values within a Block, Candidate ${candidate} in ${blockType} ${blockValue} is ${candidateRepetitions} times. This is not a valid puzzle, please correct it a try to validate again`);
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: `There are duplicates values within a Block, Candidate ${candidate} in ${blockType} ${blockValue} is ${candidateRepetitions} times. This is not a valid puzzle, please correct it a try to validate again`,
+      // footer: '<a href="">Why do I have this issue?</a>'
+    })
+    // alert(`There are duplicates values within a Block, Candidate ${candidate} in ${blockType} ${blockValue} is ${candidateRepetitions} times. This is not a valid puzzle, please correct it a try to validate again`);
     return candidateRepetitions > 1;
   }
 }
@@ -74,8 +80,13 @@ const enoughDiversityDigits = (validPuzzle, quantityPerValue) => {
           valuesMissing.push(index + 1);
         }
       });    
-
-      alert(`This is Not a Valid Puzzle, it will have multiple solutions, since to have an unique solution, it needs to have at least 8 of the 9 posssibilities present . The Digits missing are ${valuesMissing}`);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: `This is Not a Valid Puzzle, it will have multiple solutions, since to have an unique solution, it needs to have at least 8 of the 9 posssibilities present . The Digits missing are ${valuesMissing}`,
+        // footer: '<a href="">Why do I have this issue?</a>'
+      })
+      // alert(`This is Not a Valid Puzzle, it will have multiple solutions, since to have an unique solution, it needs to have at least 8 of the 9 posssibilities present . The Digits missing are ${valuesMissing}`);
       validPuzzle = false;
     };
   };

@@ -6,6 +6,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.21 (sweetAlert2) 2022-10-21
+
+- WHAT'S NEW!?
+
+  - (User Experience) Prompts and alerts are migrated to sweetAlerts2 by integrating that library into the project.
+  - (Puzzle Creation) The process to randomize the random puzzle based on the seed sudokus is complemented by randomizing the 3 row blocks and the 3 column blocks which can be as well change of order without affecting the validity of the puzzle.
+
+---
+
 ### Version 0.4.20 (localStorage Puzzles) 2022-10-20
 
 - WHAT'S NEW!?

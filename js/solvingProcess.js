@@ -81,19 +81,19 @@ const solvingProcess = () => {
     console.log("--------------------------------------------");
     console.log("I'm sorry, kiddo. I really am. You have a good soul. And I hate giving good people bad news. - Oracle");
     let newLine = "\r\n";
-    let prompttext = "WE ARE SORRY! :(";
-    prompttext += newLine;
-    prompttext += newLine;
-    prompttext += "We are not able to advance any further in the resolution of this Sudoku Puzzle.";
+    let prompttext = "We are not able to advance any further in the resolution of this Sudoku Puzzle.";
     prompttext += newLine;
     prompttext += "However, we are in the process of adding new advance solving techniques to crack this kind of difficult puzzles.";
     prompttext += newLine;
     prompttext += newLine;
     prompttext += "Please help us by sending us your puzzle as originally ingressed to leonardogonzalezbello@gmail.com";
-    prompttext += newLine;
-    prompttext += newLine;
-    prompttext += "BTW... if you know what should be the next step to solve it, even better :)";
-    alert (prompttext);
+    // alert (prompttext);
+    Swal.fire({
+      icon: 'error',
+      title: 'WE ARE SORRY! :(',
+      text: prompttext,
+      footer: `BTW... if you know what should be the next step to solve it, even better :)`
+    })
   };
 
 };

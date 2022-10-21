@@ -178,7 +178,6 @@ const spanRowColumnCoordinatesListener = (rcSpan) => {
     console.log("--------------------------------------------");
     console.log("Ever have that feeling where you're not sure if you're awake or dreaming? – Neo");
   });
-
 };
 
 export { loadMatrixListener, loadMatrixManuallyListener, reloadMatrixListener, validateMatrixListener, resetMatrixListener, toggleNotesListener, togglehighlightsListener, inputCellsListener, resolveMatrixListener, goBackToStepListener, spanRowColumnCoordinatesListener }
