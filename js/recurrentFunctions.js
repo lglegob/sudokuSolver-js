@@ -258,4 +258,17 @@ const deleteLastShowMe = () => {
   };
 }; 
 
-export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineSquareFromRC, defineRowColumnFromSquareRelative, defineRowColumnFromCellRelative, toggleNotes, togglehighlights, reviewNotes, createNewDivInput, createNewDivCandidateNotes, deleteLastShowMe };
+const showSweetAlert = async (sweetIcon, sweetTitle, sweetText) => {
+  document.querySelector(".theMatrix").style.opacity = "0.1"; //This line pretends to solve the Bug introduced by sweetAlerts in v0.4.21, in mobile, the sweetAlert box situated behind the Puzzle grid
+  document.querySelector(".theMatrixNotes").style.opacity = "0.1"; //This line pretends to solve the Bug introduced by sweetAlerts in v0.4.21, in mobile, the sweetAlert box situated behind the Puzzle grid
+  await Swal.fire({
+    icon: sweetIcon,
+    title: sweetTitle,
+    text: sweetText,
+    // footer: '<a href="">Why do I have this issue?</a>'
+  })
+  document.querySelector(".theMatrix").style.opacity = "1";
+  document.querySelector(".theMatrixNotes").style.opacity = "1";
+};
+
+export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineSquareFromRC, defineRowColumnFromSquareRelative, defineRowColumnFromCellRelative, toggleNotes, togglehighlights, reviewNotes, createNewDivInput, createNewDivCandidateNotes, deleteLastShowMe, showSweetAlert };

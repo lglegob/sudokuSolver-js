@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.21c (sweetAlert2 Bug Fix) 2022-10-21
+
+- FIXED BUGs
+
+  - (User Experience) The sweetAlert messages are taken to a different recurrent function, so it can have the async/await combination out of any main function. Buf Fix under evaluation.
+
+---
+
 ### Version 0.4.21b (sweetAlert2 Bug Fix) 2022-10-21
 
 - FIXED BUGs
