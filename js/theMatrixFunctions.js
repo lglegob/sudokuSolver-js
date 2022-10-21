@@ -78,12 +78,14 @@ const loadMatrix = (initialMatrixValues) => {
     console.log("--------------------------------------------");
     console.log("Not like this. Not like this – Switch");
     // alert("Ingress at least 17 digits different than zero, Not enough Digits");
+    document.querySelector(".theMatrix").style.opacity = "0.1"; //This line pretends to solve the Bug introduced by sweetAlerts in v0.4.21, in mobile, the sweetAlert box situated behind the Puzzle grid
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
       text: 'Ingress at least 17 digits different than zero, Not enough Digits!',
       // footer: '<a href="">Why do I have this issue?</a>'
     })
+    document.querySelector(".theMatrix").style.opacity = "1";
   };
 
   //Check if there are enough kind of digits for unique solution (At least 8 or 9 of the possible options)
@@ -127,7 +129,7 @@ const loadMatrixManually = async () => {
   // prompttext += "If more than 81, the excess characters will be discarded";
   // let manualMatrixValues = prompt(prompttext, randomPuzzle)
 
-  document.querySelector(".theMatrix").style.opacity = "0.1";
+  document.querySelector(".theMatrix").style.opacity = "0.1"; //This line pretends to solve the Bug introduced by sweetAlerts in v0.4.21, in mobile, the sweetAlert box situated behind the Puzzle grid
   const { value: text } = await Swal.fire({
 
     input: 'textarea',
@@ -143,7 +145,6 @@ const loadMatrixManually = async () => {
   
   if (text) {
     manualMatrixValues = text
-    // Swal.fire(text)
   }
   document.querySelector(".theMatrix").style.opacity = "1";
   loadMatrix(manualMatrixValues);

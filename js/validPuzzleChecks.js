@@ -56,6 +56,7 @@ const validPuzzleSquare = (validPuzzle) => {
 
 const areWithinBlockDuplicatedValues = (candidateRepetitions, candidate, blockType, blockValue) => {
   if (candidateRepetitions > 1) {
+    document.querySelector(".theMatrix").style.opacity = "0.1"; //This line pretends to solve the Bug introduced by sweetAlerts in v0.4.21, in mobile, the sweetAlert box situated behind the Puzzle grid
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
@@ -63,6 +64,7 @@ const areWithinBlockDuplicatedValues = (candidateRepetitions, candidate, blockTy
       // footer: '<a href="">Why do I have this issue?</a>'
     })
     // alert(`There are duplicates values within a Block, Candidate ${candidate} in ${blockType} ${blockValue} is ${candidateRepetitions} times. This is not a valid puzzle, please correct it a try to validate again`);
+    document.querySelector(".theMatrix").style.opacity = "1"; 
     return candidateRepetitions > 1;
   }
 }
@@ -79,7 +81,8 @@ const enoughDiversityDigits = (validPuzzle, quantityPerValue) => {
         if (element === 0) {
           valuesMissing.push(index + 1);
         }
-      });    
+      });   
+      document.querySelector(".theMatrix").style.opacity = "0.1"; //This line pretends to solve the Bug introduced by sweetAlerts in v0.4.21, in mobile, the sweetAlert box situated behind the Puzzle grid. 
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -87,6 +90,7 @@ const enoughDiversityDigits = (validPuzzle, quantityPerValue) => {
         // footer: '<a href="">Why do I have this issue?</a>'
       })
       // alert(`This is Not a Valid Puzzle, it will have multiple solutions, since to have an unique solution, it needs to have at least 8 of the 9 posssibilities present . The Digits missing are ${valuesMissing}`);
+      document.querySelector(".theMatrix").style.opacity = "1"; 
       validPuzzle = false;
     };
   };

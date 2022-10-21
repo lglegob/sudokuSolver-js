@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.21b (sweetAlert2 Bug Fix) 2022-10-21
+
+- FIXED BUGs
+
+  - (User Experience) The change of opacity for theMatrix and theMatrixNotes was extended to all those places where sweetalert had been inserted. Bug fix under evaluation
+
+---
+
 ### Version 0.4.21a (sweetAlert2 Bug Fix) 2022-10-21
 
 - FIXED BUGs

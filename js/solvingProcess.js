@@ -88,12 +88,16 @@ const solvingProcess = () => {
     prompttext += newLine;
     prompttext += "Please help us by sending us your puzzle as originally ingressed to leonardogonzalezbello@gmail.com";
     // alert (prompttext);
+    document.querySelector(".theMatrix").style.opacity = "0.1"; //This line pretends to solve the Bug introduced by sweetAlerts in v0.4.21, in mobile, the sweetAlert box situated behind the Puzzle grid
+    document.querySelector(".theMatrixNotes").style.opacity = "0.1"; 
     Swal.fire({
       icon: 'error',
       title: 'WE ARE SORRY! :(',
       text: prompttext,
       footer: `BTW... if you know what should be the next step to solve it, even better :)`
     })
+    document.querySelector(".theMatrix").style.opacity = "1"; 
+    document.querySelector(".theMatrixNotes").style.opacity = "1"; 
   };
 
 };
