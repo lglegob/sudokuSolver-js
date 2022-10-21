@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.21a (sweetAlert2 Bug Fix) 2022-10-21
+
+- FIXED BUGs
+
+  - (User Experience) SweetAlert introduced a nasty bug for the mobile experience where the sweetalerts are in screen behind the main Sudoku Puzzle, this version 0.4.21a is a test to heck if by changing opacity, the situation can be solved. For laptop devices it seems to work ok.
+
+---
+
 ### Version 0.4.21 (sweetAlert2) 2022-10-21
 
 - WHAT'S NEW!?

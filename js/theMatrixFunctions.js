@@ -127,7 +127,9 @@ const loadMatrixManually = async () => {
   // prompttext += "If more than 81, the excess characters will be discarded";
   // let manualMatrixValues = prompt(prompttext, randomPuzzle)
 
+  document.querySelector(".theMatrix").style.opacity = "0.1";
   const { value: text } = await Swal.fire({
+
     input: 'textarea',
     title: 'INSTRUCTIONS',
     inputLabel: 'Introduce your Sudoku puzzle as a series of 81 digits between 0 and 9.',
@@ -143,7 +145,7 @@ const loadMatrixManually = async () => {
     manualMatrixValues = text
     // Swal.fire(text)
   }
-  
+  document.querySelector(".theMatrix").style.opacity = "1";
   loadMatrix(manualMatrixValues);
 };
 
