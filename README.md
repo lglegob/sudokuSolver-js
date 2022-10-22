@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.23 (JSON for puzzle seeds) 2022-10-22
+
+- WHAT'S NEW!?
+
+  - (Data Management) Added the capability to read the puzzle seeds from a JSON file used as DB.
+
+---
+
 ### Version 0.4.22 (Previous Sudokus Local Storage) 2022-10-22
 
 - WHAT'S NEW!?
