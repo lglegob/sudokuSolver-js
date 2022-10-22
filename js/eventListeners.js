@@ -25,7 +25,7 @@ const loadMatrixListener = () => {
     // Stop form from reloading the page
     e.preventDefault();
     let randomPuzzle = randomSudoku.randomizePuzzle();
-    matrixFunctions.loadMatrix(randomPuzzle);
+    matrixFunctions.loadMatrix(randomPuzzle, true);
   });
 };
 
@@ -58,7 +58,7 @@ const validateMatrixListener = () => {
     // Stop form from reloading the page
     e.preventDefault();
     let inputString = matrixFunctions.createString();
-    matrixFunctions.loadMatrix(inputString);
+    matrixFunctions.loadMatrix(inputString, true);
   });
 };
 
@@ -135,6 +135,7 @@ const resolveMatrixListener = () => {
       console.log("--------------------------------------------");
       console.log("Never send a human to do a machine's job - Agent Smith")
       console.log("Everything that has a beginning has an end. - Oracle");
+      recurrent.showSweetAlert("success", "Congratulations!!", "You have completed the Puzzle :)");
     };
   });
 };
@@ -180,4 +181,13 @@ const spanRowColumnCoordinatesListener = (rcSpan) => {
   });
 };
 
-export { loadMatrixListener, loadMatrixManuallyListener, reloadMatrixListener, validateMatrixListener, resetMatrixListener, toggleNotesListener, togglehighlightsListener, inputCellsListener, resolveMatrixListener, goBackToStepListener, spanRowColumnCoordinatesListener }
+// Add event listener to the LoadPastSudokus button
+const loadPastSudokusListener = (button_loadPastSudokus, previousSudokusStringsInputObject) => {
+  button_loadPastSudokus.addEventListener("click", (e) => {
+    // Stop form from reloading the page
+    e.preventDefault();
+    recurrent.showSweetTextInput("Select one of your Previous Sudoku Puzzles", previousSudokusStringsInputObject, "Past Sudokus" );
+  });
+};
+
+export { loadMatrixListener, loadMatrixManuallyListener, reloadMatrixListener, validateMatrixListener, resetMatrixListener, toggleNotesListener, togglehighlightsListener, inputCellsListener, resolveMatrixListener, goBackToStepListener, spanRowColumnCoordinatesListener, loadPastSudokusListener }

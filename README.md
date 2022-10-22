@@ -6,6 +6,19 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.22 (Previous Sudokus Local Storage) 2022-10-22
+
+- WHAT'S NEW!?
+
+  - (Data Management) The functionality to bring back previous Sudokus created for the user from Local Storage has been completed. Those brought back are not saved back as a new sudoku in Local Storage with an if inserted if (isThisPuzzleNew) in the function thePuzzleisValid.
+  - (Data Management) Usage of async, await and promises for the input inserted with SweetAlerts to send the past puzzle string to loadMatrix when selected by user.
+
+- FIXED BUGs
+
+  - (User Experience) The sweetAlert messages Bug was effectively fixed in previous iteration. In mobile as fasr as tested, now the Sudoku puzzle is shown very transparent and do not interfere with the sweetAlert.
+
+---
+
 ### Version 0.4.21c (sweetAlert2 Bug Fix) 2022-10-21
 
 - FIXED BUGs

@@ -34,16 +34,23 @@ const createMatrix = () => {
   
   //Process to load previously created Sudokus for the user.
   let previousSudokusRegEx = new RegExp("^SudokuCreated");
-  let previousSudokusStrings = findPastSudokus(previousSudokusRegEx);
-  
+  let previousSudokusStrings = findPastSudokus(previousSudokusRegEx);  
   //Process to create a dropdown list selector with the previous Sudoku Puzzles created for the user
-  console.log(previousSudokusStrings);
   if (previousSudokusStrings.length > 0) {
-
-  }
+    let previousSudokusStringsInputObject = {};
+    previousSudokusStrings.forEach((puzzle) => {
+      previousSudokusStringsInputObject[puzzle.key] = puzzle.val;
+    });
+    //If there are previous Sudokus saved in Local Storage, then we create and activate the corresponding EventListener and button
+    const button_loadPastSudokus = document.querySelector("#button-loadPastSudokus");
+    eventListeners.loadPastSudokusListener(button_loadPastSudokus, previousSudokusStringsInputObject);
+    document.querySelector("#button-loadPastSudokus").disabled = false;
+    document.querySelector("#button-loadPastSudokus").classList.add("active", "visible");
+    document.querySelector("#button-loadPastSudokus").classList.remove("inactive", "invisible");
+  };
 };
 
-const loadMatrix = (initialMatrixValues) => {
+const loadMatrix = (initialMatrixValues, isThisPuzzleNew) => {
   //This section is to load the string (from load or load manually) into the inputs.
   let howManyDigits = 0;
   let validPuzzle = true;
@@ -96,7 +103,7 @@ const loadMatrix = (initialMatrixValues) => {
 
   //Finally, check if Puzzle is valid
   if (validPuzzle) {
-    thePuzzleisValid(initialMatrixValues);
+    thePuzzleisValid(initialMatrixValues, isThisPuzzleNew);
   } else {
     globalVar.cellsResolved = 0;
     document.querySelector("#button-validate").disabled = false;
@@ -109,19 +116,6 @@ const loadMatrix = (initialMatrixValues) => {
 const loadMatrixManually = async () => {
   let randomPuzzle = randomSudoku.randomizePuzzle();
   let manualMatrixValues;
-  // let newLine = "\r\n";
-  // let prompttext = "INSTRUCTIONS";
-  // prompttext += newLine;
-  // prompttext += "Introduce your Sudoku puzzle as a series of 81 digits between 0 and 9.";
-  // prompttext += newLine;
-  // prompttext += "0 or any different character means empty.";
-  // prompttext += newLine;
-  // prompttext += newLine;
-  // prompttext += "If less than 81 will be filled with empty cells";
-  // prompttext += newLine;
-  // prompttext += "If more than 81, the excess characters will be discarded";
-  // let manualMatrixValues = prompt(prompttext, randomPuzzle)
-
   document.querySelector(".theMatrix").style.opacity = "0.1"; //This line pretends to solve the Bug introduced by sweetAlerts in v0.4.21, in mobile, the sweetAlert box situated behind the Puzzle grid
   const { value: text } = await Swal.fire({
 
@@ -140,7 +134,7 @@ const loadMatrixManually = async () => {
     manualMatrixValues = text
   }
   document.querySelector(".theMatrix").style.opacity = "1";
-  loadMatrix(manualMatrixValues);
+  loadMatrix(manualMatrixValues, true);
 };
 
 //Get the values from the form input into the Matrix
@@ -244,7 +238,7 @@ const resetMatrix = () => {
 //Functions not exported
 //////////////////////////
 
-const thePuzzleisValid = (initialMatrixValues) => {
+const thePuzzleisValid = (initialMatrixValues, isThisPuzzleNew) => {
   recurrent.reviewNotes(globalVar.theMatrix[0]);
   recurrent.deleteLastShowMe();
   solvingFunctions.newSudokuPuzzleArticle();
@@ -252,19 +246,21 @@ const thePuzzleisValid = (initialMatrixValues) => {
   instructions.remove();
 
   //Process to save the current Sudoku Puzzle in Local Storage for future references, as first step it defines if there are more than X puzzle saved to delete the oldest one.
-  let previousSudokusRegEx = new RegExp("^SudokuCreated");
-  let previousSudokusStrings =  findPastSudokus(previousSudokusRegEx);
-  if (previousSudokusStrings.length >= 20) {
-    //This part of the process deletes the oldest Sudoku if the number is exceded, to keep the ammount of puzzles controlled
-    previousSudokusStrings = previousSudokusStrings.map( (puzzle) => puzzle.key);
-    previousSudokusStrings = previousSudokusStrings.map( (puzzle) => puzzle.slice(14));
-    previousSudokusStrings.sort((dateA, dateB) => Date.parse(dateA) - Date.parse(dateB));
-    let oldestKey = previousSudokusStrings[0];
-    localStorage.removeItem(`SudokuCreated-${oldestKey}`);
+  if (isThisPuzzleNew) {    
+    let previousSudokusRegEx = new RegExp("^SudokuCreated");
+    let previousSudokusStrings =  findPastSudokus(previousSudokusRegEx);
+    if (previousSudokusStrings.length >= 8) {
+      //This part of the process deletes the oldest Sudoku if the number is exceded, to keep the ammount of puzzles controlled
+      previousSudokusStrings = previousSudokusStrings.map( (puzzle) => puzzle.key);
+      previousSudokusStrings = previousSudokusStrings.map( (puzzle) => puzzle.slice(14));
+      previousSudokusStrings.sort((dateA, dateB) => Date.parse(dateA) - Date.parse(dateB));
+      let oldestKey = previousSudokusStrings[0];
+      localStorage.removeItem(`SudokuCreated-${oldestKey}`);
+    };
+    let currentDate = new Date().toString();
+    let keyLocalStorage = `SudokuCreated-${currentDate}`;
+    localStorage.setItem(keyLocalStorage, JSON.stringify(initialMatrixValues));
   };
-  let currentDate = new Date().toString();
-  let keyLocalStorage = `SudokuCreated-${currentDate}`;
-  localStorage.setItem(keyLocalStorage, JSON.stringify(initialMatrixValues));
 
   // Process to keep the empty cells and the transparency when rotating for the Notes, also to have the inputs replace as <p>s to avoid any more inputs during the solving process
   for (let row = 0; row <= 8; row++) {
@@ -295,6 +291,9 @@ const thePuzzleisValid = (initialMatrixValues) => {
   document.querySelector("#button-validate").disabled = true;
   document.querySelector("#button-validate").classList.remove("active", "visible");
   document.querySelector("#button-validate").classList.add("inactive", "invisible");
+  document.querySelector("#button-loadPastSudokus").disabled = true;
+  document.querySelector("#button-loadPastSudokus").classList.remove("active", "visible");
+  document.querySelector("#button-loadPastSudokus").classList.add("inactive", "invisible");
   document.querySelector("#button-resolve").disabled = false;
   document.querySelector("#button-resolve").classList.add("active", "visible");
   document.querySelector("#button-resolve").classList.remove("inactive", "invisible");

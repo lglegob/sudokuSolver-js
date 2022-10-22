@@ -62,5 +62,4 @@ const gettingDetailedInfoBlock = ( fromrow, maximumrow, fromcolumn, maximumcolum
   return { howmanycellswiththisnote, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote };
 };
 
-export { gettingDetailedInfoBlock }
-
+export { gettingDetailedInfoBlock };

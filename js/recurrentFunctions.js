@@ -265,10 +265,36 @@ const showSweetAlert = async (sweetIcon, sweetTitle, sweetText) => {
     icon: sweetIcon,
     title: sweetTitle,
     text: sweetText,
+    allowOutsideClick: false
     // footer: '<a href="">Why do I have this issue?</a>'
   })
   document.querySelector(".theMatrix").style.opacity = "1";
   document.querySelector(".theMatrixNotes").style.opacity = "1";
 };
 
-export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineSquareFromRC, defineRowColumnFromSquareRelative, defineRowColumnFromCellRelative, toggleNotes, togglehighlights, reviewNotes, createNewDivInput, createNewDivCandidateNotes, deleteLastShowMe, showSweetAlert };
+const showSweetTextInput = async (sweetTitle, SweetInputOptions, SweetPlaceHolder) => {
+  document.querySelector(".theMatrix").style.opacity = "0.1"; //This line pretends to solve the Bug introduced by sweetAlerts in v0.4.21, in mobile, the sweetAlert box situated behind the Puzzle grid
+  document.querySelector(".theMatrixNotes").style.opacity = "0.1"; //This line pretends to solve the Bug introduced by sweetAlerts in v0.4.21, in mobile, the sweetAlert box situated behind the Puzzle grid
+  
+  let previousSudokuString = await Swal.fire({
+    title: sweetTitle,
+    input: 'select',
+    inputOptions: {
+      'Select': SweetInputOptions
+    },
+    inputPlaceholder: SweetPlaceHolder,
+    showCancelButton: true,
+    inputValidator: (value) => {
+      return new Promise((resolve) => {
+        resolve();
+      });
+    },
+  });
+  document.querySelector(".theMatrix").style.opacity = "1";
+  document.querySelector(".theMatrixNotes").style.opacity = "1";
+  let keyString = previousSudokuString.value;
+  console.log(SweetInputOptions[keyString]);
+  matrixFunctions.loadMatrix(SweetInputOptions[keyString], false);
+};
+
+export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineSquareFromRC, defineRowColumnFromSquareRelative, defineRowColumnFromCellRelative, toggleNotes, togglehighlights, reviewNotes, createNewDivInput, createNewDivCandidateNotes, deleteLastShowMe, showSweetAlert, showSweetTextInput };
