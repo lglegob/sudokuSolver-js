@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.23b (JSON Bug Mobile) 2022-10-22
+
+- FIXED BUGs (Hunting Bug)
+
+  - (Data Management) Going back to getting the random puzzle strings from a js file, this to be able to troubleshoot based on the two latest versions.
+
+---
+
 ### Version 0.4.23a (JSON Bug Mobile) 2022-10-22
 
 - FIXED BUGs (Hunting Bug)

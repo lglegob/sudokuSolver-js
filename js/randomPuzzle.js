@@ -1,6 +1,6 @@
 'use strict';
-// import puzzleSeedsJSON from "../db/puzzleSeeds.json" assert {type:"json"};
-import puzzleSeedsJSON2 from "../db/puzzleSeeds.json" assert {type:"json"};
+import initialMatrixpuzzle from "./data.js"; //This import is needed as it is used in eval() function.
+// import puzzleSeedsJSON2 from "../db/puzzleSeeds.json" assert {type:"json"};
 
 ////////////////////////////////////////////////////////////////////////////////
 //                       RANDOM SUDOKU PUZZLE                                //
@@ -10,7 +10,8 @@ const randomizePuzzle = () => {
   //Several functions using the Fisher-Yates-Durstenfeld shuffle based on https://stackoverflow.com/questions/3718282/javascript-shuffling-objects-inside-an-object-randomize
   //First Step, we get a random seed from data.js
   let randomseed = Math.floor(Math.random() * 5) + 1;
-  let randomPuzzle = puzzleSeedsJSON2.find(item => item.id == randomseed).symbols;  
+  let randomPuzzle = eval(`initialMatrixpuzzle.seed00${randomseed}String`);
+  // let randomPuzzle = puzzleSeedsJSON2.find(item => item.id == randomseed).symbols;  
   let newRandomPuzzle = "";
   //Ranzomize Rows
   //Second Step, process to randomize the rows per block. Meaning, rows 0, 1 and 2 can be randomize between them and mantain tha puzzle validity, then rows 3, 4 and 5, and finally rows 6, 7 and 8
