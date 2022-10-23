@@ -6,6 +6,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.23e (JSON Bug Mobile) 2022-10-22
+
+- FIXED BUGs (Hunting Bug)
+
+  - (Data Management) This version goes back to seeds from data.js
+  - (Data Management) For comparison and simple future troubleshooting, v0.4.23d with 4 simple lines changes (importing data from JSON file by using assert) does not work in certain browsers.
+
+---
+
 ### Version 0.4.23d (JSON Bug Mobile) 2022-10-22
 
 - FIXED BUGs (Hunting Bug)
