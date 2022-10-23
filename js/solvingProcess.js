@@ -89,8 +89,11 @@ const solvingProcess = () => {
     prompttext += newLine;
     prompttext += "Please help us by sending us your puzzle as originally ingressed to leonardogonzalezbello@gmail.com";
     // alert (prompttext);
-    recurrent.showSweetAlert("error", "WE ARE SORRY! :(", prompttext, "BTW... if you know what should be the next step to solve it, even better :)");
+    globalVar.stepByStep ? true : recurrent.showSweetAlert("error", "WE ARE SORRY! :(", prompttext, "BTW... if you know what should be the next step to solve it, even better :)");
   };
+
+  globalVar.iterationSuccess = false;
+  globalVar.discardNoteSuccess = false;
 };
 
 export { solvingProcess };

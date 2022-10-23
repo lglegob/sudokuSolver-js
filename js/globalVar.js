@@ -14,6 +14,7 @@
 // Each row Structure  --> [[column cell][column cell]...[column cell][column cell]]
 // Each Column Cell    --> [[answer][note 1][note 2][note 3]...[note 9]]
 let theMatrix = [[]];
+let theMatrixSolved;
 
 //StepsDetail [steptype, Method, [Step detailed info]]
 let stepsDetail = []; 
@@ -26,6 +27,6 @@ let iterationSuccess = false;
 let discardNoteSuccess = false;
 let areNotesShowing = false;
 let areHighlightsOn = true;
-let stepByStep = true;
+let stepByStep = false;
 let failure = false;
-export default { theMatrix, stepsDetail, currentStep, loopsExecuted, cellsResolved, iterationSuccess, discardNoteSuccess, areNotesShowing, areHighlightsOn, stepByStep, failure };
+export default { theMatrix, theMatrixSolved, stepsDetail, currentStep, loopsExecuted, cellsResolved, iterationSuccess, discardNoteSuccess, areNotesShowing, areHighlightsOn, stepByStep, failure };

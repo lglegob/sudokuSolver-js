@@ -96,10 +96,18 @@ const loadMatrix = (initialMatrixValues, isThisPuzzleNew) => {
   validPuzzle = validPuzzleCheck.validPuzzleColumn(validPuzzle);
   validPuzzle = validPuzzleCheck.validPuzzleSquare(validPuzzle);
 
-  //Check if the puzzle has one only answer by solving it
+  // Check if the puzzle has one only answer by solving it
+  // globalVar.stepByStep = true;
+  // let tempCellsResolved = globalVar.cellsResolved;
+  // let tempCurrentStep = globalVar.currentStep;
   // while (globalVar.cellsResolved <81 && globalVar.failure === false ) {
   //   solvingProcess();
+  //   console.log(globalVar.cellsResolved);
   // };
+  // globalVar.theMatrixSolved = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep]));
+  // globalVar.stepByStep = false;
+  // globalVar.cellsResolved = tempCellsResolved;
+  // globalVar.currentStep = tempCurrentStep;
 
   //Finally, check if Puzzle is valid
   if (validPuzzle) {

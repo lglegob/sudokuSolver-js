@@ -6,6 +6,16 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.24 (Load Past button) 2022-10-22
+
+- WHAT'S NEW!?
+
+  - (User Experience) When the user starts ingressing values directly in the puzzle, the button "Load Past Sudoku" is disable as the other methods of loading.
+  - The process to solve beforehand the puzzle is started. Tested succesfully, but code commented for now, for this version.
+  - The globalVar stepByStep and the corresponding ifs decisions are already configured to avoid the DOM modifications during the beforehand resolution. For this version is hardcoded with false value, so the process flows as usual.
+
+---
+
 ### Version 0.4.23e (JSON Bug Mobile) 2022-10-22
 
 - FIXED BUGs (Hunting Bug)

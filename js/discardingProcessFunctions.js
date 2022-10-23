@@ -33,10 +33,10 @@ const discardTwoCandidates = (blockvalue, mainaxis, row1, row2, column1, column2
     document.querySelector(".theMatrixNotes " + ".row" + (row2 + 1) + ".column" + (column2 + 1) + " .note" + value2).classList.add("noteKept");
   };
   globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
-  recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
-  recurrent.toggleNotes();
+  globalVar.stepByStep ? true : recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
+  globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
-  modifyDOM.discardTwoCandidatesHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
+  globalVar.stepByStep ? true : modifyDOM.discardTwoCandidatesHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
 };
 
 //Consolidated function for the 3 Blocks (row, column and square), when a pair of values must be kept and discard all others in one cell
@@ -51,10 +51,10 @@ const discardAllExcept = (blockvalue, mainaxis, row1, row2, column1, column2, va
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
   
   globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
-  recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
-  recurrent.toggleNotes();
+  globalVar.stepByStep ? true : recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
+  globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
-  modifyDOM.discardAllExceptHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
+  globalVar.stepByStep ? true : modifyDOM.discardAllExceptHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
 };
 
 //Consolidated function for the 3 Blocks (row, column and square), when one value can be discarded
@@ -134,10 +134,10 @@ const discardOneCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, second
   };
 
   globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
-  recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
-  recurrent.toggleNotes();
+  globalVar.stepByStep ? true : recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
+  globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
-  modifyDOM.discardOneCandidateHTML(mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method);
+  globalVar.stepByStep ? true : modifyDOM.discardOneCandidateHTML(mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method);
 };
 
 //Consolidated function for the 2 Blocks (row, column), when one value can be discarded in X-Wing Detection technique
@@ -187,10 +187,10 @@ const discardOneCandidateFrom2Blocks = (mainaxisvalues, mainaxis, secondaryaxisv
   };
 
   globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
-  recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
-  recurrent.toggleNotes();
+  globalVar.stepByStep ? true : recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
+  globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
-  modifyDOM.discardOneCandidateFrom2BlocksHTML(mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method);
+  globalVar.stepByStep ? true : modifyDOM.discardOneCandidateFrom2BlocksHTML(mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method);
 };
 
 //Consolidated function for the Y-Wing Combinations, where one value can be discarded in one or several cells
@@ -215,10 +215,10 @@ const discardYWing = (pivotValues, pincer1Values, pincer1Axis, pincer2Values, pi
   };
 
   globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
-  recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
-  recurrent.toggleNotes();
+  globalVar.stepByStep ? true : recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
+  globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
-  modifyDOM.discardYWingHTML(pivotValues, pincer1Values, pincer1Axis, pincer2Values, pincer2Axis, pincerX, pincerY, pincerZ, method);
+  globalVar.stepByStep ? true : modifyDOM.discardYWingHTML(pivotValues, pincer1Values, pincer1Axis, pincer2Values, pincer2Axis, pincerX, pincerY, pincerZ, method);
 };
 
 export { discardOneCandidate, discardOneCandidateFrom2Blocks, discardTwoCandidates, discardAllExcept, discardYWing }

@@ -99,6 +99,9 @@ const inputCellsListener = (input_cellvalues) => {
       document.querySelector("#button-loadmanually").disabled = true;
       document.querySelector("#button-loadmanually").classList.remove("active");
       document.querySelector("#button-loadmanually").classList.add("inactive");
+      document.querySelector("#button-loadPastSudokus").disabled = true;
+      document.querySelector("#button-loadPastSudokus").classList.remove("active");
+      document.querySelector("#button-loadPastSudokus").classList.add("inactive");
       document.querySelector("#button-validate").disabled = false;
       document.querySelector("#button-validate").classList.add("active");
       document.querySelector("#button-validate").classList.remove("inactive");
@@ -117,8 +120,6 @@ const resolveMatrixListener = () => {
     recurrent.deleteLastShowMe();
     solving.solvingProcess();
 
-    globalVar.iterationSuccess = false;
-    globalVar.discardNoteSuccess = false;
     if (globalVar.cellsResolved > 1) {
       document.querySelector("#button-togglehighlights").disabled = false;
       document.querySelector("#button-togglehighlights").classList.add("active");

@@ -27,7 +27,7 @@ const cellValueFound = (row, column, currentCellValue, method, mainBlock, mainBl
   // here the foundvalue is set in the html document to be shown, by calling the function newfoundvalueHTML
   let itemRow = row + 1;
   let itemColumn = column + 1;
-  newfoundvalueHTML(itemRow, itemColumn, currentCellValue, theMatrixStepCellFound, method, mainBlock, mainBlockValue);
+  globalVar.stepByStep ? true : newfoundvalueHTML(itemRow, itemColumn, currentCellValue, theMatrixStepCellFound, method, mainBlock, mainBlockValue);
   return { theMatrixStepCellFound};
 };
 
