@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.23c (JSON Bug Mobile) 2022-10-22
+
+- FIXED BUGs (Hunting Bug)
+
+  - (Data Management) Recreating the bug, by just changing (commenting) couple of lines and have narrowed the bug source.
+
+---
+
 ### Version 0.4.23b (JSON Bug Mobile) 2022-10-22
 
 - FIXED BUGs (Hunting Bug)
