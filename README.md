@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.23a (JSON Bug Mobile) 2022-10-22
+
+- FIXED BUGs (Hunting Bug)
+
+  - (Data Management) With the latest addition of JSON file, the site stopped working on mobile devices, not even creating the Matrix Structure. This is an attempt of solving it, by changing the format of the JSON file. Bug Fix under evaluation.
+
+---
+
 ### Version 0.4.23 (JSON for puzzle seeds) 2022-10-22
 
 - WHAT'S NEW!?
