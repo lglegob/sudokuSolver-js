@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.23d (JSON Bug Mobile) 2022-10-22
+
+- FIXED BUGs (Hunting Bug)
+
+  - (Data Management) The situation is recreated as well in Mozilla browser (desktop) showing this error (Uncaught SyntaxError: import assertions are not currently supported). It seems by now, there is not a wide implementation of the assert method, so it is discarded from the site development. By now the seeds will continue to be taking from data.js
+
+---
+
 ### Version 0.4.23c (JSON Bug Mobile) 2022-10-22
 
 - FIXED BUGs (Hunting Bug)

@@ -1,37 +1,39 @@
-[
-  {
-    "id": "1",
-    "symbols": "g----bi---c--d----b--a----h--e--g---db-----ce---c--h--e----d--i----h--e---ab----g",
-    "numbers": "7----29---3--4----2--1----8--5--7---42-----35---3--8--5----4--9----8--5---12----7",
-    "solved": "true",
-    "comments": ""
-  },
-  {
-    "id": "2",
-    "symbols": "--i-g-----h-d-------c----bha-----fg--b--ac-d--d---gh--f---c-----a-------------bhd",
-    "numbers": "--9-7-----8-4-------3----281-----67--2--13-4--4---78--6---3-----1-------------284",
-    "solved": "true",
-    "comments": "Example locked Candidates Square to Column"
-  },
-  {
-    "id": "3",
-    "symbols": "----hd-g----a--e--h--e--c-de-----fcg-g--a--e-fbi-----hd-e--b--a--g--a----f-hi----",
-    "numbers": "----84-7----1--5--8--5--3-45-----637-7--1--5-629-----84-5--2--1--7--1----6-89----",
-    "solved": "true",
-    "comments": "Example with 5 Discarding steps in a series"
-  },
-  {
-    "id": "4",
-    "symbols": "--fe-cd-----hf---a-------eh-bh--e-g----d-a----e-g--ab-dc-------e---dh-----gc-fe--",
-    "numbers": "--65-34-----86---1-------58-28--5-7----4-1----5-7--12-43-------5---48-----73-65--",
-    "solved": "true",
-    "comments": "Example with X-Wing 4 corners (seed)"
-  },
-  {
-    "id": "5",
-    "symbols": "i---d-------f---ca-b-----i----g---b---bicef---g---b----f-----gcea---i-------h---i",
-    "numbers": "9---4-------6---31-2-----9----7---2---29356---7---2----6-----7351---9-------8---9",
-    "solved": "true",
-    "comments": "Example with several Y-Wings"
-  }
-]
+{
+  "seeds": [
+    {
+      "id": "1",
+      "symbols": "g----bi---c--d----b--a----h--e--g---db-----ce---c--h--e----d--i----h--e---ab----g",
+      "numbers": "7----29---3--4----2--1----8--5--7---42-----35---3--8--5----4--9----8--5---12----7",
+      "solved": "true",
+      "comments": ""
+    },
+    {
+      "id": "2",
+      "symbols": "--i-g-----h-d-------c----bha-----fg--b--ac-d--d---gh--f---c-----a-------------bhd",
+      "numbers": "--9-7-----8-4-------3----281-----67--2--13-4--4---78--6---3-----1-------------284",
+      "solved": "true",
+      "comments": "Example locked Candidates Square to Column"
+    },
+    {
+      "id": "3",
+      "symbols": "----hd-g----a--e--h--e--c-de-----fcg-g--a--e-fbi-----hd-e--b--a--g--a----f-hi----",
+      "numbers": "----84-7----1--5--8--5--3-45-----637-7--1--5-629-----84-5--2--1--7--1----6-89----",
+      "solved": "true",
+      "comments": "Example with 5 Discarding steps in a series"
+    },
+    {
+      "id": "4",
+      "symbols": "--fe-cd-----hf---a-------eh-bh--e-g----d-a----e-g--ab-dc-------e---dh-----gc-fe--",
+      "numbers": "--65-34-----86---1-------58-28--5-7----4-1----5-7--12-43-------5---48-----73-65--",
+      "solved": "true",
+      "comments": "Example with X-Wing 4 corners (seed)"
+    },
+    {
+      "id": "5",
+      "symbols": "i---d-------f---ca-b-----i----g---b---bicef---g---b----f-----gcea---i-------h---i",
+      "numbers": "9---4-------6---31-2-----9----7---2---29356---7---2----6-----7351---9-------8---9",
+      "solved": "true",
+      "comments": "Example with several Y-Wings"
+    }
+  ]
+}
