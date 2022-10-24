@@ -124,7 +124,7 @@ const togglehighlights = () => {
     globalVar.areHighlightsOn = !globalVar.areHighlightsOn;
     //To load again the highlights over the sudoku puzzle, we go back an step and run again the resolve, so the complete process rebuilds the classes accordingly.
     matrixFunctions.matrixReloaded(globalVar.theMatrix[globalVar.currentStep - 1], globalVar.currentStep - 1 );
-    document.querySelector("#button-resolve").click();
+    document.querySelector("#button-solveit").click();
   } else {
     console.log("You have to let it all go, Neo - Fear, doubt, and disbelief. Free your mind! - Morpheus");
     let togglebutton = document.querySelector("#button-togglehighlights");

@@ -31,7 +31,6 @@ const createMatrix = () => {
   //This Listener for input fields has to be loaded after HTML theMatrix structure has been already created by function createMatrix().
   const input_cellvalues = document.querySelectorAll(".theMatrix input");
   eventListeners.inputCellsListener(input_cellvalues);
-  
   //Process to load previously created Sudokus for the user.
   let previousSudokusRegEx = new RegExp("^SudokuCreated");
   let previousSudokusStrings = findPastSudokus(previousSudokusRegEx);  
@@ -43,7 +42,7 @@ const createMatrix = () => {
     });
     //If there are previous Sudokus saved in Local Storage, then we create and activate the corresponding EventListener and button
     const button_loadPastSudokus = document.querySelector("#button-loadPastSudokus");
-    eventListeners.loadPastSudokusListener(button_loadPastSudokus, previousSudokusStringsInputObject);
+    eventListeners.theMatrixResurrectionsListener(button_loadPastSudokus, previousSudokusStringsInputObject);
     document.querySelector("#button-loadPastSudokus").disabled = false;
     document.querySelector("#button-loadPastSudokus").classList.add("active", "visible");
     document.querySelector("#button-loadPastSudokus").classList.remove("inactive", "invisible");
@@ -97,17 +96,41 @@ const loadMatrix = (initialMatrixValues, isThisPuzzleNew) => {
   validPuzzle = validPuzzleCheck.validPuzzleSquare(validPuzzle);
 
   // Check if the puzzle has one only answer by solving it
-  // globalVar.stepByStep = true;
-  // let tempCellsResolved = globalVar.cellsResolved;
-  // let tempCurrentStep = globalVar.currentStep;
-  // while (globalVar.cellsResolved <81 && globalVar.failure === false ) {
-  //   solvingProcess();
-  //   console.log(globalVar.cellsResolved);
-  // };
-  // globalVar.theMatrixSolved = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep]));
-  // globalVar.stepByStep = false;
-  // globalVar.cellsResolved = tempCellsResolved;
-  // globalVar.currentStep = tempCurrentStep;
+  globalVar.stepByStep = true;
+  globalVar.failure = false;
+  let tempCellsResolved = globalVar.cellsResolved;
+  let tempCurrentStep = globalVar.currentStep;
+  while (globalVar.cellsResolved <81 && globalVar.failure === false ) {
+    solvingProcess();
+    //Check if the Solving process has made any cell empty of candidates, in which case the puzzle is not valid
+    for (let row = 0; row <= 8; row++) {
+      for (let column = 0; column <= 8; column++) {
+        globalVar.loopsExecuted++;
+        let currentCellValue = globalVar.theMatrix[globalVar.currentStep][row][column][0];
+        //method reduce to obtain the sum of the candidates in this cell
+        const sum = globalVar.theMatrix[globalVar.currentStep][row][column].reduce(add, 0);
+        function add(accumulator, a) {
+          return accumulator + a;
+        };
+        if (currentCellValue === 0 && sum-currentCellValue === 0) {
+          //cell invalid, the cell has no certain value yet and it does not have any more candidates
+          globalVar.failure = true;
+          console.log(`We have taken a sneak peek of your puzzle, and unfortunately Cell R${row + 1}C${column + 1} has been left with no candidates and no Certain values in Step ${globalVar.currentStep}. The puzzle is not valid`)
+          validPuzzle = false;
+          recurrent.showSweetAlert("error", "Oops...", `We have taken a sneak peek of your puzzle, and unfortunately Cell R${row + 1}C${column + 1} has been left with no candidates and no Certain values in Step ${globalVar.currentStep} after following several logical resolutions. The puzzle is not valid.`);
+          break;
+        };
+      };
+      if (globalVar.failure) break;
+    };
+
+
+    console.log(globalVar.cellsResolved);
+  };
+  globalVar.theMatrixSolved = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep]));
+  globalVar.stepByStep = false;
+  globalVar.cellsResolved = tempCellsResolved;
+  globalVar.currentStep = tempCurrentStep;
 
   //Finally, check if Puzzle is valid
   if (validPuzzle) {
@@ -202,9 +225,9 @@ const matrixReloaded = (theMatrixDestinedStep, GoBackToStep) => {
     currentArticle.removeChild(currentArticle.lastChild);
   };
 
-  document.querySelector("#button-resolve").disabled = false;
-  document.querySelector("#button-resolve").classList.add("active");
-  document.querySelector("#button-resolve").classList.remove("inactive");
+  document.querySelector("#button-solveit").disabled = false;
+  document.querySelector("#button-solveit").classList.add("active");
+  document.querySelector("#button-solveit").classList.remove("inactive");
   document.querySelector("#button-togglenotes").disabled = false;
   document.querySelector("#button-togglenotes").classList.add("active");
   document.querySelector("#button-togglenotes").classList.remove("inactive");
@@ -302,9 +325,9 @@ const thePuzzleisValid = (initialMatrixValues, isThisPuzzleNew) => {
   document.querySelector("#button-loadPastSudokus").disabled = true;
   document.querySelector("#button-loadPastSudokus").classList.remove("active", "visible");
   document.querySelector("#button-loadPastSudokus").classList.add("inactive", "invisible");
-  document.querySelector("#button-resolve").disabled = false;
-  document.querySelector("#button-resolve").classList.add("active", "visible");
-  document.querySelector("#button-resolve").classList.remove("inactive", "invisible");
+  document.querySelector("#button-solveit").disabled = false;
+  document.querySelector("#button-solveit").classList.add("active", "visible");
+  document.querySelector("#button-solveit").classList.remove("inactive", "invisible");
   document.querySelector("#button-togglenotes").disabled = false;
   document.querySelector("#button-togglenotes").classList.add("active", "visible");
   document.querySelector("#button-togglenotes").classList.remove("inactive", "invisible");

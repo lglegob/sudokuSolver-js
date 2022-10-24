@@ -106,7 +106,7 @@ const lockedCandidateSquare = () => {
           const { realRow, realColumn } = recurrent.defineRowColumnFromSquareRelative(square, secondThirdRowOnly+2*finalThirdRowOnly, secondThirdColumnOnly+2*finalThirdColumnOnly);
           const { howmanycellswiththisnote:howmanycellswiththisnoteColumn, howmanynotesinthiscellSquare, answersCurrentBlockSquare, whereisthisnoteSquare } = gettingInfo.gettingDetailedInfoBlock ( 0, 8, realColumn, realColumn, "column" );
           if ( howmanycellswiththisnoteSquare[possibleCandidate] != howmanycellswiththisnoteColumn[possibleCandidate]) {
-            console.log(`Tenemos un Locked Candidate, option ${possibleCandidate} in square ${square} have other notes in column ${realColumn + 1} that can be deleted`)
+            // console.log(`Tenemos un Locked Candidate, option ${possibleCandidate} in square ${square} have other notes in column ${realColumn + 1} that can be deleted`)
             discardingFunctions.discardOneCandidate(realColumn, "column", square, "square", possibleCandidate, "Locked Candidate (Type1) From Square confined in Column", notesZero.noteZeroColumn );
             break;
           };

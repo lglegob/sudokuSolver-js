@@ -13,7 +13,7 @@ import * as randomSudoku from "./randomPuzzle.js";
 const button_load = document.querySelector("#button-load");
 const button_loadmanually = document.querySelector("#button-loadmanually");
 const button_validate = document.querySelector("#button-validate");
-const button_resolve = document.querySelector("#button-resolve");
+const button_resolve = document.querySelector("#button-solveit");
 const button_reset = document.querySelector("#button-clear");
 const button_togglenotes = document.querySelector("#button-togglenotes");
 const button_reload = document.querySelector("#button-reload");
@@ -45,7 +45,7 @@ const reloadMatrixListener = () => {
     if (globalVar.areHighlightsOn && globalVar.currentStep > 1) {
       //To load again the highlights over the sudoku puzzle, we go back one more step and run again the resolve, so the complete process rebuilds the classes accordingly.
       matrixFunctions.matrixReloaded(globalVar.theMatrix[globalVar.currentStep - 2], globalVar.currentStep - 2 );
-      document.querySelector("#button-resolve").click();
+      document.querySelector("#button-solveit").click();
     } else {
       matrixFunctions.matrixReloaded(globalVar.theMatrix[globalVar.currentStep - 1], globalVar.currentStep - 1 );
     };
@@ -127,9 +127,9 @@ const resolveMatrixListener = () => {
     };
     //In case the Sudoku has been resolved with this last step
     if (globalVar.cellsResolved === 81) {
-      document.querySelector("#button-resolve").disabled = true;
-      document.querySelector("#button-resolve").classList.remove("active");
-      document.querySelector("#button-resolve").classList.add("inactive");
+      document.querySelector("#button-solveit").disabled = true;
+      document.querySelector("#button-solveit").classList.remove("active");
+      document.querySelector("#button-solveit").classList.add("inactive");
       document.querySelector("#button-togglenotes").disabled = true;
       document.querySelector("#button-togglenotes").classList.remove("active");
       document.querySelector("#button-togglenotes").classList.add("inactive");
@@ -150,7 +150,7 @@ const goBackToStepListener = (button_goBackToStep) => {
       if (globalVar.areHighlightsOn && destinedStep > 0) {
         //To load again the highlights over the sudoku puzzle, we go back one more step and run again the resolve one time, so the complete resolution process rebuilds the classes accordingly.
         matrixFunctions.matrixReloaded(globalVar.theMatrix[destinedStep - 1], destinedStep - 1 );
-        document.querySelector("#button-resolve").click();
+        document.querySelector("#button-solveit").click();
       } else {
         matrixFunctions.matrixReloaded(globalVar.theMatrix[destinedStep], destinedStep );
       };
@@ -183,7 +183,7 @@ const spanRowColumnCoordinatesListener = (rcSpan) => {
 };
 
 // Add event listener to the LoadPastSudokus button
-const loadPastSudokusListener = (button_loadPastSudokus, previousSudokusStringsInputObject) => {
+const theMatrixResurrectionsListener = (button_loadPastSudokus, previousSudokusStringsInputObject) => {
   button_loadPastSudokus.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
@@ -191,4 +191,4 @@ const loadPastSudokusListener = (button_loadPastSudokus, previousSudokusStringsI
   });
 };
 
-export { loadMatrixListener, loadMatrixManuallyListener, reloadMatrixListener, validateMatrixListener, resetMatrixListener, toggleNotesListener, togglehighlightsListener, inputCellsListener, resolveMatrixListener, goBackToStepListener, spanRowColumnCoordinatesListener, loadPastSudokusListener }
+export { loadMatrixListener, loadMatrixManuallyListener, reloadMatrixListener, validateMatrixListener, resetMatrixListener, toggleNotesListener, togglehighlightsListener, inputCellsListener, resolveMatrixListener, goBackToStepListener, spanRowColumnCoordinatesListener, theMatrixResurrectionsListener }

@@ -11,7 +11,7 @@ matrixFunctions.createMatrix();
 //Initial state defined in the html, no need to change classes
 document.querySelector("#button-validate").disabled = true
 document.querySelector("#button-reload").disabled = true
-document.querySelector("#button-resolve").disabled = true
+document.querySelector("#button-solveit").disabled = true
 document.querySelector("#button-togglenotes").disabled = true
 document.querySelector("#button-clear").disabled = true
 document.querySelector("#button-togglehighlights").disabled = true

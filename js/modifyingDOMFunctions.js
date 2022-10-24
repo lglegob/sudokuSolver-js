@@ -19,11 +19,11 @@ const discardTwoCandidatesHTML = (blockvalue, mainaxis, row1, row2, column1, col
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
-  let newdiscardTwoCandidatesArticle = document.createElement("article");
-  newdiscardTwoCandidatesArticle.classList.add("newdiscardTwoCandidates");
-  newdiscardTwoCandidatesArticle.setAttribute("id", "Step" + globalVar.currentStep);
-  newdiscardTwoCandidatesArticle.style.zIndex = -globalVar.currentStep;
-  newdiscardTwoCandidatesArticle.innerHTML = `
+  let newDiscardArticle = document.createElement("article");
+  newDiscardArticle.classList.add("newdiscardTwoCandidates");
+  newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  newDiscardArticle.style.zIndex = -globalVar.currentStep;
+  newDiscardArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>${method}</h4>
   <p>Cells 
@@ -35,7 +35,7 @@ const discardTwoCandidatesHTML = (blockvalue, mainaxis, row1, row2, column1, col
   <p>These Candidates, ${value1} and ${value2}, have been deleted from other cells within the ${mainaxis} ${blockvalue + 1}</p>
   `;
   const main = document.querySelector(".stepsDetails > div");
-  main.prepend(newdiscardTwoCandidatesArticle);
+  main.prepend(newDiscardArticle);
 
   //creating the Event Listeners to the recently created RC spans
   const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
@@ -58,11 +58,11 @@ const discardAllExceptHTML = (blockvalue, mainaxis, row1, row2, column1, column2
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
-  let newdiscardAllExceptArticle = document.createElement("article");
-  newdiscardAllExceptArticle.classList.add("newdiscardAllExceptHiddenPair");
-  newdiscardAllExceptArticle.setAttribute("id", "Step" + globalVar.currentStep);
-  newdiscardAllExceptArticle.style.zIndex = -globalVar.currentStep;
-  newdiscardAllExceptArticle.innerHTML = `
+  let newDiscardArticle = document.createElement("article");
+  newDiscardArticle.classList.add("newdiscardAllExceptHiddenPair");
+  newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  newDiscardArticle.style.zIndex = -globalVar.currentStep;
+  newDiscardArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>${method}</h4>
   <p>Cells 
@@ -74,7 +74,7 @@ const discardAllExceptHTML = (blockvalue, mainaxis, row1, row2, column1, column2
   <p>These Candidates, ${value1} and ${value2}, are the only ones kept, all other candidates have been deleted within the ${mainaxis} ${blockvalue + 1} in those two cells</p>
   `;
   const main = document.querySelector(".stepsDetails > div");
-  main.prepend(newdiscardAllExceptArticle);
+  main.prepend(newDiscardArticle);
 
   //creating the Event Listeners to the recently created RC spans
   const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
@@ -98,11 +98,11 @@ const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, se
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
-  let newdiscardOneCandidateArticle = document.createElement("article");
-  newdiscardOneCandidateArticle.classList.add("newdiscardOneCandidate");
-  newdiscardOneCandidateArticle.setAttribute("id", "Step" + globalVar.currentStep);
-  newdiscardOneCandidateArticle.style.zIndex = -globalVar.currentStep;
-  newdiscardOneCandidateArticle.innerHTML = `
+  let newDiscardArticle = document.createElement("article");
+  newDiscardArticle.classList.add("newdiscardOneCandidate");
+  newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  newDiscardArticle.style.zIndex = -globalVar.currentStep;
+  newDiscardArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>${method}</h4>
   <p>In ${secondaryaxis} ${secondaryaxisvalue + 1}, all the cells with the candidate ${value}, are confined to the same ${mainaxis} ${mainaxisvalue + 1}</p>
@@ -110,7 +110,7 @@ const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, se
   <p>So, all candidates with value ${value} within ${mainaxis} ${mainaxisvalue + 1}, that do not belong to ${secondaryaxis} ${secondaryaxisvalue + 1} have been deleted</p>
   `;
   const main = document.querySelector(".stepsDetails > div");
-  main.prepend(newdiscardOneCandidateArticle);
+  main.prepend(newDiscardArticle);
 
   addGoBackToStepButton();
   settingHighlightedBlock(secondaryaxis, secondaryaxisvalue + 1);
@@ -128,13 +128,13 @@ const discardOneCandidateFrom2BlocksHTML = (mainaxisvalues, mainaxis, secondarya
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
-  let newdiscardOneCandidateArticle = document.createElement("article");
-  newdiscardOneCandidateArticle.classList.add("newdiscardOneCandidate");
-  newdiscardOneCandidateArticle.setAttribute("id", "Step" + globalVar.currentStep);
-  newdiscardOneCandidateArticle.style.zIndex = -globalVar.currentStep;
+  let newDiscardArticle = document.createElement("article");
+  newDiscardArticle.classList.add("newdiscardOneCandidate");
+  newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  newDiscardArticle.style.zIndex = -globalVar.currentStep;
   
   if (mainaxis === "row") {
-    newdiscardOneCandidateArticle.innerHTML =  `
+    newDiscardArticle.innerHTML =  `
     <h3>Step ${globalVar.currentStep}</h3>
     <h4>${method}</h4>
     <p>
@@ -150,7 +150,7 @@ const discardOneCandidateFrom2BlocksHTML = (mainaxisvalues, mainaxis, secondarya
     <p>So, all candidates with value ${value} in Columns C${secondaryaxisvalues[0] + 1} and C${secondaryaxisvalues[1] + 1}, that do not belong to Rows R${mainaxisvalues[0] + 1} and R${mainaxisvalues[1] + 1} have been deleted</p>
     `;
   } else {
-    newdiscardOneCandidateArticle.innerHTML =  `
+    newDiscardArticle.innerHTML =  `
     <h3>Step ${globalVar.currentStep}</h3>
     <h4>${method}</h4>
     <p>
@@ -175,7 +175,7 @@ const discardOneCandidateFrom2BlocksHTML = (mainaxisvalues, mainaxis, secondarya
   };
 
   const main = document.querySelector(".stepsDetails > div");
-  main.prepend(newdiscardOneCandidateArticle);
+  main.prepend(newDiscardArticle);
 
   //creating the Event Listeners to the recently created RC spans
   const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
@@ -196,12 +196,12 @@ const discardYWingHTML = (pivotValues, pincer1Values, pincer1Axis, pincer2Values
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
-  let newdiscardOneCandidateArticle = document.createElement("article");
-  newdiscardOneCandidateArticle.classList.add("newdiscardOneCandidate");
-  newdiscardOneCandidateArticle.setAttribute("id", "Step" + globalVar.currentStep);
-  newdiscardOneCandidateArticle.style.zIndex = -globalVar.currentStep;
+  let newDiscardArticle = document.createElement("article");
+  newDiscardArticle.classList.add("newdiscardOneCandidate");
+  newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  newDiscardArticle.style.zIndex = -globalVar.currentStep;
   
-  newdiscardOneCandidateArticle.innerHTML =  `
+  newDiscardArticle.innerHTML =  `
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>${method}</h4>
   <p>
@@ -229,7 +229,7 @@ const discardYWingHTML = (pivotValues, pincer1Values, pincer1Axis, pincer2Values
   `;
 
   const main = document.querySelector(".stepsDetails > div");
-  main.prepend(newdiscardOneCandidateArticle);
+  main.prepend(newDiscardArticle);
 
   //creating the Event Listeners to the recently created RC spans
   const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);

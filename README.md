@@ -6,13 +6,23 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.25 (SolveIt Completely) 2022-10-24
+
+- WHAT'S NEW!?
+
+  - (Puzzle Validation) The process to solve the whole puzzle beforehand is tested, uncommented and complemented with the validation that no cell during the solving process becomes empty of candidates without having a certain value already. So, it is a new condition to accept the puzzle as valid.
+  - (User Experience) SOme minor gramatical corrections.
+  -
+
+---
+
 ### Version 0.4.24 (Load Past button) 2022-10-22
 
 - WHAT'S NEW!?
 
   - (User Experience) When the user starts ingressing values directly in the puzzle, the button "Load Past Sudoku" is disable as the other methods of loading.
-  - The process to solve beforehand the puzzle is started. Tested succesfully, but code commented for now, for this version.
-  - The globalVar stepByStep and the corresponding ifs decisions are already configured to avoid the DOM modifications during the beforehand resolution. For this version is hardcoded with false value, so the process flows as usual.
+  - (Puzzle Validation) The process to solve beforehand the puzzle is started. Tested succesfully, but code commented for now, for this version.
+  - (Puzzle Validation) The globalVar stepByStep and the corresponding ifs decisions are already configured to avoid the DOM modifications during the beforehand resolution. For this version is hardcoded with false value, so the process flows as usual.
 
 ---
 
@@ -480,7 +490,7 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ### Version 0.1.6 (solvingProcessFunctions.js file) 2022-09-16
 
-- The functions cellValueFound and newfoundvalueHTML were taken out to a new file solvingProcessFunctions.js
+- The functions cellValueFound and newFoundValueHTML were taken out to a new file solvingProcessFunctions.js
 
 ---
 
@@ -565,7 +575,7 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 ### Version 0.0.5 (Discard methods, notes shown) 2022-09-04
 
 - 3 new discard methods defined, to find obvious pairs per Row, per Column and per square
-- New function newfoundvalueHTML for showing in the html, the information for each new value
+- New function newFoundValueHTML for showing in the html, the information for each new value
 - New function discardTwoCandidatesHTML for showing logs when finding possibles values to discard
 - New feature of showing in screen the snotes for each cell, Button and Listener added.
 - New function to hide temporarily the notes and return to the main matrix in screen
