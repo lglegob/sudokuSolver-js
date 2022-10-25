@@ -36,6 +36,7 @@ const discardTwoCandidates = (blockvalue, mainaxis, row1, row2, column1, column2
   globalVar.stepByStep ? true : recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
   globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
+  globalVar.difficulty += 5;
   globalVar.stepByStep ? true : modifyDOM.discardTwoCandidatesHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
 };
 
@@ -54,6 +55,7 @@ const discardAllExcept = (blockvalue, mainaxis, row1, row2, column1, column2, va
   globalVar.stepByStep ? true : recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
   globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
+  globalVar.difficulty += 10;
   globalVar.stepByStep ? true : modifyDOM.discardAllExceptHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
 };
 
@@ -137,6 +139,7 @@ const discardOneCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, second
   globalVar.stepByStep ? true : recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
   globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
+  globalVar.difficulty += 20;
   globalVar.stepByStep ? true : modifyDOM.discardOneCandidateHTML(mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method);
 };
 
@@ -190,6 +193,7 @@ const discardOneCandidateFrom2Blocks = (mainaxisvalues, mainaxis, secondaryaxisv
   globalVar.stepByStep ? true : recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
   globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
+  globalVar.difficulty += 40;
   globalVar.stepByStep ? true : modifyDOM.discardOneCandidateFrom2BlocksHTML(mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method);
 };
 
@@ -218,6 +222,7 @@ const discardYWing = (pivotValues, pincer1Values, pincer1Axis, pincer2Values, pi
   globalVar.stepByStep ? true : recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
   globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
+  globalVar.difficulty += 50;
   globalVar.stepByStep ? true : modifyDOM.discardYWingHTML(pivotValues, pincer1Values, pincer1Axis, pincer2Values, pincer2Axis, pincerX, pincerY, pincerZ, method);
 };
 

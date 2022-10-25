@@ -6,13 +6,20 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.26 (Difficulty Calculation) 2022-10-24
+
+- WHAT'S NEW!?
+
+  - (Puzzle Validation) Based on the puzzle Validation and solving it beforehand a first attempt to do a calculation of the puzzle difficulty is made. By now, the output is just by Console, while it is finetuned and tested.
+
+---
+
 ### Version 0.4.25 (SolveIt Completely) 2022-10-24
 
 - WHAT'S NEW!?
 
   - (Puzzle Validation) The process to solve the whole puzzle beforehand is tested, uncommented and complemented with the validation that no cell during the solving process becomes empty of candidates without having a certain value already. So, it is a new condition to accept the puzzle as valid.
-  - (User Experience) SOme minor gramatical corrections.
-  -
+  - (User Experience) Some minor gramatical corrections.
 
 ---
 

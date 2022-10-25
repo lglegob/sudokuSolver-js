@@ -127,7 +127,12 @@ const loadMatrix = (initialMatrixValues, isThisPuzzleNew) => {
 
     console.log(globalVar.cellsResolved);
   };
-  globalVar.theMatrixSolved = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep]));
+  if (globalVar.failure) {
+    console.log(`Failure to solve it`);
+  } else {
+    console.log(`The calculated difficulty for this puzzle is ${globalVar.difficulty}`);
+  };
+    globalVar.theMatrixSolved = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep]));
   globalVar.stepByStep = false;
   globalVar.cellsResolved = tempCellsResolved;
   globalVar.currentStep = tempCurrentStep;

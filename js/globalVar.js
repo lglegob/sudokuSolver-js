@@ -29,4 +29,6 @@ let areNotesShowing = false;
 let areHighlightsOn = true;
 let stepByStep = false;
 let failure = false;
-export default { theMatrix, theMatrixSolved, stepsDetail, currentStep, loopsExecuted, cellsResolved, iterationSuccess, discardNoteSuccess, areNotesShowing, areHighlightsOn, stepByStep, failure };
+let difficulty = 0;
+
+export default { theMatrix, theMatrixSolved, stepsDetail, currentStep, loopsExecuted, cellsResolved, iterationSuccess, discardNoteSuccess, areNotesShowing, areHighlightsOn, stepByStep, failure, difficulty };

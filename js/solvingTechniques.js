@@ -23,6 +23,7 @@ const singleCandidate = () => {
         currentCellValue = globalVar.theMatrix[globalVar.currentStep][row][column].findIndex((one, index) => one === 1 && index > 0);
         const { theMatrixStepCellFound} = solvingFunctions.cellValueFound(row, column, currentCellValue, "Detecting Singles", "cell", [row + 1, column + 1]);
         globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
+        globalVar.difficulty += 1;
         break;
       };
     };
@@ -54,6 +55,7 @@ const hiddenSinglesRow = () => {
         currentCellValue = possibleCandidate;
         const {theMatrixStepCellFound} = solvingFunctions.cellValueFound(row, columnfound, currentCellValue, "Detecting Hidden Singles (row)", "row", row + 1);
         globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
+        globalVar.difficulty += 3;
         break;
       };
     };
@@ -85,6 +87,7 @@ const hiddenSinglesColumn = () => {
         currentCellValue = possibleCandidate;
         const {theMatrixStepCellFound} = solvingFunctions.cellValueFound(rowfound, column, currentCellValue, "Detecting Hidden Singles (column)", "column", column + 1);
         globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
+        globalVar.difficulty += 3;
         break;
       };
     };
@@ -122,6 +125,7 @@ const hiddenSinglesSquare = () => {
         currentCellValue = possibleCandidate;
         const {theMatrixStepCellFound} = solvingFunctions.cellValueFound(rowfound, columnfound, currentCellValue, "Detecting Hidden Singles (square)", "square", square);
         globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
+        globalVar.difficulty += 3;
         break;
       };
     if (globalVar.iterationSuccess) break;
