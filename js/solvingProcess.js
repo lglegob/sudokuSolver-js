@@ -1,12 +1,14 @@
 'use strict';
 import globalVar from "./globalVar.js";
+import * as recurrent from "./recurrentFunctions.js";
 import * as solvingTechniques from "./solvingTechniques.js";
 import * as obviousPairs from "./discardingTechniquesObviousPairs.js";
-import * as lockedCandidates from "./discardingTechniquesLockedCandidate.js";
 import * as hiddenPairs from "./discardingTechniquesHiddenPairs.js";
+import * as obviousTriples from "./discardingTechniquesObviousTriples.js";
+import * as lockedCandidates from "./discardingTechniquesLockedCandidate.js";
 import * as xwing from "./discardingTechniquesXWing.js";
 import * as ywing from "./discardingTechniquesYWing.js";
-import * as recurrent from "./recurrentFunctions.js";
+
 
 ////////////////////////////////////////////////////////////////////////////////
 //                            SOLVING PROCESS                                //
@@ -50,6 +52,11 @@ const solvingProcess = () => {
   };
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
     hiddenPairs.hiddenPairsSquare();
+  };
+
+  //OBVIOUS TRIPLE METHODS
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+    obviousTriples.obviousTriplesRow();
   };
 
   //LOCKED CANDIDATE METHODS

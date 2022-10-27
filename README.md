@@ -1,10 +1,18 @@
 # sudokuSolver-js
 
-Repository dedicated for the configuration and development of a Sudoku Solver based on JavaScript. It is being created by using logical solution methods like a human would solve it. This with the purpose to be able to solve each sudoku puzzle that a user ingress, like a tutorial, with step and step explanations and methods definitions. No brute Force algorithm. No backtracking algorithm.
+Repository dedicated for the configuration and development of a Sudoku Solver based on JavaScript, which functioning version is located at [LeGo Sudoku Solver](https://lglegob.github.io/sudokuSolver-js/). It is being created by using logical solution methods like a human would solve it. This with the purpose to be able to solve each sudoku puzzle that a user ingress, like a tutorial, with step and step explanations and methods definitions. No brute Force algorithm. No backtracking algorithm.
 
 ![Sudoku Image](/images/6710716.jpg)
 
 ## Change Control and Versioning
+
+### Version 0.4.27 (Obvious Triples Strategy (Row)) 2022-10-26
+
+- WHAT'S NEW!?
+
+  - (Puzzle Solving Strategies) A new Puzzle Discarding candidates Strategy has been defined. The Obvious Triples! in this case initially for cells located within the same Row.
+
+---
 
 ### Version 0.4.26 (Difficulty Calculation) 2022-10-24
 

@@ -84,6 +84,46 @@ const discardAllExceptHTML = (blockvalue, mainaxis, row1, row2, column1, column2
   settingHighlightedBlock(mainaxis, blockvalue + 1);
 };
 
+//This Function is called by OBVIOUSPAIRS Techniques
+const discardObviousTriplesHTML = (mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method) => {
+  console.log("--------------------------------------------");
+  console.log("The answer is out there, Neo. It's looking for you.. - Trinity");
+  console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
+  console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
+  console.log("We found an Obvious Triple!")
+  mainaxis === "square" ? blockvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  console.log(`We are looking at ${mainaxis} ${mainaxisvalue + 1}, the first Cell is row${cellsIdentified.cell1.row + 1} column${cellsIdentified.cell1.column + 1}, the second Cell is row${cellsIdentified.cell2.row + 1} column${cellsIdentified.cell2.column + 1} and the Third Cell is row${cellsIdentified.cell3.row + 1} column${cellsIdentified.cell3.column + 1}`)
+  console.log(`The common triple notes are ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate1}, they have been deleted from other cells in the ${mainaxis} ${mainaxisvalue + 1}`);
+  document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
+  document.querySelector("#button-reload").classList.add("active");
+  document.querySelector("#button-reload").classList.remove("inactive");
+  let newDiscardArticle = document.createElement("article");
+  newDiscardArticle.classList.add("newdiscardTripleCandidates");
+  newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  newDiscardArticle.style.zIndex = -globalVar.currentStep;
+  newDiscardArticle.innerHTML = `
+  <h3>Step ${globalVar.currentStep}</h3>
+  <h4>${method}</h4>
+  <p>Cells 
+    <strong><span data-cellcoordinates=".row${cellsIdentified.cell1.row + 1}.column${cellsIdentified.cell1.column  + 1}">R${cellsIdentified.cell1.row + 1}C${cellsIdentified.cell1.column + 1}</span></strong>,  
+    <strong><span data-cellcoordinates=".row${cellsIdentified.cell2.row + 1}.column${cellsIdentified.cell2.column  + 1}">R${cellsIdentified.cell2.row + 1}C${cellsIdentified.cell2.column + 1}</span></strong> and 
+    <strong><span data-cellcoordinates=".row${cellsIdentified.cell3.row + 1}.column${cellsIdentified.cell3.column  + 1}">R${cellsIdentified.cell3.row + 1}C${cellsIdentified.cell3.column + 1}</span></strong>
+    contain an obvious triple (Cells with the same three only candidates)
+  </p>
+  <p>The three cells are within the same Block (${mainaxis} ${mainaxisvalue + 1}), and the candidates are ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate3}</p>
+  <p>These Candidates, ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate3}, have been deleted from other cells within the ${mainaxis} ${mainaxisvalue + 1}</p>
+  `;
+  const main = document.querySelector(".stepsDetails > div");
+  main.prepend(newDiscardArticle);
+
+  //creating the Event Listeners to the recently created RC spans
+  const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
+  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+
+  addGoBackToStepButton();
+  settingHighlightedBlock(mainaxis, mainaxisvalue + 1);
+};
+
 //This Function is called by LOCKEDCANDIDATE Techniques
 const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method) => {
   console.log("--------------------------------------------");
@@ -281,4 +321,4 @@ const settingHighlightedBlock = (mainBlock, mainBlockValue) => {
   };
 };
 
-export { discardOneCandidateHTML, discardOneCandidateFrom2BlocksHTML, discardTwoCandidatesHTML, discardAllExceptHTML, discardYWingHTML, addGoBackToStepButton, settingHighlightedBlock }
+export { discardOneCandidateHTML, discardOneCandidateFrom2BlocksHTML, discardTwoCandidatesHTML, discardAllExceptHTML, discardObviousTriplesHTML, discardYWingHTML, addGoBackToStepButton, settingHighlightedBlock }

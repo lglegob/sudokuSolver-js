@@ -59,6 +59,39 @@ const discardAllExcept = (blockvalue, mainaxis, row1, row2, column1, column2, va
   globalVar.stepByStep ? true : modifyDOM.discardAllExceptHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
 };
 
+const discardObviousTriples = (mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method, whereisthisnote, callbackNoteZero) => {
+  globalVar.currentStep++;
+  globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
+  globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
+  //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
+  let theMatrixStep = callbackNoteZero(mainaxisvalue, eval(`currentCandidates.candidate1`), globalVar.theMatrix[globalVar.currentStep]);
+  theMatrixStep = callbackNoteZero(mainaxisvalue, eval(`currentCandidates.candidate2`), theMatrixStep);
+  theMatrixStep = callbackNoteZero(mainaxisvalue, eval(`currentCandidates.candidate3`), theMatrixStep);
+  globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
+  //But here, it is restablished as notes for the triple of cells
+  for (let cellIdentified = 1; cellIdentified <= Object.keys(cellsIdentified).length; cellIdentified++) {
+    for (let currentCandidate = 1; currentCandidate <= Object.keys(currentCandidates).length; currentCandidate++) {
+      whereisthisnote[eval(`currentCandidates.candidate${currentCandidate}`)][eval(`cellsIdentified.cell${cellIdentified}.column`)] === 1 ? globalVar.theMatrix[globalVar.currentStep][eval(`cellsIdentified.cell${cellIdentified}.row`)][eval(`cellsIdentified.cell${cellIdentified}.column`)][eval(`currentCandidates.candidate${currentCandidate}`)] = 1 : false;
+    };
+  };
+
+  if(globalVar.areHighlightsOn === true) { 
+    //these coupleof fors reset the noteKept and justDeleteNote classes for the cells identified for the current discarding strategy
+    for (let cellIdentified = 1; cellIdentified <= Object.keys(cellsIdentified).length; cellIdentified++) {
+      for (let currentCandidate = 1; currentCandidate <= Object.keys(currentCandidates).length; currentCandidate++) {
+        whereisthisnote[eval(`currentCandidates.candidate${currentCandidate}`)][eval(`cellsIdentified.cell${cellIdentified}.column`)] === 1 ? document.querySelector(".theMatrixNotes " + ".row" + (eval(`cellsIdentified.cell${cellIdentified}.row`) + 1) + ".column" + (eval(`cellsIdentified.cell${cellIdentified}.column`) + 1) + " .note" + eval(`currentCandidates.candidate${currentCandidate}`)).classList.remove("justDeletedNote") : false;
+        whereisthisnote[eval(`currentCandidates.candidate${currentCandidate}`)][eval(`cellsIdentified.cell${cellIdentified}.column`)] === 1 ? document.querySelector(".theMatrixNotes " + ".row" + (eval(`cellsIdentified.cell${cellIdentified}.row`) + 1) + ".column" + (eval(`cellsIdentified.cell${cellIdentified}.column`) + 1) + " .note" + eval(`currentCandidates.candidate${currentCandidate}`)).classList.add("noteKept") : false;
+      };
+    };
+  };
+  globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
+  globalVar.stepByStep ? true : recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
+  globalVar.stepByStep ? true : recurrent.toggleNotes();
+  globalVar.discardNoteSuccess = true;
+  globalVar.difficulty += 8;
+  globalVar.stepByStep ? true : modifyDOM.discardObviousTriplesHTML(mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method);
+};
+
 //Consolidated function for the 3 Blocks (row, column and square), when one value can be discarded
 //This Function is called by LOCKEDCANDIDATE Techniques
 const discardOneCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method, callbackNoteZero) => {
@@ -226,4 +259,4 @@ const discardYWing = (pivotValues, pincer1Values, pincer1Axis, pincer2Values, pi
   globalVar.stepByStep ? true : modifyDOM.discardYWingHTML(pivotValues, pincer1Values, pincer1Axis, pincer2Values, pincer2Axis, pincerX, pincerY, pincerZ, method);
 };
 
-export { discardOneCandidate, discardOneCandidateFrom2Blocks, discardTwoCandidates, discardAllExcept, discardYWing }
+export { discardOneCandidate, discardOneCandidateFrom2Blocks, discardTwoCandidates, discardAllExcept, discardYWing, discardObviousTriples }

@@ -123,8 +123,6 @@ const loadMatrix = (initialMatrixValues, isThisPuzzleNew) => {
       };
       if (globalVar.failure) break;
     };
-
-
     console.log(globalVar.cellsResolved);
   };
   if (globalVar.failure) {
