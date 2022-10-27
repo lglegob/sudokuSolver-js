@@ -91,7 +91,7 @@ const discardObviousTripleHTML = (mainaxisvalue, mainaxis, cellsIdentified, curr
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
   console.log("We found an Obvious Triple!")
-  mainaxis === "square" ? blockvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  mainaxis === "square" ? mainaxisvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
   console.log(`We are looking at ${mainaxis} ${mainaxisvalue + 1}, the first Cell is row${cellsIdentified.cell1.row + 1} column${cellsIdentified.cell1.column + 1}, the second Cell is row${cellsIdentified.cell2.row + 1} column${cellsIdentified.cell2.column + 1} and the Third Cell is row${cellsIdentified.cell3.row + 1} column${cellsIdentified.cell3.column + 1}`)
   console.log(`The common triple notes are ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate1}, they have been deleted from other cells in the ${mainaxis} ${mainaxisvalue + 1}`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary

@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.29 (Obvious Triples Strategy (Square)) 2022-10-27
+
+- WHAT'S NEW!?
+
+  - (Puzzle Solving Strategies) The complementary Discarding candidates Strategy for Triples in Squares has been defined.
+
+---
+
 ### Version 0.4.28 (Obvious Triples Strategy (Column)) 2022-10-26
 
 - WHAT'S NEW!?
