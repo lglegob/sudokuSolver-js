@@ -7,7 +7,7 @@ import * as eventListeners from "./eventListeners.js";
 //////////////////////////////////////////////////////////////////////////////
 
 //This Function is called by OBVIOUSPAIRS Techniques
-const discardTwoCandidatesHTML = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method) => {
+const discardObviousPairsHTML = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method) => {
   console.log("--------------------------------------------");
   console.log("There are only two possible explanations: either no one told me, or no one knows. - Neo");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
@@ -20,7 +20,7 @@ const discardTwoCandidatesHTML = (blockvalue, mainaxis, row1, row2, column1, col
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
   let newDiscardArticle = document.createElement("article");
-  newDiscardArticle.classList.add("newdiscardTwoCandidates");
+  newDiscardArticle.classList.add("newDiscardObviousPairs");
   newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
   newDiscardArticle.style.zIndex = -globalVar.currentStep;
   newDiscardArticle.innerHTML = `
@@ -46,7 +46,7 @@ const discardTwoCandidatesHTML = (blockvalue, mainaxis, row1, row2, column1, col
 };
 
 //This Function is called by HIDDENPAIRS Techniques
-const discardAllExceptHTML = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method) => {
+const discardHiddenPairHTML = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method) => {
   console.log("--------------------------------------------");
   console.log("We are still here! – Morpheus");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
@@ -59,7 +59,7 @@ const discardAllExceptHTML = (blockvalue, mainaxis, row1, row2, column1, column2
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
   let newDiscardArticle = document.createElement("article");
-  newDiscardArticle.classList.add("newdiscardAllExceptHiddenPair");
+  newDiscardArticle.classList.add("newDiscarHiddenPair");
   newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
   newDiscardArticle.style.zIndex = -globalVar.currentStep;
   newDiscardArticle.innerHTML = `
@@ -84,8 +84,8 @@ const discardAllExceptHTML = (blockvalue, mainaxis, row1, row2, column1, column2
   settingHighlightedBlock(mainaxis, blockvalue + 1);
 };
 
-//This Function is called by OBVIOUSPAIRS Techniques
-const discardObviousTriplesHTML = (mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method) => {
+//This Function is called by OBVIOUSTRIPLES Techniques
+const discardObviousTripleHTML = (mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method) => {
   console.log("--------------------------------------------");
   console.log("The answer is out there, Neo. It's looking for you.. - Trinity");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
@@ -125,7 +125,7 @@ const discardObviousTriplesHTML = (mainaxisvalue, mainaxis, cellsIdentified, cur
 };
 
 //This Function is called by LOCKEDCANDIDATE Techniques
-const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method) => {
+const discardLockedCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method) => {
   console.log("--------------------------------------------");
   console.log("Remember, all I’m offering is the truth. Nothing more. - Morpheus");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
@@ -139,7 +139,7 @@ const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, se
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
   let newDiscardArticle = document.createElement("article");
-  newDiscardArticle.classList.add("newdiscardOneCandidate");
+  newDiscardArticle.classList.add("newdiscardLockedCandidate");
   newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
   newDiscardArticle.style.zIndex = -globalVar.currentStep;
   newDiscardArticle.innerHTML = `
@@ -157,7 +157,7 @@ const discardOneCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, se
 };
 
 //This Function is called by X-WING Techniques
-const discardOneCandidateFrom2BlocksHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method) => {
+const discardXWingHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method) => {
   console.log("--------------------------------------------");
   console.log("All the time. It's called mescaline, it's the only way to fly. - Choi");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
@@ -169,7 +169,7 @@ const discardOneCandidateFrom2BlocksHTML = (mainaxisvalues, mainaxis, secondarya
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
   let newDiscardArticle = document.createElement("article");
-  newDiscardArticle.classList.add("newdiscardOneCandidate");
+  newDiscardArticle.classList.add("newdiscardXWing");
   newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
   newDiscardArticle.style.zIndex = -globalVar.currentStep;
   
@@ -205,8 +205,8 @@ const discardOneCandidateFrom2BlocksHTML = (mainaxisvalues, mainaxis, secondarya
       Since no more candidates with option ${value} exist within the two Columns, we know for sure those two ${value}s must exist in two of those 4 cells in a diagonal, either  
       (<strong><span data-cellcoordinates=".row${secondaryaxisvalues[0] + 1}.column${mainaxisvalues[0] + 1}">R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[0] + 1}</span></strong> and 
       <strong><span data-cellcoordinates=".row${secondaryaxisvalues[1] + 1}.column${mainaxisvalues[1] + 1}">R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[1] + 1}</span></strong> 
-      will be ${value} OR 
-      <strong><span data-cellcoordinates=".row${secondaryaxisvalues[0] + 1}.column${mainaxisvalues[1] + 1}">R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[1] + 1}</span></strong> and 
+      will be ${value}) OR 
+      (<strong><span data-cellcoordinates=".row${secondaryaxisvalues[0] + 1}.column${mainaxisvalues[1] + 1}">R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[1] + 1}</span></strong> and 
       <strong><span data-cellcoordinates=".row${secondaryaxisvalues[1] + 1}.column${mainaxisvalues[0] + 1}">R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[0] + 1}</span></strong> will be ${value})
     </p>
     <p>Because having those two mandatory ${value}s in two of the cells, we are sure that the two Rows will already have the ${value}</p>
@@ -237,7 +237,7 @@ const discardYWingHTML = (pivotValues, pincer1Values, pincer1Axis, pincer2Values
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
   let newDiscardArticle = document.createElement("article");
-  newDiscardArticle.classList.add("newdiscardOneCandidate");
+  newDiscardArticle.classList.add("newdiscardYWing");
   newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
   newDiscardArticle.style.zIndex = -globalVar.currentStep;
   
@@ -321,4 +321,4 @@ const settingHighlightedBlock = (mainBlock, mainBlockValue) => {
   };
 };
 
-export { discardOneCandidateHTML, discardOneCandidateFrom2BlocksHTML, discardTwoCandidatesHTML, discardAllExceptHTML, discardObviousTriplesHTML, discardYWingHTML, addGoBackToStepButton, settingHighlightedBlock }
+export { discardLockedCandidateHTML, discardXWingHTML, discardObviousPairsHTML, discardHiddenPairHTML, discardObviousTripleHTML, discardYWingHTML, addGoBackToStepButton, settingHighlightedBlock }

@@ -9,7 +9,7 @@ import * as modifyDOM from "./modifyingDOMFunctions.js";
 
 //Consolidated function for the 3 Blocks (row, column and square), when a pair of values can be discarded
 //This Function is called by OBVIOUSPAIRS Techniques
-const discardTwoCandidates = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method, callbackNoteZero) => {
+const discardObviousPairs = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method, callbackNoteZero) => {
   globalVar.currentStep++;
   globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
@@ -37,12 +37,12 @@ const discardTwoCandidates = (blockvalue, mainaxis, row1, row2, column1, column2
   globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
   globalVar.difficulty += 5;
-  globalVar.stepByStep ? true : modifyDOM.discardTwoCandidatesHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
+  globalVar.stepByStep ? true : modifyDOM.discardObviousPairsHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
 };
 
 //Consolidated function for the 3 Blocks (row, column and square), when a pair of values must be kept and discard all others in one cell
 //This Function is called by HIDDENPAIRS Techniques
-const discardAllExcept = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method, callbackNoteZero) => {
+const discardHiddenPair = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method, callbackNoteZero) => {
   globalVar.currentStep++;
   globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
@@ -56,10 +56,10 @@ const discardAllExcept = (blockvalue, mainaxis, row1, row2, column1, column2, va
   globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
   globalVar.difficulty += 10;
-  globalVar.stepByStep ? true : modifyDOM.discardAllExceptHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
+  globalVar.stepByStep ? true : modifyDOM.discardHiddenPairHTML(blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method);
 };
 
-const discardObviousTriples = (mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method, whereisthisnote, callbackNoteZero) => {
+const discardObviousTriple = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentified, currentCandidates, method, whereisthisnote, callbackNoteZero) => {
   globalVar.currentStep++;
   globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
@@ -68,10 +68,13 @@ const discardObviousTriples = (mainaxisvalue, mainaxis, cellsIdentified, current
   theMatrixStep = callbackNoteZero(mainaxisvalue, eval(`currentCandidates.candidate2`), theMatrixStep);
   theMatrixStep = callbackNoteZero(mainaxisvalue, eval(`currentCandidates.candidate3`), theMatrixStep);
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
-  //But here, it is restablished as notes for the triple of cells
+
+  //But here, it is restablished as notes for the triple of cells, executing a double for for the cells and for the candidates.
+  //Within the for, the .lenght are used to define if it is an obvious pair or obvious triple, it will depend of which discarding method was the one that called this function
   for (let cellIdentified = 1; cellIdentified <= Object.keys(cellsIdentified).length; cellIdentified++) {
     for (let currentCandidate = 1; currentCandidate <= Object.keys(currentCandidates).length; currentCandidate++) {
-      whereisthisnote[eval(`currentCandidates.candidate${currentCandidate}`)][eval(`cellsIdentified.cell${cellIdentified}.column`)] === 1 ? globalVar.theMatrix[globalVar.currentStep][eval(`cellsIdentified.cell${cellIdentified}.row`)][eval(`cellsIdentified.cell${cellIdentified}.column`)][eval(`currentCandidates.candidate${currentCandidate}`)] = 1 : false;
+      //secondaryaxis is to define which is the axis that defines the order in whereisthisnote
+      whereisthisnote[eval(`currentCandidates.candidate${currentCandidate}`)][eval(`cellsIdentified.cell${cellIdentified}.${secondaryaxis}`)] === 1 ? globalVar.theMatrix[globalVar.currentStep][eval(`cellsIdentified.cell${cellIdentified}.row`)][eval(`cellsIdentified.cell${cellIdentified}.column`)][eval(`currentCandidates.candidate${currentCandidate}`)] = 1 : false;
     };
   };
 
@@ -79,8 +82,9 @@ const discardObviousTriples = (mainaxisvalue, mainaxis, cellsIdentified, current
     //these coupleof fors reset the noteKept and justDeleteNote classes for the cells identified for the current discarding strategy
     for (let cellIdentified = 1; cellIdentified <= Object.keys(cellsIdentified).length; cellIdentified++) {
       for (let currentCandidate = 1; currentCandidate <= Object.keys(currentCandidates).length; currentCandidate++) {
-        whereisthisnote[eval(`currentCandidates.candidate${currentCandidate}`)][eval(`cellsIdentified.cell${cellIdentified}.column`)] === 1 ? document.querySelector(".theMatrixNotes " + ".row" + (eval(`cellsIdentified.cell${cellIdentified}.row`) + 1) + ".column" + (eval(`cellsIdentified.cell${cellIdentified}.column`) + 1) + " .note" + eval(`currentCandidates.candidate${currentCandidate}`)).classList.remove("justDeletedNote") : false;
-        whereisthisnote[eval(`currentCandidates.candidate${currentCandidate}`)][eval(`cellsIdentified.cell${cellIdentified}.column`)] === 1 ? document.querySelector(".theMatrixNotes " + ".row" + (eval(`cellsIdentified.cell${cellIdentified}.row`) + 1) + ".column" + (eval(`cellsIdentified.cell${cellIdentified}.column`) + 1) + " .note" + eval(`currentCandidates.candidate${currentCandidate}`)).classList.add("noteKept") : false;
+        //secondaryaxis is to define which is the axis that defines the order in whereisthisnote
+        whereisthisnote[eval(`currentCandidates.candidate${currentCandidate}`)][eval(`cellsIdentified.cell${cellIdentified}.${secondaryaxis}`)] === 1 ? document.querySelector(".theMatrixNotes " + ".row" + (eval(`cellsIdentified.cell${cellIdentified}.row`) + 1) + ".column" + (eval(`cellsIdentified.cell${cellIdentified}.column`) + 1) + " .note" + eval(`currentCandidates.candidate${currentCandidate}`)).classList.remove("justDeletedNote") : false;
+        whereisthisnote[eval(`currentCandidates.candidate${currentCandidate}`)][eval(`cellsIdentified.cell${cellIdentified}.${secondaryaxis}`)] === 1 ? document.querySelector(".theMatrixNotes " + ".row" + (eval(`cellsIdentified.cell${cellIdentified}.row`) + 1) + ".column" + (eval(`cellsIdentified.cell${cellIdentified}.column`) + 1) + " .note" + eval(`currentCandidates.candidate${currentCandidate}`)).classList.add("noteKept") : false;
       };
     };
   };
@@ -89,12 +93,12 @@ const discardObviousTriples = (mainaxisvalue, mainaxis, cellsIdentified, current
   globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
   globalVar.difficulty += 8;
-  globalVar.stepByStep ? true : modifyDOM.discardObviousTriplesHTML(mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method);
+  globalVar.stepByStep ? true : modifyDOM.discardObviousTripleHTML(mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method);
 };
 
 //Consolidated function for the 3 Blocks (row, column and square), when one value can be discarded
 //This Function is called by LOCKEDCANDIDATE Techniques
-const discardOneCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method, callbackNoteZero) => {
+const discardLockedCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method, callbackNoteZero) => {
   let fromRowD;
   let maximumRowD;
   let fromColumnD;
@@ -173,12 +177,12 @@ const discardOneCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, second
   globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
   globalVar.difficulty += 20;
-  globalVar.stepByStep ? true : modifyDOM.discardOneCandidateHTML(mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method);
+  globalVar.stepByStep ? true : modifyDOM.discardLockedCandidateHTML(mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method);
 };
 
 //Consolidated function for the 2 Blocks (row, column), when one value can be discarded in X-Wing Detection technique
 //This Function is called by X-WING Techniques
-const discardOneCandidateFrom2Blocks = (mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method, callbackNoteZero) => {
+const discardXWing = (mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method, callbackNoteZero) => {
   globalVar.currentStep++;
   globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
@@ -227,7 +231,7 @@ const discardOneCandidateFrom2Blocks = (mainaxisvalues, mainaxis, secondaryaxisv
   globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
   globalVar.difficulty += 40;
-  globalVar.stepByStep ? true : modifyDOM.discardOneCandidateFrom2BlocksHTML(mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method);
+  globalVar.stepByStep ? true : modifyDOM.discardXWingHTML(mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method);
 };
 
 //Consolidated function for the Y-Wing Combinations, where one value can be discarded in one or several cells
@@ -259,4 +263,4 @@ const discardYWing = (pivotValues, pincer1Values, pincer1Axis, pincer2Values, pi
   globalVar.stepByStep ? true : modifyDOM.discardYWingHTML(pivotValues, pincer1Values, pincer1Axis, pincer2Values, pincer2Axis, pincerX, pincerY, pincerZ, method);
 };
 
-export { discardOneCandidate, discardOneCandidateFrom2Blocks, discardTwoCandidates, discardAllExcept, discardYWing, discardObviousTriples }
+export { discardLockedCandidate, discardXWing, discardObviousPairs, discardHiddenPair, discardYWing, discardObviousTriple }

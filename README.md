@@ -6,6 +6,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.28 (Obvious Triples Strategy (Column)) 2022-10-26
+
+- WHAT'S NEW!?
+
+  - (Puzzle Solving Strategies) The complementary Discarding candidates Strategy for Triples in Columns has been defined.
+  - (Code Improvements) Names of the discarding Functions as well as the DOM Modifying functions have been standardized with the name of the sudoku solving strategy used for easier mapping.
+
+---
+
 ### Version 0.4.27 (Obvious Triples Strategy (Row)) 2022-10-26
 
 - WHAT'S NEW!?

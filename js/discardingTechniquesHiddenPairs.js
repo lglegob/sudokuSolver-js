@@ -26,7 +26,7 @@ const hiddenPairsRow = () => {
               //This if is to make sure the pair found has notes in other cells and declare them as obvious Pair
               if (howmanynotesinthiscell[currentCell1] > 2 || howmanynotesinthiscell[currentCell2] > 2) {
                 console.log(`we have found a hidden Pair in Row ${row}, columns ${currentCell1} and ${currentCell2}, the candidates are ${possibleCandidate1} and ${possibleCandidate2} `);
-                discardingFunctions.discardAllExcept(row, "row", row, row, currentCell1, currentCell2, possibleCandidate1, possibleCandidate2, "Detecting Hidden Pair (Row)", notesZero.noteZeroCellExcept);
+                discardingFunctions.discardHiddenPair(row, "row", row, row, currentCell1, currentCell2, possibleCandidate1, possibleCandidate2, "Detecting Hidden Pair (Row)", notesZero.noteZeroCellExcept);
                 break;
               };
             };
@@ -56,7 +56,7 @@ const hiddenPairsColumn = () => {
               let currentCell2 = candidate1notes.indexOf(1, currentCell1 + 1);
               //This if is to make sure the pair found has notes in other cells and declare them as obvious Pair
               if (howmanynotesinthiscell[currentCell1] > 2 || howmanynotesinthiscell[currentCell2] > 2) {
-                discardingFunctions.discardAllExcept(column, "column", currentCell1, currentCell2, column, column, possibleCandidate1, possibleCandidate2, "Detecting Hidden Pair (Column)", notesZero.noteZeroCellExcept);
+                discardingFunctions.discardHiddenPair(column, "column", currentCell1, currentCell2, column, column, possibleCandidate1, possibleCandidate2, "Detecting Hidden Pair (Column)", notesZero.noteZeroCellExcept);
                 break;
               };
             };
@@ -89,7 +89,7 @@ const hiddenPairsSquare = () => {
               if (howmanynotesinthiscell[currentCell1] > 2 || howmanynotesinthiscell[currentCell2] > 2) {
                 const { realRow:realRow1, realColumn:realColumn1 } = recurrent.defineRowColumnFromCellRelative(square, currentCell1);
                 const { realRow:realRow2, realColumn:realColumn2 } = recurrent.defineRowColumnFromCellRelative(square, currentCell2);
-                discardingFunctions.discardAllExcept(square, "square", realRow1, realRow2, realColumn1, realColumn2, possibleCandidate1, possibleCandidate2, "Detecting Hidden Pair (Square)", notesZero.noteZeroCellExcept);
+                discardingFunctions.discardHiddenPair(square, "square", realRow1, realRow2, realColumn1, realColumn2, possibleCandidate1, possibleCandidate2, "Detecting Hidden Pair (Square)", notesZero.noteZeroCellExcept);
                 break;
               };
             };

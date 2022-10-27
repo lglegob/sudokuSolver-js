@@ -35,7 +35,7 @@ const xwingRow = () => {
               gettingInfo.gettingDetailedInfoBlock ( 0, 8, column2, column2, "column" );
               if (howmanycellswiththisnoteC1[possibleCandidate] > 2 || howmanycellswiththisnoteC2[possibleCandidate] > 2) {
                 // console.log(`X-Wing Found in Rows ${row1 + 1} and ${row2 + 1} for candidate ${possibleCandidate}. There are still other notes in Columns ${column1 + 1} and ${column2 + 1}`);
-                discardingFunctions.discardOneCandidateFrom2Blocks([row1, row2], "row", [column1, column2], "column", possibleCandidate, "X-Wing Value in Rows to delete Candidates in Columns", notesZero.noteZeroColumn );
+                discardingFunctions.discardXWing([row1, row2], "row", [column1, column2], "column", possibleCandidate, "X-Wing Value in Rows to delete Candidates in Columns", notesZero.noteZeroColumn );
                 break;
               };
             };
@@ -74,7 +74,7 @@ const xwingColumn = () => {
               gettingInfo.gettingDetailedInfoBlock ( row2, row2, 0, 8, "row" );
               if (howmanycellswiththisnoteR1[possibleCandidate] > 2 || howmanycellswiththisnoteR2[possibleCandidate] > 2) {
                 // console.log(`X-Wing Found in Columns ${column1 + 1} and ${column2 + 1} for candidate ${possibleCandidate}. There are still other notes in Rows ${row1 + 1} and ${row2 + 1}`);
-                discardingFunctions.discardOneCandidateFrom2Blocks( [column1, column2], "column", [row1, row2], "row", possibleCandidate, "X-Wing Value in Columns to delete Candidates in Rows", notesZero.noteZeroRow );
+                discardingFunctions.discardXWing( [column1, column2], "column", [row1, row2], "row", possibleCandidate, "X-Wing Value in Columns to delete Candidates in Rows", notesZero.noteZeroRow );
                 break;
               };
             };

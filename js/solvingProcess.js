@@ -56,6 +56,9 @@ const solvingProcess = () => {
 
   //OBVIOUS TRIPLE METHODS
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+    obviousTriples.obviousTriplesColumn();
+  };
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
     obviousTriples.obviousTriplesRow();
   };
 
