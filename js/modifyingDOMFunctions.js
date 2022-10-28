@@ -7,15 +7,15 @@ import * as eventListeners from "./eventListeners.js";
 //////////////////////////////////////////////////////////////////////////////
 
 //This Function is called by OBVIOUSPAIRS Techniques
-const discardObviousPairsHTML = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method) => {
+const discardObviousPairsHTML = (mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method) => {
   console.log("--------------------------------------------");
   console.log("There are only two possible explanations: either no one told me, or no one knows. - Neo");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
   console.log("We found an Obvious Pair!")
-  mainaxis === "square" ? blockvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
-  console.log(`We are looking at ${mainaxis} ${blockvalue + 1}, the first cell is row${row1 + 1} column${column1 + 1}, and the second cell is row${row2 + 1} column${column2 + 1}`)
-  console.log(`The common pair notes are ${value1} and ${value2}, they have been deleted from other cells in the ${mainaxis} ${blockvalue + 1}`);
+  mainaxis === "square" ? mainaxisvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  console.log(`We are looking at ${mainaxis} ${mainaxisvalue + 1}, the first cell is row${cellsIdentified.cell1.row + 1} column${cellsIdentified.cell1.column + 1}, and the second cell is row${cellsIdentified.cell2.row + 1} column${cellsIdentified.cell2.column + 1}`)
+  console.log(`The common pair notes are ${currentCandidates.candidate1} and ${currentCandidates.candidate2}, they have been deleted from other cells in the ${mainaxis} ${mainaxisvalue + 1}`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
@@ -27,12 +27,12 @@ const discardObviousPairsHTML = (blockvalue, mainaxis, row1, row2, column1, colu
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>${method}</h4>
   <p>Cells 
-    <strong><span data-cellcoordinates=".row${row1 + 1}.column${column1 + 1}">R${row1 + 1}C${column1 + 1}</span></strong> and 
-    <strong><span data-cellcoordinates=".row${row2 + 1}.column${column2 + 1}"> R${row2 + 1}C${column2 + 1}</span></strong> 
+    <strong><span data-cellcoordinates=".row${cellsIdentified.cell1.row + 1}.column${cellsIdentified.cell1.column  + 1}">R${cellsIdentified.cell1.row + 1}C${cellsIdentified.cell1.column + 1}</span></strong> and 
+    <strong><span data-cellcoordinates=".row${cellsIdentified.cell2.row + 1}.column${cellsIdentified.cell2.column  + 1}">R${cellsIdentified.cell2.row + 1}C${cellsIdentified.cell2.column + 1}</span></strong> 
     contain an obvious pair (Cells with the same two only candidates)
   </p>
-  <p>The two cells are within the same Block (${mainaxis} ${blockvalue + 1}), and the candidates are ${value1} and ${value2}</p>
-  <p>These Candidates, ${value1} and ${value2}, have been deleted from other cells within the ${mainaxis} ${blockvalue + 1}</p>
+  <p>The two cells are within the same Block (${mainaxis} ${mainaxisvalue + 1}), and the candidates are ${currentCandidates.candidate1} and ${currentCandidates.candidate2}</p>
+  <p>These Candidates, ${currentCandidates.candidate1} and ${currentCandidates.candidate2}, have been deleted from other cells within the ${mainaxis} ${mainaxisvalue + 1}</p>
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newDiscardArticle);
@@ -42,7 +42,7 @@ const discardObviousPairsHTML = (blockvalue, mainaxis, row1, row2, column1, colu
   spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock(mainaxis, blockvalue + 1);
+  settingHighlightedBlock(mainaxis, mainaxisvalue + 1);
 };
 
 //This Function is called by HIDDENPAIRS Techniques

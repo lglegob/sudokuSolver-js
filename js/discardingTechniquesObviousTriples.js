@@ -4,6 +4,7 @@ import * as discardingFunctions from "./discardingProcessFunctions.js"
 import * as notesZero from "./notesZero.js";
 import * as gettingInfo from "./gettingInfoBlock.js";
 import * as recurrent from "./recurrentFunctions.js";
+import * as modifyDOM from "./modifyingDOMFunctions.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                  DISCARDING TECHNIQUES - OBVIOUS PAIRS                    //
@@ -46,7 +47,7 @@ const obviousTriplesRow = () => {
                     let howManyCandidate2 = cell1notes[currentCandidateValue2] + cell2notes[currentCandidateValue2] + cell3notes[currentCandidateValue2];
                     let howManyCandidate3 = cell1notes[currentCandidateValue3] + cell2notes[currentCandidateValue3] + cell3notes[currentCandidateValue3];
                     if (howManyCandidate1 < howmanycellswiththisnote[currentCandidateValue1] || howManyCandidate2 < howmanycellswiththisnote[currentCandidateValue2] || howManyCandidate3 < howmanycellswiththisnote[currentCandidateValue3]) { 
-                      discardingFunctions.discardObviousTriple(row, "row", "column", {cell1:{ row: row, column: column1 }, cell2:{ row: row, column: column2 }, cell3:{ row: row, column: column3 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3 }, "Detecting Obvious Triples (Row)", whereisthisnote, notesZero.noteZeroRow );
+                      discardingFunctions.discardObviousSet(row, "row", "column", {cell1:{ row: row, column: column1 }, cell2:{ row: row, column: column2 }, cell3:{ row: row, column: column3 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3 }, "Detecting Obvious Triples (Row)", whereisthisnote, notesZero.noteZeroRow, modifyDOM.discardObviousTripleHTML );
                       break;
                     }
                   }
@@ -100,7 +101,7 @@ const obviousTriplesColumn = () => {
                     let howManyCandidate2 = cell1notes[currentCandidateValue2] + cell2notes[currentCandidateValue2] + cell3notes[currentCandidateValue2];
                     let howManyCandidate3 = cell1notes[currentCandidateValue3] + cell2notes[currentCandidateValue3] + cell3notes[currentCandidateValue3];
                     if (howManyCandidate1 < howmanycellswiththisnote[currentCandidateValue1] || howManyCandidate2 < howmanycellswiththisnote[currentCandidateValue2] || howManyCandidate3 < howmanycellswiththisnote[currentCandidateValue3]) { 
-                      discardingFunctions.discardObviousTriple(column, "column", "row", {cell1:{ row: row1, column: column }, cell2:{ row: row2, column: column }, cell3:{ row: row3, column: column } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3 }, "Detecting Obvious Triples (Column)", whereisthisnote, notesZero.noteZeroColumn );
+                      discardingFunctions.discardObviousSet(column, "column", "row", {cell1:{ row: row1, column: column }, cell2:{ row: row2, column: column }, cell3:{ row: row3, column: column } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3 }, "Detecting Obvious Triples (Column)", whereisthisnote, notesZero.noteZeroColumn, modifyDOM.discardObviousTripleHTML );
                       break;
                     }
                   }
@@ -161,7 +162,7 @@ const obviousTriplesSquare = () => {
                     let howManyCandidate2 = cell1notes[currentCandidateValue2] + cell2notes[currentCandidateValue2] + cell3notes[currentCandidateValue2];
                     let howManyCandidate3 = cell1notes[currentCandidateValue3] + cell2notes[currentCandidateValue3] + cell3notes[currentCandidateValue3];
                     if (howManyCandidate1 < howmanycellswiththisnote[currentCandidateValue1] || howManyCandidate2 < howmanycellswiththisnote[currentCandidateValue2] || howManyCandidate3 < howmanycellswiththisnote[currentCandidateValue3]) { 
-                      discardingFunctions.discardObviousTriple(square, "square", "cell", {cell1:{ row: realrow1, column: realcolumn1, cell: cell1 }, cell2:{ row: realrow2, column: realcolumn2, cell: cell2 }, cell3:{ row: realrow3, column: realcolumn3, cell: cell3 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3 }, "Detecting Obvious Triples (Square)", whereisthisnote, notesZero.noteZeroSquareSQ );
+                      discardingFunctions.discardObviousSet(square, "square", "cell", {cell1:{ row: realrow1, column: realcolumn1, cell: cell1 }, cell2:{ row: realrow2, column: realcolumn2, cell: cell2 }, cell3:{ row: realrow3, column: realcolumn3, cell: cell3 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3 }, "Detecting Obvious Triples (Square)", whereisthisnote, notesZero.noteZeroSquareSQ, modifyDOM.discardObviousTripleHTML );
                       break;
                     }
                   }

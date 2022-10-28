@@ -6,6 +6,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.30 (Obvious common Process) 2022-10-28
+
+- WHAT'S NEW!?
+
+  - (Code Improvements) Now, both strategies (Obvious pairs and Obvious Triples) use the same discarding process function (discardObviousSet) to set the candidates to zero, set the highlights and call the corrrsponding DOM modifying function
+  - (Code Improvements) The function discardObviousSet was built based on discardObviousTriple as a generic function. Function discardObviousPairs is no longer necessary (deleted)
+
+---
+
 ### Version 0.4.29 (Obvious Triples Strategy (Square)) 2022-10-27
 
 - WHAT'S NEW!?
