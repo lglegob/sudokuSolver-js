@@ -13,14 +13,14 @@ import * as gettingInfo from "./gettingInfoBlock.js";
 const xwingRow = () => {
   //row1 evaluates up to row7 to let space to compare with row8
   for (let row1 = 0; row1 <= 7; row1++) { 
-    const { howmanycellswiththisnote:howmanycellswiththisnoteR1, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote:whereisthisnoteR1 } = 
+    const { howmanycellswiththisnote:howmanycellswiththisnoteR1, whereisthisnote:whereisthisnoteR1 } = 
       gettingInfo.gettingDetailedInfoBlock ( row1, row1, 0, 8, "row" );
     //third loop to define if there are rows with a candidate in two cells.
     for (let possibleCandidate = 1; possibleCandidate<= 9; possibleCandidate++) {
       if (howmanycellswiththisnoteR1[possibleCandidate] === 2) {
         for (let row2 = row1+1; row2<= 8; row2++) {
           globalVar.loopsExecuted++;
-          const { howmanycellswiththisnote:howmanycellswiththisnoteR2, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote:whereisthisnoteR2 } = 
+          const { howmanycellswiththisnote:howmanycellswiththisnoteR2, whereisthisnote:whereisthisnoteR2 } = 
           gettingInfo.gettingDetailedInfoBlock ( row2, row2, 0, 8, "row" );
           if (howmanycellswiththisnoteR2[possibleCandidate] === 2) {
             let candidate1notes = whereisthisnoteR1[possibleCandidate];
@@ -52,14 +52,14 @@ const xwingRow = () => {
 const xwingColumn = () => {
   //column1 evaluates up to column7 to let space to compare with column8
   for (let column1 = 0; column1 <= 7; column1++) { 
-    const { howmanycellswiththisnote:howmanycellswiththisnoteC1, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote:whereisthisnoteC1 } = 
+    const { howmanycellswiththisnote:howmanycellswiththisnoteC1, whereisthisnote:whereisthisnoteC1 } = 
       gettingInfo.gettingDetailedInfoBlock ( 0, 8, column1, column1, "column" );
     //third loop to define if there are rows with a candidate in two cells.
     for (let possibleCandidate = 1; possibleCandidate<= 9; possibleCandidate++) {
       if (howmanycellswiththisnoteC1[possibleCandidate] === 2) {
         for (let column2 = column1+1; column2<= 8; column2++) {
           globalVar.loopsExecuted++;
-          const { howmanycellswiththisnote:howmanycellswiththisnoteC2, howmanynotesinthiscell, answersCurrentBlock, whereisthisnote:whereisthisnoteC2 } = 
+          const { howmanycellswiththisnote:howmanycellswiththisnoteC2, whereisthisnote:whereisthisnoteC2 } = 
           gettingInfo.gettingDetailedInfoBlock ( 0, 8, column2, column2, "column" );
           if (howmanycellswiththisnoteC2[possibleCandidate] === 2) {
             let candidate1notes = whereisthisnoteC1[possibleCandidate];

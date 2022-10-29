@@ -6,6 +6,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.31 (Hidden Pair Improve) 2022-10-29
+
+- WHAT'S NEW!?
+
+  - (Code Improvements) Code standardization for the Hidden Pairs discarding strategy, preparing the functions with the names and structure to support hidden triples by reusing code
+  - (Code Improvements) Minor naming optimizations, as well as deleting properties for destructuring objects where they are not needed.
+
+---
+
 ### Version 0.4.30 (Obvious common Process) 2022-10-28
 
 - WHAT'S NEW!?
@@ -564,7 +573,7 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 ### Version 0.1.2 (type="module" changes) 2022-09-08
 
 - type="module" added to the script, so it can split in several js files
-- two recurrent minor functions (defineSquareCoordinatesRC and defineSquareCoordinatesSQ) were taken out to an external js file for testing purposes.
+- two recurrent minor functions (defineInitialMaxRCFromRC and defineInitialMaxRCFromSquare) were taken out to an external js file for testing purposes.
 - the data to pre-load the sudoku game is now taken from data.js file
   script.js renamed to main.js
 

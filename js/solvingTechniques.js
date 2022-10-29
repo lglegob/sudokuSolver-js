@@ -98,7 +98,7 @@ const hiddenSinglesColumn = () => {
 // Function to detect when an square has a possible value just in one of the 9 cells
 const hiddenSinglesSquare = () => {
   for (let square = 1; square <= 9; square++) {
-    const { fromrow, maximumrow, fromcolumn, maximumcolumn } = recurrent.defineSquareCoordinatesSQ(square);
+    const { fromrow, maximumrow, fromcolumn, maximumcolumn } = recurrent.defineInitialMaxRCFromSquare(square);
     for (let possibleCandidate = 1; possibleCandidate <=9; possibleCandidate++) {
       let ishiddensingle = 0;
       let currentCellValue;

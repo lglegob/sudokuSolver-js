@@ -121,7 +121,7 @@ const obviousTriplesColumn = () => {
 // Function to detect when a column has obvious pairs
 const obviousTriplesSquare = () => {
   for (let square = 1; square <= 9; square++) { 
-    const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineSquareCoordinatesSQ(square);
+    const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineInitialMaxRCFromSquare(square);
     const { howmanynotesinthiscell, howmanycellswiththisnote, whereisthisnote } = gettingInfo.gettingDetailedInfoBlock ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square );
     //cell1 evaluates up to cell6 to let space for other two cells to compare with cell7 and cell8
     for (let cell1 = 0; cell1<= 6; cell1++) {

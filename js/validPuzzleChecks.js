@@ -42,7 +42,7 @@ const validPuzzleColumn = (validPuzzle) => {
 const validPuzzleSquare = (validPuzzle) => {
   if (validPuzzle) {
     for (let square = 1; square <=9; square++) {
-      const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineSquareCoordinatesSQ(square);
+      const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineInitialMaxRCFromSquare(square);
       const { answersCurrentBlock } = gettingInfo.gettingDetailedInfoBlock ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square );
       let wasDuplicated = answersCurrentBlock.some((candidateRepetitions, candidate) => areWithinBlockDuplicatedValues(candidateRepetitions, candidate, "square", square));
       if (wasDuplicated) {

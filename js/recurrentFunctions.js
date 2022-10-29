@@ -6,8 +6,8 @@ import * as matrixFunctions from "./theMatrixFunctions.js";
 //                         RECURRENT FUNCTIONS                               //
 //////////////////////////////////////////////////////////////////////////////
 
-//Here, it is defined depending of the current cell in analysis, the range of rows and columns to evaluate
-const defineSquareCoordinatesRC = (row, column) => {
+//Here, it is defined depending of the current cell in analysis, the range of rows and columns to evaluate in the same square
+const defineInitialMaxRCFromRC = (row, column) => {
   let fromrow;
   let maximumrow;
   let fromcolumn;
@@ -44,7 +44,7 @@ const defineSquareCoordinatesRC = (row, column) => {
 };
 
 //Here, it is defined depending of the square in analysis, the range of rows and columns to evaluate
-const defineSquareCoordinatesSQ = (square) => {
+const defineInitialMaxRCFromSquare = (square) => {
   let fromrow;
   let maximumrow;
   let fromcolumn;
@@ -85,16 +85,16 @@ const defineSquareFromRC = (row, column) => {
   return square;
 };
 
-const defineRowColumnFromSquareRelative = (square, relativeRow, relativeColumn) => {
+const defineRealRCFromSquareRelativeRC = (square, relativeRow, relativeColumn) => {
   let realRow = (3 *(Math.floor((square-1) / 3))) + relativeRow;
   let realColumn = ( 3 * ((square-1) % 3)) + relativeColumn;
-  return { realRow, realColumn }
+  return { realRow, realColumn };
 };
 
-const defineRowColumnFromCellRelative = (square, relativeCell) => {
+const defineRCFromSquareRelativeCell = (square, relativeCell) => {
   let realRow = (3 *(Math.floor((square-1) / 3))) + Math.floor(relativeCell / 3);
   let realColumn = ( 3 * ((square-1) % 3)) + (relativeCell % 3);
-  return { realRow, realColumn }
+  return { realRow, realColumn };
 };
 
 // Function used to add html config with a 9 cells grid per each of the original divs to show the notes of each cell
@@ -297,4 +297,4 @@ const showSweetTextInput = async (sweetTitle, SweetInputOptions, SweetPlaceHolde
   matrixFunctions.loadMatrix(SweetInputOptions[keyString], false);
 };
 
-export { defineSquareCoordinatesRC, defineSquareCoordinatesSQ, defineSquareFromRC, defineRowColumnFromSquareRelative, defineRowColumnFromCellRelative, toggleNotes, togglehighlights, reviewNotes, createNewDivInput, createNewDivCandidateNotes, deleteLastShowMe, showSweetAlert, showSweetTextInput };
+export { defineInitialMaxRCFromRC, defineInitialMaxRCFromSquare, defineSquareFromRC, defineRealRCFromSquareRelativeRC, defineRCFromSquareRelativeCell, toggleNotes, togglehighlights, reviewNotes, createNewDivInput, createNewDivCandidateNotes, deleteLastShowMe, showSweetAlert, showSweetTextInput };

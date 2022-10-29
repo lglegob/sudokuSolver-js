@@ -16,7 +16,7 @@ import * as gettingInfo from "./gettingInfoBlock.js";
 const yWing = () => {
   //Process to detect a possible pivot cell (Cell with 2 candidates)
   for (let rowPivot = 0; rowPivot <= 8; rowPivot++) { 
-    const { howmanycellswiththisnote, howmanynotesinthiscell:howmanynotesinthiscellR1, answersCurrentBlock, whereisthisnote } = 
+    const { howmanynotesinthiscell:howmanynotesinthiscellR1 } = 
       gettingInfo.gettingDetailedInfoBlock ( rowPivot, rowPivot, 0, 8, "row" );
     for (let colPivot = 0; colPivot <= 8; colPivot++) {
       if (howmanynotesinthiscellR1[colPivot] === 2) {
@@ -56,12 +56,12 @@ const yWing = () => {
         // The process is still working with the same possible Pivot cell
         // First, let's determine the square to analyze
         let square = recurrent.defineSquareFromRC(rowPivot, colPivot);
-        const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineSquareCoordinatesSQ(square);
-        const { howmanycellswiththisnote, howmanynotesinthiscell:howmanynotesinthiscellS1, answersCurrentBlock, whereisthisnote } = 
+        const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineInitialMaxRCFromSquare(square);
+        const { howmanynotesinthiscell:howmanynotesinthiscellS1 } = 
           gettingInfo.gettingDetailedInfoBlock ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square );
           for (let cell = 0; cell <= 8; cell++) {
             if (howmanynotesinthiscellS1[cell] === 2) {
-              const {realRow:rowPincer1, realColumn:colPincer1} = recurrent.defineRowColumnFromCellRelative (square, cell);
+              const {realRow:rowPincer1, realColumn:colPincer1} = recurrent.defineRCFromSquareRelativeCell (square, cell);
               const {pincer1Candidate1, pincer1Candidate2, doWeHaveFirstPincer, pincerX, pincerY, pincerZ} = detectPincer1 (rowPincer1, colPincer1, pivotCellCandidate1, pivotCellCandidate2);
               if (doWeHaveFirstPincer && colPincer1 !== colPivot) { //If the process found a First pincer in the same Square. The second condition applies to avoid the 3 cells within the same square or column, if it finds another pincer in the same column, they will be in line and possibly in the same square, and the case to evaluate row, should be already covered by the first scenario row-column 
                 let cellToLookFor = [0,0,0,0,0,0,0,0,0,0];
@@ -88,8 +88,8 @@ const yWing = () => {
                     //  | Z  |    | XZ |  rowPincer1
                     //  ----------------
                     // colPivot  colPincer1                  
-                    const {fromrow:fromRowPivotSquare, maximumrow:maximumRowPivotSquare, fromcolumn:fcPS, maximumcolumn:mcPS} = recurrent.defineSquareCoordinatesRC(rowPivot, colPivot);
-                    const {fromrow:fromRowPincer2Square, maximumrow:maximumRowPincer2Square, fromcolumn:fcP2S, maximumcolumn:mcP2S} = recurrent.defineSquareCoordinatesRC(rowPincer2, colPincer1);       
+                    const { fromrow:fromRowPivotSquare, maximumrow:maximumRowPivotSquare } = recurrent.defineInitialMaxRCFromRC(rowPivot, colPivot);
+                    const { fromrow:fromRowPincer2Square, maximumrow:maximumRowPincer2Square } = recurrent.defineInitialMaxRCFromRC(rowPincer2, colPincer1);       
                     let positiveforZvalue = [];
                     for (let row = fromRowPivotSquare; row<=maximumRowPivotSquare; row++) {
                       if (globalVar.theMatrix[globalVar.currentStep][row][colPivot][pincerZ] !==0 && row !== rowPincer1) { //The second argument of the If statement is to avoid issues in case the first pincer found (same square) also is in the same column. This case should also be already discarded before by Obvious Triples
@@ -127,8 +127,8 @@ const yWing = () => {
                       //  | XZ |    |    || Z  | Z  | Z  |   rowPincer1
                       //  --------------------------------
                       //colPincer1           colPincer2
-                      const {fromrow:frPS, maximumrow:mrPS, fromcolumn:fromColumnPivotSquare, maximumcolumn:maximumColumnPivotSquare} = recurrent.defineSquareCoordinatesRC(rowPivot, colPivot);
-                      const {fromrow:frP2S, maximumrow:mrP2S, fromcolumn:fromColumnPincer2Square, maximumcolumn:maximumColumnPincer2Square} = recurrent.defineSquareCoordinatesRC(rowPincer1, colPincer2);
+                      const { fromcolumn:fromColumnPivotSquare, maximumcolumn:maximumColumnPivotSquare} = recurrent.defineInitialMaxRCFromRC(rowPivot, colPivot);
+                      const { fromcolumn:fromColumnPincer2Square, maximumcolumn:maximumColumnPincer2Square} = recurrent.defineInitialMaxRCFromRC(rowPincer1, colPincer2);
                       let positiveforZvalue = [];
                       for (let column = fromColumnPivotSquare; column<=maximumColumnPivotSquare; column++) {
                         if (globalVar.theMatrix[globalVar.currentStep][rowPivot][column][pincerZ] !==0 && column !==colPincer1 ) { //The second argument of the If statement is to avoid issues in case the first pincer found (same square) also is in the same row. This case should also be already discarded before by Obvious Triples

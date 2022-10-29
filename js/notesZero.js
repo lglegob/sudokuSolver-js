@@ -8,10 +8,10 @@ import * as recurrent from "./recurrentFunctions.js";
 
 //Here, it is mark as zero, each cell in the same row, which contains the currentCellValue as candidate yet
 const noteZeroRow = (row, currentCellValue, theMatrixStep) => {
-  theMatrixStep[row].forEach(function(column_item, columnindex) {
+  theMatrixStep[row].forEach(function(columnCellArray, columnindex) {
     globalVar.loopsExecuted++;
-    if (column_item[currentCellValue] !== 0 && column_item[0] === 0) {
-      column_item[currentCellValue] = 0;
+    if (columnCellArray[currentCellValue] !== 0 && columnCellArray[0] === 0) {
+      columnCellArray[currentCellValue] = 0;
       if(globalVar.areHighlightsOn === true) {
         document.querySelector(".theMatrixNotes " + ".row" + (row + 1) + ".column" + (columnindex + 1) + " .note" + currentCellValue).classList.add("justDeletedNote");
       };
@@ -23,12 +23,12 @@ const noteZeroRow = (row, currentCellValue, theMatrixStep) => {
 
 //Here, it is mark as zero, each cell in the same column, which contains the currentCellValue as candidate yet
 const noteZeroColumn = (column, currentCellValue, theMatrixStep) => {
-  for (let row_within_column = 0; row_within_column < 9; row_within_column++) {
+  for (let rowWithinColumn = 0; rowWithinColumn < 9; rowWithinColumn++) {
     globalVar.loopsExecuted++;
-    if (theMatrixStep[row_within_column][column][currentCellValue] !== 0 && theMatrixStep[row_within_column][column][0] === 0) {
-      theMatrixStep[row_within_column][column][currentCellValue] = 0;
+    if (theMatrixStep[rowWithinColumn][column][currentCellValue] !== 0 && theMatrixStep[rowWithinColumn][column][0] === 0) {
+      theMatrixStep[rowWithinColumn][column][currentCellValue] = 0;
       if(globalVar.areHighlightsOn === true) {
-        document.querySelector(".theMatrixNotes " + ".row" + (row_within_column + 1) + ".column" + (column + 1) + " .note" + currentCellValue).classList.add("justDeletedNote");
+        document.querySelector(".theMatrixNotes " + ".row" + (rowWithinColumn + 1) + ".column" + (column + 1) + " .note" + currentCellValue).classList.add("justDeletedNote");
       };
     };
   };
@@ -37,7 +37,7 @@ const noteZeroColumn = (column, currentCellValue, theMatrixStep) => {
 
 //Here, it is mark as zero, each cell in the same block(square), which contains the currentCellValue as candidate yet
 const noteZeroSquareSQ = (square, currentCellValue, theMatrixStep) => {
-  const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineSquareCoordinatesSQ(square);
+  const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineInitialMaxRCFromSquare(square);
   for (let square_row = fromrow; square_row <= maximumrow; square_row++) {
     for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) {
       globalVar.loopsExecuted++;
@@ -54,7 +54,7 @@ const noteZeroSquareSQ = (square, currentCellValue, theMatrixStep) => {
 
 //Here, it is mark as zero, each cell in the same block(square), which contains the currentCellValue as candidate yet
 const noteZeroSquareRC = (row, column, currentCellValue, theMatrixStep) => {
-  const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineSquareCoordinatesRC(row, column);
+  const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineInitialMaxRCFromRC(row, column);
   for (let square_row = fromrow; square_row <= maximumrow; square_row++) {
     for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) {
       globalVar.loopsExecuted++;

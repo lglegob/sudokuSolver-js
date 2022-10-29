@@ -75,7 +75,7 @@ const obviousPairsColumn = () => {
 const obviousPairsSquare = () => {
   
   for (let square = 1; square <= 9; square++) {
-    const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineSquareCoordinatesSQ(square);
+    const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineInitialMaxRCFromSquare(square);
     const { howmanycellswiththisnote, howmanynotesinthiscell, whereisthisnote } = gettingInfo.gettingDetailedInfoBlock ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square );
     //cell1 evaluates up to cell7 to let space to compare with cell8
     for (let cell1 = 0; cell1<= 7; cell1++) {

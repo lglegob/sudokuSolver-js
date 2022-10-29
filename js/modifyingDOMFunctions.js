@@ -46,15 +46,15 @@ const discardObviousPairsHTML = (mainaxisvalue, mainaxis, cellsIdentified, curre
 };
 
 //This Function is called by HIDDENPAIRS Techniques
-const discardHiddenPairHTML = (blockvalue, mainaxis, row1, row2, column1, column2, value1, value2, method) => {
+const discardHiddenPairHTML = (mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method) => {
   console.log("--------------------------------------------");
   console.log("We are still here! – Morpheus");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
   console.log("We found an Hidden Pair!")
-  mainaxis === "square" ? blockvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
-  console.log(`We are looking at ${mainaxis} ${blockvalue + 1}, the first cell is row${row1 + 1} column${column1 + 1}, and the second cell is row${row2 + 1} column${column2 + 1}`)
-  console.log(`The hidden pair notes are ${value1} and ${value2}, these are kept and all other notes in those two cells have been deleted`);
+  mainaxis === "square" ? mainaxisvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  console.log(`We are looking at ${mainaxis} ${mainaxisvalue + 1}, the first cell is row${cellsIdentified.cell1.row + 1} column${cellsIdentified.cell1.column + 1}, and the second cell is row${cellsIdentified.cell2.row + 1} column${cellsIdentified.cell2.column + 1}`)
+  console.log(`The hidden pair notes are ${currentCandidates.candidate1} and ${currentCandidates.candidate2}, these are kept and all other notes in those two cells have been deleted`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
@@ -66,12 +66,12 @@ const discardHiddenPairHTML = (blockvalue, mainaxis, row1, row2, column1, column
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>${method}</h4>
   <p>Cells 
-    <strong><span data-cellcoordinates=".row${row1 + 1}.column${column1 + 1}">R${row1 + 1}C${column1 + 1}</span></strong> and 
-    <strong><span data-cellcoordinates=".row${row2 + 1}.column${column2 + 1}"> R${row2 + 1}C${column2 + 1}</span></strong> 
+    <strong><span data-cellcoordinates=".row${cellsIdentified.cell1.row + 1}.column${cellsIdentified.cell1.column + 1}">R${cellsIdentified.cell1.row + 1}C${cellsIdentified.cell1.column + 1}</span></strong> and 
+    <strong><span data-cellcoordinates=".row${cellsIdentified.cell2.row + 1}.column${cellsIdentified.cell2.column + 1}"> R${cellsIdentified.cell2.row + 1}C${cellsIdentified.cell2.column + 1}</span></strong> 
     contain a hidden pair (The only two Cells within a block with the same two candidates)
   </p>
-  <p>The two cells are within the same Block (${mainaxis} ${blockvalue + 1}), and the candidates are ${value1} and ${value2}</p>
-  <p>These Candidates, ${value1} and ${value2}, are the only ones kept, all other candidates have been deleted within the ${mainaxis} ${blockvalue + 1} in those two cells</p>
+  <p>The two cells are within the same Block (${mainaxis} ${mainaxisvalue + 1}), and the candidates are ${currentCandidates.candidate1} and ${currentCandidates.candidate2}</p>
+  <p>These Candidates, ${currentCandidates.candidate1} and ${currentCandidates.candidate2}, are the only ones kept, all other candidates have been deleted within the ${mainaxis} ${mainaxisvalue + 1} in those two cells</p>
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newDiscardArticle);
@@ -81,7 +81,7 @@ const discardHiddenPairHTML = (blockvalue, mainaxis, row1, row2, column1, column
   spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock(mainaxis, blockvalue + 1);
+  settingHighlightedBlock(mainaxis, mainaxisvalue + 1);
 };
 
 //This Function is called by OBVIOUSTRIPLES Techniques
