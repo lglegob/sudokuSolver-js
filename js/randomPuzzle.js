@@ -7,13 +7,15 @@ import initialMatrixpuzzle from "./data.js"; //This import is needed as it is us
 //////////////////////////////////////////////////////////////////////////////
 
 const randomizePuzzle = () => {
+  
   //Several functions using the Fisher-Yates-Durstenfeld shuffle based on https://stackoverflow.com/questions/3718282/javascript-shuffling-objects-inside-an-object-randomize
   //First Step, we get a random seed from data.js
-  let randomseed = Math.floor(Math.random() * 6) + 1;
+  let randomseed = Math.floor(Math.random() * 7) + 1;
   console.log(`The random Seed is ${randomseed}`);
   let randomPuzzle = eval(`initialMatrixpuzzle.seed00${randomseed}String`);
   // let randomPuzzle = puzzleSeedsJSON.find(item => item.id == randomseed).symbols;  
   let newRandomPuzzle = "";
+  
   //Ranzomize Rows
   //Second Step, process to randomize the rows per block. Meaning, rows 0, 1 and 2 can be randomize between them and mantain tha puzzle validity, then rows 3, 4 and 5, and finally rows 6, 7 and 8
   for (let blockRow=0; blockRow<=2; blockRow++) {
@@ -108,6 +110,41 @@ const randomizePuzzle = () => {
       randomPuzzle = randomPuzzle.substring(0,indexString + 0) + baseArray[0][(9 * columnWithinBlock) + character] + randomPuzzle.substring(indexString + 0 + 1);
       randomPuzzle = randomPuzzle.substring(0,indexString + 3) + baseArray[1][(9 * columnWithinBlock) + character] + randomPuzzle.substring(indexString + 3 + 1);
       randomPuzzle = randomPuzzle.substring(0,indexString + 6) + baseArray[2][(9 * columnWithinBlock) + character] + randomPuzzle.substring(indexString + 6 + 1);
+    };
+  };
+
+  //Randomize Rotation
+  //Sixth Step, process to randomly rotate the Puzzle, 0, 90, 180 or 270 degrees
+  let string3 = "";
+  let string4 = "";
+  let string5 = "";
+  let string6 = "";
+  let string7 = "";
+  let string8 = "";
+  let maxTurnArounds = Math.floor(Math.random() * 4); //This random defines a value between 0 and 3 to define the number of rotations.
+  for (let turnArounds = 0; turnArounds < maxTurnArounds; turnArounds++) {
+    string0 = randomPuzzle.substr(0, 9);
+    string1 = randomPuzzle.substr(9, 9);
+    string2 = randomPuzzle.substr(18, 9);
+    string3 = randomPuzzle.substr(27, 9);
+    string4 = randomPuzzle.substr(36, 9);
+    string5 = randomPuzzle.substr(45, 9);
+    string6 = randomPuzzle.substr(54, 9);
+    string7 = randomPuzzle.substr(63, 9);
+    string8 = randomPuzzle.substr(72, 9);
+    for (let character=0; character<=8; character++) {
+      let indexString = character * 9;
+      //Process to replace an specific character taken from https://stackoverflow.com/questions/1431094/how-do-i-replace-a-character-at-a-particular-index-in-javascript
+      //The process takes 3 components (the string up to just before the character to be replaced, the character, and finally the end of the string starting by the next character)
+      randomPuzzle = randomPuzzle.substring(0,indexString + 0) + string0[8 - character] + randomPuzzle.substring(indexString + 0 + 1);
+      randomPuzzle = randomPuzzle.substring(0,indexString + 1) + string1[8 - character] + randomPuzzle.substring(indexString + 1 + 1);
+      randomPuzzle = randomPuzzle.substring(0,indexString + 2) + string2[8 - character] + randomPuzzle.substring(indexString + 2 + 1);
+      randomPuzzle = randomPuzzle.substring(0,indexString + 3) + string3[8 - character] + randomPuzzle.substring(indexString + 3 + 1);
+      randomPuzzle = randomPuzzle.substring(0,indexString + 4) + string4[8 - character] + randomPuzzle.substring(indexString + 4 + 1);
+      randomPuzzle = randomPuzzle.substring(0,indexString + 5) + string5[8 - character] + randomPuzzle.substring(indexString + 5 + 1);
+      randomPuzzle = randomPuzzle.substring(0,indexString + 6) + string6[8 - character] + randomPuzzle.substring(indexString + 6 + 1);
+      randomPuzzle = randomPuzzle.substring(0,indexString + 7) + string7[8 - character] + randomPuzzle.substring(indexString + 7 + 1);
+      randomPuzzle = randomPuzzle.substring(0,indexString + 8) + string8[8 - character] + randomPuzzle.substring(indexString + 8 + 1);
     };
   };
 

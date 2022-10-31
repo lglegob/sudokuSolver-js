@@ -26,8 +26,14 @@ const seed005String = "i---d-------f---ca-b-----i----g---b---bicef---g---b----f-
 const seed006Numbers = "9-----7----84-5----5---2--38---9------4---6------1---25--8---4----7-98----2-----7";
 const seed006String = "i-----g----hd-e----e---b--ch---i------d---f------a---be--h---d----g-ih----b-----g";
 
+//SOLVED! Very Difficult puzzle
+const seed007Numbers = "-3--45-----769--5---6-----7--1-6--3-9--5-8--1-4--1-5--6-----3---8--562-----97--6-";
+const seed007String = "-c--de-----gfi--e---f-----g--a-f--c-i--e-h--a-d--a-e--f-----c---h--efb-----ig--f-";
+
 //SOLVED 7svd05 141
-const seed007Numbers = "---9--315-31-2--8-----3-4----38------6-----4------61----8-6-----7--8-52-615--9---";
+const seed008Numbers = "---9--315-31-2--8-----3-4----38------6-----4------61----8-6-----7--8-52-615--9---";
+
+
 
 //=======================================
 
@@ -43,16 +49,19 @@ const expert01str = "---5--1--5-6132---9-------8-----79-3---91----7---8--5-37-2-
 //SOLVED
 const expert02str = "--4---7-38--9-2----3--------891-----5-------8-----926--------2----8-4--56-5---1--";
 
+
+//=======================================
+
 //NOT SOLVED YET This is getting to Step 37 after locked candidate column to square (Xwing first)
 const hard02str = "---6-4----3----2--5-6-1-----2-7--54----43-6-----------8-5----1--431-5-----1-6---2";
 
 //NOT SOLVED YET Very Difficult puzzle
 const expert05str = "86----5------6--7-3-9--4-1----4--3--98-3-5-41--7--2----2-5--1-8-4--2------8----62";
 
-//NOT SOLVED YET Very Difficult puzzle
-const expert07str = "-3--45-----769--5---6-----7--1-6--3-9--5-8--1-4--1-5--6-----3---8--562-----97--6-";
-
 //NOT SOLVED YET Hardest Sudoku Ever https://abcnews.go.com/blogs/headlines/2012/06/can-you-solve-the-hardest-ever-sudoku
 const hardestSudokuEver = "8----------36------7--9-2---5---7-------457-----1---3---1----68--85---1--9----4--";
 
-export default { seed001String, seed002String, seed003String, seed004String, seed005String, seed006String, seed004Numbers };
+//NOT SOLVED (IPad app) need guessing
+const ipadsudoku = "-4--932---------6-1--4----5-----6-------38-9-----4-8---7-5--9-642-----5-5-------7";
+
+export default { seed001String, seed002String, seed003String, seed004String, seed005String, seed006String, seed007String, seed004Numbers };

@@ -93,7 +93,7 @@ const lockedCandidateSquare = () => {
         let finalThirdColumnOnly = (firstThirdColumn === 0 && secondThirdColumn === 0 && finalThirdColumn > 1);        
         if ( firstThirdRowOnly || secondThirdRowOnly || finalThirdRowOnly ) {
           //This calculation will give the real row and real Row of the square where the third with candidadates is located
-          const { realRow, realColumn } = recurrent.defineRealRCFromSquareRelativeRC(square, secondThirdRowOnly+2*finalThirdRowOnly, secondThirdColumnOnly+2*finalThirdColumnOnly);
+          const { realRow } = recurrent.defineRealRCFromSquareRelativeRC(square, secondThirdRowOnly+2*finalThirdRowOnly, secondThirdColumnOnly+2*finalThirdColumnOnly);
           const { howmanycellswiththisnote:howmanycellswiththisnoteRow } = gettingInfo.gettingDetailedInfoBlock ( realRow, realRow, 0, 8, "row" );
           if ( howmanycellswiththisnoteSquare[possibleCandidate] != howmanycellswiththisnoteRow[possibleCandidate]) {
             console.log(`Tenemos un Locked Candidate, option ${possibleCandidate} in square ${square} have other notes in row ${realRow + 1} that can be deleted`)
@@ -103,7 +103,7 @@ const lockedCandidateSquare = () => {
         };
         if ( firstThirdColumnOnly || secondThirdColumnOnly || finalThirdColumnOnly ) {
           //This calculation will give the real row and real Column of the square where the third with candidadates is located
-          const { realRow, realColumn } = recurrent.defineRealRCFromSquareRelativeRC(square, secondThirdRowOnly+2*finalThirdRowOnly, secondThirdColumnOnly+2*finalThirdColumnOnly);
+          const { realColumn } = recurrent.defineRealRCFromSquareRelativeRC(square, secondThirdRowOnly+2*finalThirdRowOnly, secondThirdColumnOnly+2*finalThirdColumnOnly);
           const { howmanycellswiththisnote:howmanycellswiththisnoteColumn } = gettingInfo.gettingDetailedInfoBlock ( 0, 8, realColumn, realColumn, "column" );
           if ( howmanycellswiththisnoteSquare[possibleCandidate] != howmanycellswiththisnoteColumn[possibleCandidate]) {
             // console.log(`Tenemos un Locked Candidate, option ${possibleCandidate} in square ${square} have other notes in column ${realColumn + 1} that can be deleted`)

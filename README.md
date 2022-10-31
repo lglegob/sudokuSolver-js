@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.33 (Random Rotation) 2022-10-31
+
+- WHAT'S NEW!?
+
+  - (Puzzle Creation) A new step to the random puzzle creation has been added. Rotation of the puzzle in 0, 90, 180 or 270 degress defined randomly has been added to the process.
+
+---
+
 ### Version 0.4.32 (Hidden Triples Strategy) 2022-10-30
 
 - WHAT'S NEW!?
