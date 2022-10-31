@@ -9,7 +9,8 @@ import initialMatrixpuzzle from "./data.js"; //This import is needed as it is us
 const randomizePuzzle = () => {
   //Several functions using the Fisher-Yates-Durstenfeld shuffle based on https://stackoverflow.com/questions/3718282/javascript-shuffling-objects-inside-an-object-randomize
   //First Step, we get a random seed from data.js
-  let randomseed = Math.floor(Math.random() * 5) + 1;
+  let randomseed = Math.floor(Math.random() * 6) + 1;
+  console.log(`The random Seed is ${randomseed}`);
   let randomPuzzle = eval(`initialMatrixpuzzle.seed00${randomseed}String`);
   // let randomPuzzle = puzzleSeedsJSON.find(item => item.id == randomseed).symbols;  
   let newRandomPuzzle = "";
@@ -129,4 +130,4 @@ const randomizePuzzle = () => {
   return randomPuzzle;
 };
 
-export { randomizePuzzle }
+export { randomizePuzzle };

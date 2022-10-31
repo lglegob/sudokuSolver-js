@@ -6,6 +6,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.32 (Hidden Triples Strategy) 2022-10-30
+
+- WHAT'S NEW!?
+
+  - (Puzzle Solving Strategies) The new set of stretagies based on finding Hidden Triples (row, Column or Square) has been defined.
+  - (Puzzle Solving Strategies) For Hidden Triples to work, the function noteZeroCellExcept is modified to receive not fiexed 2 but variable number of candidates.
+
+---
+
 ### Version 0.4.31 (Hidden Pair Improve) 2022-10-29
 
 - WHAT'S NEW!?

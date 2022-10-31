@@ -22,8 +22,12 @@ const seed004String = "--fe-cd-----hf---a-------eh-bh--e-g----d-a----e-g--ab-dc-
 const seed005Numbers = "9---4-------6---31-2-----9----7---2---29356---7---2----6-----7351---9-------8---9";
 const seed005String = "i---d-------f---ca-b-----i----g---b---bicef---g---b----f-----gcea---i-------h---i";
 
+//SOLVED - Triple Hidden Row. Without it, it is unsolvable https://www.youtube.com/watch?v=o3PQrNecoag
+const seed006Numbers = "9-----7----84-5----5---2--38---9------4---6------1---25--8---4----7-98----2-----7";
+const seed006String = "i-----g----hd-e----e---b--ch---i------d---f------a---be--h---d----g-ih----b-----g";
+
 //SOLVED 7svd05 141
-const seed006Numbers = "---9--315-31-2--8-----3-4----38------6-----4------61----8-6-----7--8-52-615--9---";
+const seed007Numbers = "---9--315-31-2--8-----3-4----38------6-----4------61----8-6-----7--8-52-615--9---";
 
 //=======================================
 
@@ -51,4 +55,4 @@ const expert07str = "-3--45-----769--5---6-----7--1-6--3-9--5-8--1-4--1-5--6----
 //NOT SOLVED YET Hardest Sudoku Ever https://abcnews.go.com/blogs/headlines/2012/06/can-you-solve-the-hardest-ever-sudoku
 const hardestSudokuEver = "8----------36------7--9-2---5---7-------457-----1---3---1----68--85---1--9----4--";
 
-export default { seed001String, seed002String, seed003String, seed004String, seed005String, seed004Numbers };
+export default { seed001String, seed002String, seed003String, seed004String, seed005String, seed006String, seed004Numbers };

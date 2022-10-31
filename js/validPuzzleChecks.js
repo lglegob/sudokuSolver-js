@@ -83,4 +83,4 @@ const enoughDiversityDigits = (validPuzzle, quantityPerValue) => {
   return validPuzzle;
 };
 
-export { validPuzzleRow, validPuzzleColumn, validPuzzleSquare, enoughDiversityDigits }
+export { validPuzzleRow, validPuzzleColumn, validPuzzleSquare, enoughDiversityDigits };

@@ -61,7 +61,7 @@ const yWing = () => {
           gettingInfo.gettingDetailedInfoBlock ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square );
           for (let cell = 0; cell <= 8; cell++) {
             if (howmanynotesinthiscellS1[cell] === 2) {
-              const {realRow:rowPincer1, realColumn:colPincer1} = recurrent.defineRCFromSquareRelativeCell (square, cell);
+              const {realRow:rowPincer1, realColumn:colPincer1} = recurrent.defineRealRCFromSquareRelativeCell (square, cell);
               const {pincer1Candidate1, pincer1Candidate2, doWeHaveFirstPincer, pincerX, pincerY, pincerZ} = detectPincer1 (rowPincer1, colPincer1, pivotCellCandidate1, pivotCellCandidate2);
               if (doWeHaveFirstPincer && colPincer1 !== colPivot) { //If the process found a First pincer in the same Square. The second condition applies to avoid the 3 cells within the same square or column, if it finds another pincer in the same column, they will be in line and possibly in the same square, and the case to evaluate row, should be already covered by the first scenario row-column 
                 let cellToLookFor = [0,0,0,0,0,0,0,0,0,0];

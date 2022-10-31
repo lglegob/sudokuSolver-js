@@ -91,11 +91,19 @@ const defineRealRCFromSquareRelativeRC = (square, relativeRow, relativeColumn) =
   return { realRow, realColumn };
 };
 
-const defineRCFromSquareRelativeCell = (square, relativeCell) => {
+const defineRealRCFromSquareRelativeCell = (square, relativeCell) => {
   let realRow = (3 *(Math.floor((square-1) / 3))) + Math.floor(relativeCell / 3);
   let realColumn = ( 3 * ((square-1) % 3)) + (relativeCell % 3);
   return { realRow, realColumn };
 };
+
+//If available, square with above function should the function to use instead
+const defineRealRCFromInitialRCRelativeCell = (fromRow, fromColumn, relativeCell) => {
+  let realRow = fromRow + Math.floor(relativeCell / 3); 
+  let realColumn = fromColumn + relativeCell % 3;
+  return { realRow, realColumn }
+};
+
 
 // Function used to add html config with a 9 cells grid per each of the original divs to show the notes of each cell
 const toggleNotes = () => {
@@ -297,4 +305,4 @@ const showSweetTextInput = async (sweetTitle, SweetInputOptions, SweetPlaceHolde
   matrixFunctions.loadMatrix(SweetInputOptions[keyString], false);
 };
 
-export { defineInitialMaxRCFromRC, defineInitialMaxRCFromSquare, defineSquareFromRC, defineRealRCFromSquareRelativeRC, defineRCFromSquareRelativeCell, toggleNotes, togglehighlights, reviewNotes, createNewDivInput, createNewDivCandidateNotes, deleteLastShowMe, showSweetAlert, showSweetTextInput };
+export { defineInitialMaxRCFromRC, defineInitialMaxRCFromSquare, defineSquareFromRC, defineRealRCFromSquareRelativeRC, defineRealRCFromSquareRelativeCell, defineRealRCFromInitialRCRelativeCell, toggleNotes, togglehighlights, reviewNotes, createNewDivInput, createNewDivCandidateNotes, deleteLastShowMe, showSweetAlert, showSweetTextInput };

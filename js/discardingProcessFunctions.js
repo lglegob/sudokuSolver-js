@@ -49,15 +49,15 @@ const discardObviousSet = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentifi
 };
 
 //Consolidated function for the 3 Blocks (row, column and square), when a pair of values must be kept and discard all others in one cell
-//This Function is called by HIDDENPAIRS Techniques
-const discardHiddenPair = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentified, currentCandidates, method, callbackNoteZero, callbackModifyDOM) => {
+//This Function is called by HIDDENPAIRS and HIDDENTRIPLES Techniques
+const discardHiddenSet = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentified, currentCandidates, method, callbackNoteZero, callbackModifyDOM) => {
   globalVar.currentStep++;
   globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
   //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
   let theMatrixStep = globalVar.theMatrix[globalVar.currentStep];
   for (let cellIdentified = 1; cellIdentified <= Object.keys(cellsIdentified).length; cellIdentified++) {
-    theMatrixStep = callbackNoteZero(eval(`cellsIdentified.cell${cellIdentified}.row`), eval(`cellsIdentified.cell${cellIdentified}.column`), currentCandidates.candidate1, currentCandidates.candidate2, theMatrixStep);
+    theMatrixStep = callbackNoteZero(eval(`cellsIdentified.cell${cellIdentified}.row`), eval(`cellsIdentified.cell${cellIdentified}.column`), currentCandidates, theMatrixStep);
   }; 
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
   
@@ -236,4 +236,4 @@ const discardYWing = (pivotValues, pincer1Values, pincer1Axis, pincer2Values, pi
   globalVar.stepByStep ? true : modifyDOM.discardYWingHTML(pivotValues, pincer1Values, pincer1Axis, pincer2Values, pincer2Axis, pincerX, pincerY, pincerZ, method);
 };
 
-export { discardLockedCandidate, discardXWing, discardHiddenPair, discardYWing, discardObviousSet }
+export { discardLockedCandidate, discardXWing, discardHiddenSet, discardYWing, discardObviousSet };

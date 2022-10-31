@@ -73,7 +73,6 @@ const xwingColumn = () => {
               const { howmanycellswiththisnote:howmanycellswiththisnoteR2 } = 
               gettingInfo.gettingDetailedInfoBlock ( row2, row2, 0, 8, "row" );
               if (howmanycellswiththisnoteR1[possibleCandidate] > 2 || howmanycellswiththisnoteR2[possibleCandidate] > 2) {
-                // console.log(`X-Wing Found in Columns ${column1 + 1} and ${column2 + 1} for candidate ${possibleCandidate}. There are still other notes in Rows ${row1 + 1} and ${row2 + 1}`);
                 discardingFunctions.discardXWing( [column1, column2], "column", [row1, row2], "row", possibleCandidate, "X-Wing Value in Columns to delete Candidates in Rows", notesZero.noteZeroRow );
                 break;
               };

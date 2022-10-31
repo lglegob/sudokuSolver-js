@@ -70,18 +70,16 @@ const noteZeroSquareRC = (row, column, currentCellValue, theMatrixStep) => {
 };
 
 //Here, focused in one specific cell, to delete the notes except the ones specified
-const noteZeroCellExcept = (row, column, candidate1, candidate2, theMatrixStep) => {
+const noteZeroCellExcept = (row, column, currentCandidates, theMatrixStep) => {
   for (let possibleCandidate = 1; possibleCandidate <=9; possibleCandidate++) {
-    if (possibleCandidate !== candidate1 && possibleCandidate !== candidate2) {
+    // if (possibleCandidate !== currentCandidates.candidate1 && possibleCandidate !== currentCandidates.candidate2)
+    if (Object.values(currentCandidates).every((val) => val !== possibleCandidate)) {
       if(globalVar.areHighlightsOn === true && theMatrixStep[row][column][possibleCandidate] !== 0) {
         document.querySelector(".theMatrixNotes " + ".row" + (row + 1) + ".column" + (column + 1) + " .note" + possibleCandidate).classList.add("justDeletedNote");
       };
       theMatrixStep[row][column][possibleCandidate] = 0;
-    } else {
-      theMatrixStep[row][column][possibleCandidate] = 1;
-      if(globalVar.areHighlightsOn === true) {
+    } else if (globalVar.areHighlightsOn === true && theMatrixStep[row][column][possibleCandidate] !== 0) {
         document.querySelector(".theMatrixNotes " + ".row" + (row + 1) + ".column" + (column + 1) + " .note" + possibleCandidate).classList.add("noteKept");
-      };
     };
   };
   return theMatrixStep;

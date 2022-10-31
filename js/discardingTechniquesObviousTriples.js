@@ -35,9 +35,9 @@ const obviousTriplesRow = () => {
                   let cell1ORcell2ORcell3Notes = cell3notes.map((candidate, index) => candidate || cell1ORcell2Notes[index]);
                   //method reduce to obtain the sum of the candidates in this cell
                   const sum1and2and3 = cell1ORcell2ORcell3Notes.reduce(add, 0);
-                  function add(accumulator, a) {
-                    return accumulator + a;
-                  };
+                    function add(accumulator, a) {
+                      return accumulator + a;
+                    };
                   if (sum1and2and3 === 3) {
                     let currentCandidateValue1 = cell1ORcell2ORcell3Notes.indexOf(1);
                     let currentCandidateValue2 = cell1ORcell2ORcell3Notes.indexOf(1, currentCandidateValue1 + 1);
@@ -89,9 +89,9 @@ const obviousTriplesColumn = () => {
                   let cell1ORcell2ORcell3Notes = cell3notes.map((candidate, index) => candidate || cell1ORcell2Notes[index]);
                   //method reduce to obtain the sum of the candidates in this cell
                   const sum1and2and3 = cell1ORcell2ORcell3Notes.reduce(add, 0);
-                  function add(accumulator, a) {
-                    return accumulator + a;
-                  };
+                    function add(accumulator, a) {
+                      return accumulator + a;
+                    };
                   if (sum1and2and3 === 3) {
                     let currentCandidateValue1 = cell1ORcell2ORcell3Notes.indexOf(1);
                     let currentCandidateValue2 = cell1ORcell2ORcell3Notes.indexOf(1, currentCandidateValue1 + 1);
@@ -128,10 +128,12 @@ const obviousTriplesSquare = () => {
       if (howmanynotesinthiscell[cell1] === 2 || howmanynotesinthiscell[cell1] === 3) {
         for (let cell2 = cell1+1; cell2<= 7; cell2++) {
           if (howmanynotesinthiscell[cell2] === 2 || howmanynotesinthiscell[cell2] === 3) {
-            let realrow1 = fromrow + Math.floor(cell1 / 3); 
-            let realcolumn1 = fromcolumn + cell1 % 3;
-            let realrow2 = fromrow + Math.floor(cell2 / 3);
-            let realcolumn2 = fromcolumn + cell2 % 3;
+            const { realRow:realrow1, realColumn:realcolumn1 } = recurrent.defineRealRCFromSquareRelativeCell(square, cell1);
+            // let realrow1 = fromrow + Math.floor(cell1 / 3); 
+            // let realcolumn1 = fromcolumn + cell1 % 3;
+            const { realRow:realrow2, realColumn:realcolumn2 } = recurrent.defineRealRCFromSquareRelativeCell(square, cell2);
+            // let realrow2 = fromrow + Math.floor(cell2 / 3);
+            // let realcolumn2 = fromcolumn + cell2 % 3;
             let cell1notes = globalVar.theMatrix[globalVar.currentStep][realrow1][realcolumn1];
             let cell2notes = globalVar.theMatrix[globalVar.currentStep][realrow2][realcolumn2];
             let cell1ORcell2Notes = cell1notes.map((candidate, index) => candidate || cell2notes[index]);
@@ -144,15 +146,16 @@ const obviousTriplesSquare = () => {
               for (let cell3 = cell2+1; cell3<= 8; cell3++) {
                 globalVar.loopsExecuted++;
                 if (howmanynotesinthiscell[cell3] === 2 || howmanynotesinthiscell[cell3] === 3) {
-                  let realrow3 = fromrow + Math.floor(cell3 / 3);
-                  let realcolumn3 = fromcolumn + cell3 % 3;
+                  const { realRow:realrow3, realColumn:realcolumn3 } = recurrent.defineRealRCFromSquareRelativeCell(square, cell3);
+                  // let realrow3 = fromrow + Math.floor(cell3 / 3);
+                  // let realcolumn3 = fromcolumn + cell3 % 3;
                   let cell3notes = globalVar.theMatrix[globalVar.currentStep][realrow3][realcolumn3];
                   let cell1ORcell2ORcell3Notes = cell3notes.map((candidate, index) => candidate || cell1ORcell2Notes[index]);
                   //method reduce to obtain the sum of the candidates in this cell
                   const sum1and2and3 = cell1ORcell2ORcell3Notes.reduce(add, 0);
-                  function add(accumulator, a) {
-                    return accumulator + a;
-                  };
+                    function add(accumulator, a) {
+                      return accumulator + a;
+                    };
                   if (sum1and2and3 === 3) {
                     let currentCandidateValue1 = cell1ORcell2ORcell3Notes.indexOf(1);
                     let currentCandidateValue2 = cell1ORcell2ORcell3Notes.indexOf(1, currentCandidateValue1 + 1);
