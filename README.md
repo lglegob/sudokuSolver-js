@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.34 (Y-Wing Bug Fixed) 2022-10-31
+
+- FIXED BUGs
+
+  - (Puzzle Solving Strategies) When Y-wing encountered 3 Cells in a row within the same square, it could considered wrongly that it was a Y-Wing scenario, since the first Pincer was considered to be in the same square, and the second Pincer was considered to be in the same Row. Also, this same bug could cause the 3 cells to be detected in the same square, being the second Pincer in the same row. The issue is solved bu setting a couple more of if statements checking that for the first Pincer, it must not be located in the same row or column of the Pivot, and the when looking for the second Pincer (Square-row or Square-Column), it is now checked, it is not located in the same square as the Pivot and Pincer1.
+
+---
+
 ### Version 0.4.33 (Random Rotation) 2022-10-31
 
 - WHAT'S NEW!?
@@ -262,7 +270,7 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 - WHAT'S NEW!? (Major Upgrade. This one should have been a pull request and change of Numbering)
 
-  - (Puzzle Creation) The functionality to generate "random" sudokus based on several seeds has been defined. The randomness comes for now from mixing the rows order (between blocks of rows) and mixing the values, by defining them first as letters from a to i, and then randomly assigning them to the 9 numbers.
+  - (Puzzle Creation) The functionality to generate "random" sudokus based on several seeds has been defined. The randomness comes for now, from mixing the rows order (between blocks of rows) and mixing the values, by defining them first as letters from a to i, and then randomly assigning them to the 9 numbers.
   - (Code Improvements) Several improvements in code, base on the first flow chart drawn as a draft, where several optimizations have been found like (not creating the divs for theMatrixNotes before really needed).
   - (Puzzle Solving Strategies) The solving process has been defined in a new file (out of the Listeners file) to be able to define the future functionality of solving the puzzle beforehand and give the users warnings before starting.
   - (Puzzle Validation) The process to check if the puzzle inserted by user is valid has started, the app will show an alert if there are duplicated values within a block (row, column or square).
