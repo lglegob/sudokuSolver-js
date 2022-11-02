@@ -3,10 +3,10 @@ import globalVar from "./globalVar.js";
 import * as notesZero from "./notesZero.js";
 import * as recurrent from "./recurrentFunctions.js";
 import * as eventListeners from "./eventListeners.js";
-import * as solvingFunctions from "./solvingProcessFunctions.js";
 import * as validPuzzleCheck from "./validPuzzleChecks.js";
 import * as randomSudoku from "./randomPuzzle.js";
 import { solvingProcess } from "./solvingProcess.js";
+import * as modifyDOM from "./modifyingDOMFunctions.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                            MATRIX FUNCTIONS                               //
@@ -276,7 +276,7 @@ const resetMatrix = () => {
 const thePuzzleisValid = (initialMatrixValues, isThisPuzzleNew) => {
   recurrent.reviewNotes(globalVar.theMatrix[0]);
   recurrent.deleteLastShowMe();
-  solvingFunctions.newSudokuPuzzleArticle();
+  modifyDOM.newSudokuPuzzleArticle();
   const instructions = document.querySelector(".instructions");
   instructions.remove();
 

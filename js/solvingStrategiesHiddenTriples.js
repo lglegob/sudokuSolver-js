@@ -1,10 +1,10 @@
 'use strict';
 import globalVar from "./globalVar.js";
-import * as recurrent from "./recurrentFunctions.js";
-import * as discardingFunctions from "./discardingProcessFunctions.js"
+import * as solvingFunctions from "./solvingProcessFunctions.js";
 import * as notesZero from "./notesZero.js";
 import * as gettingInfo from "./gettingInfoBlock.js";
 import * as modifyDOM from "./modifyingDOMFunctions.js";
+import * as coordinates from "./defineCoordinates.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                     DISCARDING TECHNIQUES - HIDDEN TRIPLES                  //
@@ -46,7 +46,7 @@ const hiddenTriplesRow = () => {
                     let howManyCell2 = candidate1notes[column2] + candidate2notes[column2] + candidate3notes[column2];
                     let howManyCell3 = candidate1notes[column3] + candidate2notes[column3] + candidate3notes[column3];
                     if (howManyCell1 < howmanynotesinthiscell[column1] || howManyCell2 < howmanynotesinthiscell[column2] || howManyCell3 < howmanynotesinthiscell[column3]) { 
-                      discardingFunctions.discardHiddenSet(row, "row", "column", {cell1:{ row: row, column: column1 }, cell2:{ row: row, column: column2 }, cell3:{ row: row, column: column3 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3 }, "Detecting Hidden Triples (Row)", notesZero.noteZeroCellExcept, modifyDOM.discardHiddenTripleHTML );
+                      solvingFunctions.discardHiddenSet(row, "row", "column", {cell1:{ row: row, column: column1 }, cell2:{ row: row, column: column2 }, cell3:{ row: row, column: column3 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3 }, "Detecting Hidden Triples (Row)", notesZero.noteZeroCellExcept, modifyDOM.discardHiddenTripleHTML );
                       break;
                     }
                   }
@@ -100,7 +100,7 @@ const hiddenTriplesColumn = () => {
                     let howManyCell2 = candidate1notes[row2] + candidate2notes[row2] + candidate3notes[row2];
                     let howManyCell3 = candidate1notes[row3] + candidate2notes[row3] + candidate3notes[row3];
                     if (howManyCell1 < howmanynotesinthiscell[row1] || howManyCell2 < howmanynotesinthiscell[row2] || howManyCell3 < howmanynotesinthiscell[row3]) { 
-                      discardingFunctions.discardHiddenSet(column, "column", "row", {cell1:{ row: row1, column: column }, cell2:{ row: row2, column: column }, cell3:{ row: row3, column: column } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3 }, "Detecting Hidden Triples (Column)", notesZero.noteZeroCellExcept, modifyDOM.discardHiddenTripleHTML );
+                      solvingFunctions.discardHiddenSet(column, "column", "row", {cell1:{ row: row1, column: column }, cell2:{ row: row2, column: column }, cell3:{ row: row3, column: column } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3 }, "Detecting Hidden Triples (Column)", notesZero.noteZeroCellExcept, modifyDOM.discardHiddenTripleHTML );
                       break;
                     }
                   }
@@ -120,7 +120,7 @@ const hiddenTriplesColumn = () => {
 // Function to detect when an square has hidden triples
 const hiddenTriplesSquare = () => {
   for (let square = 1; square <= 9; square++) { 
-    const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineInitialMaxRCFromSquare(square);
+    const {fromrow, maximumrow, fromcolumn, maximumcolumn} = coordinates.defineInitialMaxRCFromSquare(square);
     const { howmanycellswiththisnote, howmanynotesinthiscell, whereisthisnote } = gettingInfo.gettingDetailedInfoBlock ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square );
      //currentCandidate evaluates up to currentCandidate7 to let space for other two cells to compare with currentCandidate8 and currentCandidate9
     for (let currentCandidateValue1 = 1; currentCandidateValue1<= 7; currentCandidateValue1++) {
@@ -155,10 +155,10 @@ const hiddenTriplesSquare = () => {
                     let howManyCell2 = candidate1notes[cell2] + candidate2notes[cell2] + candidate3notes[cell2];
                     let howManyCell3 = candidate1notes[cell3] + candidate2notes[cell3] + candidate3notes[cell3];
                     if (howManyCell1 < howmanynotesinthiscell[cell1] || howManyCell2 < howmanynotesinthiscell[cell2] || howManyCell3 < howmanynotesinthiscell[cell3]) { 
-                      const { realRow:realRow1, realColumn:realColumn1 } = recurrent.defineRealRCFromSquareRelativeCell(square, cell1);
-                      const { realRow:realRow2, realColumn:realColumn2 } = recurrent.defineRealRCFromSquareRelativeCell(square, cell2);
-                      const { realRow:realRow3, realColumn:realColumn3 } = recurrent.defineRealRCFromSquareRelativeCell(square, cell3);
-                      discardingFunctions.discardHiddenSet(square, "square", "cell", {cell1:{ row: realRow1, column: realColumn1, cell: cell1 }, cell2:{ row: realRow2, column: realColumn2, cell: cell2 }, cell3:{ row: realRow3, column: realColumn3, cell: cell3 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3 }, "Detecting Hidden Triples (Square)", notesZero.noteZeroCellExcept, modifyDOM.discardHiddenTripleHTML );
+                      const { realRow:realRow1, realColumn:realColumn1 } = coordinates.defineRealRCFromSquareRelativeCell(square, cell1);
+                      const { realRow:realRow2, realColumn:realColumn2 } = coordinates.defineRealRCFromSquareRelativeCell(square, cell2);
+                      const { realRow:realRow3, realColumn:realColumn3 } = coordinates.defineRealRCFromSquareRelativeCell(square, cell3);
+                      solvingFunctions.discardHiddenSet(square, "square", "cell", {cell1:{ row: realRow1, column: realColumn1, cell: cell1 }, cell2:{ row: realRow2, column: realColumn2, cell: cell2 }, cell3:{ row: realRow3, column: realColumn3, cell: cell3 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3 }, "Detecting Hidden Triples (Square)", notesZero.noteZeroCellExcept, modifyDOM.discardHiddenTripleHTML );
                       break;
                     }
                   }

@@ -1,14 +1,14 @@
 'use strict';
 import globalVar from "./globalVar.js";
 import * as recurrent from "./recurrentFunctions.js";
-import * as solvingTechniques from "./solvingTechniques.js";
-import * as obviousPairs from "./discardingTechniquesObviousPairs.js";
-import * as hiddenPairs from "./discardingTechniquesHiddenPairs.js";
-import * as obviousTriples from "./discardingTechniquesObviousTriples.js";
-import * as hiddenTriples from "./discardingTechniquesHiddenTriples.js";
-import * as lockedCandidates from "./discardingTechniquesLockedCandidate.js";
-import * as xwing from "./discardingTechniquesXWing.js";
-import * as ywing from "./discardingTechniquesYWing.js";
+import * as singles from "./solvingStrategiesSingles.js";
+import * as obviousPairs from "./solvingStrategiesObviousPairs.js";
+import * as hiddenPairs from "./solvingStrategiesHiddenPairs.js";
+import * as obviousTriples from "./solvingStrategiesObviousTriples.js";
+import * as hiddenTriples from "./solvingStrategiesHiddenTriples.js";
+import * as lockedCandidates from "./solvingStrategiesLockedCandidate.js";
+import * as xwing from "./solvingStrategiesXWing.js";
+import * as ywing from "./solvingStrategiesYWing.js";
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -19,18 +19,18 @@ const solvingProcess = () => {
 
   //NAKED SINGLE METHOD
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-  solvingTechniques.singleCandidate();
+    singles.singleCandidate();
   };
 
   //HIDDEN SINGLE METHODS
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-    solvingTechniques.hiddenSinglesSquare();
+    singles.hiddenSinglesRow();
   };
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-    solvingTechniques.hiddenSinglesRow();
+    singles.hiddenSinglesColumn();
   };
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
-    solvingTechniques.hiddenSinglesColumn();
+    singles.hiddenSinglesSquare();
   };
 
   //OBVIOUS PAIRS METHODS

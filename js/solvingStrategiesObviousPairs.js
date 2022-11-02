@@ -1,10 +1,10 @@
 'use strict';
 import globalVar from "./globalVar.js";
-import * as recurrent from "./recurrentFunctions.js";
-import * as discardingFunctions from "./discardingProcessFunctions.js"
+import * as solvingFunctions from "./solvingProcessFunctions.js";
 import * as notesZero from "./notesZero.js";
 import * as gettingInfo from "./gettingInfoBlock.js";
 import * as modifyDOM from "./modifyingDOMFunctions.js";
+import * as coordinates from "./defineCoordinates.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                  DISCARDING TECHNIQUES - OBVIOUS PAIRS                    //
@@ -27,7 +27,7 @@ const obviousPairsRow = () => {
               let currentCandidateValue2 = cell1notes.indexOf(1, currentCandidateValue1 + 1);
               //This if is to make sure the pair found has notes in other cells and declare them as obvious Pair
               if (howmanycellswiththisnote[currentCandidateValue1] > 2 || howmanycellswiththisnote[currentCandidateValue2] > 2) {
-                discardingFunctions.discardObviousSet( row, "row", "column", {cell1:{ row: row, column: column1 }, cell2:{ row: row, column: column2 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2 }, "Detecting Obvious Pair (Row)", whereisthisnote, notesZero.noteZeroRow, modifyDOM.discardObviousPairsHTML);
+                solvingFunctions.discardObviousSet( row, "row", "column", {cell1:{ row: row, column: column1 }, cell2:{ row: row, column: column2 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2 }, "Detecting Obvious Pair (Row)", whereisthisnote, notesZero.noteZeroRow, modifyDOM.discardObviousPairsHTML);
                 break;
               };
             };
@@ -58,7 +58,7 @@ const obviousPairsColumn = () => {
               let currentCandidateValue2 = cell1notes.indexOf(1, currentCandidateValue1 + 1);
               //This if is to make sure the pair found has notes in other cells and declare them as obvious Pair
               if (howmanycellswiththisnote[currentCandidateValue1] > 2 || howmanycellswiththisnote[currentCandidateValue2] > 2) {
-                discardingFunctions.discardObviousSet( column, "column", "row", {cell1:{ row: row1, column: column }, cell2:{ row: row2, column: column } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2 }, "Detecting Obvious Pair (Column)", whereisthisnote, notesZero.noteZeroColumn, modifyDOM.discardObviousPairsHTML);
+                solvingFunctions.discardObviousSet( column, "column", "row", {cell1:{ row: row1, column: column }, cell2:{ row: row2, column: column } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2 }, "Detecting Obvious Pair (Column)", whereisthisnote, notesZero.noteZeroColumn, modifyDOM.discardObviousPairsHTML);
                 break;
               };
             };
@@ -75,7 +75,7 @@ const obviousPairsColumn = () => {
 const obviousPairsSquare = () => {
   
   for (let square = 1; square <= 9; square++) {
-    const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineInitialMaxRCFromSquare(square);
+    const {fromrow, maximumrow, fromcolumn, maximumcolumn} = coordinates.defineInitialMaxRCFromSquare(square);
     const { howmanycellswiththisnote, howmanynotesinthiscell, whereisthisnote } = gettingInfo.gettingDetailedInfoBlock ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square );
     //cell1 evaluates up to cell7 to let space to compare with cell8
     for (let cell1 = 0; cell1<= 7; cell1++) {
@@ -94,7 +94,7 @@ const obviousPairsSquare = () => {
               let currentCandidateValue2 = cell1notes.indexOf(1, currentCandidateValue1 + 1);
               //This if is to make sure the pair found has notes in other cells and declare them as obvious Pair
               if (howmanycellswiththisnote[currentCandidateValue1] > 2 || howmanycellswiththisnote[currentCandidateValue2] > 2) {
-                discardingFunctions.discardObviousSet( square, "square", "cell", {cell1:{ row: realrow1, column: realcolumn1, cell: cell1 }, cell2:{ row: realrow2, column: realcolumn2, cell: cell2 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2 }, "Detecting Obvious Pair (Square)", whereisthisnote, notesZero.noteZeroSquareSQ, modifyDOM.discardObviousPairsHTML);
+                solvingFunctions.discardObviousSet( square, "square", "cell", {cell1:{ row: realrow1, column: realcolumn1, cell: cell1 }, cell2:{ row: realrow2, column: realcolumn2, cell: cell2 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2 }, "Detecting Obvious Pair (Square)", whereisthisnote, notesZero.noteZeroSquareSQ, modifyDOM.discardObviousPairsHTML);
                 break;
               };
             };

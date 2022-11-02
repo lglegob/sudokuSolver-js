@@ -1,6 +1,6 @@
 'use strict';
 import globalVar from "./globalVar.js";
-import * as recurrent from "./recurrentFunctions.js";
+import * as coordinates from "./defineCoordinates.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                       NOTES to ZERO FUNCTIONS                             //
@@ -37,7 +37,7 @@ const noteZeroColumn = (column, currentCellValue, theMatrixStep) => {
 
 //Here, it is mark as zero, each cell in the same block(square), which contains the currentCellValue as candidate yet
 const noteZeroSquareSQ = (square, currentCellValue, theMatrixStep) => {
-  const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineInitialMaxRCFromSquare(square);
+  const {fromrow, maximumrow, fromcolumn, maximumcolumn} = coordinates.defineInitialMaxRCFromSquare(square);
   for (let square_row = fromrow; square_row <= maximumrow; square_row++) {
     for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) {
       globalVar.loopsExecuted++;
@@ -54,7 +54,7 @@ const noteZeroSquareSQ = (square, currentCellValue, theMatrixStep) => {
 
 //Here, it is mark as zero, each cell in the same block(square), which contains the currentCellValue as candidate yet
 const noteZeroSquareRC = (row, column, currentCellValue, theMatrixStep) => {
-  const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineInitialMaxRCFromRC(row, column);
+  const {fromrow, maximumrow, fromcolumn, maximumcolumn} = coordinates.defineInitialMaxRCFromRC(row, column);
   for (let square_row = fromrow; square_row <= maximumrow; square_row++) {
     for (let square_column = fromcolumn; square_column <= maximumcolumn; square_column++) {
       globalVar.loopsExecuted++;

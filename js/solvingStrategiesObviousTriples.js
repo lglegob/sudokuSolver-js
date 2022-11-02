@@ -1,10 +1,10 @@
 'use strict';
 import globalVar from "./globalVar.js";
-import * as discardingFunctions from "./discardingProcessFunctions.js"
+import * as solvingFunctions from "./solvingProcessFunctions.js";
 import * as notesZero from "./notesZero.js";
 import * as gettingInfo from "./gettingInfoBlock.js";
-import * as recurrent from "./recurrentFunctions.js";
 import * as modifyDOM from "./modifyingDOMFunctions.js";
+import * as coordinates from "./defineCoordinates.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                  DISCARDING TECHNIQUES - OBVIOUS PAIRS                    //
@@ -47,7 +47,7 @@ const obviousTriplesRow = () => {
                     let howManyCandidate2 = cell1notes[currentCandidateValue2] + cell2notes[currentCandidateValue2] + cell3notes[currentCandidateValue2];
                     let howManyCandidate3 = cell1notes[currentCandidateValue3] + cell2notes[currentCandidateValue3] + cell3notes[currentCandidateValue3];
                     if (howManyCandidate1 < howmanycellswiththisnote[currentCandidateValue1] || howManyCandidate2 < howmanycellswiththisnote[currentCandidateValue2] || howManyCandidate3 < howmanycellswiththisnote[currentCandidateValue3]) { 
-                      discardingFunctions.discardObviousSet(row, "row", "column", {cell1:{ row: row, column: column1 }, cell2:{ row: row, column: column2 }, cell3:{ row: row, column: column3 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3 }, "Detecting Obvious Triples (Row)", whereisthisnote, notesZero.noteZeroRow, modifyDOM.discardObviousTripleHTML );
+                      solvingFunctions.discardObviousSet(row, "row", "column", {cell1:{ row: row, column: column1 }, cell2:{ row: row, column: column2 }, cell3:{ row: row, column: column3 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3 }, "Detecting Obvious Triple (Row)", whereisthisnote, notesZero.noteZeroRow, modifyDOM.discardObviousTripleHTML );
                       break;
                     }
                   }
@@ -101,7 +101,7 @@ const obviousTriplesColumn = () => {
                     let howManyCandidate2 = cell1notes[currentCandidateValue2] + cell2notes[currentCandidateValue2] + cell3notes[currentCandidateValue2];
                     let howManyCandidate3 = cell1notes[currentCandidateValue3] + cell2notes[currentCandidateValue3] + cell3notes[currentCandidateValue3];
                     if (howManyCandidate1 < howmanycellswiththisnote[currentCandidateValue1] || howManyCandidate2 < howmanycellswiththisnote[currentCandidateValue2] || howManyCandidate3 < howmanycellswiththisnote[currentCandidateValue3]) { 
-                      discardingFunctions.discardObviousSet(column, "column", "row", {cell1:{ row: row1, column: column }, cell2:{ row: row2, column: column }, cell3:{ row: row3, column: column } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3 }, "Detecting Obvious Triples (Column)", whereisthisnote, notesZero.noteZeroColumn, modifyDOM.discardObviousTripleHTML );
+                      solvingFunctions.discardObviousSet(column, "column", "row", {cell1:{ row: row1, column: column }, cell2:{ row: row2, column: column }, cell3:{ row: row3, column: column } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3 }, "Detecting Obvious Triple (Column)", whereisthisnote, notesZero.noteZeroColumn, modifyDOM.discardObviousTripleHTML );
                       break;
                     }
                   }
@@ -121,17 +121,17 @@ const obviousTriplesColumn = () => {
 // Function to detect when a column has obvious pairs
 const obviousTriplesSquare = () => {
   for (let square = 1; square <= 9; square++) { 
-    const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineInitialMaxRCFromSquare(square);
+    const {fromrow, maximumrow, fromcolumn, maximumcolumn} = coordinates.defineInitialMaxRCFromSquare(square);
     const { howmanynotesinthiscell, howmanycellswiththisnote, whereisthisnote } = gettingInfo.gettingDetailedInfoBlock ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square );
     //cell1 evaluates up to cell6 to let space for other two cells to compare with cell7 and cell8
     for (let cell1 = 0; cell1<= 6; cell1++) {
       if (howmanynotesinthiscell[cell1] === 2 || howmanynotesinthiscell[cell1] === 3) {
         for (let cell2 = cell1+1; cell2<= 7; cell2++) {
           if (howmanynotesinthiscell[cell2] === 2 || howmanynotesinthiscell[cell2] === 3) {
-            const { realRow:realrow1, realColumn:realcolumn1 } = recurrent.defineRealRCFromSquareRelativeCell(square, cell1);
+            const { realRow:realrow1, realColumn:realcolumn1 } = coordinates.defineRealRCFromSquareRelativeCell(square, cell1);
             // let realrow1 = fromrow + Math.floor(cell1 / 3); 
             // let realcolumn1 = fromcolumn + cell1 % 3;
-            const { realRow:realrow2, realColumn:realcolumn2 } = recurrent.defineRealRCFromSquareRelativeCell(square, cell2);
+            const { realRow:realrow2, realColumn:realcolumn2 } = coordinates.defineRealRCFromSquareRelativeCell(square, cell2);
             // let realrow2 = fromrow + Math.floor(cell2 / 3);
             // let realcolumn2 = fromcolumn + cell2 % 3;
             let cell1notes = globalVar.theMatrix[globalVar.currentStep][realrow1][realcolumn1];
@@ -146,7 +146,7 @@ const obviousTriplesSquare = () => {
               for (let cell3 = cell2+1; cell3<= 8; cell3++) {
                 globalVar.loopsExecuted++;
                 if (howmanynotesinthiscell[cell3] === 2 || howmanynotesinthiscell[cell3] === 3) {
-                  const { realRow:realrow3, realColumn:realcolumn3 } = recurrent.defineRealRCFromSquareRelativeCell(square, cell3);
+                  const { realRow:realrow3, realColumn:realcolumn3 } = coordinates.defineRealRCFromSquareRelativeCell(square, cell3);
                   // let realrow3 = fromrow + Math.floor(cell3 / 3);
                   // let realcolumn3 = fromcolumn + cell3 % 3;
                   let cell3notes = globalVar.theMatrix[globalVar.currentStep][realrow3][realcolumn3];
@@ -165,7 +165,7 @@ const obviousTriplesSquare = () => {
                     let howManyCandidate2 = cell1notes[currentCandidateValue2] + cell2notes[currentCandidateValue2] + cell3notes[currentCandidateValue2];
                     let howManyCandidate3 = cell1notes[currentCandidateValue3] + cell2notes[currentCandidateValue3] + cell3notes[currentCandidateValue3];
                     if (howManyCandidate1 < howmanycellswiththisnote[currentCandidateValue1] || howManyCandidate2 < howmanycellswiththisnote[currentCandidateValue2] || howManyCandidate3 < howmanycellswiththisnote[currentCandidateValue3]) { 
-                      discardingFunctions.discardObviousSet(square, "square", "cell", {cell1:{ row: realrow1, column: realcolumn1, cell: cell1 }, cell2:{ row: realrow2, column: realcolumn2, cell: cell2 }, cell3:{ row: realrow3, column: realcolumn3, cell: cell3 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3 }, "Detecting Obvious Triples (Square)", whereisthisnote, notesZero.noteZeroSquareSQ, modifyDOM.discardObviousTripleHTML );
+                      solvingFunctions.discardObviousSet(square, "square", "cell", {cell1:{ row: realrow1, column: realcolumn1, cell: cell1 }, cell2:{ row: realrow2, column: realcolumn2, cell: cell2 }, cell3:{ row: realrow3, column: realcolumn3, cell: cell3 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3 }, "Detecting Obvious Triple (Square)", whereisthisnote, notesZero.noteZeroSquareSQ, modifyDOM.discardObviousTripleHTML );
                       break;
                     }
                   }

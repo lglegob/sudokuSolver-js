@@ -1,10 +1,18 @@
 # sudokuSolver-js
 
-Repository dedicated for the configuration and development of a Sudoku Solver based on JavaScript, which functioning version is located at [LeGo Sudoku Solver](https://lglegob.github.io/sudokuSolver-js/). It is being created by using logical solution methods like a human would solve it. This with the purpose to be able to solve each sudoku puzzle that a user ingress, like a tutorial, with step and step explanations and methods definitions. No brute Force algorithm. No backtracking algorithm.
+Repository dedicated for the configuration and development of a Sudoku Solver based on JavaScript, which functioning version is located at [LeonardoGonzalez's Sudoku Solver](https://lglegob.github.io/sudokuSolver-js/). It is being created by using logical solution methods like a human would solve it. This with the purpose to be able to solve each sudoku puzzle that a user ingress, like a tutorial, with step and step explanations and methods definitions. No brute Force algorithm. No backtracking algorithm.
 
 ![Sudoku Image](/images/6710716.jpg)
 
 ## Change Control and Versioning
+
+### Version 0.4.35 (Renaming and Organizing) 2022-11-01
+
+- WHAT'S NEW!?
+
+  - (Code Improvements) Reordering and Renaming of files and functions for a better organization.
+
+---
 
 ### Version 0.4.34 (Y-Wing Bug Fixed) 2022-10-31
 
@@ -254,7 +262,7 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 - WHAT'S NEW!?
 
   - (Puzzle Solving Strategies) Y-Wing discarding strategy added. At this instance it is detecting the row-column pattern. Pending for implementation to include y-Wings that include pincers in squares.
-  - (Puzzle Solving Strategies) For this discarding strategy to work a new js file created for Y-Wing strategies (discardingTechniquesYWing.js), a new notesZero function (noteZeroCell), a new discardProcessFunction (discardYWing), and a new modifyingDOMFunction (discardYWingHTML).
+  - (Puzzle Solving Strategies) For this discarding strategy to work a new js file created for Y-Wing strategies (solvingStrategiesYWing.js), a new notesZero function (noteZeroCell), a new discardProcessFunction (discardYWing), and a new modifyingDOMFunction (discardYWingHTML).
 
 ---
 

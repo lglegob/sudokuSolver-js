@@ -1,10 +1,10 @@
 'use strict';
 import globalVar from "./globalVar.js";
-import * as recurrent from "./recurrentFunctions.js";
-import * as discardingFunctions from "./discardingProcessFunctions.js"
+import * as solvingFunctions from "./solvingProcessFunctions.js";
 import * as notesZero from "./notesZero.js";
 import * as gettingInfo from "./gettingInfoBlock.js";
 import * as modifyDOM from "./modifyingDOMFunctions.js";
+import * as coordinates from "./defineCoordinates.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                     DISCARDING TECHNIQUES - HIDDEN PAIRS                  //
@@ -26,7 +26,7 @@ const hiddenPairsRow = () => {
               let column2 = candidate1notes.indexOf(1, column1 + 1);
               //This if is to make sure the cell has more candidates and declare them as hidden Pair
               if (howmanynotesinthiscell[column1] > 2 || howmanynotesinthiscell[column2] > 2) {
-                discardingFunctions.discardHiddenSet(row, "row", "column", {cell1:{ row: row, column: column1 }, cell2:{ row: row, column: column2 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2 }, "Detecting Hidden Pair (Row)", notesZero.noteZeroCellExcept, modifyDOM.discardHiddenPairHTML);
+                solvingFunctions.discardHiddenSet(row, "row", "column", {cell1:{ row: row, column: column1 }, cell2:{ row: row, column: column2 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2 }, "Detecting Hidden Pair (Row)", notesZero.noteZeroCellExcept, modifyDOM.discardHiddenPairHTML);
                 break;
               };
             };
@@ -56,7 +56,7 @@ const hiddenPairsColumn = () => {
               let row2 = candidate1notes.indexOf(1, row1 + 1);
               //This if is to make sure the cell has more candidates and declare them as hidden Pair
               if (howmanynotesinthiscell[row1] > 2 || howmanynotesinthiscell[row2] > 2) {
-                discardingFunctions.discardHiddenSet(column, "column", "row", {cell1:{ row: row1, column: column }, cell2:{ row: row2, column: column } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2 }, "Detecting Hidden Pair (Column)", notesZero.noteZeroCellExcept, modifyDOM.discardHiddenPairHTML);
+                solvingFunctions.discardHiddenSet(column, "column", "row", {cell1:{ row: row1, column: column }, cell2:{ row: row2, column: column } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2 }, "Detecting Hidden Pair (Column)", notesZero.noteZeroCellExcept, modifyDOM.discardHiddenPairHTML);
                 break;
               };
             };
@@ -72,7 +72,7 @@ const hiddenPairsColumn = () => {
 // Function to detect when a column has hidden pairs
 const hiddenPairsSquare = () => {
   for (let square = 1; square <= 9; square++) { 
-    const {fromrow, maximumrow, fromcolumn, maximumcolumn} = recurrent.defineInitialMaxRCFromSquare(square);
+    const {fromrow, maximumrow, fromcolumn, maximumcolumn} = coordinates.defineInitialMaxRCFromSquare(square);
     const { howmanycellswiththisnote, howmanynotesinthiscell, whereisthisnote } = gettingInfo.gettingDetailedInfoBlock ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", square );
     //currentCandidateValue1 evaluates up to possibleCandidate 8 to let space to compare with possibleCandidate 9
     for (let currentCandidateValue1 = 1; currentCandidateValue1<= 8; currentCandidateValue1++) {
@@ -87,9 +87,9 @@ const hiddenPairsSquare = () => {
               let cell2 = candidate1notes.indexOf(1, cell1 + 1);
               //This if is to make sure the cell has more candidates and declare them as hidden Pair
               if (howmanynotesinthiscell[cell1] > 2 || howmanynotesinthiscell[cell2] > 2) {
-                const { realRow:realRow1, realColumn:realColumn1 } = recurrent.defineRealRCFromSquareRelativeCell(square, cell1);
-                const { realRow:realRow2, realColumn:realColumn2 } = recurrent.defineRealRCFromSquareRelativeCell(square, cell2);
-                discardingFunctions.discardHiddenSet(square, "square", "cell", {cell1:{ row: realRow1, column: realColumn1 }, cell2:{ row: realRow2, column: realColumn2 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2 }, "Detecting Hidden Pair (Square)", notesZero.noteZeroCellExcept, modifyDOM.discardHiddenPairHTML);
+                const { realRow:realRow1, realColumn:realColumn1 } = coordinates.defineRealRCFromSquareRelativeCell(square, cell1);
+                const { realRow:realRow2, realColumn:realColumn2 } = coordinates.defineRealRCFromSquareRelativeCell(square, cell2);
+                solvingFunctions.discardHiddenSet(square, "square", "cell", {cell1:{ row: realRow1, column: realColumn1 }, cell2:{ row: realRow2, column: realColumn2 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2 }, "Detecting Hidden Pair (Square)", notesZero.noteZeroCellExcept, modifyDOM.discardHiddenPairHTML);
                 break;
               };
             };
