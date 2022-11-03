@@ -4,6 +4,7 @@ import * as notesZero from "./notesZero.js";
 import * as modifyDOM from "./modifyingDOMFunctions.js";
 import * as recurrent from "./recurrentFunctions.js";
 import * as coordinates from "./defineCoordinates.js";
+import * as matrixFunctions from "./theMatrixFunctions.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                      SOLVING PROCESSES FUNCTIONS                          //
@@ -263,4 +264,38 @@ const discardYWing = (pivotValues, pincer1Values, pincer1Axis, pincer2Values, pi
   globalVar.stepByStep ? true : modifyDOM.discardYWingHTML(pivotValues, pincer1Values, pincer1Axis, pincer2Values, pincer2Axis, pincerX, pincerY, pincerZ, method);
 };
 
-export { cellValueFound, discardLockedCandidate, discardXWing, discardHiddenSet, discardYWing, discardObviousSet };
+const nishioGuessInvalid = (row, column, method) => {
+  globalVar.currentStep++;
+  globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.nishioGuessingActive.step])); //The point where a new step is created in theMatrix, In this case based on the step when the guessing was made. It has to be used these JSON methods to avoid the copy by reference but by value
+  let wrongCandidate = globalVar.nishioGuessingActive.currentValue;
+
+  globalVar.stepsDetail[globalVar.currentStep] = [false, method, [globalVar.nishioGuessingActive.currentCell.row, globalVar.nishioGuessingActive.currentCell.column, globalVar.nishioGuessingActive.currentValue]];
+  
+  matrixFunctions.rebuildTheMatrix(globalVar.theMatrix[globalVar.currentStep]);
+  recurrent.deleteLastShowMe();
+
+  //Here the candidate that has been proven wrong can be deleted from that specific cell
+  let theMatrixStep = notesZero.noteZeroCell( [[globalVar.nishioGuessingActive.currentCell.row, globalVar.nishioGuessingActive.currentCell.column]] , wrongCandidate, globalVar.theMatrix[globalVar.currentStep]);
+  theMatrixStep = JSON.parse(JSON.stringify(theMatrixStep));
+
+  globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
+  globalVar.stepByStep ? true : recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
+  globalVar.stepByStep ? true : recurrent.toggleNotes();
+
+  globalVar.discardNoteSuccess = true;
+  globalVar.difficulty += 200;
+
+
+  globalVar.cellsResolved = globalVar.nishioGuessingActive.cellsResolved;
+  globalVar.nishioGuessingActive.cellsResolved = "";
+  // here the foundvalue is set in the html document to be shown, by calling the function newFoundValueHTML
+  globalVar.stepByStep ? true : modifyDOM.discardNishioCandidateProvenWrongHTML( row, column, wrongCandidate, method, "cell", [globalVar.nishioGuessingActive.currentCell.row, globalVar.nishioGuessingActive.currentCell.column] );
+  globalVar.nishioGuessingActive.evaluating = false;
+  globalVar.nishioGuessingActive.step = "";
+  globalVar.nishioGuessingActive.currentCell = "";
+  globalVar.nishioGuessingActive.currentValue = "";
+  globalVar.nishioGuessingActive.currentDiscardedCandidate = "";
+  return { theMatrixStep};
+}
+
+export { cellValueFound, discardLockedCandidate, discardXWing, discardHiddenSet, discardYWing, discardObviousSet, nishioGuessInvalid };

@@ -9,6 +9,7 @@ import * as hiddenTriples from "./solvingStrategiesHiddenTriples.js";
 import * as lockedCandidates from "./solvingStrategiesLockedCandidate.js";
 import * as xwing from "./solvingStrategiesXWing.js";
 import * as ywing from "./solvingStrategiesYWing.js";
+import * as nishio from "./solvingStrategiesNishio.js";
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -99,6 +100,14 @@ const solvingProcess = () => {
   //Y-WING CANDIDATES METHOD
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
     ywing.yWing();
+  };
+
+  //BOWMAN GUESSING METHOD
+  if (globalVar.nishioGuessingActive.evaluating === true) {
+    nishio.nishioChecking();
+  }
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+    nishio.nishioGuessing();
   };
 
   //FAILURE (NOT SOLVED)

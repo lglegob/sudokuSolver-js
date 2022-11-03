@@ -23,12 +23,16 @@ let stepsDetail = [];
 let currentStep = 0;
 let loopsExecuted = 0;
 let cellsResolved = 0;
+let difficulty = 0;
+
 let iterationSuccess = false;
 let discardNoteSuccess = false;
 let areNotesShowing = false;
 let areHighlightsOn = true;
 let stepByStep = false;
 let failure = false;
-let difficulty = 0;
 
-export default { theMatrix, theMatrixSolved, stepsDetail, currentStep, loopsExecuted, cellsResolved, iterationSuccess, discardNoteSuccess, areNotesShowing, areHighlightsOn, stepByStep, failure, difficulty };
+let nishioGuessingActive = { evaluating: false };
+
+
+export default { theMatrix, theMatrixSolved, stepsDetail, currentStep, loopsExecuted, cellsResolved, iterationSuccess, discardNoteSuccess, areNotesShowing, areHighlightsOn, stepByStep, failure, difficulty, nishioGuessingActive };

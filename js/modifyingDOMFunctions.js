@@ -67,7 +67,7 @@ const newFoundValueHTML = (itemRow, itemColumn, currentCellValue, theMatrixStep,
     </p>
     <p>The certain Value for this Cell is <strong>${currentCellValue}.</strong></p>
     `;
-  } else {
+  } else if (method.includes("Hidden Singles")) {
     newfoundvalueArticle.innerHTML = `
     <h3>Step ${globalVar.currentStep}</h3>
     <h4>${method}</h4>
@@ -76,6 +76,21 @@ const newFoundValueHTML = (itemRow, itemColumn, currentCellValue, theMatrixStep,
       within the ${mainBlock} ${mainBlockValue} was the only cell with Candidate (${currentCellValue}).
     </p>
     <p>The certain Value for this Cell is <strong>${currentCellValue}.</strong></p>
+    `;
+  } else if (method.includes("Nishio Guessing")) {
+    newfoundvalueArticle.innerHTML = `
+    <h3>Step ${globalVar.currentStep}</h3>
+    <h4>${method}</h4>
+    <p>We need to do a guess</p>
+    <p>Cell 
+    <strong><span data-cellcoordinates=".row${itemRow}.column${itemColumn}">R${itemRow}C${itemColumn}</span></strong> 
+    had two possible candidates (${currentCellValue} and ${globalVar.nishioGuessingActive.currentDiscardedCandidate}).
+    </p>
+    <p>Let's suppose for Cell 
+      <strong><span data-cellcoordinates=".row${itemRow}.column${itemColumn}">R${itemRow}C${itemColumn}</span></strong> 
+      that the certain value is Candidate (${currentCellValue}) and discard for the moment, the Candidate ${globalVar.nishioGuessingActive.currentDiscardedCandidate}.
+    </p>
+    <p>The guessed Value for this Cell is <strong>${currentCellValue}.</strong> which can be proven wrong or right in the next few steps</p>
     `;
   };
   const main = document.querySelector(".stepsDetails > div");
@@ -404,6 +419,51 @@ const discardYWingHTML = (pivotValues, pincer1Values, pincer1Axis, pincer2Values
   settingHighlightedBlock("cell", [pincer2Values[0] + 1, pincer2Values[1] + 1]);
 };
 
+//This Function is called by Y-WING Techniques
+const discardNishioCandidateProvenWrongHTML = (row, column, wrongCandidate, method, mainaxis, mainaxisvalue ) => {
+  console.log("--------------------------------------------");
+  console.log("Don'd think you are, know you are! - Morpheus");
+  console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
+  console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
+  console.log("We prove a nishio candidate wrong!")
+  document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
+  document.querySelector("#button-reload").classList.add("active");
+  document.querySelector("#button-reload").classList.remove("inactive");
+  let newDiscardArticle = document.createElement("article");
+  newDiscardArticle.classList.add("newdiscardNishioCandidate");
+  newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  newDiscardArticle.style.zIndex = -globalVar.currentStep;
+  
+  newDiscardArticle.innerHTML =  `
+  <h3>Step ${globalVar.currentStep}</h3>
+  <h4>${method}</h4>
+  <p>
+    After guessing the candidate ${wrongCandidate} as the possible certain value for cell 
+    <strong><span data-cellcoordinates=".row${mainaxisvalue[0] + 1}.column${mainaxisvalue[1] + 1}">R${mainaxisvalue[0] + 1}C${mainaxisvalue[1] + 1}</span></strong>, 
+    in step ${globalVar.nishioGuessingActive.step + 1}, and testing its validity, it was found as a wrong guessing.
+  </p>
+  <p>In previous Step, after ${globalVar.currentStep - globalVar.nishioGuessingActive.step - 2} steps, the cell
+  <strong><span data-cellcoordinates=".row${row + 1}.column${column + 1}">R${row + 1}C${column + 1}</span></strong>
+  was left with NO possible candidates with no certain value yet, which is not possible in a valid sudoku.
+  </p>
+  <p>
+  This shows the guessing made in step ${globalVar.nishioGuessingActive.step + 1} was incorrect and the puzzle has been returned to the state in that step.</p>
+  <p>So, now for certain, candidate ${wrongCandidate} has been discarded as option in cell
+  <strong><span data-cellcoordinates=".row${mainaxisvalue[0] + 1}.column${mainaxisvalue[1] + 1}">R${mainaxisvalue[0] + 1}C${mainaxisvalue[1] + 1}</span></strong>.
+  </p>
+  `;
+
+  const main = document.querySelector(".stepsDetails > div");
+  main.prepend(newDiscardArticle);
+
+  //creating the Event Listeners to the recently created RC spans
+  const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
+  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+
+  addGoBackToStepButton();
+  // settingHighlightedBlock("cell", [pivotValues[0] + 1, pivotValues[1] + 1]);
+};
+
 const addGoBackToStepButton = () => {
   if (globalVar.currentStep > 0) {
     let newbackToStepButton = document.createElement("button");
@@ -463,4 +523,4 @@ const newSudokuPuzzleArticle = () => {
   main.prepend(newfoundvalueArticle);
 };
 
-export { newFoundValueHTML, discardLockedCandidateHTML, discardXWingHTML, discardObviousPairsHTML, discardHiddenPairHTML, discardObviousTripleHTML, discardHiddenTripleHTML, discardYWingHTML, addGoBackToStepButton, settingHighlightedBlock, newSudokuPuzzleArticle };
+export { newFoundValueHTML, discardLockedCandidateHTML, discardXWingHTML, discardObviousPairsHTML, discardHiddenPairHTML, discardObviousTripleHTML, discardHiddenTripleHTML, discardYWingHTML, discardNishioCandidateProvenWrongHTML, addGoBackToStepButton, settingHighlightedBlock, newSudokuPuzzleArticle };
