@@ -220,8 +220,8 @@ const analyzeMatrix = (theMatrixStep) => {
 const matrixReloaded = (theMatrixDestinedStep, GoBackToStep) => {
   //Loop to go bask as many steps as needed
   for (let stepsBack = globalVar.currentStep - GoBackToStep; stepsBack >0; stepsBack--) {
-    if (globalVar.stepsDetail[globalVar.currentStep][0] === true) globalVar.cellsResolved--;   
     globalVar.currentStep--;
+    globalVar.cellsResolved = globalVar.stepsDetail.find(step => step.currentStep === globalVar.currentStep).cellsResolved;   
     const main = document.querySelector(".stepsDetails > div");
     main.removeChild(main.firstElementChild);
     //Config to remove the button of the new current step
@@ -282,6 +282,7 @@ const thePuzzleisValid = (initialMatrixValues, isThisPuzzleNew) => {
   modifyDOM.newSudokuPuzzleArticle();
   const instructions = document.querySelector(".instructions");
   instructions.remove();
+  globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: "start", cellsResolved: globalVar.cellsResolved } );
 
   //Process to save the current Sudoku Puzzle in Local Storage for future references, as first step it defines if there are more than X puzzle saved to delete the oldest one.
   if (isThisPuzzleNew) {    

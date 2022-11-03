@@ -16,7 +16,7 @@
 let theMatrix = [[]];
 let theMatrixSolved;
 
-//StepsDetail [steptype, Method, [Step detailed info]]
+//stepsDetail foimat by pushing with each step the following info =   { currentStep: number, cellValueFound: boolean, method: string, cellsResolved: number, valueFound: number, cellRC: {row: number, column: number}} );
 let stepsDetail = []; 
 
 //Several Variables needed globally available

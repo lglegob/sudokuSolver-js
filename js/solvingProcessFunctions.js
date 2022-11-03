@@ -15,7 +15,7 @@ const cellValueFound = (row, column, currentCellValue, method, mainBlock, mainBl
   globalVar.cellsResolved++;
   globalVar.currentStep++;
   globalVar.iterationSuccess = true;
-  globalVar.stepsDetail[globalVar.currentStep] = [true, method, [row, column, currentCellValue]];
+  globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: true, method: method, cellsResolved: globalVar.cellsResolved, valueFound: currentCellValue, cellRC: {row: row, column: column}} );
   let theMatrixStepCellFound = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
@@ -37,7 +37,7 @@ const cellValueFound = (row, column, currentCellValue, method, mainBlock, mainBl
 //This Function is called by OBVIOUSPAIRS and OBVIOUSTRIPLES
 const discardObviousSet = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentified, currentCandidates, method, whereisthisnote, callbackNoteZero, callbackModifyDOM ) => {
   globalVar.currentStep++;
-  globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
+  globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: method, cellsResolved: globalVar.cellsResolved } );
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
   //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
   let theMatrixStep = globalVar.theMatrix[globalVar.currentStep];
@@ -79,7 +79,7 @@ const discardObviousSet = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentifi
 //This Function is called by HIDDENPAIRS and HIDDENTRIPLES Techniques
 const discardHiddenSet = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentified, currentCandidates, method, callbackNoteZero, callbackModifyDOM) => {
   globalVar.currentStep++;
-  globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
+  globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: method } );
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
   //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
   let theMatrixStep = globalVar.theMatrix[globalVar.currentStep];
@@ -154,7 +154,7 @@ const discardLockedCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, sec
   };
 
   globalVar.currentStep++;
-  globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
+  globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: method, cellsResolved: globalVar.cellsResolved } );
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
   //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
   let theMatrixStep = callbackNoteZero(mainaxisvalue, value, globalVar.theMatrix[globalVar.currentStep]);
@@ -185,7 +185,7 @@ const discardLockedCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, sec
 //This Function is called by X-WING Techniques
 const discardXWing = (mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method, callbackNoteZero) => {
   globalVar.currentStep++;
-  globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
+  globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: method, cellsResolved: globalVar.cellsResolved } );
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
 
   //This process deletes the candidate from the two mainaxis blocks
@@ -239,7 +239,7 @@ const discardXWing = (mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryax
 //This Function is called by Y-WING Techniques
 const discardYWing = (pivotValues, pincer1Values, pincer1Axis, pincer2Values, pincer2Axis, pincerX, pincerY, pincerZ, method, callbackNoteZero, positiveforZvalue) => {
   globalVar.currentStep++;
-  globalVar.stepsDetail[globalVar.currentStep] = [false, method, []];
+  globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: method, cellsResolved: globalVar.cellsResolved } );
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
 
   //This process deletes the candidate from the cells determined
@@ -269,7 +269,7 @@ const nishioGuessInvalid = (row, column, method) => {
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.nishioGuessingActive.step])); //The point where a new step is created in theMatrix, In this case based on the step when the guessing was made. It has to be used these JSON methods to avoid the copy by reference but by value
   let wrongCandidate = globalVar.nishioGuessingActive.currentValue;
 
-  globalVar.stepsDetail[globalVar.currentStep] = [false, method, [globalVar.nishioGuessingActive.currentCell.row, globalVar.nishioGuessingActive.currentCell.column, globalVar.nishioGuessingActive.currentValue]];
+  globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: method, cellsResolved: globalVar.cellsResolved } );
   
   matrixFunctions.rebuildTheMatrix(globalVar.theMatrix[globalVar.currentStep]);
   recurrent.deleteLastShowMe();

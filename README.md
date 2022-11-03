@@ -6,11 +6,20 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.35b (stepsDetail variable) 2022-11-03
+
+- WHAT'S NEW!?
+
+  - (Not yet operational, bugs identified based on nishio configuration, not ready for merge.)
+  - stepsDetail is rebuilt/reformated to be of use with the steps, cells resolved and other data when going back steps or coming back to a previous state, like the process used by nishio guessing. (Not yet operations, bugs identified based on nishio configuration, not ready for merge.)
+
+---
+
 ### Version 0.4.35a (Branch createBowmanGuessing) 2022-11-02
 
 - WHAT'S NEW!?
 
-  - Not fully Operational Yet (not for main)
+  - (Not yet operational, bugs identified based on nishio configuration, not ready for merge.)
   - (Puzzle Solving Strategies) A new solving strategy, which is to be used as last resort has been defined. Nishio Guessing when no other technique has worked. There are still a couple of identified bugs related to the functionality to going back to a previous step, but the main solving functionality is already operational and tested with a sudoku puzzle which required two guessings in line to be resolved (86----5------6--7-3-9--4-1----4--3--98-3-5-41--7--2----2-5--1-8-4--2------8----62). The purpose of this webapp is to continue programming and finding more solution techniques, so, this last resort guessing method is that, a last resort.
 
 ---
