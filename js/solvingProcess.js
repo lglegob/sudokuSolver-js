@@ -18,6 +18,11 @@ import * as nishio from "./solvingStrategiesNishio.js";
 
 const solvingProcess = () => {
 
+  //NISHIO GUESSING METHOD
+  if (globalVar.nishioGuessingActive.evaluating === true) {
+    nishio.nishioChecking();
+  };
+
   //NAKED SINGLE METHOD
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
     singles.singleCandidate();
@@ -102,12 +107,16 @@ const solvingProcess = () => {
     ywing.yWing();
   };
 
-  //BOWMAN GUESSING METHOD
-  if (globalVar.nishioGuessingActive.evaluating === true) {
-    nishio.nishioChecking();
-  }
+  //NISHIO GUESSING METHOD
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false && globalVar.nishioGuessingActive.evaluating === true) {
+    nishio.previousNishioUnderEvaluation();
+  };
+  
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
     nishio.nishioGuessing();
+  };
+  if (globalVar.nishioGuessingActive.evaluating === true) {
+    nishio.nishioChecking();
   };
 
   //FAILURE (NOT SOLVED)

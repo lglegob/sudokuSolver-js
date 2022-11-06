@@ -464,6 +464,45 @@ const discardNishioCandidateProvenWrongHTML = (row, column, wrongCandidate, meth
   // settingHighlightedBlock("cell", [pivotValues[0] + 1, pivotValues[1] + 1]);
 };
 
+const discardNishioGuessDeadEndHTML = (wrongCandidate, method, mainaxis, mainaxisvalue ) => {
+  console.log("--------------------------------------------");
+  console.log("I'm sorry, this is a dead end - Agent Smith");
+  console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
+  console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
+  console.log("We got to a dead end (Double guess?!")
+  document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
+  document.querySelector("#button-reload").classList.add("active");
+  document.querySelector("#button-reload").classList.remove("inactive");
+  let newDiscardArticle = document.createElement("article");
+  newDiscardArticle.classList.add("deadEndNishio");
+  newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  newDiscardArticle.style.zIndex = -globalVar.currentStep;
+  
+  newDiscardArticle.innerHTML =  `
+  <h3>Step ${globalVar.currentStep}</h3>
+  <h4>${method}</h4>
+  <p>
+    After guessing the candidate ${wrongCandidate} as the possible certain value for cell 
+    <strong><span data-cellcoordinates=".row${mainaxisvalue[0] + 1}.column${mainaxisvalue[1] + 1}">R${mainaxisvalue[0] + 1}C${mainaxisvalue[1] + 1}</span></strong>, 
+    in step ${globalVar.nishioGuessingActive.step + 1}, and testing its validity, it got us to a dead end, where we would have to do a nested guess.
+  </p>
+  <p>Let's try other way by testing the next available candidate in a cell with only two candidates.
+  </p>
+  <p>
+  To do that, in this step, the puzzle has been returned to the state in step ${globalVar.nishioGuessingActive.step}.</p>
+  `;
+
+  const main = document.querySelector(".stepsDetails > div");
+  main.prepend(newDiscardArticle);
+
+  //creating the Event Listeners to the recently created RC spans
+  const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
+  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+
+  addGoBackToStepButton();
+  // settingHighlightedBlock("cell", [pivotValues[0] + 1, pivotValues[1] + 1]);
+};
+
 const addGoBackToStepButton = () => {
   if (globalVar.currentStep > 0) {
     let newbackToStepButton = document.createElement("button");
@@ -523,4 +562,4 @@ const newSudokuPuzzleArticle = () => {
   main.prepend(newfoundvalueArticle);
 };
 
-export { newFoundValueHTML, discardLockedCandidateHTML, discardXWingHTML, discardObviousPairsHTML, discardHiddenPairHTML, discardObviousTripleHTML, discardHiddenTripleHTML, discardYWingHTML, discardNishioCandidateProvenWrongHTML, addGoBackToStepButton, settingHighlightedBlock, newSudokuPuzzleArticle };
+export { newFoundValueHTML, discardLockedCandidateHTML, discardXWingHTML, discardObviousPairsHTML, discardHiddenPairHTML, discardObviousTripleHTML, discardHiddenTripleHTML, discardYWingHTML, discardNishioCandidateProvenWrongHTML, discardNishioGuessDeadEndHTML, addGoBackToStepButton, settingHighlightedBlock, newSudokuPuzzleArticle };

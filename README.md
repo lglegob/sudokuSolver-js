@@ -6,6 +6,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.35c (Nishio progress) 2022-11-05
+
+- WHAT'S NEW!?
+
+  - (Not yet operational, pending tests to be executed and minor bugs identified based on nishio configuration, not ready for merge.)
+  - progress in nishio technique configuration, the app now is able to identify deadend, go back and seelect another guess. already succesful with several difficult puzzles.
+
+---
+
 ### Version 0.4.35b (stepsDetail variable) 2022-11-03
 
 - WHAT'S NEW!?

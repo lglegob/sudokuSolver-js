@@ -102,26 +102,28 @@ const loadMatrix = (initialMatrixValues, isThisPuzzleNew) => {
   // let tempCurrentStep = globalVar.currentStep;
   // while (globalVar.cellsResolved <81 && globalVar.failure === false ) {
   //   solvingProcess();
-  //   //Check if the Solving process has made any cell empty of candidates, in which case the puzzle is not valid
-  //   for (let row = 0; row <= 8; row++) {
-  //     for (let column = 0; column <= 8; column++) {
-  //       globalVar.loopsExecuted++;
-  //       let currentCellValue = globalVar.theMatrix[globalVar.currentStep][row][column][0];
-  //       //method reduce to obtain the sum of the candidates in this cell
-  //       const sum = globalVar.theMatrix[globalVar.currentStep][row][column].reduce(add, 0);
-  //       function add(accumulator, a) {
-  //         return accumulator + a;
+  //   //Check if the Solving process has made any cell empty of candidates, in which case the puzzle is not valid, this applies if the step is not in the middle of a nishio guessing.
+  //   if (globalVar.nishioGuessingActive.evaluating === false) {    
+  //     for (let row = 0; row <= 8; row++) {
+  //       for (let column = 0; column <= 8; column++) {
+  //         globalVar.loopsExecuted++;
+  //         let currentCellValue = globalVar.theMatrix[globalVar.currentStep][row][column][0];
+  //         //method reduce to obtain the sum of the candidates in this cell
+  //         const sum = globalVar.theMatrix[globalVar.currentStep][row][column].reduce(add, 0);
+  //         function add(accumulator, a) {
+  //           return accumulator + a;
+  //         };
+  //         if (currentCellValue === 0 && sum-currentCellValue === 0) {
+  //           //cell invalid, the cell has no certain value yet and it does not have any more candidates
+  //           globalVar.failure = true;
+  //           console.log(`We have taken a sneak peek of your puzzle, and unfortunately Cell R${row + 1}C${column + 1} has been left with no candidates and no Certain values in Step ${globalVar.currentStep}. The puzzle is not valid`)
+  //           validPuzzle = false;
+  //           recurrent.showSweetAlert("error", "Oops...", `We have taken a sneak peek of your puzzle, and unfortunately Cell R${row + 1}C${column + 1} has been left with no candidates and no Certain values in Step ${globalVar.currentStep} after following several logical resolutions. The puzzle is not valid.`);
+  //           break;
+  //         };
   //       };
-  //       if (currentCellValue === 0 && sum-currentCellValue === 0) {
-  //         //cell invalid, the cell has no certain value yet and it does not have any more candidates
-  //         globalVar.failure = true;
-  //         console.log(`We have taken a sneak peek of your puzzle, and unfortunately Cell R${row + 1}C${column + 1} has been left with no candidates and no Certain values in Step ${globalVar.currentStep}. The puzzle is not valid`)
-  //         validPuzzle = false;
-  //         recurrent.showSweetAlert("error", "Oops...", `We have taken a sneak peek of your puzzle, and unfortunately Cell R${row + 1}C${column + 1} has been left with no candidates and no Certain values in Step ${globalVar.currentStep} after following several logical resolutions. The puzzle is not valid.`);
-  //         break;
-  //       };
+  //       if (globalVar.failure) break;
   //     };
-  //     if (globalVar.failure) break;
   //   };
   //   // console.log(globalVar.cellsResolved);
   // };
@@ -221,7 +223,8 @@ const matrixReloaded = (theMatrixDestinedStep, GoBackToStep) => {
   //Loop to go bask as many steps as needed
   for (let stepsBack = globalVar.currentStep - GoBackToStep; stepsBack >0; stepsBack--) {
     globalVar.currentStep--;
-    globalVar.cellsResolved = globalVar.stepsDetail.find(step => step.currentStep === globalVar.currentStep).cellsResolved;   
+    globalVar.cellsResolved = globalVar.stepsDetail.find(step => step.currentStep === globalVar.currentStep).cellsResolved;
+    globalVar.nishioGuessingActive = JSON.parse(JSON.stringify(globalVar.stepsDetail.find(step => step.currentStep === globalVar.currentStep).nishioGuessingActive));   
     const main = document.querySelector(".stepsDetails > div");
     main.removeChild(main.firstElementChild);
     //Config to remove the button of the new current step
@@ -282,7 +285,8 @@ const thePuzzleisValid = (initialMatrixValues, isThisPuzzleNew) => {
   modifyDOM.newSudokuPuzzleArticle();
   const instructions = document.querySelector(".instructions");
   instructions.remove();
-  globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: "start", cellsResolved: globalVar.cellsResolved } );
+  //stepsDetail push for step zero, so, when going back to step zero, there is information (like cellsResolved)
+  globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: "start", cellsResolved: globalVar.cellsResolved, nishioGuessingActive: JSON.parse(JSON.stringify(globalVar.nishioGuessingActive)) } );
 
   //Process to save the current Sudoku Puzzle in Local Storage for future references, as first step it defines if there are more than X puzzle saved to delete the oldest one.
   if (isThisPuzzleNew) {    
