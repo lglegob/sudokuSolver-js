@@ -6,6 +6,19 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.35d (Nishio Fixed Bugs) 2022-11-06
+
+- WHAT'S NEW!?
+
+  - (Operational, pending tests to be executed, ready for merge after some more testings.)
+  - progress in nishio technique configuration, the decision criteria to continue with further sequential Nishio guesses has been updated and complemented using new coordinates define function (defineRelativeCellFromRC), which based on Row and Column assigns a cell number (1 to 81), so it is easily compared if the Previous Nishio guess was executed in the same guess or a previous one, and also check which value was taken as candidate and update the next guess accordingly.
+
+- FIXED BUGs
+
+  - Previous undetected Bug Fixed. DiscardHiddenSet function, at the time it was updating the stepsDetail Variable with a push, was lacking the cellsResolved variable as part of the package. It was discovered when a Nishio guess followed a hidden pairs.
+
+---
+
 ### Version 0.4.35c (Nishio progress) 2022-11-05
 
 - WHAT'S NEW!?

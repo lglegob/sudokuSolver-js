@@ -81,7 +81,7 @@ const newFoundValueHTML = (itemRow, itemColumn, currentCellValue, theMatrixStep,
     newfoundvalueArticle.innerHTML = `
     <h3>Step ${globalVar.currentStep}</h3>
     <h4>${method}</h4>
-    <p>We need to do a guess</p>
+    <p>We don't like it, and are working hard to include strategies to avoid getting to this point, but for now, for your puzzle, we need to make a guess.</p>
     <p>Cell 
     <strong><span data-cellcoordinates=".row${itemRow}.column${itemColumn}">R${itemRow}C${itemColumn}</span></strong> 
     had two possible candidates (${currentCellValue} and ${globalVar.nishioGuessingActive.currentDiscardedCandidate}).

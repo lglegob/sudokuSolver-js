@@ -85,7 +85,7 @@ const discardObviousSet = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentifi
 //This Function is called by HIDDENPAIRS and HIDDENTRIPLES Techniques
 const discardHiddenSet = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentified, currentCandidates, method, callbackNoteZero, callbackModifyDOM) => {
   globalVar.currentStep++;
-  globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: method, nishioGuessingActive: JSON.parse(JSON.stringify(globalVar.nishioGuessingActive))  } );
+  globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: method, cellsResolved: globalVar.cellsResolved, nishioGuessingActive: JSON.parse(JSON.stringify(globalVar.nishioGuessingActive)) } );
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
   //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
   let theMatrixStep = globalVar.theMatrix[globalVar.currentStep];

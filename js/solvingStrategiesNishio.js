@@ -3,6 +3,7 @@ import globalVar from "./globalVar.js";
 import * as gettingInfo from "./gettingInfoBlock.js";
 import * as solvingFunctions from "./solvingProcessFunctions.js";
 import * as eventListeners from "./eventListeners.js";
+import * as coordinates from "./defineCoordinates.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 //                     GUESSING TECHNIQUES - BOWMAN                          //
@@ -25,8 +26,7 @@ const nishioGuessing = () => {
         let currentCandidateValue2 = globalVar.theMatrix[globalVar.currentStep][row][column].indexOf(1, currentCandidateValue1 + 1);
         //This series of ifs statements prevents the process to take the same nishio guess as previous failed attempt
         //This first case is when no nishio guess has been made, or previous guess resulted in a value discarded, so this is not related
-        if ((globalVar.nishioGuessingActive.previousNishioResult !== "nishioDeadEnd") || 
-            (globalVar.nishioGuessingActive.previousNishioResult === "nishioDeadEnd" && !(row === globalVar.nishioGuessingActive.currentCell.row && column === globalVar.nishioGuessingActive.currentCell.column))) {
+        if (globalVar.nishioGuessingActive.previousNishioResult !== "nishioDeadEnd") {
           globalVar.nishioGuessingActive.evaluating = true;
           globalVar.nishioGuessingActive.step = globalVar.currentStep;
           globalVar.nishioGuessingActive.currentCell = { row: row, column: column };
@@ -37,23 +37,38 @@ const nishioGuessing = () => {
           globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
           globalVar.difficulty += 200;
           break;
-        } else if (globalVar.nishioGuessingActive.previousNishioResult === "nishioDeadEnd" && (row === globalVar.nishioGuessingActive.currentCell.row && column === globalVar.nishioGuessingActive.currentCell.column) && (currentCandidateValue1 === globalVar.nishioGuessingActive.currentValue)) {  
+        } else { // globalVar.nishioGuessingActive.previousNishioResult = "nishioDeadEnd"
+          const { relativeCell:relativeCellCurrentCell } = coordinates.defineRelativeCellFromRC(row, column);
+          const { relativeCell:relativeCellPreviousGuess } = coordinates.defineRelativeCellFromRC(globalVar.nishioGuessingActive.currentCell.row, globalVar.nishioGuessingActive.currentCell.column);
+          if (relativeCellCurrentCell >= relativeCellPreviousGuess) {
             globalVar.nishioGuessingActive.evaluating = true;
             globalVar.nishioGuessingActive.step = globalVar.currentStep;
             globalVar.nishioGuessingActive.currentCell = { row: row, column: column };
-            globalVar.nishioGuessingActive.currentValue = currentCandidateValue2;
-            globalVar.nishioGuessingActive.currentDiscardedCandidate = currentCandidateValue1;
-            let currentCellValue = currentCandidateValue2;
-            const { theMatrixStepCellFound } = solvingFunctions.cellValueFound(row, column, currentCellValue, "Nishio Guessing", "cell", [row + 1, column + 1]);
-            globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
-            globalVar.difficulty += 200;
-            break;
+            if (relativeCellCurrentCell > relativeCellPreviousGuess) {
+              globalVar.nishioGuessingActive.currentValue = currentCandidateValue1;
+              globalVar.nishioGuessingActive.currentDiscardedCandidate = currentCandidateValue2;
+              let currentCellValue = currentCandidateValue1;
+              const { theMatrixStepCellFound } = solvingFunctions.cellValueFound(row, column, currentCellValue, "Nishio Guessing", "cell", [row + 1, column + 1]);
+              globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
+              globalVar.difficulty += 200;
+              break;
+            } else if (relativeCellCurrentCell === relativeCellPreviousGuess && currentCandidateValue1 === globalVar.nishioGuessingActive.currentValue) {
+              // This if adds the comparison between currentCandidateValue1 and tye previous value taken as guess (globalVar.nishioGuessingActive.currentValue), so
+              // In case they are equal, it can take the second candidate as guess, if not, it should go to look for the next cell with two candidates.
+              globalVar.nishioGuessingActive.currentValue = currentCandidateValue2;
+              globalVar.nishioGuessingActive.currentDiscardedCandidate = currentCandidateValue1;
+              let currentCellValue = currentCandidateValue2;
+              const { theMatrixStepCellFound } = solvingFunctions.cellValueFound(row, column, currentCellValue, "Nishio Guessing", "cell", [row + 1, column + 1]);
+              globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStepCellFound));
+              globalVar.difficulty += 200;
+              break;
+            };
+          };
         };
       };
     };
     if (globalVar.iterationSuccess) break;
   };
-
 };
 
 const nishioChecking = () => {

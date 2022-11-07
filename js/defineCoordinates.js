@@ -99,7 +99,13 @@ const defineRealRCFromSquareRelativeCell = (square, relativeCell) => {
 const defineRealRCFromInitialRCRelativeCell = (fromRow, fromColumn, relativeCell) => {
   let realRow = fromRow + Math.floor(relativeCell / 3); 
   let realColumn = fromColumn + relativeCell % 3;
-  return { realRow, realColumn }
+  return { realRow, realColumn };
 };
 
-export { defineInitialMaxRCFromRC, defineInitialMaxRCFromSquare, defineSquareFromRC, defineRealRCFromSquareRelativeRC, defineRealRCFromSquareRelativeCell, defineRealRCFromInitialRCRelativeCell }
+//This function receives row and column (0 to 8) and returns the relative Cell (1 to 81)
+const defineRelativeCellFromRC = (row, column) => {
+  let relativeCell = row * 9 + column + 1;
+  return { relativeCell };
+};
+
+export { defineInitialMaxRCFromRC, defineInitialMaxRCFromSquare, defineSquareFromRC, defineRealRCFromSquareRelativeRC, defineRealRCFromSquareRelativeCell, defineRealRCFromInitialRCRelativeCell, defineRelativeCellFromRC }
