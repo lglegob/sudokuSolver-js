@@ -9,6 +9,7 @@ import * as hiddenTriples from "./solvingStrategiesHiddenTriples.js";
 import * as lockedCandidates from "./solvingStrategiesLockedCandidate.js";
 import * as xwing from "./solvingStrategiesXWing.js";
 import * as ywing from "./solvingStrategiesYWing.js";
+import * as nishio from "./solvingStrategiesNishio.js";
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -16,6 +17,11 @@ import * as ywing from "./solvingStrategiesYWing.js";
 //////////////////////////////////////////////////////////////////////////////
 
 const solvingProcess = () => {
+
+  //NISHIO GUESSING METHOD
+  if (globalVar.nishioGuessingActive.evaluating === true) {
+    nishio.nishioChecking();
+  };
 
   //NAKED SINGLE METHOD
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
@@ -99,6 +105,18 @@ const solvingProcess = () => {
   //Y-WING CANDIDATES METHOD
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
     ywing.yWing();
+  };
+
+  //NISHIO GUESSING METHOD
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false && globalVar.nishioGuessingActive.evaluating === true) {
+    nishio.previousNishioUnderEvaluation();
+  };
+  
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+    nishio.nishioGuessing();
+  };
+  if (globalVar.nishioGuessingActive.evaluating === true) {
+    nishio.nishioChecking();
   };
 
   //FAILURE (NOT SOLVED)

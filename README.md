@@ -6,6 +6,54 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.e (Puzzle Validation SweetAlerts) 2022-11-07
+
+- FIXED BUGs
+
+  - When enabled the beforehand solving process to determine if the puzzle is valid or not, that process was interfering when previous valid puzzle checks had failed before , not showing those messages (like repeated numbers in a row) for showing only the failure solving. This has been fixed by adding an if statement to trigger the process to solve the puzzle beforehand and reorganizing that process within the validPuzzleChecks.js file
+
+---
+
+### Version 0.4.35d (Nishio Fixed Bugs) 2022-11-06
+
+- WHAT'S NEW!?
+
+  - (Operational, pending tests to be executed, ready for merge after some more testings.)
+  - progress in nishio technique configuration, the decision criteria to continue with further sequential Nishio guesses has been updated and complemented using new coordinates define function (defineRelativeCellFromRC), which based on Row and Column assigns a cell number (1 to 81), so it is easily compared if the Previous Nishio guess was executed in the same guess or a previous one, and also check which value was taken as candidate and update the next guess accordingly.
+
+- FIXED BUGs
+
+  - Previous undetected Bug Fixed. DiscardHiddenSet function, at the time it was updating the stepsDetail Variable with a push, was lacking the cellsResolved variable as part of the package. It was discovered when a Nishio guess followed a hidden pairs.
+
+---
+
+### Version 0.4.35c (Nishio progress) 2022-11-05
+
+- WHAT'S NEW!?
+
+  - (Not yet operational, pending tests to be executed and minor bugs identified based on nishio configuration, not ready for merge.)
+  - progress in nishio technique configuration, the app now is able to identify deadend, go back and seelect another guess. already succesful with several difficult puzzles.
+
+---
+
+### Version 0.4.35b (stepsDetail variable) 2022-11-03
+
+- WHAT'S NEW!?
+
+  - (Not yet operational, bugs identified based on nishio configuration, not ready for merge.)
+  - stepsDetail is rebuilt/reformated to be of use with the steps, cells resolved and other data when going back steps or coming back to a previous state, like the process used by nishio guessing. (Not yet operations, bugs identified based on nishio configuration, not ready for merge.)
+
+---
+
+### Version 0.4.35a (Branch createBowmanGuessing) 2022-11-02
+
+- WHAT'S NEW!?
+
+  - (Not yet operational, bugs identified based on nishio configuration, not ready for merge.)
+  - (Puzzle Solving Strategies) A new solving strategy, which is to be used as last resort has been defined. Nishio Guessing when no other technique has worked. There are still a couple of identified bugs related to the functionality to going back to a previous step, but the main solving functionality is already operational and tested with a sudoku puzzle which required two guessings in line to be resolved (86----5------6--7-3-9--4-1----4--3--98-3-5-41--7--2----2-5--1-8-4--2------8----62). The purpose of this webapp is to continue programming and finding more solution techniques, so, this last resort guessing method is that, a last resort.
+
+---
+
 ### Version 0.4.35 (Renaming and Organizing) 2022-11-01
 
 - WHAT'S NEW!?

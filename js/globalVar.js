@@ -16,19 +16,30 @@
 let theMatrix = [[]];
 let theMatrixSolved;
 
-//StepsDetail [steptype, Method, [Step detailed info]]
+//stepsDetail format by pushing with each step the following info =   { currentStep: number, cellValueFound: boolean, method: string, cellsResolved: number, valueFound: number, cellRC: {row: number, column: number}} );
 let stepsDetail = []; 
 
 //Several Variables needed globally available
 let currentStep = 0;
 let loopsExecuted = 0;
 let cellsResolved = 0;
+let difficulty = 0;
+
 let iterationSuccess = false;
 let discardNoteSuccess = false;
 let areNotesShowing = false;
 let areHighlightsOn = true;
 let stepByStep = false;
 let failure = false;
-let difficulty = 0;
 
-export default { theMatrix, theMatrixSolved, stepsDetail, currentStep, loopsExecuted, cellsResolved, iterationSuccess, discardNoteSuccess, areNotesShowing, areHighlightsOn, stepByStep, failure, difficulty };
+// nishioGuessingActive format
+// evaluating: true when nishio process is in progress
+// step: defines the step when the guess is made based on globalVar.currentStep;
+// currentCell defines cell coordinates where guess is made { row: row, column: column };
+// currentValue: defines the candidate taken as guessed certain with currentCandidateValue1;
+// currentDiscardedCandidate: defines the other candidate with currentCandidateValue2;
+// previousNishioResult: defines the latest nishio guess outcome with possible values ("notExecuted", "invalidGuess", "nishioDeadEnd" )
+let nishioGuessingActive = { evaluating: false, previousNishioResult: "notExecuted" };
+
+
+export default { theMatrix, theMatrixSolved, stepsDetail, currentStep, loopsExecuted, cellsResolved, iterationSuccess, discardNoteSuccess, areNotesShowing, areHighlightsOn, stepByStep, failure, difficulty, nishioGuessingActive };
