@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.4.e (Puzzle Validation SweetAlerts) 2022-11-07
+
+- FIXED BUGs
+
+  - When enabled the beforehand solving process to determine if the puzzle is valid or not, that process was interfering when previous valid puzzle checks had failed before , not showing those messages (like repeated numbers in a row) for showing only the failure solving. This has been fixed by adding an if statement to trigger the process to solve the puzzle beforehand and reorganizing that process within the validPuzzleChecks.js file
+
+---
+
 ### Version 0.4.35d (Nishio Fixed Bugs) 2022-11-06
 
 - WHAT'S NEW!?

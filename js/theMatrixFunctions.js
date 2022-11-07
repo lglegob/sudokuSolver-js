@@ -5,7 +5,6 @@ import * as recurrent from "./recurrentFunctions.js";
 import * as eventListeners from "./eventListeners.js";
 import * as validPuzzleCheck from "./validPuzzleChecks.js";
 import * as randomSudoku from "./randomPuzzle.js";
-import { solvingProcess } from "./solvingProcess.js";
 import * as modifyDOM from "./modifyingDOMFunctions.js";
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -88,58 +87,17 @@ const loadMatrix = (initialMatrixValues, isThisPuzzleNew) => {
   };
 
   //Check if there are enough kind of digits for unique solution (At least 8 or 9 of the possible options)
-  validPuzzle = validPuzzleCheck.enoughDiversityDigits(validPuzzle, quantityPerValue);
+  validPuzzle ? validPuzzle = validPuzzleCheck.enoughDiversityDigits(validPuzzle, quantityPerValue) : false;
 
   //Check if there are duplicated digits within the blocks (row, column and square)
-  validPuzzle = validPuzzleCheck.validPuzzleRow(validPuzzle);
-  validPuzzle = validPuzzleCheck.validPuzzleColumn(validPuzzle);
-  validPuzzle = validPuzzleCheck.validPuzzleSquare(validPuzzle);
+  validPuzzle ? validPuzzle = validPuzzleCheck.validPuzzleRow(validPuzzle) : false;
+  validPuzzle ? validPuzzle = validPuzzleCheck.validPuzzleColumn(validPuzzle) : false;
+  validPuzzle ? validPuzzle = validPuzzleCheck.validPuzzleSquare(validPuzzle) : false;
 
   // Check if the puzzle has one only answer by solving it
-  globalVar.stepByStep = true;
-  globalVar.failure = false;
-  let tempCellsResolved = globalVar.cellsResolved;
-  let tempCurrentStep = globalVar.currentStep;
-  while (globalVar.cellsResolved <81 && globalVar.failure === false ) {
-    solvingProcess();
-    //Check if the Solving process has made any cell empty of candidates, in which case the puzzle is not valid, this applies if the step is not in the middle of a nishio guessing.
-    if (globalVar.nishioGuessingActive.evaluating === false) {    
-      for (let row = 0; row <= 8; row++) {
-        for (let column = 0; column <= 8; column++) {
-          globalVar.loopsExecuted++;
-          let currentCellValue = globalVar.theMatrix[globalVar.currentStep][row][column][0];
-          //method reduce to obtain the sum of the candidates in this cell
-          const sum = globalVar.theMatrix[globalVar.currentStep][row][column].reduce(add, 0);
-          function add(accumulator, a) {
-            return accumulator + a;
-          };
-          if (currentCellValue === 0 && sum-currentCellValue === 0) {
-            //cell invalid, the cell has no certain value yet and it does not have any more candidates
-            globalVar.failure = true;
-            console.log(`We have taken a sneak peek of your puzzle, and unfortunately Cell R${row + 1}C${column + 1} has been left with no candidates and no Certain values in Step ${globalVar.currentStep}. The puzzle is not valid`)
-            validPuzzle = false;
-            recurrent.showSweetAlert("error", "Oops...", `We have taken a sneak peek of your puzzle, and unfortunately Cell R${row + 1}C${column + 1} has been left with no candidates and no Certain values in Step ${globalVar.currentStep} after following several logical resolutions. The puzzle is not valid.`);
-            break;
-          };
-        };
-        if (globalVar.failure) break;
-      };
-    };
-    // console.log(globalVar.cellsResolved);
-  };
-  console.log("--------------------------------------------");
-  if (globalVar.failure) {
-    console.log(`Failure to solve it`);
-  } else {
-    console.log(`The calculated difficulty for this puzzle is ${globalVar.difficulty}`);
-  };
-  globalVar.theMatrixSolved = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep]));
-  globalVar.stepByStep = false;
-  globalVar.cellsResolved = tempCellsResolved;
-  globalVar.currentStep = tempCurrentStep;
-  globalVar.nishioGuessingActive = { evaluating: false, previousNishioResult: "notExecuted" };
-
-  //Finally, check if Puzzle is valid
+  validPuzzle ? validPuzzle = validPuzzleCheck.validPuzzleSolvingIt(validPuzzle) : false;
+  
+  //Finally, check if Puzzle is valid to make decisions
   if (validPuzzle) {
     thePuzzleisValid(initialMatrixValues, isThisPuzzleNew);
   } else {
