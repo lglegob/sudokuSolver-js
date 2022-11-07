@@ -6,7 +6,23 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
-### Version 0.4.e (Puzzle Validation SweetAlerts) 2022-11-07
+### Version 0.5.1 (Obvious Quadruple Stretagies) 2022-11-07
+
+- WHAT'S NEW!?
+
+  - (Puzzle Solving Strategies) A set of 3 new Solving Strategies have beedn defined based on Obvious Quadruples for Row, Column and Square scenarios..
+
+---
+
+### Version 0.5.0 (Merge Branch createBowman Guessing) 2022-11-07
+
+- WHAT'S NEW!?
+
+  - (Branch Merge) createBowmanGuessing branch changes integrated to main branch with the changes from 0.4.35a to 0.4.35e now part of main. These Changes include the addition of Nishio Guessing solving technique as last resort for the Puzzle Solving Process.
+
+---
+
+### Version 0.4.35e (Puzzle Validation SweetAlerts) 2022-11-07
 
 - FIXED BUGs
 

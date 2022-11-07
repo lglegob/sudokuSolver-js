@@ -6,6 +6,7 @@ import * as obviousPairs from "./solvingStrategiesObviousPairs.js";
 import * as hiddenPairs from "./solvingStrategiesHiddenPairs.js";
 import * as obviousTriples from "./solvingStrategiesObviousTriples.js";
 import * as hiddenTriples from "./solvingStrategiesHiddenTriples.js";
+import * as obviousQuads from "./solvingStrategiesObviousQuadruples.js";
 import * as lockedCandidates from "./solvingStrategiesLockedCandidate.js";
 import * as xwing from "./solvingStrategiesXWing.js";
 import * as ywing from "./solvingStrategiesYWing.js";
@@ -81,6 +82,17 @@ const solvingProcess = () => {
   };
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
     hiddenTriples.hiddenTriplesSquare();
+  };
+
+  //OBVIOUS QUAD METHODS
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+    obviousQuads.obviousQuadsRow();
+  };
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+    obviousQuads.obviousQuadsColumn();
+  };
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+    obviousQuads.obviousQuadsSquare();
   };
 
   //LOCKED CANDIDATE METHODS

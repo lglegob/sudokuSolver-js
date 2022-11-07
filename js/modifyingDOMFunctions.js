@@ -192,7 +192,7 @@ const discardObviousTripleHTML = (mainaxisvalue, mainaxis, cellsIdentified, curr
   console.log("We found an Obvious Triple!")
   mainaxis === "square" ? mainaxisvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
   console.log(`We are looking at ${mainaxis} ${mainaxisvalue + 1}, the first Cell is row${cellsIdentified.cell1.row + 1} column${cellsIdentified.cell1.column + 1}, the second Cell is row${cellsIdentified.cell2.row + 1} column${cellsIdentified.cell2.column + 1} and the Third Cell is row${cellsIdentified.cell3.row + 1} column${cellsIdentified.cell3.column + 1}`)
-  console.log(`The common triple notes are ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate1}, they have been deleted from other cells in the ${mainaxis} ${mainaxisvalue + 1}`);
+  console.log(`The common triple notes are ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate3}, they have been deleted from other cells in the ${mainaxis} ${mainaxisvalue + 1}`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
@@ -250,6 +250,47 @@ const discardHiddenTripleHTML = (mainaxisvalue, mainaxis, cellsIdentified, curre
   </p>
   <p>The three cells are within the same Block (${mainaxis} ${mainaxisvalue + 1}), and the candidates are ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate3}</p>
   <p>These Candidates, ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate3}, are the only ones kept, all other candidates have been deleted within the ${mainaxis} ${mainaxisvalue + 1} in those three cells</p>
+  `;
+  const main = document.querySelector(".stepsDetails > div");
+  main.prepend(newDiscardArticle);
+
+  //creating the Event Listeners to the recently created RC spans
+  const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
+  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+
+  addGoBackToStepButton();
+  settingHighlightedBlock(mainaxis, mainaxisvalue + 1);
+};
+
+//This Function is called by OBVIOUSTRIPLES Techniques
+const discardObviousQuadHTML = (mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method) => {
+  console.log("--------------------------------------------");
+  console.log("I Never Believed I Was The One. But She Did. She Believed In Me. It's My Turn To Believe In Her. - Neo");
+  console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
+  console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
+  console.log("We found an Obvious Quad!!!!")
+  mainaxis === "square" ? mainaxisvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  console.log(`We are looking at ${mainaxis} ${mainaxisvalue + 1}, the first Cell is row${cellsIdentified.cell1.row + 1} column${cellsIdentified.cell1.column + 1}, the second Cell is row${cellsIdentified.cell2.row + 1} column${cellsIdentified.cell2.column + 1}, the Third Cell is row${cellsIdentified.cell3.row + 1} column${cellsIdentified.cell3.column + 1} and the fourth Cell is row${cellsIdentified.cell4.row + 1} column${cellsIdentified.cell4.column + 1}`)
+  console.log(`The common Quad notes are ${currentCandidates.candidate1}, ${currentCandidates.candidate2}, ${currentCandidates.candidate3} and ${currentCandidates.candidate4}, they have been deleted from other cells in the ${mainaxis} ${mainaxisvalue + 1}`);
+  document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
+  document.querySelector("#button-reload").classList.add("active");
+  document.querySelector("#button-reload").classList.remove("inactive");
+  let newDiscardArticle = document.createElement("article");
+  newDiscardArticle.classList.add("newdiscardQuadCandidates");
+  newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  newDiscardArticle.style.zIndex = -globalVar.currentStep;
+  newDiscardArticle.innerHTML = `
+  <h3>Step ${globalVar.currentStep}</h3>
+  <h4>${method}</h4>
+  <p>Cells 
+    <strong><span data-cellcoordinates=".row${cellsIdentified.cell1.row + 1}.column${cellsIdentified.cell1.column  + 1}">R${cellsIdentified.cell1.row + 1}C${cellsIdentified.cell1.column + 1}</span></strong>,  
+    <strong><span data-cellcoordinates=".row${cellsIdentified.cell2.row + 1}.column${cellsIdentified.cell2.column  + 1}">R${cellsIdentified.cell2.row + 1}C${cellsIdentified.cell2.column + 1}</span></strong>,   
+    <strong><span data-cellcoordinates=".row${cellsIdentified.cell3.row + 1}.column${cellsIdentified.cell3.column  + 1}">R${cellsIdentified.cell3.row + 1}C${cellsIdentified.cell3.column + 1}</span></strong> and
+    <strong><span data-cellcoordinates=".row${cellsIdentified.cell4.row + 1}.column${cellsIdentified.cell4.column  + 1}">R${cellsIdentified.cell4.row + 1}C${cellsIdentified.cell4.column + 1}</span></strong>
+    contain an obvious Quadruple (Cells with the same four only candidates)
+  </p>
+  <p>The four cells are within the same Block (${mainaxis} ${mainaxisvalue + 1}), and the candidates are ${currentCandidates.candidate1}, ${currentCandidates.candidate2}, ${currentCandidates.candidate3} and ${currentCandidates.candidate4}</p>
+  <p>These Candidates, ${currentCandidates.candidate1}, ${currentCandidates.candidate2}, ${currentCandidates.candidate3} and ${currentCandidates.candidate4}, have been deleted from other cells within the ${mainaxis} ${mainaxisvalue + 1}</p>
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newDiscardArticle);
@@ -562,4 +603,4 @@ const newSudokuPuzzleArticle = () => {
   main.prepend(newfoundvalueArticle);
 };
 
-export { newFoundValueHTML, discardLockedCandidateHTML, discardXWingHTML, discardObviousPairsHTML, discardHiddenPairHTML, discardObviousTripleHTML, discardHiddenTripleHTML, discardYWingHTML, discardNishioCandidateProvenWrongHTML, discardNishioGuessDeadEndHTML, addGoBackToStepButton, settingHighlightedBlock, newSudokuPuzzleArticle };
+export { newFoundValueHTML, discardLockedCandidateHTML, discardXWingHTML, discardObviousPairsHTML, discardHiddenPairHTML, discardObviousTripleHTML, discardHiddenTripleHTML, discardObviousQuadHTML, discardYWingHTML, discardNishioCandidateProvenWrongHTML, discardNishioGuessDeadEndHTML, addGoBackToStepButton, settingHighlightedBlock, newSudokuPuzzleArticle };
