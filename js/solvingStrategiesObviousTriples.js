@@ -10,7 +10,7 @@ import * as coordinates from "./defineCoordinates.js";
 //                  DISCARDING TECHNIQUES - OBVIOUS PAIRS                    //
 //////////////////////////////////////////////////////////////////////////////
 
-// Function to detect when a row has obvious pairs
+// Function to detect when a row has obvious Triples
 const obviousTriplesRow = () => {
   for (let row = 0; row <= 8; row++) { 
     const { howmanynotesinthiscell, howmanycellswiththisnote, whereisthisnote } = gettingInfo.gettingDetailedInfoBlock ( row, row, 0, 8, "row" );
@@ -64,7 +64,7 @@ const obviousTriplesRow = () => {
   };
 };
 
-// Function to detect when a column has obvious pairs
+// Function to detect when a column has obvious Triples
 const obviousTriplesColumn = () => {
   for (let column = 0; column <= 8; column++) { 
     const { howmanynotesinthiscell, howmanycellswiththisnote, whereisthisnote } = gettingInfo.gettingDetailedInfoBlock ( 0, 8, column, column, "column" );
@@ -118,7 +118,7 @@ const obviousTriplesColumn = () => {
   };
 };
 
-// Function to detect when a column has obvious pairs
+// Function to detect when a column has obvious Triples
 const obviousTriplesSquare = () => {
   for (let square = 1; square <= 9; square++) { 
     const {fromrow, maximumrow, fromcolumn, maximumcolumn} = coordinates.defineInitialMaxRCFromSquare(square);
@@ -129,11 +129,7 @@ const obviousTriplesSquare = () => {
         for (let cell2 = cell1+1; cell2<= 7; cell2++) {
           if (howmanynotesinthiscell[cell2] === 2 || howmanynotesinthiscell[cell2] === 3) {
             const { realRow:realrow1, realColumn:realcolumn1 } = coordinates.defineRealRCFromSquareRelativeCell(square, cell1);
-            // let realrow1 = fromrow + Math.floor(cell1 / 3); 
-            // let realcolumn1 = fromcolumn + cell1 % 3;
             const { realRow:realrow2, realColumn:realcolumn2 } = coordinates.defineRealRCFromSquareRelativeCell(square, cell2);
-            // let realrow2 = fromrow + Math.floor(cell2 / 3);
-            // let realcolumn2 = fromcolumn + cell2 % 3;
             let cell1notes = globalVar.theMatrix[globalVar.currentStep][realrow1][realcolumn1];
             let cell2notes = globalVar.theMatrix[globalVar.currentStep][realrow2][realcolumn2];
             let cell1ORcell2Notes = cell1notes.map((candidate, index) => candidate || cell2notes[index]);
@@ -147,8 +143,6 @@ const obviousTriplesSquare = () => {
                 globalVar.loopsExecuted++;
                 if (howmanynotesinthiscell[cell3] === 2 || howmanynotesinthiscell[cell3] === 3) {
                   const { realRow:realrow3, realColumn:realcolumn3 } = coordinates.defineRealRCFromSquareRelativeCell(square, cell3);
-                  // let realrow3 = fromrow + Math.floor(cell3 / 3);
-                  // let realcolumn3 = fromcolumn + cell3 % 3;
                   let cell3notes = globalVar.theMatrix[globalVar.currentStep][realrow3][realcolumn3];
                   let cell1ORcell2ORcell3Notes = cell3notes.map((candidate, index) => candidate || cell1ORcell2Notes[index]);
                   //method reduce to obtain the sum of the candidates in this cell
