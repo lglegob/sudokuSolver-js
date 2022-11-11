@@ -519,10 +519,10 @@ input[type=number] {
   transform: translateZ(16rem);
 }
 
-/* From uiverse.io by @shah1345 */
+/* Based on HoverMeButton in uiverse.io by @shah1345 */
 .hoverMeButton {
   width: 60px;
-  height: 30px;
+  height: 40px;
   padding: 3px;
   margin: 5px;
   font-size: 10px;
@@ -543,7 +543,7 @@ input[type=number] {
 @media screen and (min-width: 320px) {
   .hoverMeButton {
     width: 80px;
-    height: 40px;
+    height: 60px;
     padding: 4px;
     font-size: 12px;
   }

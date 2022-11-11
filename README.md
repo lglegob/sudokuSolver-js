@@ -6,11 +6,27 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
-### Version 0.5.1 (Obvious Quadruple Stretagies) 2022-11-07
+### Version 0.6.1 (fetch API to obtain random Sudoku) 2022-11-11
 
 - WHAT'S NEW!?
 
-  - (Puzzle Solving Strategies) A set of 3 new Solving Strategies have beedn defined based on Obvious Quadruples for Row, Column and Square scenarios..
+  - (Puzzle Creation) A new method to obtain a brand new sudoku puzzle is cerated using fetch method from a third party site (RapidAPI). A new button is added to have this functionality.
+
+---
+
+### Version 0.6.0 (merge Branch createBowmanGuessing with Obvious Quadruples Solving Strategies ) 2022-11-07
+
+- WHAT'S NEW!?
+
+  - (Puzzle Solving Strategies) By mistake the changes to add new solving strategies based on Obvious Quadruples were created in branch createBowmanGuessing. Merging to continue working in main.
+
+---
+
+### Version 0.5.1 (Obvious Quadruple Strategies) 2022-11-07
+
+- WHAT'S NEW!?
+
+  - (Puzzle Solving Strategies) A set of 3 new Solving Strategies have been defined based on Obvious Quadruples for Row, Column and Square scenarios..
 
 ---
 

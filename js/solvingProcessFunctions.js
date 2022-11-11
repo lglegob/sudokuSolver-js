@@ -78,6 +78,7 @@ const discardObviousSet = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentifi
   globalVar.discardNoteSuccess = true;
   method.includes("Pair") ? globalVar.difficulty += 8 : false;
   method.includes("Triple") ? globalVar.difficulty += 12 : false;
+  method.includes("Quads") ? globalVar.difficulty += 21 : false;
   globalVar.stepByStep ? true : callbackModifyDOM(mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method);
 };
 

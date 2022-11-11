@@ -290,6 +290,9 @@ const thePuzzleisValid = (initialMatrixValues, isThisPuzzleNew) => {
   document.querySelector("#button-loadmanually").disabled = true;
   document.querySelector("#button-loadmanually").classList.remove("active", "visible");
   document.querySelector("#button-loadmanually").classList.add("inactive", "invisible");
+  document.querySelector("#button-loadAPISudoku").disabled = true;
+  document.querySelector("#button-loadAPISudoku").classList.remove("active", "visible");
+  document.querySelector("#button-loadAPISudoku").classList.add("inactive", "invisible");
   document.querySelector("#button-validate").disabled = true;
   document.querySelector("#button-validate").classList.remove("active", "visible");
   document.querySelector("#button-validate").classList.add("inactive", "invisible");

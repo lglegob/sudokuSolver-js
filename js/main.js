@@ -25,3 +25,4 @@ eventListeners.loadMatrixListener();
 eventListeners.loadMatrixManuallyListener();
 eventListeners.toggleNotesListener();
 eventListeners.togglehighlightsListener();
+eventListeners.loadAPISudoku();
