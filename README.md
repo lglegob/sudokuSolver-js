@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.6.2 (Disable Go back button) 2022-11-11
+
+- FIXED BUGs
+
+  - (User Experience) After enabling the process to solve the sudoku puzzle beforehand, the button to go back an step was active since step 0 causing an error if clicked, and further errors along the line when starting to solve the puzzle. It has been fixed and left disabled for that first step again.
+
+---
+
 ### Version 0.6.1 (fetch API to obtain random Sudoku) 2022-11-11
 
 - WHAT'S NEW!?

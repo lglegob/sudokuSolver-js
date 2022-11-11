@@ -308,11 +308,12 @@ const thePuzzleisValid = (initialMatrixValues, isThisPuzzleNew) => {
   document.querySelector("#button-clear").disabled = false;
   document.querySelector("#button-clear").classList.add("active");
   document.querySelector("#button-clear").classList.remove("inactive");
+  document.querySelector("#button-reload").disabled = true;
+  document.querySelector("#button-reload").classList.remove("active", "invisible");
+  document.querySelector("#button-reload").classList.add("inactive", "visible");
   //ToggleHighlights and is just made visible, but not yet active
   document.querySelector("#button-togglehighlights").classList.add("visible");
   document.querySelector("#button-togglehighlights").classList.remove("invisible");
-  document.querySelector("#button-reload").classList.remove("invisible");
-  document.querySelector("#button-reload").classList.add("visible");
   console.log("--------------------------------------------");
   console.log("The Matrix has you...")
 };
