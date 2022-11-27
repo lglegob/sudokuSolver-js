@@ -460,6 +460,80 @@ const discardYWingHTML = (pivotValues, pincer1Values, pincer1Axis, pincer2Values
   settingHighlightedBlock("cell", [pincer2Values[0] + 1, pincer2Values[1] + 1]);
 };
 
+//This Function is called by SwordFish Techniques
+const discardSwordFishHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method) => {
+  console.log("--------------------------------------------");
+  console.log("That's exactly my point. Exactly. Because you have to wonder: how do the machines know what Tasty Wheat tasted like? Maybe they got it wrong. Maybe what I think Tasty Wheat tasted like actually tasted like oatmeal, or swordfish.. - Mouse");
+  console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
+  console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
+  console.log("We found a SwordFish Candidate!")
+  console.log(`For the ${mainaxis}s ${mainaxisvalues[0] + 1}, ${mainaxisvalues[1] + 1} and ${mainaxisvalues[2] + 1}, the candidate note ${value} is chained in SwordFish Configuration`)
+  console.log(`Candidates notes for ${value} in ${secondaryaxis}s ${secondaryaxisvalues[0] + 1}, ${secondaryaxisvalues[1] + 1} and ${secondaryaxisvalues[2] + 1} other other than the ${mainaxis}s specified above have been deleted`);
+  document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
+  document.querySelector("#button-reload").classList.add("active");
+  document.querySelector("#button-reload").classList.remove("inactive");
+  let newDiscardArticle = document.createElement("article");
+  newDiscardArticle.classList.add("newdiscardSwordFish");
+  newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  newDiscardArticle.style.zIndex = -globalVar.currentStep;
+  
+  if (mainaxis === "row") {
+    newDiscardArticle.innerHTML =  `
+    <h3>Step ${globalVar.currentStep}</h3>
+    <h4>${method}</h4>
+    <p>
+      The candidate (fish Digit) ${value} is present only 2 times per each of the following 3 Rows: row R${mainaxisvalues[0] + 1}, row R${mainaxisvalues[1] + 1} and row R${mainaxisvalues[2] + 1}.
+    </p>
+    <p>
+      Also those candidates align perfectly in only 3 columns: column C${secondaryaxisvalues[0] + 1}, column C${secondaryaxisvalues[1] + 1} and column C${secondaryaxisvalues[2] + 1}.
+    </p>
+    <p>
+      The fish Digit is marked in green for each of the 6 cells where they are present for these Rows. Any combination where this digit is marked as certain value, it will be sure that the three columns will have already this candidate covered, so, any other cell with candidate ${value} within the same columns (C${secondaryaxisvalues[0] + 1}, C${secondaryaxisvalues[1] + 1} and C${secondaryaxisvalues[2] + 1}) has been discarded.
+    </p>
+    `;
+    mainaxisvalues.forEach((mainAxisValue) => {
+      secondaryaxisvalues.forEach((secondaryAxisValue) => {
+        if (globalVar.theMatrix[globalVar.currentStep - 1][mainAxisValue][secondaryAxisValue][value] === 1) {
+          console.log(`the cell with Fish Value is: R${mainAxisValue + 1}C${secondaryAxisValue + 1}`)
+        };
+      });
+    });
+  } else {
+    newDiscardArticle.innerHTML =  `
+    <h3>Step ${globalVar.currentStep}</h3>
+    <h4>${method}</h4>
+    <p>
+      The candidate (fish Digit) ${value} is present only 2 times per each of the following 3 Columns: column C${mainaxisvalues[0] + 1}, column C${mainaxisvalues[1] + 1} and Column C${mainaxisvalues[2] + 1}.
+    </p>
+    <p>
+      Also those candidates align perfectly in only 3 rows: row R${secondaryaxisvalues[0] + 1}, row R${secondaryaxisvalues[1] + 1} and Row R${secondaryaxisvalues[2] + 1}.
+    </p>
+    <p>
+      The fish Digit is marked in green for each of the 6 cells where they are present for these Columns. Any combination where this digit is marked as certain value, it will be sure that the three rows will have already this candidate covered, so, any other cell with candidate ${value} within the same rows (R${secondaryaxisvalues[0] + 1}, R${secondaryaxisvalues[1] + 1} and R${secondaryaxisvalues[2] + 1}) has been discarded.
+    </p>
+    `;
+    mainaxisvalues.forEach((mainAxisValue) => {
+      secondaryaxisvalues.forEach((secondaryAxisValue) => {
+        if (globalVar.theMatrix[globalVar.currentStep - 1][secondaryAxisValue][mainAxisValue][value] === 1) {
+          console.log(`the cell with Fish Value is: R${secondaryAxisValue + 1}C${mainAxisValue + 1}`)
+        };
+      });
+    });
+  };
+
+  const main = document.querySelector(".stepsDetails > div");
+  main.prepend(newDiscardArticle);
+
+  //creating the Event Listeners to the recently created RC spans
+  const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
+  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+
+  addGoBackToStepButton();
+  settingHighlightedBlock(mainaxis, mainaxisvalues[0] + 1);
+  settingHighlightedBlock(mainaxis, mainaxisvalues[1] + 1);
+  settingHighlightedBlock(mainaxis, mainaxisvalues[2] + 1);
+};
+
 //This Function is called by Y-WING Techniques
 const discardNishioCandidateProvenWrongHTML = (row, column, wrongCandidate, method, mainaxis, mainaxisvalue ) => {
   console.log("--------------------------------------------");
@@ -603,4 +677,4 @@ const newSudokuPuzzleArticle = () => {
   main.prepend(newfoundvalueArticle);
 };
 
-export { newFoundValueHTML, discardLockedCandidateHTML, discardXWingHTML, discardObviousPairsHTML, discardHiddenPairHTML, discardObviousTripleHTML, discardHiddenTripleHTML, discardObviousQuadHTML, discardYWingHTML, discardNishioCandidateProvenWrongHTML, discardNishioGuessDeadEndHTML, addGoBackToStepButton, settingHighlightedBlock, newSudokuPuzzleArticle };
+export { newFoundValueHTML, discardLockedCandidateHTML, discardXWingHTML, discardObviousPairsHTML, discardHiddenPairHTML, discardObviousTripleHTML, discardHiddenTripleHTML, discardObviousQuadHTML, discardYWingHTML, discardSwordFishHTML, discardNishioCandidateProvenWrongHTML, discardNishioGuessDeadEndHTML, addGoBackToStepButton, settingHighlightedBlock, newSudokuPuzzleArticle };

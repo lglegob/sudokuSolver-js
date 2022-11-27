@@ -10,6 +10,7 @@ import * as obviousQuads from "./solvingStrategiesObviousQuadruples.js";
 import * as lockedCandidates from "./solvingStrategiesLockedCandidate.js";
 import * as xwing from "./solvingStrategiesXWing.js";
 import * as ywing from "./solvingStrategiesYWing.js";
+import * as swordFish from "./solvingStrategiesSwordFish.js";
 import * as nishio from "./solvingStrategiesNishio.js";
 
 
@@ -119,11 +120,18 @@ const solvingProcess = () => {
     ywing.yWing();
   };
 
+  //SWORDFISH METHOD
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+    swordFish.swordFishColumn();
+  };
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+    swordFish.swordFishRow();
+  };
+
   //NISHIO GUESSING METHOD
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false && globalVar.nishioGuessingActive.evaluating === true) {
     nishio.previousNishioUnderEvaluation();
   };
-  
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
     nishio.nishioGuessing();
   };

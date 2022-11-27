@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.6.4 (SwordFish Solving) 2022-11-27
+
+- WHAT'S NEW!?
+
+  - (Puzzle Solving Strategies) A new solving strategy has been defined, SwordFish gor Row and Column cases.
+
+---
+
 ### Version 0.6.3 (stepDetails scss config) 2022-11-26
 
 - WHAT'S NEW!?

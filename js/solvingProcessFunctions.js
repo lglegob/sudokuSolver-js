@@ -271,6 +271,54 @@ const discardYWing = (pivotValues, pincer1Values, pincer1Axis, pincer2Values, pi
   globalVar.stepByStep ? true : modifyDOM.discardYWingHTML(pivotValues, pincer1Values, pincer1Axis, pincer2Values, pincer2Axis, pincerX, pincerY, pincerZ, method);
 };
 
+//Consolidated function for the 2 Blocks (row, column), when one value can be discarded in SwordFish Detection technique
+//This Function is called by SwordFish Techniques
+const discardSwordFish = (mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method, callbackNoteZero) => {
+  globalVar.currentStep++;
+  globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: method, cellsResolved: globalVar.cellsResolved, nishioGuessingActive: JSON.parse(JSON.stringify(globalVar.nishioGuessingActive)) } );
+  globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
+
+  //This process deletes the candidate from the three mainaxis blocks
+  secondaryaxisvalues.forEach((secondaryaxisvalue)  => {
+      //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
+      let theMatrixStep = callbackNoteZero(secondaryaxisvalue, value, globalVar.theMatrix[globalVar.currentStep]);
+      globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
+  });
+  //Here we restablished the candidate in the 6 corresponding cells evaluating the 9 cells (3 of them did not have the candidate) for SwordFish Technique
+  if (mainaxis === "row") {
+    mainaxisvalues.forEach((mainAxisValue) => {
+      secondaryaxisvalues.forEach((secondaryAxisValue) => {
+        if (globalVar.theMatrix[globalVar.currentStep - 1][mainAxisValue][secondaryAxisValue][value] === 1) {
+          globalVar.theMatrix[globalVar.currentStep][mainAxisValue][secondaryAxisValue][value] = 1;
+          if(globalVar.areHighlightsOn === true) {
+            document.querySelector(".theMatrixNotes " + ".row" + (mainAxisValue + 1) + ".column" + (secondaryAxisValue + 1) + " .note" + value).classList.remove("justDeletedNote");
+            document.querySelector(".theMatrixNotes " + ".row" + (mainAxisValue + 1) + ".column" + (secondaryAxisValue + 1) + " .note" + value).classList.add("noteKept");
+          };
+        };
+      });
+    });
+  } else { //mainaxis is column
+    mainaxisvalues.forEach((mainAxisValue) => {
+      secondaryaxisvalues.forEach((secondaryAxisValue) => {
+        if (globalVar.theMatrix[globalVar.currentStep - 1][secondaryAxisValue][mainAxisValue][value] === 1) {
+          globalVar.theMatrix[globalVar.currentStep][secondaryAxisValue][mainAxisValue][value] = 1;
+          if(globalVar.areHighlightsOn === true) {
+            document.querySelector(".theMatrixNotes " + ".row" + (secondaryAxisValue + 1) + ".column" + (mainAxisValue + 1) + " .note" + value).classList.remove("justDeletedNote");
+            document.querySelector(".theMatrixNotes " + ".row" + (secondaryAxisValue + 1) + ".column" + (mainAxisValue + 1) + " .note" + value).classList.add("noteKept");
+          };
+        };
+      });
+    });
+  };
+
+  globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
+  globalVar.stepByStep ? true : recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
+  globalVar.stepByStep ? true : recurrent.toggleNotes();
+  globalVar.discardNoteSuccess = true;
+  globalVar.difficulty += 95;
+  globalVar.stepByStep ? true : modifyDOM.discardSwordFishHTML(mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method);
+};
+
 const nishioGuessInvalid = (row, column, method) => {
   globalVar.currentStep++;
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.nishioGuessingActive.step])); //The point where a new step is created in theMatrix, In this case based on the step when the guessing was made. It has to be used these JSON methods to avoid the copy by reference but by value
@@ -323,4 +371,4 @@ const nishioGuessDeadEnd = (method) => {
   return { theMatrixStep};
 };
 
-export { cellValueFound, discardLockedCandidate, discardXWing, discardHiddenSet, discardYWing, discardObviousSet, nishioGuessInvalid, nishioGuessDeadEnd };
+export { cellValueFound, discardLockedCandidate, discardXWing, discardHiddenSet, discardYWing, discardSwordFish, discardObviousSet, nishioGuessInvalid, nishioGuessDeadEnd };
