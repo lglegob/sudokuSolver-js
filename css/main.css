@@ -118,62 +118,6 @@ h2 {
   display: none;
 }
 
-.stepsDetails {
-  margin: -15px 10px;
-  padding-top: 20px;
-  text-align: center;
-  font-size: 1rem;
-}
-
-@media screen and (min-width: 992px) {
-  .stepsDetails {
-    padding-top: 0;
-  }
-}
-
-.stepsDetails article {
-  padding: 10px;
-  margin: 30px auto;
-  border: 1px solid #343434;
-  border-radius: 30px;
-  box-shadow: 15px 15px 30px gray, -15px -15px 30px white;
-  max-width: 80%;
-  background-color: white;
-}
-
-.stepsDetails article h3 {
-  padding-bottom: 5px;
-}
-
-.stepsDetails article p {
-  padding: 15px 0;
-}
-
-.stepsDetails article span {
-  border: 1px solid #CC5500;
-  cursor: pointer;
-}
-
-.stepsDetails article:first-of-type {
-  border: 3px solid #CC5500;
-  margin-top: 30px auto;
-  max-width: 100%;
-}
-
-.stepsDetails article:first-of-type h3 {
-  font-size: 25px;
-  padding: 10px;
-  color: #CC5500;
-}
-
-.stepsDetails article:first-of-type h4 {
-  font-size: 20px;
-}
-
-.stepsDetails article:first-of-type p {
-  font-size: 20px;
-}
-
 .content-wrap {
   max-width: 500px;
   width: 95%;
@@ -455,6 +399,62 @@ input[type=number] {
 
 .stepsDetails {
   grid-area: stepsDetails;
+}
+
+.stepsDetails {
+  margin: -15px 10px;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+@media screen and (min-width: 992px) {
+  .stepsDetails {
+    padding-top: 0;
+  }
+}
+
+.stepsDetails article {
+  padding: 10px;
+  margin: 30px auto;
+  border: 1px solid #343434;
+  border-radius: 30px;
+  box-shadow: 15px 15px 30px gray, -15px -15px 30px white;
+  max-width: 80%;
+  background-color: white;
+}
+
+.stepsDetails article h3 {
+  padding-bottom: 5px;
+}
+
+.stepsDetails article p {
+  padding: 15px 0;
+}
+
+.stepsDetails article span {
+  border: 1px solid #CC5500;
+  cursor: pointer;
+}
+
+.stepsDetails article:first-of-type {
+  border: 3px solid #CC5500;
+  margin-top: 30px auto;
+  max-width: 100%;
+}
+
+.stepsDetails article:first-of-type h3 {
+  font-size: 25px;
+  padding: 10px;
+  color: #CC5500;
+}
+
+.stepsDetails article:first-of-type h4 {
+  font-size: 20px;
+}
+
+.stepsDetails article:first-of-type p {
+  font-size: 20px;
 }
 
 /***************************************************************************

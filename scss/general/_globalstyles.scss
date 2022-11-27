@@ -1,6 +1,6 @@
 
 body {
-    overflow-y: scroll;
+  overflow-y: scroll;
 }
 header {
 	text-align: center;
@@ -62,52 +62,6 @@ h2 {
 	}
 }
 
-.stepsDetails {
-    margin: -15px 10px;
-	padding-top: 20px;
-	text-align: center;
-	font-size: 1rem;
-	@include size-lg {
-		padding-top: 0;
-	}
-	& article {
-		padding: 10px;
-		margin: 30px auto;
-		border: 1px solid $clr-dark-gray;
-        border-radius: 30px; 
-        box-shadow: 15px 15px 30px gray,
-        -15px -15px 30px white;
-		max-width: 80%;
-		background-color: white;
-		& h3 {
-			padding-bottom: 5px;
-		}
-		& p {
-			padding: 15px 0;
-		}
-		& span {
-			border: 1px solid $clr-main-color;
-			cursor: pointer;
-		}
-	}
-	& article:first-of-type {
-		border: 3px solid $clr-main-color;
-		margin-top: 30px auto;
-		max-width: 100%;
-		& h3 {
-			font-size: 25px;
-			padding: 10px;
-			color: $clr-main-color;
-		}
-		& h4 {
-			font-size: 20px;
-		}
-		& p {
-			font-size: 20px;
-		}
-
-	}
-}
 .content-wrap {
 	max-width: 500px;
 	width: 95%;

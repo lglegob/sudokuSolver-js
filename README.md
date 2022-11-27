@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.6.3 (stepDetails scss config) 2022-11-26
+
+- WHAT'S NEW!?
+
+  - (Code Improvements) The scss confif for stepDetails has been taken to a different file.
+
+---
+
 ### Version 0.6.2 (Disable Go back button) 2022-11-11
 
 - FIXED BUGs
@@ -50,7 +58,7 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 - FIXED BUGs
 
-  - When enabled the beforehand solving process to determine if the puzzle is valid or not, that process was interfering when previous valid puzzle checks had failed before , not showing those messages (like repeated numbers in a row) for showing only the failure solving. This has been fixed by adding an if statement to trigger the process to solve the puzzle beforehand and reorganizing that process within the validPuzzleChecks.js file
+  - (Puzzle Solving Strategies) When enabled the beforehand solving process to determine if the puzzle is valid or not, that process was interfering when previous valid puzzle checks had failed before , not showing those messages (like repeated numbers in a row) for showing only the failure solving. This has been fixed by adding an if statement to trigger the process to solve the puzzle beforehand and reorganizing that process within the validPuzzleChecks.js file
 
 ---
 
@@ -59,11 +67,11 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 - WHAT'S NEW!?
 
   - (Operational, pending tests to be executed, ready for merge after some more testings.)
-  - progress in nishio technique configuration, the decision criteria to continue with further sequential Nishio guesses has been updated and complemented using new coordinates define function (defineRelativeCellFromRC), which based on Row and Column assigns a cell number (1 to 81), so it is easily compared if the Previous Nishio guess was executed in the same guess or a previous one, and also check which value was taken as candidate and update the next guess accordingly.
+  - (Puzzle Solving Strategies) progress in nishio technique configuration, the decision criteria to continue with further sequential Nishio guesses has been updated and complemented using new coordinates define function (defineRelativeCellFromRC), which based on Row and Column assigns a cell number (1 to 81), so it is easily compared if the Previous Nishio guess was executed in the same guess or a previous one, and also check which value was taken as candidate and update the next guess accordingly.
 
 - FIXED BUGs
 
-  - Previous undetected Bug Fixed. DiscardHiddenSet function, at the time it was updating the stepsDetail Variable with a push, was lacking the cellsResolved variable as part of the package. It was discovered when a Nishio guess followed a hidden pairs.
+  - (Puzzle Solving Strategies) Previous undetected Bug Fixed. DiscardHiddenSet function, at the time it was updating the stepsDetail Variable with a push, was lacking the cellsResolved variable as part of the package. It was discovered when a Nishio guess followed a hidden pairs.
 
 ---
 
@@ -72,7 +80,7 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 - WHAT'S NEW!?
 
   - (Not yet operational, pending tests to be executed and minor bugs identified based on nishio configuration, not ready for merge.)
-  - progress in nishio technique configuration, the app now is able to identify deadend, go back and seelect another guess. already succesful with several difficult puzzles.
+  - (Puzzle Solving Strategies) progress in nishio technique configuration, the app now is able to identify deadend, go back and seelect another guess. already succesful with several difficult puzzles.
 
 ---
 
@@ -81,7 +89,7 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 - WHAT'S NEW!?
 
   - (Not yet operational, bugs identified based on nishio configuration, not ready for merge.)
-  - stepsDetail is rebuilt/reformated to be of use with the steps, cells resolved and other data when going back steps or coming back to a previous state, like the process used by nishio guessing. (Not yet operations, bugs identified based on nishio configuration, not ready for merge.)
+  - (Puzzle Solving Strategies) stepsDetail is rebuilt/reformated to be of use with the steps, cells resolved and other data when going back steps or coming back to a previous state, like the process used by nishio guessing. (Not yet operational, bugs identified based on nishio configuration, not ready for merge.)
 
 ---
 
