@@ -95,12 +95,12 @@ const yWing = () => {
                       const { fromrow:fromRowPincer2Square, maximumrow:maximumRowPincer2Square } = coordinates.defineInitialMaxRCFromRC(rowPincer2, colPincer1);       
                       let positiveforZvalue = [];
                       for (let row = fromRowPivotSquare; row<=maximumRowPivotSquare; row++) {
-                        if (globalVar.theMatrix[globalVar.currentStep][row][colPivot][pincerZ] !==0 && row !== rowPincer1) { //The second argument of the If statement is to avoid issues in case the first pincer found (same square) also is in the same column. This case should also be already discarded before by Obvious Triples
+                        if (globalVar.theMatrix[globalVar.currentStep][row][colPivot][pincerZ] !==0) { //The second argument (&& row !== rowPincer1) of the If statement (has been deleted for evaluation) is to avoid issues in case the first pincer found (same square) also is in the same column. This case should also be already discarded before by Obvious Triples. It has been deleted
                           positiveforZvalue.push([row, colPivot]);
                         };
                       };
                       for (let row = fromRowPincer2Square; row<=maximumRowPincer2Square; row++) {
-                        if (globalVar.theMatrix[globalVar.currentStep][row][colPincer1][pincerZ] !==0 && row !== rowPincer2) { //The second argument of the If statement is to avoid issues in case the first pincer found (same square) also is in the same column. This case should also be already discarded before by Obvious Triples
+                        if (globalVar.theMatrix[globalVar.currentStep][row][colPincer1][pincerZ] !==0) { //The second argument (&& row !== rowPincer2) of the If statement is to avoid issues in case the first pincer found (same square) also is in the same column. This case should also be already discarded before by Obvious Triples. It has been deleted
                           positiveforZvalue.push([row, colPincer1]);
                         };
                       };
@@ -139,12 +139,12 @@ const yWing = () => {
                         const { fromcolumn:fromColumnPincer2Square, maximumcolumn:maximumColumnPincer2Square} = coordinates.defineInitialMaxRCFromRC(rowPincer1, colPincer2);
                         let positiveforZvalue = [];
                         for (let column = fromColumnPivotSquare; column<=maximumColumnPivotSquare; column++) {
-                          if (globalVar.theMatrix[globalVar.currentStep][rowPivot][column][pincerZ] !==0 && column !==colPincer1 ) { //The second argument of the If statement is to avoid issues in case the first pincer found (same square) also is in the same row. This case should also be already discarded before by Obvious Triples
+                          if (globalVar.theMatrix[globalVar.currentStep][rowPivot][column][pincerZ] !==0) { //The second argument (&& column !==colPincer1) of the If statement is to avoid issues in case the first pincer found (same square) also is in the same row. This case should also be already discarded before by Obvious Triples. It has been deleted
                             positiveforZvalue.push([rowPivot, column]);
                           };
                         };
                         for (let column = fromColumnPincer2Square; column<=maximumColumnPincer2Square; column++) {
-                          if (globalVar.theMatrix[globalVar.currentStep][rowPincer1][column][pincerZ] !==0 && column !== colPincer2) { //The second argument of the If statement is to avoid issues in case the first pincer found (same square) also is in the same row. This case should also be already discarded before by Obvious Triples
+                          if (globalVar.theMatrix[globalVar.currentStep][rowPincer1][column][pincerZ] !==0) { //The second argument (&& column !== colPincer2) of the If statement is to avoid issues in case the first pincer found (same square) also is in the same row. This case should also be already discarded before by Obvious Triples. It has been deleted
                             positiveforZvalue.push([rowPincer1, column]);
                           };
                         };

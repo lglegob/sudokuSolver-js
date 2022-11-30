@@ -7,6 +7,7 @@ import * as hiddenPairs from "./solvingStrategiesHiddenPairs.js";
 import * as obviousTriples from "./solvingStrategiesObviousTriples.js";
 import * as hiddenTriples from "./solvingStrategiesHiddenTriples.js";
 import * as obviousQuads from "./solvingStrategiesObviousQuadruples.js";
+import * as hiddenQuads from "./solvingStrategiesHiddenQuadruples.js";
 import * as lockedCandidates from "./solvingStrategiesLockedCandidate.js";
 import * as xwing from "./solvingStrategiesXWing.js";
 import * as ywing from "./solvingStrategiesYWing.js";
@@ -94,6 +95,17 @@ const solvingProcess = () => {
   };
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
     obviousQuads.obviousQuadsSquare();
+  };
+
+  //HIDDEN QUADRUPLE METHODS
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+    hiddenQuads.hiddenQuadruplesRow();
+  };
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+    hiddenQuads.hiddenQuadruplesColumn();
+  };
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+    hiddenQuads.hiddenQuadruplesSquare();
   };
 
   //LOCKED CANDIDATE METHODS

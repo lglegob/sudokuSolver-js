@@ -6,6 +6,18 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.6.5 (Hidden Quads) 2022-11-29
+
+- WHAT'S NEW!?
+
+  - (Puzzle Solving Strategies) Three new solving strategies have been defined based on hidden Quads, for row, column and Square distribution of the hidden candidates.
+
+- FIXED BUGs
+
+  - (Puzzle Solving Strategies) When trying to avoid false positives in Y-Wing strategies, a valid case was left out, a couple of if statements have been retired, since the same square evaluation lines above and the previous discarding methods should be taking care that no false positive (where pivot a the couple of pincers were located in the same square) should not be happening.
+
+---
+
 ### Version 0.6.4 (SwordFish Solving) 2022-11-27
 
 - WHAT'S NEW!?
