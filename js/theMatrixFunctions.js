@@ -109,8 +109,7 @@ const loadMatrix = (initialMatrixValues, isThisPuzzleNew) => {
   }
 };
 
-const loadMatrixManually = async () => {
-  let randomPuzzle = randomSudoku.randomizePuzzle();
+const loadMatrixManually = async (randomPuzzle) => {
   let manualMatrixValues;
   document.querySelector(".theMatrix").style.opacity = "0.1"; //This line pretends to solve the Bug introduced by sweetAlerts in v0.4.21, in mobile, the sweetAlert box situated behind the Puzzle grid
   const { value: text } = await Swal.fire({
@@ -338,6 +337,7 @@ const firstTimeNotesMatrix = (theMatrixStep) => {
       theMatrixStep[row][column] = [currentCellValue, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
       let newDivInputNotes = recurrent.createNewDivCandidateNotes(row, column, theMatrixStep[row][column]);
+      currentCellValue !== 0 ? newDivInputNotes.classList.add("startingCellValue") : false;
       const mainMatrixNotes = document.querySelector(".theMatrixNotes");
       mainMatrixNotes.append(newDivInputNotes);
 

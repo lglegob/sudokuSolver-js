@@ -41,5 +41,4 @@ let failure = false;
 // previousNishioResult: defines the latest nishio guess outcome with possible values ("notExecuted", "invalidGuess", "nishioDeadEnd" )
 let nishioGuessingActive = { evaluating: false, previousNishioResult: "notExecuted" };
 
-
 export default { theMatrix, theMatrixSolved, stepsDetail, currentStep, loopsExecuted, cellsResolved, iterationSuccess, discardNoteSuccess, areNotesShowing, areHighlightsOn, stepByStep, failure, difficulty, nishioGuessingActive };

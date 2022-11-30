@@ -12,8 +12,7 @@ const randomizePuzzle = () => {
   //First Step, we get a random seed from data.js
   let randomseed = Math.floor(Math.random() * 7) + 1;
   console.log(`The random Seed is ${randomseed}`);
-  let randomPuzzle = eval(`initialMatrixpuzzle.seed00${randomseed}String`);
-  // let randomPuzzle = puzzleSeedsJSON.find(item => item.id == randomseed).symbols;  
+  let randomPuzzle = eval(`initialMatrixpuzzle.seed00${randomseed}String`);  
   let newRandomPuzzle = "";
   
   //Ranzomize Rows

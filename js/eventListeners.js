@@ -35,7 +35,8 @@ const loadMatrixManuallyListener = () => {
   button_loadmanually.addEventListener("click", (e) => {
     // Stop form from reloading the page
     e.preventDefault();
-    matrixFunctions.loadMatrixManually();
+    let randomPuzzle = randomSudoku.randomizePuzzle();
+    matrixFunctions.loadMatrixManually(randomPuzzle);
   });
 };
 

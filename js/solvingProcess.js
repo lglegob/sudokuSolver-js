@@ -86,7 +86,7 @@ const solvingProcess = () => {
     hiddenTriples.hiddenTriplesSquare();
   };
 
-  //OBVIOUS QUAD METHODS
+  //OBVIOUS QUADRUPLE METHODS
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
     obviousQuads.obviousQuadsRow();
   };

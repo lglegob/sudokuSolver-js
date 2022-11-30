@@ -78,7 +78,7 @@ const discardObviousSet = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentifi
   globalVar.discardNoteSuccess = true;
   method.includes("Pair") ? globalVar.difficulty += 8 : false;
   method.includes("Triple") ? globalVar.difficulty += 12 : false;
-  method.includes("Quads") ? globalVar.difficulty += 21 : false;
+  method.includes("Quadruple") ? globalVar.difficulty += 21 : false;
   globalVar.stepByStep ? true : callbackModifyDOM(mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method);
 };
 
@@ -101,6 +101,7 @@ const discardHiddenSet = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentifie
   globalVar.discardNoteSuccess = true;
   method.includes("Pair") ? globalVar.difficulty += 20 : false;
   method.includes("Triple") ? globalVar.difficulty += 28 : false;
+  method.includes("Quadruple") ? globalVar.difficulty += 38 : false;
   globalVar.stepByStep ? true : callbackModifyDOM(mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method);
 };
 
@@ -156,7 +157,6 @@ const discardLockedCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, sec
     for (let the3CellsColumn = fromColumnD; the3CellsColumn <= maximumColumnD; the3CellsColumn++) {
       globalVar.loopsExecuted++;
       the3Cells.push(globalVar.theMatrix[globalVar.currentStep][the3CellsRow][the3CellsColumn]); 
-
     };
   };
 
@@ -354,14 +354,6 @@ const nishioGuessDeadEnd = (method) => {
   globalVar.nishioGuessingActive.previousNishioResult = "nishioDeadEnd"
   matrixFunctions.rebuildTheMatrix(theMatrixStep);
   recurrent.deleteLastShowMe();
-  //Here the candidate that has been proven wrong can be deleted from that specific cell
-  // let theMatrixStep = notesZero.noteZeroCell( [[globalVar.nishioGuessingActive.currentCell.row, globalVar.nishioGuessingActive.currentCell.column]] , wrongCandidate, globalVar.theMatrix[globalVar.currentStep]);
-  // theMatrixStep = JSON.parse(JSON.stringify(theMatrixStep));
-  // globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
-  // globalVar.stepByStep ? true : recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
-  // globalVar.stepByStep ? true : recurrent.toggleNotes();
-  // globalVar.discardNoteSuccess = true;
-  // globalVar.difficulty += 200;
   globalVar.cellsResolved = globalVar.stepsDetail.find(step => step.currentStep === globalVar.nishioGuessingActive.step).cellsResolved;
   // here the foundvalue is set in the html document to be shown, by calling the function newFoundValueHTML
   globalVar.stepByStep ? true : modifyDOM.discardNishioGuessDeadEndHTML( wrongCandidate, method, "cell", [globalVar.nishioGuessingActive.currentCell.row, globalVar.nishioGuessingActive.currentCell.column] );

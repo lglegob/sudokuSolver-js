@@ -58,7 +58,7 @@ const hiddenQuadruplesRow = () => {
                           let howManyCell3 = candidate1notes[column3] + candidate2notes[column3] + candidate3notes[column3] + candidate4notes[column3];
                           let howManyCell4 = candidate1notes[column4] + candidate2notes[column4] + candidate3notes[column4] + candidate4notes[column4];
                           if (howManyCell1 < howmanynotesinthiscell[column1] || howManyCell2 < howmanynotesinthiscell[column2] || howManyCell3 < howmanynotesinthiscell[column3] || howManyCell4 < howmanynotesinthiscell[column4]) { 
-                            solvingFunctions.discardHiddenSet(row, "row", "column", {cell1:{ row: row, column: column1 }, cell2:{ row: row, column: column2 }, cell3:{ row: row, column: column3 }, cell4:{ row: row, column: column4 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3, candidate4: currentCandidateValue4 }, "Detecting Hidden Quadruples (Row)", notesZero.noteZeroCellExcept, modifyDOM.discardHiddenQuadrupleHTML );
+                            solvingFunctions.discardHiddenSet(row, "row", "column", {cell1:{ row: row, column: column1 }, cell2:{ row: row, column: column2 }, cell3:{ row: row, column: column3 }, cell4:{ row: row, column: column4 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3, candidate4: currentCandidateValue4 }, "Detecting Hidden Quadruple (Row)", notesZero.noteZeroCellExcept, modifyDOM.discardHiddenQuadrupleHTML );
                             break;
                           };
                         };
@@ -128,7 +128,7 @@ const hiddenQuadruplesColumn = () => {
                           let howManyCell3 = candidate1notes[row3] + candidate2notes[row3] + candidate3notes[row3] + candidate4notes[row3];
                           let howManyCell4 = candidate1notes[row4] + candidate2notes[row4] + candidate3notes[row4] + candidate4notes[row4];
                           if (howManyCell1 < howmanynotesinthiscell[row1] || howManyCell2 < howmanynotesinthiscell[row2] || howManyCell3 < howmanynotesinthiscell[row3] || howManyCell4 < howmanynotesinthiscell[row4]) { 
-                            solvingFunctions.discardHiddenSet(column, "column", "row", {cell1:{ column: column, row: row1 }, cell2:{ column: column, row: row2 }, cell3:{ column: column, row: row3 }, cell4:{ column: column, row: row4 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3, candidate4: currentCandidateValue4 }, "Detecting Hidden Quadruples (Column)", notesZero.noteZeroCellExcept, modifyDOM.discardHiddenQuadrupleHTML );
+                            solvingFunctions.discardHiddenSet(column, "column", "row", {cell1:{ column: column, row: row1 }, cell2:{ column: column, row: row2 }, cell3:{ column: column, row: row3 }, cell4:{ column: column, row: row4 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3, candidate4: currentCandidateValue4 }, "Detecting Hidden Quadruple (Column)", notesZero.noteZeroCellExcept, modifyDOM.discardHiddenQuadrupleHTML );
                             break;
                           };
                         };
@@ -203,7 +203,7 @@ const hiddenQuadruplesSquare = () => {
                             const { realRow:realRow2, realColumn:realColumn2 } = coordinates.defineRealRCFromSquareRelativeCell(square, cell2);
                             const { realRow:realRow3, realColumn:realColumn3 } = coordinates.defineRealRCFromSquareRelativeCell(square, cell3);
                             const { realRow:realRow4, realColumn:realColumn4 } = coordinates.defineRealRCFromSquareRelativeCell(square, cell4);
-                            solvingFunctions.discardHiddenSet(square, "square", "cell", {cell1:{ row: realRow1, column: realColumn1, cell: cell1 }, cell2:{ row: realRow2, column: realColumn2, cell: cell2 }, cell3:{ row: realRow3, column: realColumn3, cell: cell3 }, cell4:{ row: realRow4, column: realColumn4, cell: cell4 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3, candidate4: currentCandidateValue4 }, "Detecting Hidden Quadruples (Square)", notesZero.noteZeroCellExcept, modifyDOM.discardHiddenQuadrupleHTML );
+                            solvingFunctions.discardHiddenSet(square, "square", "cell", {cell1:{ row: realRow1, column: realColumn1, cell: cell1 }, cell2:{ row: realRow2, column: realColumn2, cell: cell2 }, cell3:{ row: realRow3, column: realColumn3, cell: cell3 }, cell4:{ row: realRow4, column: realColumn4, cell: cell4 } }, { candidate1: currentCandidateValue1, candidate2: currentCandidateValue2, candidate3: currentCandidateValue3, candidate4: currentCandidateValue4 }, "Detecting Hidden Quadruple (Square)", notesZero.noteZeroCellExcept, modifyDOM.discardHiddenQuadrupleHTML );
                             break;
                           };
                         };

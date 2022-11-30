@@ -6,6 +6,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.6.6 (DOM SwordFish RCs) 2022-11-30
+
+- WHAT'S NEW!?
+
+  - (User Experience) Enhanced DOM modification for SwordFish process by showing the RCs coordinates of the cells where a fish candidate is involved. The insertAdjacentHTML("beforeend", text) method was used.
+  - (Code Improvements) Minor Code Improvements.
+
+---
+
 ### Version 0.6.5 (Hidden Quads) 2022-11-29
 
 - WHAT'S NEW!?

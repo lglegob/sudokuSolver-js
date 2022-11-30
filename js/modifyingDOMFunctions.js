@@ -508,7 +508,7 @@ const discardSwordFishHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, sec
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
   console.log("We found a SwordFish Candidate!")
   console.log(`For the ${mainaxis}s ${mainaxisvalues[0] + 1}, ${mainaxisvalues[1] + 1} and ${mainaxisvalues[2] + 1}, the candidate note ${value} is chained in SwordFish Configuration`)
-  console.log(`Candidates notes for ${value} in ${secondaryaxis}s ${secondaryaxisvalues[0] + 1}, ${secondaryaxisvalues[1] + 1} and ${secondaryaxisvalues[2] + 1} other other than the ${mainaxis}s specified above have been deleted`);
+  console.log(`Candidates notes for ${value} in ${secondaryaxis}s ${secondaryaxisvalues[0] + 1}, ${secondaryaxisvalues[1] + 1} and ${secondaryaxisvalues[2] + 1} other than the ${mainaxis}s specified above have been deleted`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
@@ -522,43 +522,73 @@ const discardSwordFishHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, sec
     <h3>Step ${globalVar.currentStep}</h3>
     <h4>${method}</h4>
     <p>
-      The candidate (fish Digit) ${value} is present only 2 times per each of the following 3 Rows: row R${mainaxisvalues[0] + 1}, row R${mainaxisvalues[1] + 1} and row R${mainaxisvalues[2] + 1}.
+      The candidate (fish Digit) ${value} is present only 2 times per each of the following 3 Rows: 
+      row R${mainaxisvalues[0] + 1}, row R${mainaxisvalues[1] + 1} and row R${mainaxisvalues[2] + 1}.
     </p>
     <p>
-      Also those candidates align perfectly in only 3 columns: column C${secondaryaxisvalues[0] + 1}, column C${secondaryaxisvalues[1] + 1} and column C${secondaryaxisvalues[2] + 1}.
+    The cells where candidate (fish Digit) ${value} is present are:      
     </p>
     <p>
-      The fish Digit is marked in green for each of the 6 cells where they are present for these Rows. Any combination where this digit is marked as certain value, it will be sure that the three columns will have already this candidate covered, so, any other cell with candidate ${value} within the same columns (C${secondaryaxisvalues[0] + 1}, C${secondaryaxisvalues[1] + 1} and C${secondaryaxisvalues[2] + 1}) has been discarded.
     </p>
     `;
     mainaxisvalues.forEach((mainAxisValue) => {
       secondaryaxisvalues.forEach((secondaryAxisValue) => {
-        if (globalVar.theMatrix[globalVar.currentStep - 1][mainAxisValue][secondaryAxisValue][value] === 1) {
-          console.log(`the cell with Fish Value is: R${mainAxisValue + 1}C${secondaryAxisValue + 1}`)
+        if (globalVar.theMatrix[globalVar.currentStep - 1][mainAxisValue][secondaryAxisValue][value] === 1) { 
+          let newDiscardArticleLastP = newDiscardArticle.lastElementChild;
+          newDiscardArticleLastP.insertAdjacentHTML("beforeend",
+          `
+          <strong><span data-cellcoordinates=".row${secondaryAxisValue + 1}.column${mainAxisValue + 1}">R${secondaryAxisValue + 1}C${mainAxisValue + 1}</span></strong> 
+          `
+          );       
         };
       });
     });
+    newDiscardArticle.insertAdjacentHTML("beforeend", 
+    `
+    <p>
+      Also those candidates align perfectly in only 3 columns: column C${secondaryaxisvalues[0] + 1}, column C${secondaryaxisvalues[1] + 1} and column C${secondaryaxisvalues[2] + 1}.
+    </p>
+    <p>
+      The fish Digit is marked in green for each of the 6 cells where they are present for these Columns. Any combination where this digit is marked as certain value, it will be sure that the three rows will have already this candidate covered, so, any other cell with candidate ${value} within the same rows (R${secondaryaxisvalues[0] + 1}, R${secondaryaxisvalues[1] + 1} and R${secondaryaxisvalues[2] + 1}) has been discarded.
+    </p>
+    `
+    );
   } else {
     newDiscardArticle.innerHTML =  `
     <h3>Step ${globalVar.currentStep}</h3>
     <h4>${method}</h4>
     <p>
-      The candidate (fish Digit) ${value} is present only 2 times per each of the following 3 Columns: column C${mainaxisvalues[0] + 1}, column C${mainaxisvalues[1] + 1} and Column C${mainaxisvalues[2] + 1}.
+      The candidate (fish Digit) ${value} is present only 2 times per each of the following 3 Columns: 
+      column C${mainaxisvalues[0] + 1}, column C${mainaxisvalues[1] + 1} and column C${mainaxisvalues[2] + 1}. 
     </p>
+    <p>
+      The cells where candidate (fish Digit) ${value} is present are:      
+    </p>
+    <p>
+    </p>
+    `;
+    mainaxisvalues.forEach((mainAxisValue) => {
+      secondaryaxisvalues.forEach((secondaryAxisValue) => {
+        if (globalVar.theMatrix[globalVar.currentStep - 1][secondaryAxisValue][mainAxisValue][value] === 1) {
+          let newDiscardArticleLastP = newDiscardArticle.lastElementChild;
+          newDiscardArticleLastP.insertAdjacentHTML("beforeend",
+          `
+          <strong><span data-cellcoordinates=".row${secondaryAxisValue + 1}.column${mainAxisValue + 1}">R${secondaryAxisValue + 1}C${mainAxisValue + 1}</span></strong> 
+          `
+          );
+        };
+      });
+    });
+    newDiscardArticle.insertAdjacentHTML("beforeend", 
+    `
     <p>
       Also those candidates align perfectly in only 3 rows: row R${secondaryaxisvalues[0] + 1}, row R${secondaryaxisvalues[1] + 1} and Row R${secondaryaxisvalues[2] + 1}.
     </p>
     <p>
       The fish Digit is marked in green for each of the 6 cells where they are present for these Columns. Any combination where this digit is marked as certain value, it will be sure that the three rows will have already this candidate covered, so, any other cell with candidate ${value} within the same rows (R${secondaryaxisvalues[0] + 1}, R${secondaryaxisvalues[1] + 1} and R${secondaryaxisvalues[2] + 1}) has been discarded.
     </p>
-    `;
-    mainaxisvalues.forEach((mainAxisValue) => {
-      secondaryaxisvalues.forEach((secondaryAxisValue) => {
-        if (globalVar.theMatrix[globalVar.currentStep - 1][secondaryAxisValue][mainAxisValue][value] === 1) {
-          console.log(`the cell with Fish Value is: R${secondaryAxisValue + 1}C${mainAxisValue + 1}`)
-        };
-      });
-    });
+    `
+    );
   };
 
   const main = document.querySelector(".stepsDetails > div");
@@ -597,14 +627,17 @@ const discardNishioCandidateProvenWrongHTML = (row, column, wrongCandidate, meth
     <strong><span data-cellcoordinates=".row${mainaxisvalue[0] + 1}.column${mainaxisvalue[1] + 1}">R${mainaxisvalue[0] + 1}C${mainaxisvalue[1] + 1}</span></strong>, 
     in step ${globalVar.nishioGuessingActive.step + 1}, and testing its validity, it was found as a wrong guessing.
   </p>
-  <p>In previous Step, after ${globalVar.currentStep - globalVar.nishioGuessingActive.step - 2} steps, the cell
-  <strong><span data-cellcoordinates=".row${row + 1}.column${column + 1}">R${row + 1}C${column + 1}</span></strong>
-  was left with NO possible candidates with no certain value yet, which is not possible in a valid sudoku.
+  <p>
+    In previous Step, after ${globalVar.currentStep - globalVar.nishioGuessingActive.step - 2} steps, the cell
+    <strong><span data-cellcoordinates=".row${row + 1}.column${column + 1}">R${row + 1}C${column + 1}</span></strong>
+    was left with NO possible candidates with no certain value yet, which is not possible in a valid sudoku.
   </p>
   <p>
-  This shows the guessing made in step ${globalVar.nishioGuessingActive.step + 1} was incorrect and the puzzle has been returned to the state in that step.</p>
-  <p>So, now for certain, candidate ${wrongCandidate} has been discarded as option in cell
-  <strong><span data-cellcoordinates=".row${mainaxisvalue[0] + 1}.column${mainaxisvalue[1] + 1}">R${mainaxisvalue[0] + 1}C${mainaxisvalue[1] + 1}</span></strong>.
+    This shows the guessing made in step ${globalVar.nishioGuessingActive.step + 1} was incorrect and the puzzle has been returned to the state in that step.
+  </p>
+  <p>
+    So, now for certain, candidate ${wrongCandidate} has been discarded as option in cell
+    <strong><span data-cellcoordinates=".row${mainaxisvalue[0] + 1}.column${mainaxisvalue[1] + 1}">R${mainaxisvalue[0] + 1}C${mainaxisvalue[1] + 1}</span></strong>.
   </p>
   `;
 
@@ -641,7 +674,8 @@ const discardNishioGuessDeadEndHTML = (wrongCandidate, method, mainaxis, mainaxi
     <strong><span data-cellcoordinates=".row${mainaxisvalue[0] + 1}.column${mainaxisvalue[1] + 1}">R${mainaxisvalue[0] + 1}C${mainaxisvalue[1] + 1}</span></strong>, 
     in step ${globalVar.nishioGuessingActive.step + 1}, and testing its validity, it got us to a dead end, where we would have to do a nested guess.
   </p>
-  <p>Let's try other way by testing the next available candidate in a cell with only two candidates.
+  <p>
+    Let's try other way by testing the next available candidate in a cell with only two candidates.
   </p>
   <p>
   To do that, in this step, the puzzle has been returned to the state in step ${globalVar.nishioGuessingActive.step}.</p>

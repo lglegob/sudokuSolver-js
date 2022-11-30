@@ -20,7 +20,7 @@ const handleSudokuAPIErrors = (response) => {
     throw new Error((response.status + ': ' + response.statusText));
 	}
 	return response.json();
-  }
+	}
 
 const createRequestSudokuAPI = () => {
 	fetch(sudokuAPIURL, options)

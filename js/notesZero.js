@@ -17,7 +17,6 @@ const noteZeroRow = (row, currentCellValue, theMatrixStep) => {
       };
     };
   });
-
   return theMatrixStep;
 }
 
