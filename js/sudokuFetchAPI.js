@@ -9,7 +9,8 @@ const options = {
 	method: 'GET',
 	headers: {
     'X-RapidAPI-Key': '92ba18c8d0msh245e4fc33af8192p12a49ajsn566308def067',
-		'X-RapidAPI-Host': 'sudoku-generator1.p.rapidapi.com'
+	// 'X-RapidAPI-Key': '',
+	'X-RapidAPI-Host': 'sudoku-generator1.p.rapidapi.com'
 	}
 };
 
@@ -26,7 +27,10 @@ const createRequestSudokuAPI = () => {
 	fetch(sudokuAPIURL, options)
 		.then(response => handleSudokuAPIErrors(response))
 		.then(response => sudokuRequestAPISuccess(response))
-		.catch(err => console.error(err));
+		.catch(err => console.error(err))
+		.finally(function() {
+			console.log("An API request was executed");
+		});
 };
 
 const sudokuRequestAPISuccess = (response) => {

@@ -166,6 +166,21 @@ const deleteLastShowMe = () => {
       e.classList.remove("highlightedSquare");
     });
   };
+  if (document.querySelector(".deletionRow") != null) {
+    document.querySelectorAll(".deletionRow").forEach((e) => {
+      e.classList.remove("deletionRow");
+    });
+  };
+  if (document.querySelector(".deletionColumn") != null) {
+    document.querySelectorAll(".deletionColumn").forEach((e) => {
+      e.classList.remove("deletionColumn");
+    });
+  };
+  if (document.querySelector(".deletionSquare") != null) {
+    document.querySelectorAll(".deletionSquare").forEach((e) => {
+      e.classList.remove("deletionSquare");
+    });
+  };
 }; 
 
 const showSweetAlert = async (sweetIcon, sweetTitle, sweetText) => {

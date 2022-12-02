@@ -6,6 +6,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.6.7 (Enhanced Highlights) 2022-12-01
+
+- WHAT'S NEW!?
+
+  - (User Experience) Enhanced highlighting tips for user by adding background transparent color to the block in evaluation and adding a new set of classes (.deletionRow, .deletionColumn, .deletionSquare) to highlight as well the block where candidates are being deleted, initially for Xwing and locked candidates methods.
+  - (User Experience) For this enhanced highlighing, the function settingHighlightedBlock now has a third parameter to send it what would be the set of classes to add (for now two defined: .highlighted and .deletion)
+
+---
+
 ### Version 0.6.6 (DOM SwordFish RCs) 2022-11-30
 
 - WHAT'S NEW!?

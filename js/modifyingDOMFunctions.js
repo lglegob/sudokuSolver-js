@@ -102,7 +102,7 @@ const newFoundValueHTML = (itemRow, itemColumn, currentCellValue, theMatrixStep,
 
   recurrent.reviewNotes(theMatrixStep);
   addGoBackToStepButton();
-  settingHighlightedBlock(mainBlock, mainBlockValue);
+  settingHighlightedBlock(mainBlock, mainBlockValue, "highlighted");
 };
 
 //This Function is called by OBVIOUSPAIRS Techniques
@@ -141,7 +141,7 @@ const discardObviousPairsHTML = (mainaxisvalue, mainaxis, cellsIdentified, curre
   spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock(mainaxis, mainaxisvalue + 1);
+  settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "highlighted");
 };
 
 //This Function is called by HIDDENPAIRS Techniques
@@ -180,7 +180,7 @@ const discardHiddenPairHTML = (mainaxisvalue, mainaxis, cellsIdentified, current
   spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock(mainaxis, mainaxisvalue + 1);
+  settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "highlighted");
 };
 
 //This Function is called by OBVIOUSTRIPLES Techniques
@@ -220,7 +220,7 @@ const discardObviousTripleHTML = (mainaxisvalue, mainaxis, cellsIdentified, curr
   spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock(mainaxis, mainaxisvalue + 1);
+  settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "highlighted");
 };
 
 const discardHiddenTripleHTML = (mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method) => {
@@ -259,7 +259,7 @@ const discardHiddenTripleHTML = (mainaxisvalue, mainaxis, cellsIdentified, curre
   spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock(mainaxis, mainaxisvalue + 1);
+  settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "highlighted");
 };
 
 //This Function is called by OBVIOUSTRIPLES Techniques
@@ -300,7 +300,7 @@ const discardObviousQuadHTML = (mainaxisvalue, mainaxis, cellsIdentified, curren
   spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock(mainaxis, mainaxisvalue + 1);
+  settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "highlighted");
 };
 
 const discardHiddenQuadrupleHTML = (mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method) => {
@@ -340,7 +340,7 @@ const discardHiddenQuadrupleHTML = (mainaxisvalue, mainaxis, cellsIdentified, cu
   spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock(mainaxis, mainaxisvalue + 1);
+  settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "highlighted");
 };
 
 //This Function is called by LOCKEDCANDIDATE Techniques
@@ -372,7 +372,8 @@ const discardLockedCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue,
   main.prepend(newDiscardArticle);
 
   addGoBackToStepButton();
-  settingHighlightedBlock(secondaryaxis, secondaryaxisvalue + 1);
+  settingHighlightedBlock(secondaryaxis, secondaryaxisvalue + 1, "highlighted");
+  settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "deletion");
 };
 
 //This Function is called by X-WING Techniques
@@ -403,12 +404,22 @@ const discardXWingHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, seconda
       <strong><span data-cellcoordinates=".row${mainaxisvalues[1] + 1}.column${secondaryaxisvalues[0] + 1}">R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[0] + 1}</span></strong> and 
       <strong><span data-cellcoordinates=".row${mainaxisvalues[1] + 1}.column${secondaryaxisvalues[1] + 1}">R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[1] + 1}</span></strong>.
     </p>
-    <p>These 4 cells are the crosspoints between Rows R${mainaxisvalues[0] + 1} and R${mainaxisvalues[1] + 1}, and Columns C${secondaryaxisvalues[0] + 1} and C${secondaryaxisvalues[1] + 1}</p>
-    <p>Since no more candidates with option ${value} exist within the two Rows, we know for sure those two ${value}s must exist in two of those 4 cells in a diagonal (R${mainaxisvalues[0] + 1}C${secondaryaxisvalues[0] + 1} and R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[1] + 1} will be ${value} OR R${mainaxisvalues[0] + 1}C${secondaryaxisvalues[1] + 1} and R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[0] + 1} will be ${value})</p>
+    <p>
+      These 4 cells are the crosspoints between Rows R${mainaxisvalues[0] + 1} and R${mainaxisvalues[1] + 1} with Columns C${secondaryaxisvalues[0] + 1} and C${secondaryaxisvalues[1] + 1}
+    </p>
+    <p>
+      Since no more candidates with option ${value} exist within the two Rows, we know for sure those two ${value}s must exist in two of those 4 cells in a diagonal, either 
+      (<strong><span data-cellcoordinates=".row${mainaxisvalues[0] + 1}.column${secondaryaxisvalues[0] + 1}">R${mainaxisvalues[0] + 1}C${secondaryaxisvalues[0] + 1}</span></strong> and 
+      <strong><span data-cellcoordinates=".row${mainaxisvalues[1] + 1}.column${secondaryaxisvalues[1] + 1}">R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[1] + 1}</span></strong> 
+      will be ${value} OR
+      (<strong><span data-cellcoordinates=".row${mainaxisvalues[0] + 1}.column${secondaryaxisvalues[1] + 1}">R${mainaxisvalues[0] + 1}C${secondaryaxisvalues[1] + 1}</span></strong> and 
+      <strong><span data-cellcoordinates=".row${mainaxisvalues[1] + 1}.column${secondaryaxisvalues[0] + 1}">R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[0] + 1}</span></strong>  
+      will be ${value})
+    </p>
     <p>Because having those two mandatory ${value}s in two of the cells, we are sure that the two Columns will already have the ${value}</p>
     <p>So, all candidates with value ${value} in Columns C${secondaryaxisvalues[0] + 1} and C${secondaryaxisvalues[1] + 1}, that do not belong to Rows R${mainaxisvalues[0] + 1} and R${mainaxisvalues[1] + 1} have been deleted</p>
     `;
-  } else {
+  } else { //mainaxis === "column"
     newDiscardArticle.innerHTML =  `
     <h3>Step ${globalVar.currentStep}</h3>
     <h4>${method}</h4>
@@ -419,14 +430,16 @@ const discardXWingHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, seconda
       <strong><span data-cellcoordinates=".row${secondaryaxisvalues[1] + 1}.column${mainaxisvalues[0] + 1}">R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[0] + 1}</span></strong> and 
       <strong><span data-cellcoordinates=".row${secondaryaxisvalues[1] + 1}.column${mainaxisvalues[1] + 1}">R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[1] + 1}</span></strong>.
     </p>
-    <p>These 4 cells are the crosspoints between Rows R${secondaryaxisvalues[0] + 1} and R${secondaryaxisvalues[1] + 1}, and Columns C${mainaxisvalues[0] + 1} and C${mainaxisvalues[1] + 1}</p>
+    <p>
+      These 4 cells are the crosspoints between Rows R${secondaryaxisvalues[0] + 1} and R${secondaryaxisvalues[1] + 1} with Columns C${mainaxisvalues[0] + 1} and C${mainaxisvalues[1] + 1}</p>
     <p>
       Since no more candidates with option ${value} exist within the two Columns, we know for sure those two ${value}s must exist in two of those 4 cells in a diagonal, either  
       (<strong><span data-cellcoordinates=".row${secondaryaxisvalues[0] + 1}.column${mainaxisvalues[0] + 1}">R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[0] + 1}</span></strong> and 
       <strong><span data-cellcoordinates=".row${secondaryaxisvalues[1] + 1}.column${mainaxisvalues[1] + 1}">R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[1] + 1}</span></strong> 
       will be ${value}) OR 
       (<strong><span data-cellcoordinates=".row${secondaryaxisvalues[0] + 1}.column${mainaxisvalues[1] + 1}">R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[1] + 1}</span></strong> and 
-      <strong><span data-cellcoordinates=".row${secondaryaxisvalues[1] + 1}.column${mainaxisvalues[0] + 1}">R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[0] + 1}</span></strong> will be ${value})
+      <strong><span data-cellcoordinates=".row${secondaryaxisvalues[1] + 1}.column${mainaxisvalues[0] + 1}">R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[0] + 1}</span></strong> 
+      will be ${value})
     </p>
     <p>Because having those two mandatory ${value}s in two of the cells, we are sure that the two Rows will already have the ${value}</p>
     <p>So, all candidates with value ${value} in Rows R${secondaryaxisvalues[0] + 1} and R${secondaryaxisvalues[1] + 1}, that do not belong to Columns C${mainaxisvalues[0] + 1} and C${mainaxisvalues[1] + 1} have been deleted</p>
@@ -441,8 +454,10 @@ const discardXWingHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, seconda
   spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock(mainaxis, mainaxisvalues[0] + 1);
-  settingHighlightedBlock(mainaxis, mainaxisvalues[1] + 1);
+  settingHighlightedBlock(mainaxis, mainaxisvalues[0] + 1, "highlighted");
+  settingHighlightedBlock(mainaxis, mainaxisvalues[1] + 1, "highlighted");
+  settingHighlightedBlock(secondaryaxis, secondaryaxisvalues[0] + 1, "deletion");
+  settingHighlightedBlock(secondaryaxis, secondaryaxisvalues[1] + 1, "deletion");
 };
 
 //This Function is called by Y-WING Techniques
@@ -495,9 +510,9 @@ const discardYWingHTML = (pivotValues, pincer1Values, pincer1Axis, pincer2Values
   spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock("cell", [pivotValues[0] + 1, pivotValues[1] + 1]);
-  settingHighlightedBlock("cell", [pincer1Values[0] + 1, pincer1Values[1] + 1]);
-  settingHighlightedBlock("cell", [pincer2Values[0] + 1, pincer2Values[1] + 1]);
+  settingHighlightedBlock("cell", [pivotValues[0] + 1, pivotValues[1] + 1], "highlighted");
+  settingHighlightedBlock("cell", [pincer1Values[0] + 1, pincer1Values[1] + 1], "highlighted");
+  settingHighlightedBlock("cell", [pincer2Values[0] + 1, pincer2Values[1] + 1], "highlighted");
 };
 
 //This Function is called by SwordFish Techniques
@@ -537,7 +552,7 @@ const discardSwordFishHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, sec
           let newDiscardArticleLastP = newDiscardArticle.lastElementChild;
           newDiscardArticleLastP.insertAdjacentHTML("beforeend",
           `
-          <strong><span data-cellcoordinates=".row${secondaryAxisValue + 1}.column${mainAxisValue + 1}">R${secondaryAxisValue + 1}C${mainAxisValue + 1}</span></strong> 
+          <strong><span data-cellcoordinates=".row${mainAxisValue + 1}.column${secondaryAxisValue + 1}">R${mainAxisValue + 1}C${secondaryAxisValue + 1}</span></strong> 
           `
           );       
         };
@@ -599,9 +614,9 @@ const discardSwordFishHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, sec
   spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock(mainaxis, mainaxisvalues[0] + 1);
-  settingHighlightedBlock(mainaxis, mainaxisvalues[1] + 1);
-  settingHighlightedBlock(mainaxis, mainaxisvalues[2] + 1);
+  settingHighlightedBlock(mainaxis, mainaxisvalues[0] + 1, "highlighted");
+  settingHighlightedBlock(mainaxis, mainaxisvalues[1] + 1, "highlighted");
+  settingHighlightedBlock(mainaxis, mainaxisvalues[2] + 1, "highlighted");
 };
 
 //This Function is called by Y-WING Techniques
@@ -708,25 +723,26 @@ const addGoBackToStepButton = () => {
   };
 };
 
-const settingHighlightedBlock = (mainBlock, mainBlockValue) => {
+const settingHighlightedBlock = (mainBlock, mainBlockValue, classtoadd) => {
   //It evaluates which Block (cell, row, column or square involved in finding the value for this cell)
   if (globalVar.areHighlightsOn) {
     switch (mainBlock) {
+      //These cases will add a class based on the parameter sent by the DOM modyfying function adding at the end the type of block (cell, row, column or square for CSS to handle)
       case "cell":
         let highlightedCell = document.querySelectorAll(`.row${mainBlockValue[0]}.column${mainBlockValue[1]}`);
-        highlightedCell.forEach( (cell) => {cell.classList.add("highlightedCell")});
+        highlightedCell.forEach( (cell) => {cell.classList.add(`${classtoadd}Cell`)});
       break;
       case "row":
         let highlightedRow = document.querySelectorAll(`.row${mainBlockValue}`);
-        highlightedRow.forEach( (cell) => {cell.classList.add("highlightedRow")});
+        highlightedRow.forEach( (cell) => {cell.classList.add(`${classtoadd}Row`)});
       break;
       case "column":
         let highlightedColumn = document.querySelectorAll(`.column${mainBlockValue}`);
-        highlightedColumn.forEach( (cell) => {cell.classList.add("highlightedColumn")});
+        highlightedColumn.forEach( (cell) => {cell.classList.add(`${classtoadd}Column`)});
       break;
       case "square":
         let highlightedSquare = document.querySelectorAll(`.square${mainBlockValue}`);
-        highlightedSquare.forEach( (cell) => {cell.classList.add("highlightedSquare")});
+        highlightedSquare.forEach( (cell) => {cell.classList.add(`${classtoadd}Square`)});
       break;
     };
   };
@@ -741,14 +757,14 @@ const newSudokuPuzzleArticle = () => {
   newfoundvalueArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>New Sudoku Puzzle</h4>
-  <p>A new Sudoku Puzzle has been created. In this space you will find one card for each step you advance in the tutorial for your personalized Sudoku Puzzle</p>
+  <p>A new Sudoku Puzzle has been created for you. In this space you will find one card for each step you advance in the tutorial for your personalized Sudoku Puzzle</p>
   <p>Please use the buttons above the Puzzle to resolve or go back.</p>
   <p>You can return to the initial state of the puzzle by coming back to this card.</p>
   <p>Enjoy it and learn a lot about how solving your puzzle.</p>
-
+  <p>The calculated difficulty for this puzzle is: ${globalVar.difficulty}</p>
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newfoundvalueArticle);
 };
 
-export { newFoundValueHTML, discardLockedCandidateHTML, discardXWingHTML, discardObviousPairsHTML, discardHiddenPairHTML, discardObviousTripleHTML, discardHiddenTripleHTML, discardObviousQuadHTML, discardHiddenQuadrupleHTML, discardYWingHTML, discardSwordFishHTML, discardNishioCandidateProvenWrongHTML, discardNishioGuessDeadEndHTML, addGoBackToStepButton, settingHighlightedBlock, newSudokuPuzzleArticle };
+export { newFoundValueHTML, discardLockedCandidateHTML, discardXWingHTML, discardObviousPairsHTML, discardHiddenPairHTML, discardObviousTripleHTML, discardHiddenTripleHTML, discardObviousQuadHTML, discardHiddenQuadrupleHTML, discardYWingHTML, discardSwordFishHTML, discardNishioCandidateProvenWrongHTML, discardNishioGuessDeadEndHTML, addGoBackToStepButton, newSudokuPuzzleArticle };

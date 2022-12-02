@@ -139,6 +139,114 @@ h2 {
   padding-top: 100%;
   /* 1:1 Aspect Ratio */
   position: relative;
+  /* highlightedRow, highlightedColumn and highlightedSquare are set before > input for the right cell found to be highlighted above the corresponding block*/
+  /* highlightedRow, highlightedColumn and highlightedSquare are set before > input for the right cell found to be highlighted above the corresponding block*/
+}
+
+.theMatrixNotes .cell.deletionRow, .theMatrix .cell.deletionRow {
+  border-top: 3px solid #E3170A;
+  border-bottom: 3px solid #E3170A;
+}
+
+.theMatrixNotes .cell.deletionRow.column1, .theMatrix .cell.deletionRow.column1 {
+  border-left: 3px solid #E3170A;
+}
+
+.theMatrixNotes .cell.deletionRow.column9, .theMatrix .cell.deletionRow.column9 {
+  border-right: 3px solid #E3170A;
+}
+
+.theMatrixNotes .cell.deletionColumn, .theMatrix .cell.deletionColumn {
+  border-left: 3px solid #E3170A;
+  border-right: 3px solid #E3170A;
+}
+
+.theMatrixNotes .cell.deletionColumn.row1, .theMatrix .cell.deletionColumn.row1 {
+  border-top: 3px solid #E3170A;
+}
+
+.theMatrixNotes .cell.deletionColumn.row9, .theMatrix .cell.deletionColumn.row9 {
+  border-bottom: 3px solid #E3170A;
+}
+
+.theMatrixNotes .cell.deletionSquare.row1, .theMatrixNotes .cell.deletionSquare.row4, .theMatrixNotes .cell.deletionSquare.row7, .theMatrix .cell.deletionSquare.row1, .theMatrix .cell.deletionSquare.row4, .theMatrix .cell.deletionSquare.row7 {
+  border-top: 3px solid #E3170A;
+}
+
+.theMatrixNotes .cell.deletionSquare.row3, .theMatrixNotes .cell.deletionSquare.row6, .theMatrixNotes .cell.deletionSquare.row9, .theMatrix .cell.deletionSquare.row3, .theMatrix .cell.deletionSquare.row6, .theMatrix .cell.deletionSquare.row9 {
+  border-bottom: 3px solid #E3170A;
+}
+
+.theMatrixNotes .cell.deletionSquare.column1, .theMatrixNotes .cell.deletionSquare.column4, .theMatrixNotes .cell.deletionSquare.column7, .theMatrix .cell.deletionSquare.column1, .theMatrix .cell.deletionSquare.column4, .theMatrix .cell.deletionSquare.column7 {
+  border-left: 3px solid #E3170A;
+}
+
+.theMatrixNotes .cell.deletionSquare.column3, .theMatrixNotes .cell.deletionSquare.column6, .theMatrixNotes .cell.deletionSquare.column9, .theMatrix .cell.deletionSquare.column3, .theMatrix .cell.deletionSquare.column6, .theMatrix .cell.deletionSquare.column9 {
+  border-right: 3px solid #E3170A;
+}
+
+.theMatrixNotes .cell.highlightedCell, .theMatrix .cell.highlightedCell {
+  border: 3px solid #E2AE12;
+}
+
+.theMatrixNotes .cell.highlightedRow, .theMatrix .cell.highlightedRow {
+  border-top: 3px solid #E2AE12;
+  border-bottom: 3px solid #E2AE12;
+  background-color: rgba(226, 174, 18, 0.2);
+}
+
+.theMatrixNotes .cell.highlightedRow input, .theMatrix .cell.highlightedRow input {
+  background-color: rgba(226, 174, 18, 0.2);
+}
+
+.theMatrixNotes .cell.highlightedRow.column1, .theMatrix .cell.highlightedRow.column1 {
+  border-left: 3px solid #E2AE12;
+}
+
+.theMatrixNotes .cell.highlightedRow.column9, .theMatrix .cell.highlightedRow.column9 {
+  border-right: 3px solid #E2AE12;
+}
+
+.theMatrixNotes .cell.highlightedColumn, .theMatrix .cell.highlightedColumn {
+  border-left: 3px solid #E2AE12;
+  border-right: 3px solid #E2AE12;
+  background-color: rgba(226, 174, 18, 0.2);
+}
+
+.theMatrixNotes .cell.highlightedColumn input, .theMatrix .cell.highlightedColumn input {
+  background-color: rgba(226, 174, 18, 0.2);
+}
+
+.theMatrixNotes .cell.highlightedColumn.row1, .theMatrix .cell.highlightedColumn.row1 {
+  border-top: 3px solid #E2AE12;
+}
+
+.theMatrixNotes .cell.highlightedColumn.row9, .theMatrix .cell.highlightedColumn.row9 {
+  border-bottom: 3px solid #E2AE12;
+}
+
+.theMatrixNotes .cell.highlightedSquare, .theMatrix .cell.highlightedSquare {
+  background-color: rgba(226, 174, 18, 0.2);
+}
+
+.theMatrixNotes .cell.highlightedSquare input, .theMatrix .cell.highlightedSquare input {
+  background-color: rgba(226, 174, 18, 0.2);
+}
+
+.theMatrixNotes .cell.highlightedSquare.row1, .theMatrixNotes .cell.highlightedSquare.row4, .theMatrixNotes .cell.highlightedSquare.row7, .theMatrix .cell.highlightedSquare.row1, .theMatrix .cell.highlightedSquare.row4, .theMatrix .cell.highlightedSquare.row7 {
+  border-top: 3px solid #E2AE12;
+}
+
+.theMatrixNotes .cell.highlightedSquare.row3, .theMatrixNotes .cell.highlightedSquare.row6, .theMatrixNotes .cell.highlightedSquare.row9, .theMatrix .cell.highlightedSquare.row3, .theMatrix .cell.highlightedSquare.row6, .theMatrix .cell.highlightedSquare.row9 {
+  border-bottom: 3px solid #E2AE12;
+}
+
+.theMatrixNotes .cell.highlightedSquare.column1, .theMatrixNotes .cell.highlightedSquare.column4, .theMatrixNotes .cell.highlightedSquare.column7, .theMatrix .cell.highlightedSquare.column1, .theMatrix .cell.highlightedSquare.column4, .theMatrix .cell.highlightedSquare.column7 {
+  border-left: 3px solid #E2AE12;
+}
+
+.theMatrixNotes .cell.highlightedSquare.column3, .theMatrixNotes .cell.highlightedSquare.column6, .theMatrixNotes .cell.highlightedSquare.column9, .theMatrix .cell.highlightedSquare.column3, .theMatrix .cell.highlightedSquare.column6, .theMatrix .cell.highlightedSquare.column9 {
+  border-right: 3px solid #E2AE12;
 }
 
 .theMatrixNotes .cell > input, .theMatrix .cell > input {
@@ -243,48 +351,6 @@ h2 {
 
 .theMatrixNotes .cell > div .noteKept, .theMatrix .cell > div .noteKept {
   background-color: #A5FFD6;
-}
-
-.theMatrixNotes .cell.highlightedRow, .theMatrix .cell.highlightedRow {
-  border-top: 3px solid #E2AE12;
-  border-bottom: 3px solid #E2AE12;
-}
-
-.theMatrixNotes .cell.highlightedRow.column1, .theMatrix .cell.highlightedRow.column1 {
-  border-left: 3px solid #E2AE12;
-}
-
-.theMatrixNotes .cell.highlightedRow.column9, .theMatrix .cell.highlightedRow.column9 {
-  border-right: 3px solid #E2AE12;
-}
-
-.theMatrixNotes .cell.highlightedColumn, .theMatrix .cell.highlightedColumn {
-  border-left: 3px solid #E2AE12;
-  border-right: 3px solid #E2AE12;
-}
-
-.theMatrixNotes .cell.highlightedColumn.row1, .theMatrix .cell.highlightedColumn.row1 {
-  border-top: 3px solid #E2AE12;
-}
-
-.theMatrixNotes .cell.highlightedColumn.row9, .theMatrix .cell.highlightedColumn.row9 {
-  border-bottom: 3px solid #E2AE12;
-}
-
-.theMatrixNotes .cell.highlightedSquare.row1, .theMatrixNotes .cell.highlightedSquare.row4, .theMatrixNotes .cell.highlightedSquare.row7, .theMatrix .cell.highlightedSquare.row1, .theMatrix .cell.highlightedSquare.row4, .theMatrix .cell.highlightedSquare.row7 {
-  border-top: 3px solid #E2AE12;
-}
-
-.theMatrixNotes .cell.highlightedSquare.row3, .theMatrixNotes .cell.highlightedSquare.row6, .theMatrixNotes .cell.highlightedSquare.row9, .theMatrix .cell.highlightedSquare.row3, .theMatrix .cell.highlightedSquare.row6, .theMatrix .cell.highlightedSquare.row9 {
-  border-bottom: 3px solid #E2AE12;
-}
-
-.theMatrixNotes .cell.highlightedSquare.column1, .theMatrixNotes .cell.highlightedSquare.column4, .theMatrixNotes .cell.highlightedSquare.column7, .theMatrix .cell.highlightedSquare.column1, .theMatrix .cell.highlightedSquare.column4, .theMatrix .cell.highlightedSquare.column7 {
-  border-left: 3px solid #E2AE12;
-}
-
-.theMatrixNotes .cell.highlightedSquare.column3, .theMatrixNotes .cell.highlightedSquare.column6, .theMatrixNotes .cell.highlightedSquare.column9, .theMatrix .cell.highlightedSquare.column3, .theMatrix .cell.highlightedSquare.column6, .theMatrix .cell.highlightedSquare.column9 {
-  border-right: 3px solid #E2AE12;
 }
 
 .theMatrixNotes .cell.hoveredCoordinates input, .theMatrixNotes .cell.hoveredCoordinates div, .theMatrix .cell.hoveredCoordinates input, .theMatrix .cell.hoveredCoordinates div {

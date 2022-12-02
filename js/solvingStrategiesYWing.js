@@ -37,9 +37,9 @@ const yWing = () => {
                   //Here the second pincer have been found, now it needs to verify that the cells seen by bot pincers contain the pincerz value. In this case just 1 cell defined by rowPincer2 and colPincer1
                   let buddycell = globalVar.theMatrix[globalVar.currentStep][rowPincer2][colPincer1];
                   if (buddycell[pincerZ] === 1) {
-                    console.log(`Y-Wing Found with Pivot cell in Row ${rowPivot + 1}, Column ${colPivot + 1} with candidates ${pincerX} and ${pincerY}.`);
-                    console.log(`First Pincer (Same Row) in Row ${rowPivot + 1}, Column ${colPincer1 + 1}, Second Pincer (Same Column) in Row ${rowPincer2 + 1}, Column ${colPivot + 1}`);
-                    console.log(`the buddy cell located in Row ${rowPincer2 + 1}, Column ${colPincer1 + 1} contains a Z value ${pincerZ} that will be deleted`);
+                    // console.log(`Y-Wing Found with Pivot cell in Row ${rowPivot + 1}, Column ${colPivot + 1} with candidates ${pincerX} and ${pincerY}.`);
+                    // console.log(`First Pincer (Same Row) in Row ${rowPivot + 1}, Column ${colPincer1 + 1}, Second Pincer (Same Column) in Row ${rowPincer2 + 1}, Column ${colPivot + 1}`);
+                    // console.log(`the buddy cell located in Row ${rowPincer2 + 1}, Column ${colPincer1 + 1} contains a Z value ${pincerZ} that will be deleted`);
                     solvingFunctions.discardYWing([rowPivot, colPivot], [rowPivot, colPincer1], "row", [rowPincer2, colPivot], "column", pincerX, pincerY, pincerZ, "Y-Wing Value with Pincer Cells in Row and Column", notesZero.noteZeroCell, [[rowPincer2, colPincer1]] );
                     break;
                   };
@@ -105,9 +105,9 @@ const yWing = () => {
                         };
                       };
                       if (positiveforZvalue.length !== 0) {
-                        console.log(`Y-Wing Found with Pivot cell in Row ${rowPivot + 1}, Column ${colPivot + 1} with candidates ${pincerX} and ${pincerY}.`);
-                        console.log(`First Pincer (Same Square) in Row ${rowPincer1 + 1}, Column ${colPincer1 + 1}, Second Pincer (Same Column) in Row ${rowPincer2 + 1}, Column ${colPivot + 1}`);
-                        console.log(`All those cells seen by both pincer cells that contains a Z value ${pincerZ} have been be deleted`);                  
+                        // console.log(`Y-Wing Found with Pivot cell in Row ${rowPivot + 1}, Column ${colPivot + 1} with candidates ${pincerX} and ${pincerY}.`);
+                        // console.log(`First Pincer (Same Square) in Row ${rowPincer1 + 1}, Column ${colPincer1 + 1}, Second Pincer (Same Column) in Row ${rowPincer2 + 1}, Column ${colPivot + 1}`);
+                        // console.log(`All those cells seen by both pincer cells that contains a Z value ${pincerZ} have been be deleted`);                  
                         solvingFunctions.discardYWing([rowPivot, colPivot], [rowPincer1, colPincer1], "square", [rowPincer2, colPivot], "column", pincerX, pincerY, pincerZ, "Y-Wing Value with Pincer Cells in Square and Column", notesZero.noteZeroCell, positiveforZvalue );
                         break;
                       };
@@ -149,9 +149,9 @@ const yWing = () => {
                           };
                         };
                         if (positiveforZvalue.length !== 0) {
-                          console.log(`Y-Wing Found with Pivot cell in Row ${rowPivot + 1}, Column ${colPivot + 1} with candidates ${pincerX} and ${pincerY}.`);
-                          console.log(`First Pincer (Same Square) in Row ${rowPincer1 + 1}, Column ${colPincer1 + 1}, Second Pincer (Same Row) in Row ${rowPivot + 1}, Column ${colPincer2 + 1}`);
-                          console.log(`All those cells seen by both pincer cells that contains a Z value ${pincerZ} have been be deleted`);                  
+                          // console.log(`Y-Wing Found with Pivot cell in Row ${rowPivot + 1}, Column ${colPivot + 1} with candidates ${pincerX} and ${pincerY}.`);
+                          // console.log(`First Pincer (Same Square) in Row ${rowPincer1 + 1}, Column ${colPincer1 + 1}, Second Pincer (Same Row) in Row ${rowPivot + 1}, Column ${colPincer2 + 1}`);
+                          // console.log(`All those cells seen by both pincer cells that contains a Z value ${pincerZ} have been be deleted`);                  
                           solvingFunctions.discardYWing([rowPivot, colPivot], [rowPincer1, colPincer1], "square", [rowPivot, colPincer2], "row", pincerX, pincerY, pincerZ, "Y-Wing Value with Pincer Cells in Square and Row", notesZero.noteZeroCell, positiveforZvalue );
                           break;
                         };

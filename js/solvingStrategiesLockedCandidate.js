@@ -61,7 +61,6 @@ const lockedCandidateColumn = () => {
           const {fromrow, maximumrow, fromcolumn, maximumcolumn} = coordinates.defineInitialMaxRCFromSquare(locatedSquare);
           const { howmanycellswiththisnote:howmanycellswiththisnoteSquare } = gettingInfo.gettingDetailedInfoBlock ( fromrow, maximumrow, fromcolumn, maximumcolumn, "square", locatedSquare );
           if ( howmanycellswiththisnoteColumn[possibleCandidate] != howmanycellswiththisnoteSquare[possibleCandidate]) {
-            // console.log(`Tenemos un Locked Candidate, option ${possibleCandidate} in column ${column + 1} have other notes in square ${locatedSquare} that can be deleted`)
             solvingFunctions.discardLockedCandidate(locatedSquare, "square", column, "column", possibleCandidate, "Locked Candidate (Type2) From Column confined in Square", notesZero.noteZeroSquareSQ );
             break;
           };
@@ -96,7 +95,6 @@ const lockedCandidateSquare = () => {
           const { realRow } = coordinates.defineRealRCFromSquareRelativeRC(square, secondThirdRowOnly+2*finalThirdRowOnly, secondThirdColumnOnly+2*finalThirdColumnOnly);
           const { howmanycellswiththisnote:howmanycellswiththisnoteRow } = gettingInfo.gettingDetailedInfoBlock ( realRow, realRow, 0, 8, "row" );
           if ( howmanycellswiththisnoteSquare[possibleCandidate] != howmanycellswiththisnoteRow[possibleCandidate]) {
-            console.log(`Tenemos un Locked Candidate, option ${possibleCandidate} in square ${square} have other notes in row ${realRow + 1} that can be deleted`)
             solvingFunctions.discardLockedCandidate(realRow, "row", square, "square", possibleCandidate, "Locked Candidate (Type1) From Square confined in Row", notesZero.noteZeroRow );
             break;
           };
@@ -106,7 +104,6 @@ const lockedCandidateSquare = () => {
           const { realColumn } = coordinates.defineRealRCFromSquareRelativeRC(square, secondThirdRowOnly+2*finalThirdRowOnly, secondThirdColumnOnly+2*finalThirdColumnOnly);
           const { howmanycellswiththisnote:howmanycellswiththisnoteColumn } = gettingInfo.gettingDetailedInfoBlock ( 0, 8, realColumn, realColumn, "column" );
           if ( howmanycellswiththisnoteSquare[possibleCandidate] != howmanycellswiththisnoteColumn[possibleCandidate]) {
-            // console.log(`Tenemos un Locked Candidate, option ${possibleCandidate} in square ${square} have other notes in column ${realColumn + 1} that can be deleted`)
             solvingFunctions.discardLockedCandidate(realColumn, "column", square, "square", possibleCandidate, "Locked Candidate (Type1) From Square confined in Column", notesZero.noteZeroColumn );
             break;
           };
