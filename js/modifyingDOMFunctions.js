@@ -73,7 +73,9 @@ const newFoundValueHTML = (itemRow, itemColumn, currentCellValue, theMatrixStep,
     <h4>${method}</h4>
     <p>Cell 
       <strong><span data-cellcoordinates=".row${itemRow}.column${itemColumn}">R${itemRow}C${itemColumn}</span></strong> 
-      within the ${mainBlock} ${mainBlockValue} was the only cell with Candidate (${currentCellValue}).
+      within the ${recurrent.capitalizeFirstLetter(mainBlock)} 
+      <strong><span data-${mainBlock}coordinates=".${mainBlock}${mainBlockValue}">${recurrent.getFirstLetterCapitalized(mainBlock)}${mainBlockValue}</span></strong> 
+      was the only cell with Candidate (${currentCellValue}).
     </p>
     <p>The certain Value for this Cell is <strong>${currentCellValue}.</strong></p>
     `;
@@ -98,7 +100,7 @@ const newFoundValueHTML = (itemRow, itemColumn, currentCellValue, theMatrixStep,
 
   //creating the Event Listeners to the recently created RC spans
   const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
-  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+  spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   recurrent.reviewNotes(theMatrixStep);
   addGoBackToStepButton();
@@ -138,7 +140,7 @@ const discardObviousPairsHTML = (mainaxisvalue, mainaxis, cellsIdentified, curre
 
   //creating the Event Listeners to the recently created RC spans
   const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
-  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+  spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
   settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "highlighted");
@@ -177,7 +179,7 @@ const discardHiddenPairHTML = (mainaxisvalue, mainaxis, cellsIdentified, current
 
   //creating the Event Listeners to the recently created RC spans
   const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
-  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+  spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
   settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "highlighted");
@@ -217,7 +219,7 @@ const discardObviousTripleHTML = (mainaxisvalue, mainaxis, cellsIdentified, curr
 
   //creating the Event Listeners to the recently created RC spans
   const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
-  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+  spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
   settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "highlighted");
@@ -256,7 +258,7 @@ const discardHiddenTripleHTML = (mainaxisvalue, mainaxis, cellsIdentified, curre
 
   //creating the Event Listeners to the recently created RC spans
   const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
-  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+  spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
   settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "highlighted");
@@ -297,7 +299,7 @@ const discardObviousQuadHTML = (mainaxisvalue, mainaxis, cellsIdentified, curren
 
   //creating the Event Listeners to the recently created RC spans
   const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
-  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+  spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
   settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "highlighted");
@@ -337,7 +339,7 @@ const discardHiddenQuadrupleHTML = (mainaxisvalue, mainaxis, cellsIdentified, cu
 
   //creating the Event Listeners to the recently created RC spans
   const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
-  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+  spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
   settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "highlighted");
@@ -410,7 +412,7 @@ const discardXWingHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, seconda
     <p>
       Since no more candidates with option ${value} exist within the two Rows, we know for sure those two ${value}s must exist in two of those 4 cells in a diagonal, either 
       (<strong><span data-cellcoordinates=".row${mainaxisvalues[0] + 1}.column${secondaryaxisvalues[0] + 1}">R${mainaxisvalues[0] + 1}C${secondaryaxisvalues[0] + 1}</span></strong> and 
-      <strong><span data-cellcoordinates=".row${mainaxisvalues[1] + 1}.column${secondaryaxisvalues[1] + 1}">R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[1] + 1}</span></strong> 
+      <strong><span data-cellcoordinates=".row${mainaxisvalues[1] + 1}.column${secondaryaxisvalues[1] + 1}">R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[1] + 1}</span></strong>)
       will be ${value} OR
       (<strong><span data-cellcoordinates=".row${mainaxisvalues[0] + 1}.column${secondaryaxisvalues[1] + 1}">R${mainaxisvalues[0] + 1}C${secondaryaxisvalues[1] + 1}</span></strong> and 
       <strong><span data-cellcoordinates=".row${mainaxisvalues[1] + 1}.column${secondaryaxisvalues[0] + 1}">R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[0] + 1}</span></strong>  
@@ -435,8 +437,8 @@ const discardXWingHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, seconda
     <p>
       Since no more candidates with option ${value} exist within the two Columns, we know for sure those two ${value}s must exist in two of those 4 cells in a diagonal, either  
       (<strong><span data-cellcoordinates=".row${secondaryaxisvalues[0] + 1}.column${mainaxisvalues[0] + 1}">R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[0] + 1}</span></strong> and 
-      <strong><span data-cellcoordinates=".row${secondaryaxisvalues[1] + 1}.column${mainaxisvalues[1] + 1}">R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[1] + 1}</span></strong> 
-      will be ${value}) OR 
+      <strong><span data-cellcoordinates=".row${secondaryaxisvalues[1] + 1}.column${mainaxisvalues[1] + 1}">R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[1] + 1}</span></strong>) 
+      will be ${value} OR 
       (<strong><span data-cellcoordinates=".row${secondaryaxisvalues[0] + 1}.column${mainaxisvalues[1] + 1}">R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[1] + 1}</span></strong> and 
       <strong><span data-cellcoordinates=".row${secondaryaxisvalues[1] + 1}.column${mainaxisvalues[0] + 1}">R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[0] + 1}</span></strong> 
       will be ${value})
@@ -451,7 +453,7 @@ const discardXWingHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, seconda
 
   //creating the Event Listeners to the recently created RC spans
   const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
-  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+  spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
   settingHighlightedBlock(mainaxis, mainaxisvalues[0] + 1, "highlighted");
@@ -507,7 +509,7 @@ const discardYWingHTML = (pivotValues, pincer1Values, pincer1Axis, pincer2Values
 
   //creating the Event Listeners to the recently created RC spans
   const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
-  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+  spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
   settingHighlightedBlock("cell", [pivotValues[0] + 1, pivotValues[1] + 1], "highlighted");
@@ -611,7 +613,7 @@ const discardSwordFishHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, sec
 
   //creating the Event Listeners to the recently created RC spans
   const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
-  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+  spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
   settingHighlightedBlock(mainaxis, mainaxisvalues[0] + 1, "highlighted");
@@ -619,7 +621,100 @@ const discardSwordFishHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, sec
   settingHighlightedBlock(mainaxis, mainaxisvalues[2] + 1, "highlighted");
 };
 
-//This Function is called by Y-WING Techniques
+//This Function is called by X-WING Techniques
+const discardFinnedXWingHTML = (cornerFin, oppositeCornerFin, squaresRectangle, mainaxis, secondaryaxis, value, method, possibleDeletionCells, cellsFin) => {
+  console.log("--------------------------------------------");
+  console.log("This is your last chance. After this, there is no turning back. You take the blue pill, the story ends. You wake up in your bed and believe whatever you want to believe. You take the red pill, you stay in Wonderland and I show you how deep the rabbit hole goes. - Morpheus");
+  console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
+  console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
+  console.log("We found a Finned X-Wing Candidate!")
+  console.log(`the fin is formed with cells R${cellsFin[0].row + 1}C${cellsFin[0].column + 1}`)
+  console.log(`Candidates notes for ${value} within the same square as the fin, and the same column as the corner have been deleted`);
+  document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
+  document.querySelector("#button-reload").classList.add("active");
+  document.querySelector("#button-reload").classList.remove("inactive");
+  let newDiscardArticle = document.createElement("article");
+  newDiscardArticle.classList.add("newdiscardFinnedXWing");
+  newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
+  newDiscardArticle.style.zIndex = -globalVar.currentStep;
+
+  //${ eval(`oppositeCornerFin.${mainaxis}`) + 1 } traslates to ${ oppositeCornerFin.row + 1 } if mainaxis is row, and to ${ oppositeCornerFin.column + 1 } for column, and hence allows to use the same structure for both cases. Repeated use of the eval function to achieve this.
+  newDiscardArticle.innerHTML =  
+    `
+    <h3>Step ${globalVar.currentStep}</h3>
+    <h4>${method}</h4>
+    <p>
+      4 Cells in X-Wing configuration shared a candidate (option ${value}), the cells are 
+      <strong><span data-cellcoordinates=".row${ oppositeCornerFin.row + 1 }.column${ oppositeCornerFin.column + 1}">R${ oppositeCornerFin.row + 1 }C${ oppositeCornerFin.column + 1 }</span></strong>, 
+      <strong><span data-cellcoordinates=".row${ oppositeCornerFin.row + 1 }.column${ cornerFin.column + 1 }">R${ oppositeCornerFin.row + 1 }C${ cornerFin.column + 1}</span></strong>, 
+      <strong><span data-cellcoordinates=".row${ cornerFin.row + 1 }.column${ oppositeCornerFin.column + 1 }">R${ cornerFin.row + 1 }C${ oppositeCornerFin.column + 1 }</span></strong> and 
+      <strong><span data-cellcoordinates=".row${ cornerFin.row + 1}.column${ cornerFin.column + 1 }">R${ cornerFin.row + 1}C${ cornerFin.column + 1}</span></strong>.
+    </p>
+    <p>
+      These 4 cells are the crosspoints between 
+      ${recurrent.capitalizeFirstLetter(mainaxis)}s 
+      ${recurrent.getFirstLetterCapitalized(mainaxis)}${ eval(`oppositeCornerFin.${mainaxis}`) + 1 } and 
+      ${recurrent.getFirstLetterCapitalized(mainaxis)}${ eval(`cornerFin.${mainaxis}`) + 1 } with 
+      ${recurrent.capitalizeFirstLetter(secondaryaxis)}s 
+      ${recurrent.getFirstLetterCapitalized(secondaryaxis)}${ eval(`oppositeCornerFin.${secondaryaxis}`) + 1 } and 
+      ${recurrent.getFirstLetterCapitalized(secondaryaxis)}${ eval(`cornerFin.${secondaryaxis}`) + 1 }.
+      Let's imagine these four cells are part of an imaginary rectangle, with four corners, each located in a different square of the puzzle (This will become important).
+    </p>
+    <p>
+      However, this is not a perfect X-Wing, because ${recurrent.capitalizeFirstLetter(mainaxis)} ${recurrent.getFirstLetterCapitalized(mainaxis)}${ eval(`cornerFin.${mainaxis}`) + 1 } has more than two cells with the candidate ${value}, invalidating the X-Wing analysis, being the additional cell(s) 
+    </p>
+    <p></p>
+    `;
+  cellsFin.forEach((cellFin) => {
+    let newDiscardArticleLastP = newDiscardArticle.lastElementChild;
+    newDiscardArticleLastP.insertAdjacentHTML("beforeend",
+      `
+      <strong><span data-cellcoordinates=".row${ cellFin.row + 1 }.column${ cellFin.column + 1 }">R${ cellFin.row + 1 }C${ cellFin.column + 1 }</span></strong>  
+      `
+    );       
+  });
+  newDiscardArticle.insertAdjacentHTML("beforeend",
+    `<p>
+      These additional cells are located in square S${ squaresRectangle.squareFin } and we will call these additional cells the FIN.
+      Now, let's analyze ${recurrent.capitalizeFirstLetter(mainaxis)} ${recurrent.getFirstLetterCapitalized(mainaxis)}${ eval(`oppositeCornerFin.${mainaxis}`) + 1 } which has only two possible options for candidate ${value}. 
+    </p>
+    <p>
+      First possibility, let's say cell 
+      <strong><span data-cellcoordinates=".row${ oppositeCornerFin.row + 1 }.column${cornerFin.column + 1}">R${ oppositeCornerFin.row + 1 }C${ cornerFin.column + 1 }</span></strong> 
+      is the solution for candidate ${value}, which is the cell in different ${recurrent.capitalizeFirstLetter(mainaxis)} (${recurrent.getFirstLetterCapitalized(mainaxis)}${ eval(`oppositeCornerFin.${mainaxis}`) + 1 }) with the same ${recurrent.capitalizeFirstLetter(secondaryaxis)} (${recurrent.getFirstLetterCapitalized(secondaryaxis)}${ eval(`cornerFin.${secondaryaxis}`) + 1 }) as the corner with the fin (square S${ squaresRectangle.squareFin }). 
+      For that case should be clear that any cell in that same ${recurrent.capitalizeFirstLetter(secondaryaxis)} ${recurrent.getFirstLetterCapitalized(secondaryaxis)}${ eval(`cornerFin.${secondaryaxis}`) + 1 } cannot be anymore solution for option ${value}.
+    </p>
+    <p>
+      Let's evaluate the second possibility, that cell
+      <strong><span data-cellcoordinates=".row${ oppositeCornerFin.row + 1 }.column${oppositeCornerFin.column + 1}">R${ oppositeCornerFin.row + 1 }C${ oppositeCornerFin.column + 1 }</span></strong> 
+      is the solution for candidate ${value}. In that case should be clear that neither 
+      <strong><span data-cellcoordinates=".row${ oppositeCornerFin.row + 1 }.column${cornerFin.column + 1}">R${ oppositeCornerFin.row + 1 }C${ cornerFin.column + 1 }</span></strong> or 
+      <strong><span data-cellcoordinates=".row${ cornerFin.row + 1 }.column${oppositeCornerFin.column + 1}">R${ cornerFin.row + 1 }C${ oppositeCornerFin.column + 1 }</span></strong> 
+      cannot be a possibility for candidate ${value}. Based on this, for ${recurrent.capitalizeFirstLetter(mainaxis)} ${recurrent.getFirstLetterCapitalized(mainaxis)}${ eval(`cornerFin.${mainaxis}`) + 1 }, the only possible cells for candidate ${value} to be possible, are those cells within Square S${ squaresRectangle.squareFin } fulfilling as well the requirement for that square to have a ${value}. 
+    </p>
+    <p>
+      Either case, the cells common for ${recurrent.capitalizeFirstLetter(secondaryaxis)} ${recurrent.getFirstLetterCapitalized(secondaryaxis)}${ eval(`cornerFin.${secondaryaxis}`) + 1 } and Square S${ squaresRectangle.squareFin } can be safely deleted as possible cells for candidate ${value}.
+    </p>
+    `
+  );
+
+  const main = document.querySelector(".stepsDetails > div");
+  main.prepend(newDiscardArticle);
+
+  //creating the Event Listeners to the recently created RC spans
+  const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
+  spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
+
+  addGoBackToStepButton();
+  settingHighlightedBlock("cell", [ oppositeCornerFin.row + 1, oppositeCornerFin.column + 1 ], "highlighted");
+  settingHighlightedBlock("cell", [ oppositeCornerFin.row + 1, cornerFin.column + 1 ], "highlighted");
+  settingHighlightedBlock("cell", [ cornerFin.row + 1, oppositeCornerFin.column + 1], "highlighted");
+  settingHighlightedBlock("cell", [ cornerFin.row + 1, cornerFin.column + 1], "highlighted");
+  cellsFin.forEach(finCell => { settingHighlightedBlock("cell", [ finCell.row + 1, finCell.column + 1 ], "finned") });
+  possibleDeletionCells.forEach(possibleDeletionCell => { settingHighlightedBlock("cell", [ possibleDeletionCell.row + 1, possibleDeletionCell.column + 1 ], `finnedDeletion${recurrent.capitalizeFirstLetter(secondaryaxis)}`) });
+};
+
+//This Function is called by Nishio Techniques
 const discardNishioCandidateProvenWrongHTML = (row, column, wrongCandidate, method, mainaxis, mainaxisvalue ) => {
   console.log("--------------------------------------------");
   console.log("Don'd think you are, know you are! - Morpheus");
@@ -661,7 +756,7 @@ const discardNishioCandidateProvenWrongHTML = (row, column, wrongCandidate, meth
 
   //creating the Event Listeners to the recently created RC spans
   const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
-  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+  spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
   // settingHighlightedBlock("cell", [pivotValues[0] + 1, pivotValues[1] + 1]);
@@ -701,7 +796,7 @@ const discardNishioGuessDeadEndHTML = (wrongCandidate, method, mainaxis, mainaxi
 
   //creating the Event Listeners to the recently created RC spans
   const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
-  spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+  spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
   // settingHighlightedBlock("cell", [pivotValues[0] + 1, pivotValues[1] + 1]);
@@ -767,4 +862,4 @@ const newSudokuPuzzleArticle = () => {
   main.prepend(newfoundvalueArticle);
 };
 
-export { newFoundValueHTML, discardLockedCandidateHTML, discardXWingHTML, discardObviousPairsHTML, discardHiddenPairHTML, discardObviousTripleHTML, discardHiddenTripleHTML, discardObviousQuadHTML, discardHiddenQuadrupleHTML, discardYWingHTML, discardSwordFishHTML, discardNishioCandidateProvenWrongHTML, discardNishioGuessDeadEndHTML, addGoBackToStepButton, newSudokuPuzzleArticle };
+export { newFoundValueHTML, discardLockedCandidateHTML, discardXWingHTML, discardObviousPairsHTML, discardHiddenPairHTML, discardObviousTripleHTML, discardHiddenTripleHTML, discardObviousQuadHTML, discardHiddenQuadrupleHTML, discardYWingHTML, discardSwordFishHTML, discardFinnedXWingHTML, discardNishioCandidateProvenWrongHTML, discardNishioGuessDeadEndHTML, addGoBackToStepButton, newSudokuPuzzleArticle };

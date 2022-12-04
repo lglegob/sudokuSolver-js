@@ -242,6 +242,36 @@ const discardXWing = (mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryax
   globalVar.stepByStep ? true : modifyDOM.discardXWingHTML(mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method);
 };
 
+//Consolidated function for the 2 Blocks (row, column), when one value can be discarded in Finned X-Wing Detection technique
+//This Function is called by Finned X-WING Techniques
+//([row1, row2], "row", [column1, column2], "column", possibleCandidate, "Finned X-Wing Value in Rows to delete Candidates in Finned Column", notesZero.noteZeroCell,  whereAretheDeletions, cellsFin )
+const discardFinnedXWing = (cornerFin, oppositeCornerFin, squaresRectangle, mainaxis, secondaryaxis, value, method, callbackNoteZero, possibleDeletionCells, whereAretheDeletions, cellsFin) => {
+  globalVar.currentStep++;
+  globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: method, cellsResolved: globalVar.cellsResolved, nishioGuessingActive: JSON.parse(JSON.stringify(globalVar.nishioGuessingActive)) } );
+  globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
+
+  //This process deletes the candidate from the cells defined to be deleted
+  //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
+  let theMatrixStep = callbackNoteZero(whereAretheDeletions, value, globalVar.theMatrix[globalVar.currentStep]);
+  globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
+
+  if(globalVar.areHighlightsOn === true) {
+    document.querySelector(".theMatrixNotes " + ".row" + (oppositeCornerFin.row + 1) + ".column" + (oppositeCornerFin.column + 1) + " .note" + value).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (oppositeCornerFin.row + 1) + ".column" + (cornerFin.column + 1) + " .note" + value).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (cornerFin.row + 1) + ".column" + (oppositeCornerFin.column + 1) + " .note" + value).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (cornerFin.row + 1) + ".column" + (cornerFin.column + 1) + " .note" + value).classList.add("noteKept");
+    cellsFin.forEach(finCell => { document.querySelector(".theMatrixNotes " + ".row" + (finCell.row + 1) + ".column" + (finCell.column + 1) + " .note" + value).classList.add("noteKept");
+    });
+  };
+
+  globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
+  globalVar.stepByStep ? true : recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
+  globalVar.stepByStep ? true : recurrent.toggleNotes();
+  globalVar.discardNoteSuccess = true;
+  globalVar.difficulty += 105;
+  globalVar.stepByStep ? true : modifyDOM.discardFinnedXWingHTML(cornerFin, oppositeCornerFin, squaresRectangle, mainaxis, secondaryaxis, value, method, possibleDeletionCells, cellsFin);
+};
+
 //Consolidated function for the Y-Wing Combinations, where one value can be discarded in one or several cells
 //This Function is called by Y-WING Techniques
 const discardYWing = (pivotValues, pincer1Values, pincer1Axis, pincer2Values, pincer2Axis, pincerX, pincerY, pincerZ, method, callbackNoteZero, positiveforZvalue) => {
@@ -363,4 +393,4 @@ const nishioGuessDeadEnd = (method) => {
   return { theMatrixStep};
 };
 
-export { cellValueFound, discardLockedCandidate, discardXWing, discardHiddenSet, discardYWing, discardSwordFish, discardObviousSet, nishioGuessInvalid, nishioGuessDeadEnd };
+export { cellValueFound, discardLockedCandidate, discardXWing, discardFinnedXWing, discardHiddenSet, discardYWing, discardSwordFish, discardObviousSet, nishioGuessInvalid, nishioGuessDeadEnd };

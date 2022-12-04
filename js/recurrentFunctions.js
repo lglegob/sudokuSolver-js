@@ -222,4 +222,8 @@ const showSweetTextInput = async (sweetTitle, SweetInputOptions, SweetPlaceHolde
   matrixFunctions.loadMatrix(SweetInputOptions[keyString], false);
 };
 
-export { toggleNotes, togglehighlights, reviewNotes, createNewDivInput, createNewDivCandidateNotes, deleteLastShowMe, showSweetAlert, showSweetTextInput };
+const capitalizeFirstLetter = str => str.charAt(0).toUpperCase() + str.slice(1);
+
+const getFirstLetterCapitalized = str => str.charAt(0).toUpperCase();
+
+export { toggleNotes, togglehighlights, reviewNotes, createNewDivInput, createNewDivCandidateNotes, deleteLastShowMe, showSweetAlert, showSweetTextInput, capitalizeFirstLetter, getFirstLetterCapitalized };

@@ -45,9 +45,39 @@
       }
     }
 
+    &.finnedCell {
+      border: 3px solid $clr-main-color2;
+      background-color: $clr-main-color2-transparent;
+    }
+
+    //For highlighting groups of 3 cells corresponding to the same square and column
+    &.finnedDeletionColumnCell {
+      border-right: 3px solid $clr-wrong;
+      border-left: 3px solid $clr-wrong;
+      &.row1,&.row4,&.row7 {
+        border-top: 3px solid $clr-wrong;
+      }
+      &.row3,&.row6,&.row7 {
+        border-bottom: 3px solid $clr-wrong;
+      }
+    }
+
+    //For highlighting groups of 3 cells corresponding to the same square and row
+    &.finnedDeletionRowCell {
+      border-top: 3px solid $clr-wrong;
+      border-bottom: 3px solid $clr-wrong;
+      &.column1,&.column4,&.column7 {
+        border-left: 3px solid $clr-wrong;
+      }
+      &.column3,&.column6,&.column7 {
+        border-right: 3px solid $clr-wrong;
+      }
+    }
+
     /* highlightedRow, highlightedColumn and highlightedSquare are set before > input for the right cell found to be highlighted above the corresponding block*/
     &.highlightedCell {
-      border: 3px solid $clr-main-color;
+      border: 3px solid $clr-main-color !important;
+      background-color: $clr-main-color-transparent; //This applies to finned X-Wing, those strategies where a cell is solved, this should be replaced later with the right color
     }
     &.highlightedRow {
       border-top: 3px solid $clr-main-color;
@@ -169,8 +199,8 @@
       }
     }
 
-    &.hoveredCoordinates input, &.hoveredCoordinates div { //putting this line inside the input, stopped the issue of the grid jumping/growing when hovering over the span that triggers this class
-      border: 4px dashed $clr-main-color !important;
+    &.hoveredCellCoordinates input, &.hoveredCellCoordinates div { //putting this line inside the input, stopped the issue of the grid jumping/growing when hovering over the span that triggers this class
+      border: 4px dashed $clr-main-color2 !important;
     }
   }
 }

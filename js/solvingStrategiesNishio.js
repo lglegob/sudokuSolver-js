@@ -99,7 +99,7 @@ const nishioChecking = () => {
           latestArticle.append(newWarningP);
           //creating the Event Listeners to the recently created RC spans
           const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
-          spanRowColumnCoordinates.forEach(rcSpan => {eventListeners.spanRowColumnCoordinatesListener(rcSpan)});
+          spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
         };
         break;
       };

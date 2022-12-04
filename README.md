@@ -6,6 +6,16 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.6.8 (Finned X-Wing Strategy) 2022-12-04
+
+- WHAT'S NEW!?
+
+  - (Puzzle Solving Strategies) A new pair of Solving strategies have been defined based on finned X-Wing method, where there is not a perfect X-wing configuration but there are still some candidates that can be discarded.
+  - (Puzzle Solving Strategies) A couple of new simple recurrent functions are defined (capitalizeFirstLetter and getFirstLetterCapitalized) to manipulate the names of rows, columns and squares to obtain the word with the first letter uppercased and to get the first letter only for defining coordinates.
+  - (Puzzle Solving Strategies) New classes defined based on finnedX to highlight those kind of events.
+
+---
+
 ### Version 0.6.7 (Enhanced Highlights) 2022-12-01
 
 - WHAT'S NEW!?

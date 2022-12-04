@@ -120,7 +120,7 @@ h2 {
 }
 
 .content-wrap {
-  max-width: 500px;
+  max-width: 700px;
   width: 95%;
   margin: 0 auto;
   padding: 0 5px;
@@ -185,8 +185,40 @@ h2 {
   border-right: 3px solid #E3170A;
 }
 
+.theMatrixNotes .cell.finnedCell, .theMatrix .cell.finnedCell {
+  border: 3px solid blue;
+  background-color: rgba(0, 0, 255, 0.2);
+}
+
+.theMatrixNotes .cell.finnedDeletionColumnCell, .theMatrix .cell.finnedDeletionColumnCell {
+  border-right: 3px solid #E3170A;
+  border-left: 3px solid #E3170A;
+}
+
+.theMatrixNotes .cell.finnedDeletionColumnCell.row1, .theMatrixNotes .cell.finnedDeletionColumnCell.row4, .theMatrixNotes .cell.finnedDeletionColumnCell.row7, .theMatrix .cell.finnedDeletionColumnCell.row1, .theMatrix .cell.finnedDeletionColumnCell.row4, .theMatrix .cell.finnedDeletionColumnCell.row7 {
+  border-top: 3px solid #E3170A;
+}
+
+.theMatrixNotes .cell.finnedDeletionColumnCell.row3, .theMatrixNotes .cell.finnedDeletionColumnCell.row6, .theMatrixNotes .cell.finnedDeletionColumnCell.row7, .theMatrix .cell.finnedDeletionColumnCell.row3, .theMatrix .cell.finnedDeletionColumnCell.row6, .theMatrix .cell.finnedDeletionColumnCell.row7 {
+  border-bottom: 3px solid #E3170A;
+}
+
+.theMatrixNotes .cell.finnedDeletionRowCell, .theMatrix .cell.finnedDeletionRowCell {
+  border-top: 3px solid #E3170A;
+  border-bottom: 3px solid #E3170A;
+}
+
+.theMatrixNotes .cell.finnedDeletionRowCell.column1, .theMatrixNotes .cell.finnedDeletionRowCell.column4, .theMatrixNotes .cell.finnedDeletionRowCell.column7, .theMatrix .cell.finnedDeletionRowCell.column1, .theMatrix .cell.finnedDeletionRowCell.column4, .theMatrix .cell.finnedDeletionRowCell.column7 {
+  border-left: 3px solid #E3170A;
+}
+
+.theMatrixNotes .cell.finnedDeletionRowCell.column3, .theMatrixNotes .cell.finnedDeletionRowCell.column6, .theMatrixNotes .cell.finnedDeletionRowCell.column7, .theMatrix .cell.finnedDeletionRowCell.column3, .theMatrix .cell.finnedDeletionRowCell.column6, .theMatrix .cell.finnedDeletionRowCell.column7 {
+  border-right: 3px solid #E3170A;
+}
+
 .theMatrixNotes .cell.highlightedCell, .theMatrix .cell.highlightedCell {
-  border: 3px solid #E2AE12;
+  border: 3px solid #E2AE12 !important;
+  background-color: rgba(226, 174, 18, 0.2);
 }
 
 .theMatrixNotes .cell.highlightedRow, .theMatrix .cell.highlightedRow {
@@ -353,8 +385,8 @@ h2 {
   background-color: #A5FFD6;
 }
 
-.theMatrixNotes .cell.hoveredCoordinates input, .theMatrixNotes .cell.hoveredCoordinates div, .theMatrix .cell.hoveredCoordinates input, .theMatrix .cell.hoveredCoordinates div {
-  border: 4px dashed #E2AE12 !important;
+.theMatrixNotes .cell.hoveredCellCoordinates input, .theMatrixNotes .cell.hoveredCellCoordinates div, .theMatrix .cell.hoveredCellCoordinates input, .theMatrix .cell.hoveredCellCoordinates div {
+  border: 4px dashed blue !important;
 }
 
 /*Configuration for Candidates Borders*/

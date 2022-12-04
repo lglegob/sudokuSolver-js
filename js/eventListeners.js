@@ -175,25 +175,27 @@ const goBackToStepListener = (button_goBackToStep) => {
 };
 
 // Add event listener to the dinamically created spans hoverings for RC coordinates
-const spanRowColumnCoordinatesListener = (rcSpan) => {
-  rcSpan.addEventListener("mouseover", (e) => {
-    let rowColumnClass = rcSpan.dataset.cellcoordinates;
-    if (globalVar.areHighlightsOn) {
-      document.querySelector(".theMatrix " + rowColumnClass).classList.add("hoveredCoordinates")
-      document.querySelector(".theMatrixNotes " + rowColumnClass).classList.add("hoveredCoordinates")
-    };
-    console.log("--------------------------------------------");
-    console.log("We're not here because we're free, we're here because we are not free.  – Agent Smith");
-  });
-  rcSpan.addEventListener("mouseout", (e) => {
-    let rowColumnClass = rcSpan.dataset.cellcoordinates;
-    if (globalVar.areHighlightsOn) {
-      document.querySelector(".theMatrix " + rowColumnClass).classList.remove("hoveredCoordinates");
-      document.querySelector(".theMatrixNotes " + rowColumnClass).classList.remove("hoveredCoordinates");
-    };
-    console.log("--------------------------------------------");
-    console.log("Ever have that feeling where you're not sure if you're awake or dreaming? – Neo");
-  });
+const spanRowColumnCoordinatesListener = (spanCoordinates) => {
+  if (spanCoordinates.dataset.cellcoordinates) { //
+    spanCoordinates.addEventListener("mouseover", (e) => {
+      let rowColumnClass = spanCoordinates.dataset.cellcoordinates;
+      if (globalVar.areHighlightsOn) {
+        document.querySelector(".theMatrix " + rowColumnClass).classList.add("hoveredCellCoordinates")
+        document.querySelector(".theMatrixNotes " + rowColumnClass).classList.add("hoveredCellCoordinates")
+      };
+      console.log("--------------------------------------------");
+      console.log("We're not here because we're free, we're here because we are not free.  – Agent Smith");
+    });
+    spanCoordinates.addEventListener("mouseout", (e) => {
+      let rowColumnClass = spanCoordinates.dataset.cellcoordinates;
+      if (globalVar.areHighlightsOn) {
+        document.querySelector(".theMatrix " + rowColumnClass).classList.remove("hoveredCellCoordinates");
+        document.querySelector(".theMatrixNotes " + rowColumnClass).classList.remove("hoveredCellCoordinates");
+      };
+      console.log("--------------------------------------------");
+      console.log("Ever have that feeling where you're not sure if you're awake or dreaming? – Neo");
+    });
+  };
 };
 
 // Add event listener to the LoadPastSudokus button

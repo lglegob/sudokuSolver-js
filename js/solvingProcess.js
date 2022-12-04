@@ -13,6 +13,7 @@ import * as xwing from "./solvingStrategiesXWing.js";
 import * as ywing from "./solvingStrategiesYWing.js";
 import * as swordFish from "./solvingStrategiesSwordFish.js";
 import * as nishio from "./solvingStrategiesNishio.js";
+import * as finnedXWing from "./solvingStrategiesFinnedXWing.js";
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -138,6 +139,14 @@ const solvingProcess = () => {
   };
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
     swordFish.swordFishRow();
+  };
+
+  //FINNED X-WING CANDIDATES METHOD
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+    finnedXWing.finnedXwingRow();
+  };
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
+    finnedXWing.finnedXwingColumn();
   };
 
   //NISHIO GUESSING METHOD
