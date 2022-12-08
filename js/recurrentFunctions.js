@@ -166,6 +166,11 @@ const deleteLastShowMe = () => {
       e.classList.remove("highlightedSquare");
     });
   };
+  if (document.querySelector(".deletionCell") != null) {
+    document.querySelectorAll(".deletionCell").forEach((e) => {
+      e.classList.remove("deletionCell");
+    });
+  };
   if (document.querySelector(".deletionRow") != null) {
     document.querySelectorAll(".deletionRow").forEach((e) => {
       e.classList.remove("deletionRow");

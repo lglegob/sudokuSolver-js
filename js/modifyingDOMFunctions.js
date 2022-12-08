@@ -14,9 +14,7 @@ const newFoundValueHTML = (itemRow, itemColumn, currentCellValue, theMatrixStep,
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);
   console.log(`the value in row ${itemRow}, column ${itemColumn} is ${currentCellValue} by ${method} method`);
-  // document.querySelector(".row" + itemRow + ".column" + itemColumn + " input").setAttribute("value", currentCellValue);
-  // document.querySelector(".theMatrix " + ".row" + itemRow + ".column" + itemColumn + " input").value = currentCellValue;
-
+  
   //Config for modifying the html matrixes
   let newfoundInput = document.createElement("div");
   newfoundInput.classList.add("cell", "row" + itemRow, "column" + itemColumn);
@@ -108,15 +106,15 @@ const newFoundValueHTML = (itemRow, itemColumn, currentCellValue, theMatrixStep,
 };
 
 //This Function is called by OBVIOUSPAIRS Techniques
-const discardObviousPairsHTML = (mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method) => {
+const discardObviousPairsHTML = (mainAxisValue, mainAxis, cellsIdentified, currentCandidates, method) => {
   console.log("--------------------------------------------");
   console.log("There are only two possible explanations: either no one told me, or no one knows. - Neo");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
-  console.log("We found an Obvious Pair!")
-  mainaxis === "square" ? mainaxisvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
-  console.log(`We are looking at ${mainaxis} ${mainaxisvalue + 1}, the first cell is row${cellsIdentified.cell1.row + 1} column${cellsIdentified.cell1.column + 1}, and the second cell is row${cellsIdentified.cell2.row + 1} column${cellsIdentified.cell2.column + 1}`)
-  console.log(`The common pair notes are ${currentCandidates.candidate1} and ${currentCandidates.candidate2}, they have been deleted from other cells in the ${mainaxis} ${mainaxisvalue + 1}`);
+  console.log("We found an Obvious Pair!!")
+  mainAxis === "square" ? mainAxisValue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  console.log(`We are looking at ${mainAxis} ${mainAxisValue + 1}, the first cell is row${cellsIdentified.cell1.row + 1} column${cellsIdentified.cell1.column + 1}, and the second cell is row${cellsIdentified.cell2.row + 1} column${cellsIdentified.cell2.column + 1}`)
+  console.log(`The common pair notes are ${currentCandidates.candidate1} and ${currentCandidates.candidate2}, they have been deleted from other cells in the ${mainAxis} ${mainAxisValue + 1}`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
@@ -130,10 +128,22 @@ const discardObviousPairsHTML = (mainaxisvalue, mainaxis, cellsIdentified, curre
   <p>Cells 
     <strong><span data-cellcoordinates=".row${cellsIdentified.cell1.row + 1}.column${cellsIdentified.cell1.column  + 1}">R${cellsIdentified.cell1.row + 1}C${cellsIdentified.cell1.column + 1}</span></strong> and 
     <strong><span data-cellcoordinates=".row${cellsIdentified.cell2.row + 1}.column${cellsIdentified.cell2.column  + 1}">R${cellsIdentified.cell2.row + 1}C${cellsIdentified.cell2.column + 1}</span></strong> 
-    contain an obvious pair (Cells with the same two only candidates)
+    contain an obvious pair (Cells with the same two only candidates).
   </p>
-  <p>The two cells are within the same Block (${mainaxis} ${mainaxisvalue + 1}), and the candidates are ${currentCandidates.candidate1} and ${currentCandidates.candidate2}</p>
-  <p>These Candidates, ${currentCandidates.candidate1} and ${currentCandidates.candidate2}, have been deleted from other cells within the ${mainaxis} ${mainaxisvalue + 1}</p>
+  <p>
+    The two cells are within the same    
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong>, 
+    and the candidates are ${currentCandidates.candidate1} and ${currentCandidates.candidate2}. 
+    No matter the order, these two candidates will be the solution for these two cells and cannot be a possibility for any other cell within 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong>.
+  </p>
+  <p>
+    These Candidates, ${currentCandidates.candidate1} and ${currentCandidates.candidate2}, have been deleted from other cells within the 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong>
+  </p>
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newDiscardArticle);
@@ -143,18 +153,18 @@ const discardObviousPairsHTML = (mainaxisvalue, mainaxis, cellsIdentified, curre
   spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "highlighted");
+  settingHighlightedBlock(mainAxis, mainAxisValue + 1, "highlighted");
 };
 
 //This Function is called by HIDDENPAIRS Techniques
-const discardHiddenPairHTML = (mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method) => {
+const discardHiddenPairHTML = (mainAxisValue, mainAxis, cellsIdentified, currentCandidates, method) => {
   console.log("--------------------------------------------");
   console.log("We are still here! – Morpheus");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
-  console.log("We found an Hidden Pair!")
-  mainaxis === "square" ? mainaxisvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
-  console.log(`We are looking at ${mainaxis} ${mainaxisvalue + 1}, the first cell is row${cellsIdentified.cell1.row + 1} column${cellsIdentified.cell1.column + 1}, and the second cell is row${cellsIdentified.cell2.row + 1} column${cellsIdentified.cell2.column + 1}`)
+  console.log("We found an Hidden Pair!!")
+  mainAxis === "square" ? mainAxisValue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  console.log(`We are looking at ${mainAxis} ${mainAxisValue + 1}, the first cell is row${cellsIdentified.cell1.row + 1} column${cellsIdentified.cell1.column + 1}, and the second cell is row${cellsIdentified.cell2.row + 1} column${cellsIdentified.cell2.column + 1}`)
   console.log(`The hidden pair notes are ${currentCandidates.candidate1} and ${currentCandidates.candidate2}, these are kept and all other notes in those two cells have been deleted`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
@@ -169,10 +179,23 @@ const discardHiddenPairHTML = (mainaxisvalue, mainaxis, cellsIdentified, current
   <p>Cells 
     <strong><span data-cellcoordinates=".row${cellsIdentified.cell1.row + 1}.column${cellsIdentified.cell1.column + 1}">R${cellsIdentified.cell1.row + 1}C${cellsIdentified.cell1.column + 1}</span></strong> and 
     <strong><span data-cellcoordinates=".row${cellsIdentified.cell2.row + 1}.column${cellsIdentified.cell2.column + 1}"> R${cellsIdentified.cell2.row + 1}C${cellsIdentified.cell2.column + 1}</span></strong> 
-    contain a hidden pair (The only two Cells within a block with the same two candidates)
+    contain a hidden pair (The only two Cells within a block with the same two candidates).
   </p>
-  <p>The two cells are within the same Block (${mainaxis} ${mainaxisvalue + 1}), and the candidates are ${currentCandidates.candidate1} and ${currentCandidates.candidate2}</p>
-  <p>These Candidates, ${currentCandidates.candidate1} and ${currentCandidates.candidate2}, are the only ones kept, all other candidates have been deleted within the ${mainaxis} ${mainaxisvalue + 1} in those two cells</p>
+  <p>
+    The two cells are within the same 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong>, 
+    and the candidates are ${currentCandidates.candidate1} and ${currentCandidates.candidate2}.
+    No matter the order, these two candidates will be the solution for these two cells and no other candidates can be an option for these couple of cells within 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong>.
+    </p>
+  <p>
+    These Candidates, ${currentCandidates.candidate1} and ${currentCandidates.candidate2}, are the only ones kept, all other candidates have been deleted within the 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong> 
+    in those two cells
+  </p>
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newDiscardArticle);
@@ -182,19 +205,19 @@ const discardHiddenPairHTML = (mainaxisvalue, mainaxis, cellsIdentified, current
   spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "highlighted");
+  settingHighlightedBlock(mainAxis, mainAxisValue + 1, "highlighted");
 };
 
 //This Function is called by OBVIOUSTRIPLES Techniques
-const discardObviousTripleHTML = (mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method) => {
+const discardObviousTripleHTML = (mainAxisValue, mainAxis, cellsIdentified, currentCandidates, method) => {
   console.log("--------------------------------------------");
   console.log("The answer is out there, Neo. It's looking for you.. - Trinity");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
-  console.log("We found an Obvious Triple!")
-  mainaxis === "square" ? mainaxisvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
-  console.log(`We are looking at ${mainaxis} ${mainaxisvalue + 1}, the first Cell is row${cellsIdentified.cell1.row + 1} column${cellsIdentified.cell1.column + 1}, the second Cell is row${cellsIdentified.cell2.row + 1} column${cellsIdentified.cell2.column + 1} and the Third Cell is row${cellsIdentified.cell3.row + 1} column${cellsIdentified.cell3.column + 1}`)
-  console.log(`The common triple notes are ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate3}, they have been deleted from other cells in the ${mainaxis} ${mainaxisvalue + 1}`);
+  console.log("We found an Obvious Triple!!!")
+  mainAxis === "square" ? mainAxisValue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  console.log(`We are looking at ${mainAxis} ${mainAxisValue + 1}, the first Cell is row${cellsIdentified.cell1.row + 1} column${cellsIdentified.cell1.column + 1}, the second Cell is row${cellsIdentified.cell2.row + 1} column${cellsIdentified.cell2.column + 1} and the Third Cell is row${cellsIdentified.cell3.row + 1} column${cellsIdentified.cell3.column + 1}`)
+  console.log(`The common triple notes are ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate3}, they have been deleted from other cells in the ${mainAxis} ${mainAxisValue + 1}`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
@@ -209,10 +232,22 @@ const discardObviousTripleHTML = (mainaxisvalue, mainaxis, cellsIdentified, curr
     <strong><span data-cellcoordinates=".row${cellsIdentified.cell1.row + 1}.column${cellsIdentified.cell1.column  + 1}">R${cellsIdentified.cell1.row + 1}C${cellsIdentified.cell1.column + 1}</span></strong>,  
     <strong><span data-cellcoordinates=".row${cellsIdentified.cell2.row + 1}.column${cellsIdentified.cell2.column  + 1}">R${cellsIdentified.cell2.row + 1}C${cellsIdentified.cell2.column + 1}</span></strong> and 
     <strong><span data-cellcoordinates=".row${cellsIdentified.cell3.row + 1}.column${cellsIdentified.cell3.column  + 1}">R${cellsIdentified.cell3.row + 1}C${cellsIdentified.cell3.column + 1}</span></strong>
-    contain an obvious triple (Cells with the same three only candidates)
+    contain an obvious triple (Cells with the same three only candidates).
   </p>
-  <p>The three cells are within the same Block (${mainaxis} ${mainaxisvalue + 1}), and the candidates are ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate3}</p>
-  <p>These Candidates, ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate3}, have been deleted from other cells within the ${mainaxis} ${mainaxisvalue + 1}</p>
+  <p>
+    The three cells are within the same  
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong>,  
+    and the candidates are ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate3}.
+    No matter the order, these three candidates will be the solution for these three cells and cannot be a possibility for any other cell within 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong>.
+  </p>
+  <p>
+    These Candidates, ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate3}, have been deleted from other cells within the 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong>
+  </p>
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newDiscardArticle);
@@ -222,17 +257,17 @@ const discardObviousTripleHTML = (mainaxisvalue, mainaxis, cellsIdentified, curr
   spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "highlighted");
+  settingHighlightedBlock(mainAxis, mainAxisValue + 1, "highlighted");
 };
 
-const discardHiddenTripleHTML = (mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method) => {
+const discardHiddenTripleHTML = (mainAxisValue, mainAxis, cellsIdentified, currentCandidates, method) => {
   console.log("--------------------------------------------");
   console.log("The Best Thing About Being Me... There Are So MANY Me's! – Agent Smith");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
-  console.log("We found an Hidden Triple!")
-  mainaxis === "square" ? mainaxisvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
-  console.log(`We are looking at ${mainaxis} ${mainaxisvalue + 1}, the first cell is row${cellsIdentified.cell1.row + 1} column${cellsIdentified.cell1.column + 1}, the second cell is row${cellsIdentified.cell2.row + 1} column${cellsIdentified.cell2.column + 1} and the third cell is row${cellsIdentified.cell3.row + 1} column${cellsIdentified.cell3.column + 1}`)
+  console.log("We found an Hidden Triple!!!")
+  mainAxis === "square" ? mainAxisValue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  console.log(`We are looking at ${mainAxis} ${mainAxisValue + 1}, the first cell is row${cellsIdentified.cell1.row + 1} column${cellsIdentified.cell1.column + 1}, the second cell is row${cellsIdentified.cell2.row + 1} column${cellsIdentified.cell2.column + 1} and the third cell is row${cellsIdentified.cell3.row + 1} column${cellsIdentified.cell3.column + 1}`)
   console.log(`The hidden triple notes are ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate3}, these are kept and all other notes in those three cells have been deleted`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
@@ -248,10 +283,23 @@ const discardHiddenTripleHTML = (mainaxisvalue, mainaxis, cellsIdentified, curre
     <strong><span data-cellcoordinates=".row${cellsIdentified.cell1.row + 1}.column${cellsIdentified.cell1.column + 1}">R${cellsIdentified.cell1.row + 1}C${cellsIdentified.cell1.column + 1}</span></strong>,  
     <strong><span data-cellcoordinates=".row${cellsIdentified.cell2.row + 1}.column${cellsIdentified.cell2.column + 1}"> R${cellsIdentified.cell2.row + 1}C${cellsIdentified.cell2.column + 1}</span></strong> and 
     <strong><span data-cellcoordinates=".row${cellsIdentified.cell3.row + 1}.column${cellsIdentified.cell3.column + 1}"> R${cellsIdentified.cell3.row + 1}C${cellsIdentified.cell3.column + 1}</span></strong> 
-    contain a hidden triple (The only three Cells within a block with the same three candidates)
+    contain a hidden triple (The only three Cells within a block with the same three candidates).
   </p>
-  <p>The three cells are within the same Block (${mainaxis} ${mainaxisvalue + 1}), and the candidates are ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate3}</p>
-  <p>These Candidates, ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate3}, are the only ones kept, all other candidates have been deleted within the ${mainaxis} ${mainaxisvalue + 1} in those three cells</p>
+  <p>
+    The three cells are within the same 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong>, 
+    and the candidates are ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate3}.
+    No matter the order, these three candidates will be the solution for these three cells and no other candidates can be an option for these trio of cells within 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong>.
+  </p>
+  <p>
+    These Candidates, ${currentCandidates.candidate1}, ${currentCandidates.candidate2} and ${currentCandidates.candidate3}, are the only ones kept, all other candidates have been deleted within the 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong> 
+    in those three cells
+  </p>
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newDiscardArticle);
@@ -261,19 +309,19 @@ const discardHiddenTripleHTML = (mainaxisvalue, mainaxis, cellsIdentified, curre
   spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "highlighted");
+  settingHighlightedBlock(mainAxis, mainAxisValue + 1, "highlighted");
 };
 
 //This Function is called by OBVIOUSTRIPLES Techniques
-const discardObviousQuadHTML = (mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method) => {
+const discardObviousQuadHTML = (mainAxisValue, mainAxis, cellsIdentified, currentCandidates, method) => {
   console.log("--------------------------------------------");
   console.log("I Never Believed I Was The One. But She Did. She Believed In Me. It's My Turn To Believe In Her. - Neo");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
   console.log("We found an Obvious Quad!!!!")
-  mainaxis === "square" ? mainaxisvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
-  console.log(`We are looking at ${mainaxis} ${mainaxisvalue + 1}, the first Cell is row${cellsIdentified.cell1.row + 1} column${cellsIdentified.cell1.column + 1}, the second Cell is row${cellsIdentified.cell2.row + 1} column${cellsIdentified.cell2.column + 1}, the Third Cell is row${cellsIdentified.cell3.row + 1} column${cellsIdentified.cell3.column + 1} and the fourth Cell is row${cellsIdentified.cell4.row + 1} column${cellsIdentified.cell4.column + 1}`)
-  console.log(`The common Quad notes are ${currentCandidates.candidate1}, ${currentCandidates.candidate2}, ${currentCandidates.candidate3} and ${currentCandidates.candidate4}, they have been deleted from other cells in the ${mainaxis} ${mainaxisvalue + 1}`);
+  mainAxis === "square" ? mainAxisValue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  console.log(`We are looking at ${mainAxis} ${mainAxisValue + 1}, the first Cell is row${cellsIdentified.cell1.row + 1} column${cellsIdentified.cell1.column + 1}, the second Cell is row${cellsIdentified.cell2.row + 1} column${cellsIdentified.cell2.column + 1}, the Third Cell is row${cellsIdentified.cell3.row + 1} column${cellsIdentified.cell3.column + 1} and the fourth Cell is row${cellsIdentified.cell4.row + 1} column${cellsIdentified.cell4.column + 1}`)
+  console.log(`The common Quad notes are ${currentCandidates.candidate1}, ${currentCandidates.candidate2}, ${currentCandidates.candidate3} and ${currentCandidates.candidate4}, they have been deleted from other cells in the ${mainAxis} ${mainAxisValue + 1}`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
@@ -289,10 +337,22 @@ const discardObviousQuadHTML = (mainaxisvalue, mainaxis, cellsIdentified, curren
     <strong><span data-cellcoordinates=".row${cellsIdentified.cell2.row + 1}.column${cellsIdentified.cell2.column  + 1}">R${cellsIdentified.cell2.row + 1}C${cellsIdentified.cell2.column + 1}</span></strong>,   
     <strong><span data-cellcoordinates=".row${cellsIdentified.cell3.row + 1}.column${cellsIdentified.cell3.column  + 1}">R${cellsIdentified.cell3.row + 1}C${cellsIdentified.cell3.column + 1}</span></strong> and
     <strong><span data-cellcoordinates=".row${cellsIdentified.cell4.row + 1}.column${cellsIdentified.cell4.column  + 1}">R${cellsIdentified.cell4.row + 1}C${cellsIdentified.cell4.column + 1}</span></strong>
-    contain an obvious Quadruple (Cells with the same four only candidates)
+    contain an obvious Quadruple (Cells with the same four only candidates).
   </p>
-  <p>The four cells are within the same Block (${mainaxis} ${mainaxisvalue + 1}), and the candidates are ${currentCandidates.candidate1}, ${currentCandidates.candidate2}, ${currentCandidates.candidate3} and ${currentCandidates.candidate4}</p>
-  <p>These Candidates, ${currentCandidates.candidate1}, ${currentCandidates.candidate2}, ${currentCandidates.candidate3} and ${currentCandidates.candidate4}, have been deleted from other cells within the ${mainaxis} ${mainaxisvalue + 1}</p>
+  <p>
+    The four cells are within the same 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong>,  
+    and the candidates are ${currentCandidates.candidate1}, ${currentCandidates.candidate2}, ${currentCandidates.candidate3} and ${currentCandidates.candidate4}.
+    No matter the order, these four candidates will be the solution for these four cells and cannot be a possibility for any other cell within 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong>.
+  </p>
+  <p>
+    These Candidates, ${currentCandidates.candidate1}, ${currentCandidates.candidate2}, ${currentCandidates.candidate3} and ${currentCandidates.candidate4}, have been deleted from other cells within the 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong>
+  </p>
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newDiscardArticle);
@@ -302,17 +362,17 @@ const discardObviousQuadHTML = (mainaxisvalue, mainaxis, cellsIdentified, curren
   spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "highlighted");
+  settingHighlightedBlock(mainAxis, mainAxisValue + 1, "highlighted");
 };
 
-const discardHiddenQuadrupleHTML = (mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method) => {
+const discardHiddenQuadrupleHTML = (mainAxisValue, mainAxis, cellsIdentified, currentCandidates, method) => {
   console.log("--------------------------------------------");
   console.log("I didn't know. But I believed... I believed – Oracle");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
-  console.log("We found an Hidden Quadruple!")
-  mainaxis === "square" ? mainaxisvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
-  console.log(`We are looking at ${mainaxis} ${mainaxisvalue + 1}, the first cell is row${cellsIdentified.cell1.row + 1} column${cellsIdentified.cell1.column + 1}, the second cell is row${cellsIdentified.cell2.row + 1} column${cellsIdentified.cell2.column + 1}, the third cell is row${cellsIdentified.cell3.row + 1} column${cellsIdentified.cell3.column + 1} and the fourth cell is row${cellsIdentified.cell4.row + 1} column${cellsIdentified.cell4.column + 1}`)
+  console.log("We found an Hidden Quadruple!!!!")
+  mainAxis === "square" ? mainAxisValue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  console.log(`We are looking at ${mainAxis} ${mainAxisValue + 1}, the first cell is row${cellsIdentified.cell1.row + 1} column${cellsIdentified.cell1.column + 1}, the second cell is row${cellsIdentified.cell2.row + 1} column${cellsIdentified.cell2.column + 1}, the third cell is row${cellsIdentified.cell3.row + 1} column${cellsIdentified.cell3.column + 1} and the fourth cell is row${cellsIdentified.cell4.row + 1} column${cellsIdentified.cell4.column + 1}`)
   console.log(`The hidden quadruple notes are ${currentCandidates.candidate1}, ${currentCandidates.candidate2}, ${currentCandidates.candidate3} and ${currentCandidates.candidate4}, these are kept and all other notes in those four cells have been deleted`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
@@ -329,10 +389,23 @@ const discardHiddenQuadrupleHTML = (mainaxisvalue, mainaxis, cellsIdentified, cu
     <strong><span data-cellcoordinates=".row${cellsIdentified.cell2.row + 1}.column${cellsIdentified.cell2.column + 1}">R${cellsIdentified.cell2.row + 1}C${cellsIdentified.cell2.column + 1}</span></strong>,  
     <strong><span data-cellcoordinates=".row${cellsIdentified.cell3.row + 1}.column${cellsIdentified.cell3.column + 1}">R${cellsIdentified.cell3.row + 1}C${cellsIdentified.cell3.column + 1}</span></strong> and 
     <strong><span data-cellcoordinates=".row${cellsIdentified.cell4.row + 1}.column${cellsIdentified.cell4.column + 1}">R${cellsIdentified.cell4.row + 1}C${cellsIdentified.cell4.column + 1}</span></strong> 
-    contain a hidden quadruple (The only four Cells within a block with the same four candidates)
+    contain a hidden quadruple (The only four Cells within a block with the same four candidates).
   </p>
-  <p>The four cells are within the same Block (${mainaxis} ${mainaxisvalue + 1}), and the candidates are ${currentCandidates.candidate1}, ${currentCandidates.candidate2}, ${currentCandidates.candidate3} and ${currentCandidates.candidate4}</p>
-  <p>These Candidates, ${currentCandidates.candidate1}, ${currentCandidates.candidate2}, ${currentCandidates.candidate3} and ${currentCandidates.candidate4}, are the only ones kept, all other candidates have been deleted within the ${mainaxis} ${mainaxisvalue + 1} in those four cells</p>
+  <p>
+    The four cells are within the same 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong>, 
+    and the candidates are ${currentCandidates.candidate1}, ${currentCandidates.candidate2}, ${currentCandidates.candidate3} and ${currentCandidates.candidate4}.
+    No matter the order, these four candidates will be the solution for these four cells and no other candidates can be an option for these quadruple of cells within 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong>.
+  </p>
+  <p>
+    These Candidates, ${currentCandidates.candidate1}, ${currentCandidates.candidate2}, ${currentCandidates.candidate3} and ${currentCandidates.candidate4}, are the only ones kept, all other candidates have been deleted within the 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong> 
+    in those four cells
+  </p>
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newDiscardArticle);
@@ -342,20 +415,20 @@ const discardHiddenQuadrupleHTML = (mainaxisvalue, mainaxis, cellsIdentified, cu
   spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "highlighted");
+  settingHighlightedBlock(mainAxis, mainAxisValue + 1, "highlighted");
 };
 
 //This Function is called by LOCKEDCANDIDATE Techniques
-const discardLockedCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method) => {
+const discardLockedCandidateHTML = (mainAxisValue, mainAxis, secondaryAxisValue, secondaryAxis, value, method) => {
   console.log("--------------------------------------------");
   console.log("Remember, all I’m offering is the truth. Nothing more. - Morpheus");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
   console.log("We found a locked Candidate!")
-  mainaxis === "square" ? mainaxisvalue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
-  secondaryaxis === "square" ? secondaryaxisvalue-- : false //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
-  console.log(`For the ${secondaryaxis} ${secondaryaxisvalue + 1}, all the candidates value of ${value} are contained in the ${mainaxis} ${mainaxisvalue + 1}`)
-  console.log(`Candidates notes for ${value} in other ${secondaryaxis}s within the same ${mainaxis} ${mainaxisvalue + 1} have been deleted`);
+  mainAxis === "square" ? mainAxisValue-- : false; //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  secondaryAxis === "square" ? secondaryAxisValue-- : false //To adjust in the case of squares, which go from 1 to 9 instead of 0 to 8;
+  console.log(`For the ${secondaryAxis} ${secondaryAxisValue + 1}, all the candidates value of ${value} are contained in the ${mainAxis} ${mainAxisValue + 1}`)
+  console.log(`Candidates notes for ${value} in other ${secondaryAxis}s within the same ${mainAxis} ${mainAxisValue + 1} have been deleted`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
@@ -366,27 +439,58 @@ const discardLockedCandidateHTML = (mainaxisvalue, mainaxis, secondaryaxisvalue,
   newDiscardArticle.innerHTML = `
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>${method}</h4>
-  <p>In ${secondaryaxis} ${secondaryaxisvalue + 1}, all the cells with the candidate ${value}, are confined to the same ${mainaxis} ${mainaxisvalue + 1}</p>
-  <p>For ${secondaryaxis} ${secondaryaxisvalue + 1} to have a ${value}, it must be in one of those cells shared with ${mainaxis} ${mainaxisvalue + 1} fulfilling also the requirement of ${mainaxis} ${mainaxisvalue + 1} to have a ${value}</p>
-  <p>So, all candidates with value ${value} within ${mainaxis} ${mainaxisvalue + 1}, that do not belong to ${secondaryaxis} ${secondaryaxisvalue + 1} have been deleted</p>
+  <p>
+    If you take a look at  
+    ${recurrent.capitalizeFirstLetter(secondaryAxis)} 
+    <strong><span data-${secondaryAxis}coordinates=".${secondaryAxis}${ secondaryAxisValue + 1 }">${recurrent.getFirstLetterCapitalized(secondaryAxis)}${ secondaryAxisValue + 1 }</span></strong>, 
+    all the cells with the candidate ${value}, are confined to the same 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${ mainAxisValue + 1 }">${recurrent.getFirstLetterCapitalized(mainAxis)}${ mainAxisValue + 1 }</span></strong>  
+    as well.
+  </p>
+  <p>
+    For 
+    ${recurrent.capitalizeFirstLetter(secondaryAxis)} 
+    <strong><span data-${secondaryAxis}coordinates=".${secondaryAxis}${ secondaryAxisValue + 1 }">${recurrent.getFirstLetterCapitalized(secondaryAxis)}${ secondaryAxisValue + 1 }</span></strong>  
+    to have a ${value}, it must be in one of those cells shared with 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${ mainAxisValue + 1 }">${recurrent.getFirstLetterCapitalized(mainAxis)}${ mainAxisValue + 1 }</span></strong> 
+    fulfilling also the requirement of 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${ mainAxisValue + 1 }">${recurrent.getFirstLetterCapitalized(mainAxis)}${ mainAxisValue + 1 }</span></strong>
+    to have a ${value}, making it not possible to have a candidate ${value} in any cell not shared between these two blocks.
+  </p>
+  <p>
+    So, all candidates with value ${value} within 
+    ${recurrent.capitalizeFirstLetter(mainAxis)} 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${ mainAxisValue + 1 }">${recurrent.getFirstLetterCapitalized(mainAxis)}${ mainAxisValue + 1 }</span></strong>,  
+    that do not belong to 
+    ${recurrent.capitalizeFirstLetter(secondaryAxis)} 
+    <strong><span data-${secondaryAxis}coordinates=".${secondaryAxis}${ secondaryAxisValue + 1 }">${recurrent.getFirstLetterCapitalized(secondaryAxis)}${ secondaryAxisValue + 1 }</span></strong> 
+    have been deleted.
+  </p>
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newDiscardArticle);
 
+  //creating the Event Listeners to the recently created RC spans
+  const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
+  spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
+
   addGoBackToStepButton();
-  settingHighlightedBlock(secondaryaxis, secondaryaxisvalue + 1, "highlighted");
-  settingHighlightedBlock(mainaxis, mainaxisvalue + 1, "deletion");
+  settingHighlightedBlock(secondaryAxis, secondaryAxisValue + 1, "highlighted");
+  settingHighlightedBlock(mainAxis, mainAxisValue + 1, "deletion");
 };
 
 //This Function is called by X-WING Techniques
-const discardXWingHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method) => {
+const discardXWingHTML = ( cornertopleft, cornerbottomright, mainAxis, secondaryAxis, value, method) => {
   console.log("--------------------------------------------");
   console.log("All the time. It's called mescaline, it's the only way to fly. - Choi");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
   console.log("We found an X-Wing Candidate!")
-  console.log(`For the ${mainaxis}s ${mainaxisvalues[0] + 1} and ${mainaxisvalues[1] + 1}, the candidate note ${value} is chained in X-Wing`)
-  console.log(`Candidates notes for ${value} in ${secondaryaxis}s ${secondaryaxisvalues[0] + 1} and ${secondaryaxisvalues[1] + 1} other other than the ${mainaxis}s specified above have been deleted`);
+  console.log(`For the ${mainAxis}s ${ eval(`cornertopleft.${mainAxis}`) + 1 } and ${ eval(`cornerbottomright.${mainAxis}`) + 1}, the candidate note ${value} is chained in X-Wing`)
+  console.log(`Candidates notes for ${value} in ${secondaryAxis}s ${ eval(`cornertopleft.${secondaryAxis}`) + 1} and ${ eval(`cornerbottomright.${secondaryAxis}`) + 1} other than the ${mainAxis}s specified above have been deleted`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
@@ -394,59 +498,49 @@ const discardXWingHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, seconda
   newDiscardArticle.classList.add("newdiscardXWing");
   newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
   newDiscardArticle.style.zIndex = -globalVar.currentStep;
-  
-  if (mainaxis === "row") {
-    newDiscardArticle.innerHTML =  `
-    <h3>Step ${globalVar.currentStep}</h3>
-    <h4>${method}</h4>
-    <p>
-      4 Cells in X-Wing configuration shared a candidate, the cells are 
-      <strong><span data-cellcoordinates=".row${mainaxisvalues[0] + 1}.column${secondaryaxisvalues[0] + 1}">R${mainaxisvalues[0] + 1}C${secondaryaxisvalues[0] + 1}</span></strong>, 
-      <strong><span data-cellcoordinates=".row${mainaxisvalues[0] + 1}.column${secondaryaxisvalues[1] + 1}">R${mainaxisvalues[0] + 1}C${secondaryaxisvalues[1] + 1}</span></strong>, 
-      <strong><span data-cellcoordinates=".row${mainaxisvalues[1] + 1}.column${secondaryaxisvalues[0] + 1}">R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[0] + 1}</span></strong> and 
-      <strong><span data-cellcoordinates=".row${mainaxisvalues[1] + 1}.column${secondaryaxisvalues[1] + 1}">R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[1] + 1}</span></strong>.
-    </p>
-    <p>
-      These 4 cells are the crosspoints between Rows R${mainaxisvalues[0] + 1} and R${mainaxisvalues[1] + 1} with Columns C${secondaryaxisvalues[0] + 1} and C${secondaryaxisvalues[1] + 1}
-    </p>
-    <p>
-      Since no more candidates with option ${value} exist within the two Rows, we know for sure those two ${value}s must exist in two of those 4 cells in a diagonal, either 
-      (<strong><span data-cellcoordinates=".row${mainaxisvalues[0] + 1}.column${secondaryaxisvalues[0] + 1}">R${mainaxisvalues[0] + 1}C${secondaryaxisvalues[0] + 1}</span></strong> and 
-      <strong><span data-cellcoordinates=".row${mainaxisvalues[1] + 1}.column${secondaryaxisvalues[1] + 1}">R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[1] + 1}</span></strong>)
-      will be ${value} OR
-      (<strong><span data-cellcoordinates=".row${mainaxisvalues[0] + 1}.column${secondaryaxisvalues[1] + 1}">R${mainaxisvalues[0] + 1}C${secondaryaxisvalues[1] + 1}</span></strong> and 
-      <strong><span data-cellcoordinates=".row${mainaxisvalues[1] + 1}.column${secondaryaxisvalues[0] + 1}">R${mainaxisvalues[1] + 1}C${secondaryaxisvalues[0] + 1}</span></strong>  
-      will be ${value})
-    </p>
-    <p>Because having those two mandatory ${value}s in two of the cells, we are sure that the two Columns will already have the ${value}</p>
-    <p>So, all candidates with value ${value} in Columns C${secondaryaxisvalues[0] + 1} and C${secondaryaxisvalues[1] + 1}, that do not belong to Rows R${mainaxisvalues[0] + 1} and R${mainaxisvalues[1] + 1} have been deleted</p>
-    `;
-  } else { //mainaxis === "column"
-    newDiscardArticle.innerHTML =  `
-    <h3>Step ${globalVar.currentStep}</h3>
-    <h4>${method}</h4>
-    <p>
-      4 Cells in X-Wing configuration shared a candidate, the cells are 
-      <strong><span data-cellcoordinates=".row${secondaryaxisvalues[0] + 1}.column${mainaxisvalues[0] + 1}">R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[0] + 1}</span></strong>, 
-      <strong><span data-cellcoordinates=".row${secondaryaxisvalues[0] + 1}.column${mainaxisvalues[1] + 1}">R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[1] + 1}</span></strong>, 
-      <strong><span data-cellcoordinates=".row${secondaryaxisvalues[1] + 1}.column${mainaxisvalues[0] + 1}">R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[0] + 1}</span></strong> and 
-      <strong><span data-cellcoordinates=".row${secondaryaxisvalues[1] + 1}.column${mainaxisvalues[1] + 1}">R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[1] + 1}</span></strong>.
-    </p>
-    <p>
-      These 4 cells are the crosspoints between Rows R${secondaryaxisvalues[0] + 1} and R${secondaryaxisvalues[1] + 1} with Columns C${mainaxisvalues[0] + 1} and C${mainaxisvalues[1] + 1}</p>
-    <p>
-      Since no more candidates with option ${value} exist within the two Columns, we know for sure those two ${value}s must exist in two of those 4 cells in a diagonal, either  
-      (<strong><span data-cellcoordinates=".row${secondaryaxisvalues[0] + 1}.column${mainaxisvalues[0] + 1}">R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[0] + 1}</span></strong> and 
-      <strong><span data-cellcoordinates=".row${secondaryaxisvalues[1] + 1}.column${mainaxisvalues[1] + 1}">R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[1] + 1}</span></strong>) 
-      will be ${value} OR 
-      (<strong><span data-cellcoordinates=".row${secondaryaxisvalues[0] + 1}.column${mainaxisvalues[1] + 1}">R${secondaryaxisvalues[0] + 1}C${mainaxisvalues[1] + 1}</span></strong> and 
-      <strong><span data-cellcoordinates=".row${secondaryaxisvalues[1] + 1}.column${mainaxisvalues[0] + 1}">R${secondaryaxisvalues[1] + 1}C${mainaxisvalues[0] + 1}</span></strong> 
-      will be ${value})
-    </p>
-    <p>Because having those two mandatory ${value}s in two of the cells, we are sure that the two Rows will already have the ${value}</p>
-    <p>So, all candidates with value ${value} in Rows R${secondaryaxisvalues[0] + 1} and R${secondaryaxisvalues[1] + 1}, that do not belong to Columns C${mainaxisvalues[0] + 1} and C${mainaxisvalues[1] + 1} have been deleted</p>
-    `;
-  };
+  newDiscardArticle.innerHTML =  `
+  <h3>Step ${globalVar.currentStep}</h3>
+  <h4>${method}</h4>
+  <p>
+    4 Cells in X-Wing configuration shared a candidate (option ${value}), the cells are 
+    <strong><span data-cellcoordinates=".row${ cornertopleft.row + 1}.column${ cornertopleft.column + 1}">R${ cornertopleft.row + 1 }C${ cornertopleft.column + 1 }</span></strong>, 
+    <strong><span data-cellcoordinates=".row${ cornertopleft.row + 1}.column${ cornerbottomright.column + 1}">R${ cornertopleft.row + 1 }C${ cornerbottomright.column + 1 }</span></strong>, 
+    <strong><span data-cellcoordinates=".row${ cornerbottomright.row + 1}.column${ cornertopleft.column + 1}">R${ cornerbottomright.row + 1 }C${ cornertopleft.column + 1 }</span></strong> and 
+    <strong><span data-cellcoordinates=".row${ cornerbottomright.row + 1}.column${ cornerbottomright.column + 1}">R${ cornerbottomright.row + 1 }C${ cornerbottomright.column + 1 }</span></strong>.
+  </p>
+  <p>
+    These 4 cells are the crosspoints between 
+    ${recurrent.capitalizeFirstLetter(mainAxis)}s 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${ eval(`cornertopleft.${mainAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(mainAxis)}${ eval(`cornertopleft.${mainAxis}`) + 1 }</span></strong> and 
+    <strong><span data-${mainAxis}coordinates=".${mainAxis}${ eval(`cornerbottomright.${mainAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(mainAxis)}${ eval(`cornerbottomright.${mainAxis}`) + 1 }</span></strong> with 
+    ${recurrent.capitalizeFirstLetter(secondaryAxis)}s 
+    <strong><span data-${secondaryAxis}coordinates=".${secondaryAxis}${ eval(`cornertopleft.${secondaryAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(secondaryAxis)}${ eval(`cornertopleft.${secondaryAxis}`) + 1 }</span></strong> and 
+    <strong><span data-${secondaryAxis}coordinates=".${secondaryAxis}${ eval(`cornerbottomright.${secondaryAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(secondaryAxis)}${ eval(`cornerbottomright.${secondaryAxis}`) + 1 }</span></strong>.
+  </p>
+  <p>
+    Since no more candidates with option ${value} exist within the two 
+    ${recurrent.capitalizeFirstLetter(mainAxis)}s, 
+    we know for sure those two ${value}s must exist in two of those 4 cells in a diagonal, either 
+    (<strong><span data-cellcoordinates=".row${ cornertopleft.row + 1 }.column${ cornertopleft.column + 1 }">R${ cornertopleft.row + 1 }C${ cornertopleft.column + 1 }</span></strong> and 
+    <strong><span data-cellcoordinates=".row${ cornerbottomright.row + 1 }.column${ cornerbottomright.column + 1 }">R${ cornerbottomright.row + 1}C${ cornerbottomright.column + 1 }</span></strong>)
+    will be ${value} OR
+    (<strong><span data-cellcoordinates=".row${ cornertopleft.row + 1 }.column${ cornerbottomright.column + 1 }">R${ cornertopleft.row + 1}C${ cornerbottomright.column + 1 }</span></strong> and 
+    <strong><span data-cellcoordinates=".row${ cornerbottomright.row + 1 }.column${ cornertopleft.column + 1 }">R${ cornerbottomright.row + 1}C${ cornertopleft.column + 1 }</span></strong>  
+    will be ${value})
+  </p>
+  <p>Because having those two mandatory ${value}s in two of the cells in a diagonal, we are sure that the two 
+  ${recurrent.capitalizeFirstLetter(secondaryAxis)}s 
+  will already have the ${value} as well and other cells are not a possibility anymore for option ${value}.</p>
+  <p>So, all candidates with value ${value} in 
+  ${recurrent.capitalizeFirstLetter(secondaryAxis)}s 
+  <strong><span data-${secondaryAxis}coordinates=".${secondaryAxis}${ eval(`cornertopleft.${secondaryAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(secondaryAxis)}${ eval(`cornertopleft.${secondaryAxis}`) + 1 }</span></strong> and 
+  <strong><span data-${secondaryAxis}coordinates=".${secondaryAxis}${ eval(`cornerbottomright.${secondaryAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(secondaryAxis)}${ eval(`cornerbottomright.${secondaryAxis}`) + 1 }</span></strong>, 
+  that do not belong to 
+  ${recurrent.capitalizeFirstLetter(mainAxis)}s 
+  <strong><span data-${mainAxis}coordinates=".${mainAxis}${ eval(`cornertopleft.${mainAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(mainAxis)}${ eval(`cornertopleft.${mainAxis}`) + 1 }</span></strong> and 
+  <strong><span data-${mainAxis}coordinates=".${mainAxis}${ eval(`cornerbottomright.${mainAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(mainAxis)}${ eval(`cornerbottomright.${mainAxis}`) + 1 }</span></strong>, 
+  have been deleted.`;
+
 
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newDiscardArticle);
@@ -456,14 +550,18 @@ const discardXWingHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, seconda
   spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock(mainaxis, mainaxisvalues[0] + 1, "highlighted");
-  settingHighlightedBlock(mainaxis, mainaxisvalues[1] + 1, "highlighted");
-  settingHighlightedBlock(secondaryaxis, secondaryaxisvalues[0] + 1, "deletion");
-  settingHighlightedBlock(secondaryaxis, secondaryaxisvalues[1] + 1, "deletion");
+  settingHighlightedBlock(mainAxis, eval(`cornertopleft.${mainAxis}`) + 1, "highlighted");
+  settingHighlightedBlock(mainAxis, eval(`cornerbottomright.${mainAxis}`) + 1, "highlighted");
+  settingHighlightedBlock(secondaryAxis, eval(`cornertopleft.${secondaryAxis}`) + 1, "deletion");
+  settingHighlightedBlock(secondaryAxis, eval(`cornerbottomright.${secondaryAxis}`) + 1, "deletion");
+  settingHighlightedBlock("cell", [ cornertopleft.row + 1, cornertopleft.column + 1 ], "finned");
+  settingHighlightedBlock("cell", [ cornertopleft.row + 1, cornerbottomright.column + 1 ], "finned");
+  settingHighlightedBlock("cell", [ cornerbottomright.row + 1, cornertopleft.column + 1 ], "finned");
+  settingHighlightedBlock("cell", [ cornerbottomright.row + 1, cornerbottomright.column + 1 ], "finned");
 };
 
 //This Function is called by Y-WING Techniques
-const discardYWingHTML = (pivotValues, pincer1Values, pincer1Axis, pincer2Values, pincer2Axis, pincerX, pincerY, pincerZ, method) => {
+const discardYWingHTML = (pivotCell, pincer1Cell, pincer1Axis, pincer2Cell, pincer2Axis, pincerX, pincerY, pincerZ, method, positiveforZCells, testingforZCells) => {
   console.log("--------------------------------------------");
   console.log("You must know it by now! You can't win! It's pointless to keep fighting! Why, Mr. Anderson?! Why? WHY DO YOU PERSIST?. - Agent Smith");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
@@ -476,32 +574,53 @@ const discardYWingHTML = (pivotValues, pincer1Values, pincer1Axis, pincer2Values
   newDiscardArticle.classList.add("newdiscardYWing");
   newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
   newDiscardArticle.style.zIndex = -globalVar.currentStep;
-  
+
+  // <strong><span data-${pincer1Axis}coordinates=".${pincer1Axis}${ eval(`cornertopleft.${pincer1Axis}`) + 1 }">${recurrent.getFirstLetterCapitalized(pincer1Axis)}${ eval(`cornertopleft.${pincer1Axis}`) + 1 }</span></strong>
+
   newDiscardArticle.innerHTML =  `
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>${method}</h4>
   <p>
-    Cells in Y-Wing configuration have been found, Pivot cell is 
-    <strong><span data-cellcoordinates=".row${pivotValues[0] + 1}.column${pivotValues[1] + 1}">R${pivotValues[0] + 1}C${pivotValues[1] + 1}</span></strong>, 
-    with Candidates ${pincerX} and ${pincerY}.
+    Cells in Y-Wing configuration have been found. First, we have a Cell we will call the Pivot which is 
+    <strong><span data-cellcoordinates=".row${pivotCell.row + 1}.column${pivotCell.column + 1}">R${pivotCell.row  + 1}C${pivotCell.column + 1}</span></strong>, 
+    with only 2 Candidates, which are ${pincerX} and ${pincerY}.
   </p>
   <p>
-    First Pincer found in the same ${pincer1Axis} in cell 
-    <strong><span data-cellcoordinates=".row${pincer1Values[0] + 1}.column${pincer1Values[1] + 1}">R${pincer1Values[0] + 1}C${pincer1Values[1] + 1}</span></strong>, 
-    sharing the Candidate ${pincerX}.
+    Then, we find the cell
+    <strong><span data-cellcoordinates=".row${pincer1Cell.row + 1}.column${pincer1Cell.column + 1}">R${pincer1Cell.row + 1}C${pincer1Cell.column + 1}</span></strong>, 
+    with two candidates, and sharing one of the candidates (${pincerX}) with the Pivot. We will call this one the First Pincer and is found in the same 
+    ${recurrent.capitalizeFirstLetter(pincer1Axis)} 
+    <strong><span data-${pincer1Axis}coordinates=".${pincer1Axis}${ eval(`pincer1Cell.${pincer1Axis}`) + 1 }">${recurrent.getFirstLetterCapitalized(pincer1Axis)}${ eval(`pincer1Cell.${pincer1Axis}`) + 1 }</span></strong> 
+    as the Pivot.
   </p>
   <p>
-    Second Pincer found in the same ${pincer2Axis} in cell 
-    <strong><span data-cellcoordinates=".row${pincer2Values[0] + 1}.column${pincer2Values[1] + 1}">R${pincer2Values[0] + 1}C${pincer2Values[1] + 1}</span></strong>, 
-    sharing the Candidate ${pincerY}.
+    Now, let's see the cell 
+    <strong><span data-cellcoordinates=".row${pincer2Cell.row + 1}.column${pincer2Cell.column + 1}">R${pincer2Cell.row + 1}C${pincer2Cell.column + 1}</span></strong>, 
+    which will be our Second Pincer (Hence forming a Y between the 3 cells). This one is located in the same 
+    ${recurrent.capitalizeFirstLetter(pincer2Axis)} 
+    <strong><span data-${pincer2Axis}coordinates=".${pincer2Axis}${ eval(`pincer2Cell.${pincer2Axis}`) + 1 }">${recurrent.getFirstLetterCapitalized(pincer2Axis)}${ eval(`pincer2Cell.${pincer2Axis}`) + 1 }</span></strong> 
+    as the Pivot and sharing the Candidate ${pincerY} with it.
     </p>
   <p>
-    No matter the case, the candidate ${pincerZ} present in both Pincer cells will be either in 
-    <strong><span data-cellcoordinates=".row${pincer1Values[0] + 1}.column${pincer1Values[1] + 1}">R${pincer1Values[0] + 1}C${pincer1Values[1] + 1}</span></strong> 
+    No matter the case, the candidate ${pincerZ} which is shared by both Pincer cells must be the solution either in 
+    <strong><span data-cellcoordinates=".row${pincer1Cell.row + 1}.column${pincer1Cell.column + 1}">R${pincer1Cell.row + 1}C${pincer1Cell.column + 1}</span></strong> 
     OR in 
-    <strong><span data-cellcoordinates=".row${pincer2Values[0] + 1}.column${pincer2Values[1] + 1}">R${pincer2Values[0] + 1}C${pincer2Values[1] + 1}</span></strong>.
+    <strong><span data-cellcoordinates=".row${pincer2Cell.row + 1}.column${pincer2Cell.column + 1}">R${pincer2Cell.row + 1}C${pincer2Cell.column + 1}</span></strong>.
   </p>
-  <p>Either case, for Cells "seen" by both Pincers is not possible to have the value ${pincerZ}, so, it has been deleted as candidate in those cells.</p>
+  <p>
+    Why? Let's check the possibilities for the Pivot. If the solution for the Pivot 
+    <strong><span data-cellcoordinates=".row${pivotCell.row + 1}.column${pivotCell.column + 1}">R${pivotCell.row  + 1}C${pivotCell.column + 1}</span></strong>
+    is ${pincerX}, then the first Pincer 
+    <strong><span data-cellcoordinates=".row${pincer1Cell.row + 1}.column${pincer1Cell.column + 1}">R${pincer1Cell.row + 1}C${pincer1Cell.column + 1}</span></strong>  
+    must be ${pincerZ}. On the contrary if the solution for the Pivot
+    <strong><span data-cellcoordinates=".row${pivotCell.row + 1}.column${pivotCell.column + 1}">R${pivotCell.row  + 1}C${pivotCell.column + 1}</span></strong>
+    is ${pincerY}, then the second Pincer 
+    <strong><span data-cellcoordinates=".row${pincer2Cell.row + 1}.column${pincer2Cell.column + 1}">R${pincer2Cell.row + 1}C${pincer2Cell.column + 1}</span></strong>, 
+    must be ${pincerZ}.
+  </p>
+  <p>
+    Either case, for Cells "seen" by both Pincers, it is not possible to have the value ${pincerZ} as option, since it must already be the solution for one of the Pincers. ${pincerZ} has been deleted as candidate in those cells (As reference, it has been highlighted those cells where if present, it would have been deleted as well).
+  </p>
   `;
 
   const main = document.querySelector(".stepsDetails > div");
@@ -512,20 +631,22 @@ const discardYWingHTML = (pivotValues, pincer1Values, pincer1Axis, pincer2Values
   spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock("cell", [pivotValues[0] + 1, pivotValues[1] + 1], "highlighted");
-  settingHighlightedBlock("cell", [pincer1Values[0] + 1, pincer1Values[1] + 1], "highlighted");
-  settingHighlightedBlock("cell", [pincer2Values[0] + 1, pincer2Values[1] + 1], "highlighted");
+  settingHighlightedBlock("cell", [pivotCell.row + 1, pivotCell.column + 1], "finned");
+  settingHighlightedBlock("cell", [pincer1Cell.row + 1, pincer1Cell.column + 1], "highlighted");
+  settingHighlightedBlock("cell", [pincer2Cell.row + 1, pincer2Cell.column + 1], "highlighted");
+  testingforZCells.forEach(possibleDeletionCell => { settingHighlightedBlock("cell", [ possibleDeletionCell.row + 1, possibleDeletionCell.column + 1 ], `deletion`) });
+
 };
 
 //This Function is called by SwordFish Techniques
-const discardSwordFishHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method) => {
+const discardSwordFishHTML = (mainAxisValues, mainAxis, secondaryAxisValues, secondaryAxis, value, method) => {
   console.log("--------------------------------------------");
   console.log("That's exactly my point. Exactly. Because you have to wonder: how do the machines know what Tasty Wheat tasted like? Maybe they got it wrong. Maybe what I think Tasty Wheat tasted like actually tasted like oatmeal, or swordfish.. - Mouse");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
   console.log("We found a SwordFish Candidate!")
-  console.log(`For the ${mainaxis}s ${mainaxisvalues[0] + 1}, ${mainaxisvalues[1] + 1} and ${mainaxisvalues[2] + 1}, the candidate note ${value} is chained in SwordFish Configuration`)
-  console.log(`Candidates notes for ${value} in ${secondaryaxis}s ${secondaryaxisvalues[0] + 1}, ${secondaryaxisvalues[1] + 1} and ${secondaryaxisvalues[2] + 1} other than the ${mainaxis}s specified above have been deleted`);
+  console.log(`For the ${mainAxis}s ${mainAxisValues[0] + 1}, ${mainAxisValues[1] + 1} and ${mainAxisValues[2] + 1}, the candidate note ${value} is chained in SwordFish Configuration`)
+  console.log(`Candidates notes for ${value} in ${secondaryAxis}s ${secondaryAxisValues[0] + 1}, ${secondaryAxisValues[1] + 1} and ${secondaryAxisValues[2] + 1} other than the ${mainAxis}s specified above have been deleted`);
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");
   document.querySelector("#button-reload").classList.remove("inactive");
@@ -534,13 +655,13 @@ const discardSwordFishHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, sec
   newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
   newDiscardArticle.style.zIndex = -globalVar.currentStep;
   
-  if (mainaxis === "row") {
+  if (mainAxis === "row") {
     newDiscardArticle.innerHTML =  `
     <h3>Step ${globalVar.currentStep}</h3>
     <h4>${method}</h4>
     <p>
       The candidate (fish Digit) ${value} is present only 2 times per each of the following 3 Rows: 
-      row R${mainaxisvalues[0] + 1}, row R${mainaxisvalues[1] + 1} and row R${mainaxisvalues[2] + 1}.
+      row R${mainAxisValues[0] + 1}, row R${mainAxisValues[1] + 1} and row R${mainAxisValues[2] + 1}.
     </p>
     <p>
     The cells where candidate (fish Digit) ${value} is present are:      
@@ -548,8 +669,8 @@ const discardSwordFishHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, sec
     <p>
     </p>
     `;
-    mainaxisvalues.forEach((mainAxisValue) => {
-      secondaryaxisvalues.forEach((secondaryAxisValue) => {
+    mainAxisValues.forEach((mainAxisValue) => {
+      secondaryAxisValues.forEach((secondaryAxisValue) => {
         if (globalVar.theMatrix[globalVar.currentStep - 1][mainAxisValue][secondaryAxisValue][value] === 1) { 
           let newDiscardArticleLastP = newDiscardArticle.lastElementChild;
           newDiscardArticleLastP.insertAdjacentHTML("beforeend",
@@ -563,10 +684,10 @@ const discardSwordFishHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, sec
     newDiscardArticle.insertAdjacentHTML("beforeend", 
     `
     <p>
-      Also those candidates align perfectly in only 3 columns: column C${secondaryaxisvalues[0] + 1}, column C${secondaryaxisvalues[1] + 1} and column C${secondaryaxisvalues[2] + 1}.
+      Also those candidates align perfectly in only 3 columns: column C${secondaryAxisValues[0] + 1}, column C${secondaryAxisValues[1] + 1} and column C${secondaryAxisValues[2] + 1}.
     </p>
     <p>
-      The fish Digit is marked in green for each of the 6 cells where they are present for these Columns. Any combination where this digit is marked as certain value, it will be sure that the three rows will have already this candidate covered, so, any other cell with candidate ${value} within the same rows (R${secondaryaxisvalues[0] + 1}, R${secondaryaxisvalues[1] + 1} and R${secondaryaxisvalues[2] + 1}) has been discarded.
+      The fish Digit is marked in green for each of the 6 cells where they are present for these Columns. Any combination where this digit is marked as certain value, it will be sure that the three rows will have already this candidate covered, so, any other cell with candidate ${value} within the same rows (R${secondaryAxisValues[0] + 1}, R${secondaryAxisValues[1] + 1} and R${secondaryAxisValues[2] + 1}) has been discarded.
     </p>
     `
     );
@@ -576,7 +697,7 @@ const discardSwordFishHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, sec
     <h4>${method}</h4>
     <p>
       The candidate (fish Digit) ${value} is present only 2 times per each of the following 3 Columns: 
-      column C${mainaxisvalues[0] + 1}, column C${mainaxisvalues[1] + 1} and column C${mainaxisvalues[2] + 1}. 
+      column C${mainAxisValues[0] + 1}, column C${mainAxisValues[1] + 1} and column C${mainAxisValues[2] + 1}. 
     </p>
     <p>
       The cells where candidate (fish Digit) ${value} is present are:      
@@ -584,8 +705,8 @@ const discardSwordFishHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, sec
     <p>
     </p>
     `;
-    mainaxisvalues.forEach((mainAxisValue) => {
-      secondaryaxisvalues.forEach((secondaryAxisValue) => {
+    mainAxisValues.forEach((mainAxisValue) => {
+      secondaryAxisValues.forEach((secondaryAxisValue) => {
         if (globalVar.theMatrix[globalVar.currentStep - 1][secondaryAxisValue][mainAxisValue][value] === 1) {
           let newDiscardArticleLastP = newDiscardArticle.lastElementChild;
           newDiscardArticleLastP.insertAdjacentHTML("beforeend",
@@ -599,10 +720,10 @@ const discardSwordFishHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, sec
     newDiscardArticle.insertAdjacentHTML("beforeend", 
     `
     <p>
-      Also those candidates align perfectly in only 3 rows: row R${secondaryaxisvalues[0] + 1}, row R${secondaryaxisvalues[1] + 1} and Row R${secondaryaxisvalues[2] + 1}.
+      Also those candidates align perfectly in only 3 rows: row R${secondaryAxisValues[0] + 1}, row R${secondaryAxisValues[1] + 1} and Row R${secondaryAxisValues[2] + 1}.
     </p>
     <p>
-      The fish Digit is marked in green for each of the 6 cells where they are present for these Columns. Any combination where this digit is marked as certain value, it will be sure that the three rows will have already this candidate covered, so, any other cell with candidate ${value} within the same rows (R${secondaryaxisvalues[0] + 1}, R${secondaryaxisvalues[1] + 1} and R${secondaryaxisvalues[2] + 1}) has been discarded.
+      The fish Digit is marked in green for each of the 6 cells where they are present for these Columns. Any combination where this digit is marked as certain value, it will be sure that the three rows will have already this candidate covered, so, any other cell with candidate ${value} within the same rows (R${secondaryAxisValues[0] + 1}, R${secondaryAxisValues[1] + 1} and R${secondaryAxisValues[2] + 1}) has been discarded.
     </p>
     `
     );
@@ -616,13 +737,13 @@ const discardSwordFishHTML = (mainaxisvalues, mainaxis, secondaryaxisvalues, sec
   spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 
   addGoBackToStepButton();
-  settingHighlightedBlock(mainaxis, mainaxisvalues[0] + 1, "highlighted");
-  settingHighlightedBlock(mainaxis, mainaxisvalues[1] + 1, "highlighted");
-  settingHighlightedBlock(mainaxis, mainaxisvalues[2] + 1, "highlighted");
+  settingHighlightedBlock(mainAxis, mainAxisValues[0] + 1, "highlighted");
+  settingHighlightedBlock(mainAxis, mainAxisValues[1] + 1, "highlighted");
+  settingHighlightedBlock(mainAxis, mainAxisValues[2] + 1, "highlighted");
 };
 
 //This Function is called by X-WING Techniques
-const discardFinnedXWingHTML = (cornerFin, oppositeCornerFin, squaresRectangle, mainaxis, secondaryaxis, value, method, possibleDeletionCells, cellsFin) => {
+const discardFinnedXWingHTML = (cornerFin, oppositeCornerFin, squaresRectangle, mainAxis, secondaryAxis, value, method, possibleDeletionCells, cellsFin) => {
   console.log("--------------------------------------------");
   console.log("This is your last chance. After this, there is no turning back. You take the blue pill, the story ends. You wake up in your bed and believe whatever you want to believe. You take the red pill, you stay in Wonderland and I show you how deep the rabbit hole goes. - Morpheus");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
@@ -638,7 +759,7 @@ const discardFinnedXWingHTML = (cornerFin, oppositeCornerFin, squaresRectangle, 
   newDiscardArticle.setAttribute("id", "Step" + globalVar.currentStep);
   newDiscardArticle.style.zIndex = -globalVar.currentStep;
 
-  //${ eval(`oppositeCornerFin.${mainaxis}`) + 1 } traslates to ${ oppositeCornerFin.row + 1 } if mainaxis is row, and to ${ oppositeCornerFin.column + 1 } for column, and hence allows to use the same structure for both cases. Repeated use of the eval function to achieve this.
+  //${ eval(`oppositeCornerFin.${mainAxis}`) + 1 } traslates to ${ oppositeCornerFin.row + 1 } if mainAxis is row, and to ${ oppositeCornerFin.column + 1 } for column, and hence allows to use the same structure for both cases. Repeated use of the eval function to achieve this.
   newDiscardArticle.innerHTML =  
     `
     <h3>Step ${globalVar.currentStep}</h3>
@@ -652,16 +773,19 @@ const discardFinnedXWingHTML = (cornerFin, oppositeCornerFin, squaresRectangle, 
     </p>
     <p>
       These 4 cells are the crosspoints between 
-      ${recurrent.capitalizeFirstLetter(mainaxis)}s 
-      ${recurrent.getFirstLetterCapitalized(mainaxis)}${ eval(`oppositeCornerFin.${mainaxis}`) + 1 } and 
-      ${recurrent.getFirstLetterCapitalized(mainaxis)}${ eval(`cornerFin.${mainaxis}`) + 1 } with 
-      ${recurrent.capitalizeFirstLetter(secondaryaxis)}s 
-      ${recurrent.getFirstLetterCapitalized(secondaryaxis)}${ eval(`oppositeCornerFin.${secondaryaxis}`) + 1 } and 
-      ${recurrent.getFirstLetterCapitalized(secondaryaxis)}${ eval(`cornerFin.${secondaryaxis}`) + 1 }.
+      ${recurrent.capitalizeFirstLetter(mainAxis)}s 
+      <strong><span data-${mainAxis}coordinates=".${mainAxis}${ eval(`oppositeCornerFin.${mainAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(mainAxis)}${ eval(`oppositeCornerFin.${mainAxis}`) + 1 }</span></strong> and 
+      <strong><span data-${mainAxis}coordinates=".${mainAxis}${ eval(`cornerFin.${mainAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(mainAxis)}${ eval(`cornerFin.${mainAxis}`) + 1 }</span></strong> with 
+      ${recurrent.capitalizeFirstLetter(secondaryAxis)}s 
+      <strong><span data-${secondaryAxis}coordinates=".${secondaryAxis}${ eval(`oppositeCornerFin.${secondaryAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(secondaryAxis)}${ eval(`oppositeCornerFin.${secondaryAxis}`) + 1 }</span></strong> and 
+      <strong><span data-${secondaryAxis}coordinates=".${secondaryAxis}${ eval(`cornerFin.${secondaryAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(secondaryAxis)}${ eval(`cornerFin.${secondaryAxis}`) + 1 }</span></strong>.
       Let's imagine these four cells are part of an imaginary rectangle, with four corners, each located in a different square of the puzzle (This will become important).
     </p>
     <p>
-      However, this is not a perfect X-Wing, because ${recurrent.capitalizeFirstLetter(mainaxis)} ${recurrent.getFirstLetterCapitalized(mainaxis)}${ eval(`cornerFin.${mainaxis}`) + 1 } has more than two cells with the candidate ${value}, invalidating the X-Wing analysis, being the additional cell(s) 
+      However, this is not a perfect X-Wing, because 
+      ${recurrent.capitalizeFirstLetter(mainAxis)} 
+      <strong><span data-${mainAxis}coordinates=".${mainAxis}${ eval(`cornerFin.${mainAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(mainAxis)}${ eval(`cornerFin.${mainAxis}`) + 1 }</span></strong> 
+      has more than two cells with the candidate ${value}, invalidating the X-Wing analysis, being the additional cell(s) 
     </p>
     <p></p>
     `;
@@ -675,14 +799,26 @@ const discardFinnedXWingHTML = (cornerFin, oppositeCornerFin, squaresRectangle, 
   });
   newDiscardArticle.insertAdjacentHTML("beforeend",
     `<p>
-      These additional cells are located in square S${ squaresRectangle.squareFin } and we will call these additional cells the FIN.
-      Now, let's analyze ${recurrent.capitalizeFirstLetter(mainaxis)} ${recurrent.getFirstLetterCapitalized(mainaxis)}${ eval(`oppositeCornerFin.${mainaxis}`) + 1 } which has only two possible options for candidate ${value}. 
+      These additional cells are located in square 
+      <strong><span data-squarecoordinates=".square${ squaresRectangle.squareFin }">S${ squaresRectangle.squareFin }</span></strong> 
+      and we will call these additional cells the FIN.
+      Now, let's analyze ${recurrent.capitalizeFirstLetter(mainAxis)} 
+      <strong><span data-${mainAxis}coordinates=".${mainAxis}${ eval(`oppositeCornerFin.${mainAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(mainAxis)}${ eval(`oppositeCornerFin.${mainAxis}`) + 1 }</span></strong>  
+      which has only two possible options for candidate ${value}. 
     </p>
     <p>
       First possibility, let's say cell 
       <strong><span data-cellcoordinates=".row${ oppositeCornerFin.row + 1 }.column${cornerFin.column + 1}">R${ oppositeCornerFin.row + 1 }C${ cornerFin.column + 1 }</span></strong> 
-      is the solution for candidate ${value}, which is the cell in different ${recurrent.capitalizeFirstLetter(mainaxis)} (${recurrent.getFirstLetterCapitalized(mainaxis)}${ eval(`oppositeCornerFin.${mainaxis}`) + 1 }) with the same ${recurrent.capitalizeFirstLetter(secondaryaxis)} (${recurrent.getFirstLetterCapitalized(secondaryaxis)}${ eval(`cornerFin.${secondaryaxis}`) + 1 }) as the corner with the fin (square S${ squaresRectangle.squareFin }). 
-      For that case should be clear that any cell in that same ${recurrent.capitalizeFirstLetter(secondaryaxis)} ${recurrent.getFirstLetterCapitalized(secondaryaxis)}${ eval(`cornerFin.${secondaryaxis}`) + 1 } cannot be anymore solution for option ${value}.
+      is the solution for candidate ${value}, which is the cell in different ${recurrent.capitalizeFirstLetter(mainAxis)} 
+      (<strong><span data-${mainAxis}coordinates=".${mainAxis}${ eval(`oppositeCornerFin.${mainAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(mainAxis)}${ eval(`oppositeCornerFin.${mainAxis}`) + 1 }</span></strong>) 
+      with the same ${recurrent.capitalizeFirstLetter(secondaryAxis)} 
+      (<strong><span data-${secondaryAxis}coordinates=".${secondaryAxis}${ eval(`cornerFin.${secondaryAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(secondaryAxis)}${ eval(`cornerFin.${secondaryAxis}`) + 1 }</span></strong>) 
+      as the corner with the fin (square 
+      <strong><span data-squarecoordinates=".square${ squaresRectangle.squareFin }">S${ squaresRectangle.squareFin }</span></strong>). 
+      For that case should be clear that any cell in that same 
+      ${recurrent.capitalizeFirstLetter(secondaryAxis)} 
+      <strong><span data-${secondaryAxis}coordinates=".${secondaryAxis}${ eval(`cornerFin.${secondaryAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(secondaryAxis)}${ eval(`cornerFin.${secondaryAxis}`) + 1 }</span></strong> 
+      cannot be anymore solution for option ${value}.
     </p>
     <p>
       Let's evaluate the second possibility, that cell
@@ -690,10 +826,20 @@ const discardFinnedXWingHTML = (cornerFin, oppositeCornerFin, squaresRectangle, 
       is the solution for candidate ${value}. In that case should be clear that neither 
       <strong><span data-cellcoordinates=".row${ oppositeCornerFin.row + 1 }.column${cornerFin.column + 1}">R${ oppositeCornerFin.row + 1 }C${ cornerFin.column + 1 }</span></strong> or 
       <strong><span data-cellcoordinates=".row${ cornerFin.row + 1 }.column${oppositeCornerFin.column + 1}">R${ cornerFin.row + 1 }C${ oppositeCornerFin.column + 1 }</span></strong> 
-      cannot be a possibility for candidate ${value}. Based on this, for ${recurrent.capitalizeFirstLetter(mainaxis)} ${recurrent.getFirstLetterCapitalized(mainaxis)}${ eval(`cornerFin.${mainaxis}`) + 1 }, the only possible cells for candidate ${value} to be possible, are those cells within Square S${ squaresRectangle.squareFin } fulfilling as well the requirement for that square to have a ${value}. 
+      cannot be a possibility for candidate ${value}. Based on this, for ${recurrent.capitalizeFirstLetter(mainAxis)} 
+      <strong><span data-${mainAxis}coordinates=".${mainAxis}${ eval(`cornerFin.${mainAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(mainAxis)}${ eval(`cornerFin.${mainAxis}`) + 1 }</span></strong>,  
+      the only possible cells for candidate ${value} to be possible, are those cells within Square 
+      <strong><span data-squarecoordinates=".square${ squaresRectangle.squareFin }">S${ squaresRectangle.squareFin }</span></strong>  
+      fulfilling as well the requirement for that square to have a ${value}, so, any other cell with candidate ${value} within Square 
+      <strong><span data-squarecoordinates=".square${ squaresRectangle.squareFin }">S${ squaresRectangle.squareFin }</span></strong> 
+      that don't belong to the fin ${recurrent.capitalizeFirstLetter(mainAxis)}, can be discarded. 
     </p>
     <p>
-      Either case, the cells common for ${recurrent.capitalizeFirstLetter(secondaryaxis)} ${recurrent.getFirstLetterCapitalized(secondaryaxis)}${ eval(`cornerFin.${secondaryaxis}`) + 1 } and Square S${ squaresRectangle.squareFin } can be safely deleted as possible cells for candidate ${value}.
+      Either case, the cells common for ${recurrent.capitalizeFirstLetter(secondaryAxis)} 
+      <strong><span data-${secondaryAxis}coordinates=".${secondaryAxis}${ eval(`cornerFin.${secondaryAxis}`) + 1 }">${recurrent.getFirstLetterCapitalized(secondaryAxis)}${ eval(`cornerFin.${secondaryAxis}`) + 1 }</span></strong> 
+      and Square 
+      <strong><span data-squarecoordinates=".square${ squaresRectangle.squareFin }">S${ squaresRectangle.squareFin }</span></strong> 
+      (excluding the imaginary rectangle corner cell) can be safely deleted as possible cells for candidate ${value}.
     </p>
     `
   );
@@ -711,13 +857,13 @@ const discardFinnedXWingHTML = (cornerFin, oppositeCornerFin, squaresRectangle, 
   settingHighlightedBlock("cell", [ cornerFin.row + 1, oppositeCornerFin.column + 1], "highlighted");
   settingHighlightedBlock("cell", [ cornerFin.row + 1, cornerFin.column + 1], "highlighted");
   cellsFin.forEach(finCell => { settingHighlightedBlock("cell", [ finCell.row + 1, finCell.column + 1 ], "finned") });
-  possibleDeletionCells.forEach(possibleDeletionCell => { settingHighlightedBlock("cell", [ possibleDeletionCell.row + 1, possibleDeletionCell.column + 1 ], `finnedDeletion${recurrent.capitalizeFirstLetter(secondaryaxis)}`) });
+  possibleDeletionCells.forEach(possibleDeletionCell => { settingHighlightedBlock("cell", [ possibleDeletionCell.row + 1, possibleDeletionCell.column + 1 ], `finnedDeletion${recurrent.capitalizeFirstLetter(secondaryAxis)}`) });
 };
 
 //This Function is called by Nishio Techniques
-const discardNishioCandidateProvenWrongHTML = (row, column, wrongCandidate, method, mainaxis, mainaxisvalue ) => {
+const discardNishioCandidateProvenWrongHTML = (row, column, wrongCandidate, method, mainAxis, mainAxisValue ) => {
   console.log("--------------------------------------------");
-  console.log("Don'd think you are, know you are! - Morpheus");
+  console.log("Don't think you are, know you are! - Morpheus");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
   console.log(`Loops executed so far: ${globalVar.loopsExecuted}`);  
   console.log("We prove a nishio candidate wrong!")
@@ -734,7 +880,7 @@ const discardNishioCandidateProvenWrongHTML = (row, column, wrongCandidate, meth
   <h4>${method}</h4>
   <p>
     After guessing the candidate ${wrongCandidate} as the possible certain value for cell 
-    <strong><span data-cellcoordinates=".row${mainaxisvalue[0] + 1}.column${mainaxisvalue[1] + 1}">R${mainaxisvalue[0] + 1}C${mainaxisvalue[1] + 1}</span></strong>, 
+    <strong><span data-cellcoordinates=".row${mainAxisValue[0] + 1}.column${mainAxisValue[1] + 1}">R${mainAxisValue[0] + 1}C${mainAxisValue[1] + 1}</span></strong>, 
     in step ${globalVar.nishioGuessingActive.step + 1}, and testing its validity, it was found as a wrong guessing.
   </p>
   <p>
@@ -747,7 +893,7 @@ const discardNishioCandidateProvenWrongHTML = (row, column, wrongCandidate, meth
   </p>
   <p>
     So, now for certain, candidate ${wrongCandidate} has been discarded as option in cell
-    <strong><span data-cellcoordinates=".row${mainaxisvalue[0] + 1}.column${mainaxisvalue[1] + 1}">R${mainaxisvalue[0] + 1}C${mainaxisvalue[1] + 1}</span></strong>.
+    <strong><span data-cellcoordinates=".row${mainAxisValue[0] + 1}.column${mainAxisValue[1] + 1}">R${mainAxisValue[0] + 1}C${mainAxisValue[1] + 1}</span></strong>.
   </p>
   `;
 
@@ -762,7 +908,7 @@ const discardNishioCandidateProvenWrongHTML = (row, column, wrongCandidate, meth
   // settingHighlightedBlock("cell", [pivotValues[0] + 1, pivotValues[1] + 1]);
 };
 
-const discardNishioGuessDeadEndHTML = (wrongCandidate, method, mainaxis, mainaxisvalue ) => {
+const discardNishioGuessDeadEndHTML = (wrongCandidate, method, mainAxis, mainAxisValue ) => {
   console.log("--------------------------------------------");
   console.log("I'm sorry, this is a dead end - Agent Smith");
   console.log(`Cells resolved so far: ${globalVar.cellsResolved}`);
@@ -781,7 +927,7 @@ const discardNishioGuessDeadEndHTML = (wrongCandidate, method, mainaxis, mainaxi
   <h4>${method}</h4>
   <p>
     After guessing the candidate ${wrongCandidate} as the possible certain value for cell 
-    <strong><span data-cellcoordinates=".row${mainaxisvalue[0] + 1}.column${mainaxisvalue[1] + 1}">R${mainaxisvalue[0] + 1}C${mainaxisvalue[1] + 1}</span></strong>, 
+    <strong><span data-cellcoordinates=".row${mainAxisValue[0] + 1}.column${mainAxisValue[1] + 1}">R${mainAxisValue[0] + 1}C${mainAxisValue[1] + 1}</span></strong>, 
     in step ${globalVar.nishioGuessingActive.step + 1}, and testing its validity, it got us to a dead end, where we would have to do a nested guess.
   </p>
   <p>
@@ -853,13 +999,29 @@ const newSudokuPuzzleArticle = () => {
   <h3>Step ${globalVar.currentStep}</h3>
   <h4>New Sudoku Puzzle</h4>
   <p>A new Sudoku Puzzle has been created for you. In this space you will find one card for each step you advance in the tutorial for your personalized Sudoku Puzzle</p>
-  <p>Please use the buttons above the Puzzle to resolve or go back.</p>
-  <p>You can return to the initial state of the puzzle by coming back to this card.</p>
+  <p>Please use the buttons above the Puzzle to resolve or go back. You can return to the initial state of the puzzle by coming back to this card.</p>
+  <p>In all these cards you will find these labels, which you can hover your mouse or click on touch screens, to guide you about which block the description is refering. For example: </p> 
+  <p>
+    Cell <strong><span data-cellcoordinates=".row1.column1">R1C1</span></strong>,
+    Row <strong><span data-rowcoordinates=".row1">R1</span></strong>, 
+    Column <strong><span data-columncoordinates=".column1">C1</span></strong>, 
+    Square <strong><span data-squarecoordinates=".square1">S1</span></strong>.  
+  </p>
+  <p>
+    Cell <strong><span data-cellcoordinates=".row9.column9">R9C9</span></strong>,
+    Row <strong><span data-rowcoordinates=".row9">R9</span></strong>, 
+    Column <strong><span data-columncoordinates=".column9">C9</span></strong>, 
+    Square <strong><span data-squarecoordinates=".square9">S9</span></strong>.  
+  </p>
   <p>Enjoy it and learn a lot about how solving your puzzle.</p>
   <p>The calculated difficulty for this puzzle is: ${globalVar.difficulty}</p>
   `;
   const main = document.querySelector(".stepsDetails > div");
   main.prepend(newfoundvalueArticle);
+
+  //creating the Event Listeners to the recently created RC spans
+  const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);
+  spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 };
 
 export { newFoundValueHTML, discardLockedCandidateHTML, discardXWingHTML, discardObviousPairsHTML, discardHiddenPairHTML, discardObviousTripleHTML, discardHiddenTripleHTML, discardObviousQuadHTML, discardHiddenQuadrupleHTML, discardYWingHTML, discardSwordFishHTML, discardFinnedXWingHTML, discardNishioCandidateProvenWrongHTML, discardNishioGuessDeadEndHTML, addGoBackToStepButton, newSudokuPuzzleArticle };

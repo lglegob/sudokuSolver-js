@@ -41,7 +41,7 @@ const cellValueFound = (row, column, currentCellValue, method, mainBlock, mainBl
 
 //Consolidated function for the 3 Blocks (row, column and square) and two discarding strategies (Pairs and Triples)
 //This Function is called by OBVIOUSPAIRS and OBVIOUSTRIPLES
-const discardObviousSet = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentified, currentCandidates, method, whereisthisnote, callbackNoteZero, callbackModifyDOM ) => {
+const discardObviousSet = (mainAxisValue, mainAxis, secondaryAxis, cellsIdentified, currentCandidates, method, whereisthisnote, callbackNoteZero, callbackModifyDOM ) => {
   globalVar.currentStep++;
   globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: method, cellsResolved: globalVar.cellsResolved, nishioGuessingActive: JSON.parse(JSON.stringify(globalVar.nishioGuessingActive)) } );
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
@@ -49,7 +49,7 @@ const discardObviousSet = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentifi
   let theMatrixStep = globalVar.theMatrix[globalVar.currentStep];
   //This for loop is created, so the same function can work with pairs, triples and quadruples, by detecting how many candidates have been received.
   for (let candidate = 1; candidate <= Object.keys(currentCandidates).length; candidate++) {
-    theMatrixStep = callbackNoteZero(mainaxisvalue, eval(`currentCandidates.candidate${candidate}`), theMatrixStep);
+    theMatrixStep = callbackNoteZero(mainAxisValue, eval(`currentCandidates.candidate${candidate}`), theMatrixStep);
   };
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
 
@@ -57,8 +57,8 @@ const discardObviousSet = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentifi
   //Within the for, the .lenght are used to define if it is an obvious pair or obvious triple, it will depend of which discarding method was the one that called this function
   for (let cellIdentified = 1; cellIdentified <= Object.keys(cellsIdentified).length; cellIdentified++) {
     for (let currentCandidate = 1; currentCandidate <= Object.keys(currentCandidates).length; currentCandidate++) {
-      //secondaryaxis is to define which is the axis that defines the order in whereisthisnote
-      whereisthisnote[eval(`currentCandidates.candidate${currentCandidate}`)][eval(`cellsIdentified.cell${cellIdentified}.${secondaryaxis}`)] === 1 ? globalVar.theMatrix[globalVar.currentStep][eval(`cellsIdentified.cell${cellIdentified}.row`)][eval(`cellsIdentified.cell${cellIdentified}.column`)][eval(`currentCandidates.candidate${currentCandidate}`)] = 1 : false;
+      //secondaryAxis is to define which is the axis that defines the order in whereisthisnote
+      whereisthisnote[eval(`currentCandidates.candidate${currentCandidate}`)][eval(`cellsIdentified.cell${cellIdentified}.${secondaryAxis}`)] === 1 ? globalVar.theMatrix[globalVar.currentStep][eval(`cellsIdentified.cell${cellIdentified}.row`)][eval(`cellsIdentified.cell${cellIdentified}.column`)][eval(`currentCandidates.candidate${currentCandidate}`)] = 1 : false;
     };
   };
 
@@ -66,9 +66,9 @@ const discardObviousSet = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentifi
     //these couple of fors reset the noteKept and justDeleteNote classes for the cells identified for the current discarding strategy
     for (let cellIdentified = 1; cellIdentified <= Object.keys(cellsIdentified).length; cellIdentified++) {
       for (let currentCandidate = 1; currentCandidate <= Object.keys(currentCandidates).length; currentCandidate++) {
-        //secondaryaxis is to define which is the axis that defines the order in whereisthisnote
-        whereisthisnote[eval(`currentCandidates.candidate${currentCandidate}`)][eval(`cellsIdentified.cell${cellIdentified}.${secondaryaxis}`)] === 1 ? document.querySelector(".theMatrixNotes " + ".row" + (eval(`cellsIdentified.cell${cellIdentified}.row`) + 1) + ".column" + (eval(`cellsIdentified.cell${cellIdentified}.column`) + 1) + " .note" + eval(`currentCandidates.candidate${currentCandidate}`)).classList.remove("justDeletedNote") : false;
-        whereisthisnote[eval(`currentCandidates.candidate${currentCandidate}`)][eval(`cellsIdentified.cell${cellIdentified}.${secondaryaxis}`)] === 1 ? document.querySelector(".theMatrixNotes " + ".row" + (eval(`cellsIdentified.cell${cellIdentified}.row`) + 1) + ".column" + (eval(`cellsIdentified.cell${cellIdentified}.column`) + 1) + " .note" + eval(`currentCandidates.candidate${currentCandidate}`)).classList.add("noteKept") : false;
+        //secondaryAxis is to define which is the axis that defines the order in whereisthisnote
+        whereisthisnote[eval(`currentCandidates.candidate${currentCandidate}`)][eval(`cellsIdentified.cell${cellIdentified}.${secondaryAxis}`)] === 1 ? document.querySelector(".theMatrixNotes " + ".row" + (eval(`cellsIdentified.cell${cellIdentified}.row`) + 1) + ".column" + (eval(`cellsIdentified.cell${cellIdentified}.column`) + 1) + " .note" + eval(`currentCandidates.candidate${currentCandidate}`)).classList.remove("justDeletedNote") : false;
+        whereisthisnote[eval(`currentCandidates.candidate${currentCandidate}`)][eval(`cellsIdentified.cell${cellIdentified}.${secondaryAxis}`)] === 1 ? document.querySelector(".theMatrixNotes " + ".row" + (eval(`cellsIdentified.cell${cellIdentified}.row`) + 1) + ".column" + (eval(`cellsIdentified.cell${cellIdentified}.column`) + 1) + " .note" + eval(`currentCandidates.candidate${currentCandidate}`)).classList.add("noteKept") : false;
       };
     };
   };
@@ -79,12 +79,12 @@ const discardObviousSet = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentifi
   method.includes("Pair") ? globalVar.difficulty += 8 : false;
   method.includes("Triple") ? globalVar.difficulty += 12 : false;
   method.includes("Quadruple") ? globalVar.difficulty += 21 : false;
-  globalVar.stepByStep ? true : callbackModifyDOM(mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method);
+  globalVar.stepByStep ? true : callbackModifyDOM(mainAxisValue, mainAxis, cellsIdentified, currentCandidates, method);
 };
 
 //Consolidated function for the 3 Blocks (row, column and square), when a pair of values must be kept and discard all others in one cell
 //This Function is called by HIDDENPAIRS and HIDDENTRIPLES Techniques
-const discardHiddenSet = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentified, currentCandidates, method, callbackNoteZero, callbackModifyDOM) => {
+const discardHiddenSet = (mainAxisValue, mainAxis, secondaryAxis, cellsIdentified, currentCandidates, method, callbackNoteZero, callbackModifyDOM) => {
   globalVar.currentStep++;
   globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: method, cellsResolved: globalVar.cellsResolved, nishioGuessingActive: JSON.parse(JSON.stringify(globalVar.nishioGuessingActive)) } );
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
@@ -102,12 +102,12 @@ const discardHiddenSet = (mainaxisvalue, mainaxis, secondaryaxis, cellsIdentifie
   method.includes("Pair") ? globalVar.difficulty += 20 : false;
   method.includes("Triple") ? globalVar.difficulty += 28 : false;
   method.includes("Quadruple") ? globalVar.difficulty += 38 : false;
-  globalVar.stepByStep ? true : callbackModifyDOM(mainaxisvalue, mainaxis, cellsIdentified, currentCandidates, method);
+  globalVar.stepByStep ? true : callbackModifyDOM(mainAxisValue, mainAxis, cellsIdentified, currentCandidates, method);
 };
 
 //Consolidated function for the 3 Blocks (row, column and square), when one value can be discarded
 //This Function is called by LOCKEDCANDIDATE Techniques
-const discardLockedCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method, callbackNoteZero) => {
+const discardLockedCandidate = (mainAxisValue, mainAxis, secondaryAxisValue, secondaryAxis, value, method, callbackNoteZero) => {
   let fromRowD;
   let maximumRowD;
   let fromColumnD;
@@ -115,39 +115,39 @@ const discardLockedCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, sec
   //Section to copy the cells of the corresponding secondary Axis
 
   switch (true) {
-    case (mainaxis === "square"):
-      const { fromrow:fromRowS, maximumrow:maximumRowS, fromcolumn:fromColumnS, maximumcolumn:maximumColumnS } = coordinates.defineInitialMaxRCFromSquare(mainaxisvalue);
+    case (mainAxis === "square"):
+      const { fromrow:fromRowS, maximumrow:maximumRowS, fromcolumn:fromColumnS, maximumcolumn:maximumColumnS } = coordinates.defineInitialMaxRCFromSquare(mainAxisValue);
       fromRowD = fromRowS;
       fromColumnD = fromColumnS;
       maximumRowD = maximumRowS;
       maximumColumnD = maximumColumnS;
 
       switch (true) {
-        case (secondaryaxis === "row"):
-          fromRowD = secondaryaxisvalue;
-          maximumRowD = secondaryaxisvalue;
+        case (secondaryAxis === "row"):
+          fromRowD = secondaryAxisValue;
+          maximumRowD = secondaryAxisValue;
         break;
-        case (secondaryaxis === "column"):
-          fromColumnD = secondaryaxisvalue;
-          maximumColumnD = secondaryaxisvalue;
+        case (secondaryAxis === "column"):
+          fromColumnD = secondaryAxisValue;
+          maximumColumnD = secondaryAxisValue;
         break;
       };
     break;
 
-    case (mainaxis === "row"):
-      const { fromcolumn:fromcolumnR, maximumcolumn:maximumcolumnR } = coordinates.defineInitialMaxRCFromSquare(secondaryaxisvalue);
-      fromRowD = mainaxisvalue;
+    case (mainAxis === "row"):
+      const { fromcolumn:fromcolumnR, maximumcolumn:maximumcolumnR } = coordinates.defineInitialMaxRCFromSquare(secondaryAxisValue);
+      fromRowD = mainAxisValue;
       fromColumnD = fromcolumnR;
-      maximumRowD = mainaxisvalue;
+      maximumRowD = mainAxisValue;
       maximumColumnD = maximumcolumnR;
     break;
 
-    case (mainaxis === "column"):
-      const { fromrow:fromrowC, maximumrow:maximumrowC } = coordinates.defineInitialMaxRCFromSquare(secondaryaxisvalue);
+    case (mainAxis === "column"):
+      const { fromrow:fromrowC, maximumrow:maximumrowC } = coordinates.defineInitialMaxRCFromSquare(secondaryAxisValue);
       fromRowD = fromrowC;
-      fromColumnD = mainaxisvalue;
+      fromColumnD = mainAxisValue;
       maximumRowD = maximumrowC;
-      maximumColumnD = mainaxisvalue;
+      maximumColumnD = mainAxisValue;
     break;
   };
 
@@ -164,7 +164,7 @@ const discardLockedCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, sec
   globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: method, cellsResolved: globalVar.cellsResolved, nishioGuessingActive: JSON.parse(JSON.stringify(globalVar.nishioGuessingActive)) } );
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
   //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
-  let theMatrixStep = callbackNoteZero(mainaxisvalue, value, globalVar.theMatrix[globalVar.currentStep]);
+  let theMatrixStep = callbackNoteZero(mainAxisValue, value, globalVar.theMatrix[globalVar.currentStep]);
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
   //But here, it is restablished as notes for the 3 cells based on the temporal variable the3Cells
   for (let the3CellsRow = fromRowD; the3CellsRow <= maximumRowD; the3CellsRow++) { 
@@ -185,67 +185,51 @@ const discardLockedCandidate = (mainaxisvalue, mainaxis, secondaryaxisvalue, sec
   globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
   globalVar.difficulty += 40;
-  globalVar.stepByStep ? true : modifyDOM.discardLockedCandidateHTML(mainaxisvalue, mainaxis, secondaryaxisvalue, secondaryaxis, value, method);
+  globalVar.stepByStep ? true : modifyDOM.discardLockedCandidateHTML(mainAxisValue, mainAxis, secondaryAxisValue, secondaryAxis, value, method);
 };
 
 //Consolidated function for the 2 Blocks (row, column), when one value can be discarded in X-Wing Detection technique
 //This Function is called by X-WING Techniques
-const discardXWing = (mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method, callbackNoteZero) => {
+const discardXWing = (cornertopleft, cornerbottomright, mainAxis, secondaryAxis, value, method, callbackNoteZero) => {
   globalVar.currentStep++;
   globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: method, cellsResolved: globalVar.cellsResolved, nishioGuessingActive: JSON.parse(JSON.stringify(globalVar.nishioGuessingActive)) } );
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
 
-  //This process deletes the candidate from the two mainaxis blocks
-  secondaryaxisvalues.forEach((secondaryaxisvalue)  => {
-      //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
-      let theMatrixStep = callbackNoteZero(secondaryaxisvalue, value, globalVar.theMatrix[globalVar.currentStep]);
-      globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
+  //This process deletes the candidate from the two secondaryAxis blocks
+  let secondaryAxisValues = [ eval(`cornertopleft.${secondaryAxis}`), eval(`cornerbottomright.${secondaryAxis}`)];
+  secondaryAxisValues.forEach((secondaryAxisValue)  => {
+    //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
+    let theMatrixStep = callbackNoteZero(secondaryAxisValue, value, globalVar.theMatrix[globalVar.currentStep]);
+    globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
   });
   //Here we restablished the candidate in the 4 cells
-  if (mainaxis === "row") {
-    globalVar.theMatrix[globalVar.currentStep][mainaxisvalues[0]][secondaryaxisvalues[0]][value] = 1;
-    globalVar.theMatrix[globalVar.currentStep][mainaxisvalues[0]][secondaryaxisvalues[1]][value] = 1;
-    globalVar.theMatrix[globalVar.currentStep][mainaxisvalues[1]][secondaryaxisvalues[0]][value] = 1;
-    globalVar.theMatrix[globalVar.currentStep][mainaxisvalues[1]][secondaryaxisvalues[1]][value] = 1;
-    if(globalVar.areHighlightsOn === true) {
-      document.querySelector(".theMatrixNotes " + ".row" + (mainaxisvalues[0] + 1) + ".column" + (secondaryaxisvalues[0] + 1) + " .note" + value).classList.remove("justDeletedNote");
-      document.querySelector(".theMatrixNotes " + ".row" + (mainaxisvalues[0] + 1) + ".column" + (secondaryaxisvalues[0] + 1) + " .note" + value).classList.add("noteKept");
-      document.querySelector(".theMatrixNotes " + ".row" + (mainaxisvalues[0] + 1) + ".column" + (secondaryaxisvalues[1] + 1) + " .note" + value).classList.remove("justDeletedNote");
-      document.querySelector(".theMatrixNotes " + ".row" + (mainaxisvalues[0] + 1) + ".column" + (secondaryaxisvalues[1] + 1) + " .note" + value).classList.add("noteKept");
-      document.querySelector(".theMatrixNotes " + ".row" + (mainaxisvalues[1] + 1) + ".column" + (secondaryaxisvalues[0] + 1) + " .note" + value).classList.remove("justDeletedNote");
-      document.querySelector(".theMatrixNotes " + ".row" + (mainaxisvalues[1] + 1) + ".column" + (secondaryaxisvalues[0] + 1) + " .note" + value).classList.add("noteKept");
-      document.querySelector(".theMatrixNotes " + ".row" + (mainaxisvalues[1] + 1) + ".column" + (secondaryaxisvalues[1] + 1) + " .note" + value).classList.remove("justDeletedNote");
-      document.querySelector(".theMatrixNotes " + ".row" + (mainaxisvalues[1] + 1) + ".column" + (secondaryaxisvalues[1] + 1) + " .note" + value).classList.add("noteKept");
-    };
-  } else { //mainaxis is column
-    globalVar.theMatrix[globalVar.currentStep][secondaryaxisvalues[0]][mainaxisvalues[0]][value] = 1;
-    globalVar.theMatrix[globalVar.currentStep][secondaryaxisvalues[0]][mainaxisvalues[1]][value] = 1;
-    globalVar.theMatrix[globalVar.currentStep][secondaryaxisvalues[1]][mainaxisvalues[0]][value] = 1;
-    globalVar.theMatrix[globalVar.currentStep][secondaryaxisvalues[1]][mainaxisvalues[1]][value] = 1;
-    if(globalVar.areHighlightsOn === true) {    
-      document.querySelector(".theMatrixNotes " + ".row" + (secondaryaxisvalues[0] + 1) + ".column" + (mainaxisvalues[0] + 1) + " .note" + value).classList.remove("justDeletedNote");
-      document.querySelector(".theMatrixNotes " + ".row" + (secondaryaxisvalues[0] + 1) + ".column" + (mainaxisvalues[0] + 1) + " .note" + value).classList.add("noteKept");
-      document.querySelector(".theMatrixNotes " + ".row" + (secondaryaxisvalues[0] + 1) + ".column" + (mainaxisvalues[1] + 1) + " .note" + value).classList.remove("justDeletedNote");
-      document.querySelector(".theMatrixNotes " + ".row" + (secondaryaxisvalues[0] + 1) + ".column" + (mainaxisvalues[1] + 1) + " .note" + value).classList.add("noteKept");
-      document.querySelector(".theMatrixNotes " + ".row" + (secondaryaxisvalues[1] + 1) + ".column" + (mainaxisvalues[0] + 1) + " .note" + value).classList.remove("justDeletedNote");
-      document.querySelector(".theMatrixNotes " + ".row" + (secondaryaxisvalues[1] + 1) + ".column" + (mainaxisvalues[0] + 1) + " .note" + value).classList.add("noteKept");
-      document.querySelector(".theMatrixNotes " + ".row" + (secondaryaxisvalues[1] + 1) + ".column" + (mainaxisvalues[1] + 1) + " .note" + value).classList.remove("justDeletedNote");
-      document.querySelector(".theMatrixNotes " + ".row" + (secondaryaxisvalues[1] + 1) + ".column" + (mainaxisvalues[1] + 1) + " .note" + value).classList.add("noteKept");
-    };
+  globalVar.theMatrix[globalVar.currentStep][cornertopleft.row][cornertopleft.column][value] = 1;
+  globalVar.theMatrix[globalVar.currentStep][cornertopleft.row][cornerbottomright.column][value] = 1;
+  globalVar.theMatrix[globalVar.currentStep][cornerbottomright.row][cornertopleft.column][value] = 1;
+  globalVar.theMatrix[globalVar.currentStep][cornerbottomright.row][cornerbottomright.column][value] = 1;
+  if(globalVar.areHighlightsOn === true) {
+    document.querySelector(".theMatrixNotes " + ".row" + (cornertopleft.row + 1) + ".column" + (cornertopleft.column + 1) + " .note" + value).classList.remove("justDeletedNote");
+    document.querySelector(".theMatrixNotes " + ".row" + (cornertopleft.row + 1) + ".column" + (cornertopleft.column + 1) + " .note" + value).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (cornertopleft.row + 1) + ".column" + (cornerbottomright.column + 1) + " .note" + value).classList.remove("justDeletedNote");
+    document.querySelector(".theMatrixNotes " + ".row" + (cornertopleft.row + 1) + ".column" + (cornerbottomright.column + 1) + " .note" + value).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (cornerbottomright.row + 1) + ".column" + (cornertopleft.column + 1) + " .note" + value).classList.remove("justDeletedNote");
+    document.querySelector(".theMatrixNotes " + ".row" + (cornerbottomright.row + 1) + ".column" + (cornertopleft.column + 1) + " .note" + value).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (cornerbottomright.row + 1) + ".column" + (cornerbottomright.column + 1) + " .note" + value).classList.remove("justDeletedNote");
+    document.querySelector(".theMatrixNotes " + ".row" + (cornerbottomright.row + 1) + ".column" + (cornerbottomright.column + 1) + " .note" + value).classList.add("noteKept");
   };
+
 
   globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
   globalVar.stepByStep ? true : recurrent.reviewNotes(globalVar.theMatrix[globalVar.currentStep]);
   globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
   globalVar.difficulty += 65;
-  globalVar.stepByStep ? true : modifyDOM.discardXWingHTML(mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method);
+  globalVar.stepByStep ? true : modifyDOM.discardXWingHTML( cornertopleft, cornerbottomright, mainAxis, secondaryAxis, value, method);
 };
 
 //Consolidated function for the 2 Blocks (row, column), when one value can be discarded in Finned X-Wing Detection technique
 //This Function is called by Finned X-WING Techniques
-//([row1, row2], "row", [column1, column2], "column", possibleCandidate, "Finned X-Wing Value in Rows to delete Candidates in Finned Column", notesZero.noteZeroCell,  whereAretheDeletions, cellsFin )
-const discardFinnedXWing = (cornerFin, oppositeCornerFin, squaresRectangle, mainaxis, secondaryaxis, value, method, callbackNoteZero, possibleDeletionCells, whereAretheDeletions, cellsFin) => {
+const discardFinnedXWing = (cornerFin, oppositeCornerFin, squaresRectangle, mainAxis, secondaryAxis, value, method, callbackNoteZero, possibleDeletionCells, whereAretheDeletions, cellsFin) => {
   globalVar.currentStep++;
   globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: method, cellsResolved: globalVar.cellsResolved, nishioGuessingActive: JSON.parse(JSON.stringify(globalVar.nishioGuessingActive)) } );
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
@@ -269,12 +253,12 @@ const discardFinnedXWing = (cornerFin, oppositeCornerFin, squaresRectangle, main
   globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
   globalVar.difficulty += 105;
-  globalVar.stepByStep ? true : modifyDOM.discardFinnedXWingHTML(cornerFin, oppositeCornerFin, squaresRectangle, mainaxis, secondaryaxis, value, method, possibleDeletionCells, cellsFin);
+  globalVar.stepByStep ? true : modifyDOM.discardFinnedXWingHTML(cornerFin, oppositeCornerFin, squaresRectangle, mainAxis, secondaryAxis, value, method, possibleDeletionCells, cellsFin);
 };
 
 //Consolidated function for the Y-Wing Combinations, where one value can be discarded in one or several cells
 //This Function is called by Y-WING Techniques
-const discardYWing = (pivotValues, pincer1Values, pincer1Axis, pincer2Values, pincer2Axis, pincerX, pincerY, pincerZ, method, callbackNoteZero, positiveforZvalue) => {
+const discardYWing = ( pivotCell, pincer1Cell, pincer1Axis, pincer2Cell, pincer2Axis, pincerX, pincerY, pincerZ, method, callbackNoteZero, positiveforZCells, positiveforZvalue, testingforZCells) => {
   globalVar.currentStep++;
   globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: method, cellsResolved: globalVar.cellsResolved, nishioGuessingActive: JSON.parse(JSON.stringify(globalVar.nishioGuessingActive)) } );
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
@@ -285,12 +269,12 @@ const discardYWing = (pivotValues, pincer1Values, pincer1Axis, pincer2Values, pi
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
 
   if(globalVar.areHighlightsOn === true) { 
-    document.querySelector(".theMatrixNotes " + ".row" + (pivotValues[0] + 1) + ".column" + (pivotValues[1] + 1) + " .note" + pincerX).classList.add("noteKept");
-    document.querySelector(".theMatrixNotes " + ".row" + (pivotValues[0] + 1) + ".column" + (pivotValues[1] + 1) + " .note" + pincerY).classList.add("noteKept");
-    document.querySelector(".theMatrixNotes " + ".row" + (pincer1Values[0] + 1) + ".column" + (pincer1Values[1] + 1) + " .note" + pincerX).classList.add("noteKept");
-    document.querySelector(".theMatrixNotes " + ".row" + (pincer1Values[0] + 1) + ".column" + (pincer1Values[1] + 1) + " .note" + pincerZ).classList.add("noteKept");
-    document.querySelector(".theMatrixNotes " + ".row" + (pincer2Values[0] + 1) + ".column" + (pincer2Values[1] + 1) + " .note" + pincerY).classList.add("noteKept");
-    document.querySelector(".theMatrixNotes " + ".row" + (pincer2Values[0] + 1) + ".column" + (pincer2Values[1] + 1) + " .note" + pincerZ).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (pivotCell.row + 1) + ".column" + (pivotCell.column + 1) + " .note" + pincerX).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (pivotCell.row + 1) + ".column" + (pivotCell.column + 1) + " .note" + pincerY).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (pincer1Cell.row + 1) + ".column" + (pincer1Cell.column + 1) + " .note" + pincerX).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (pincer1Cell.row + 1) + ".column" + (pincer1Cell.column + 1) + " .note" + pincerZ).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (pincer2Cell.row + 1) + ".column" + (pincer2Cell.column + 1) + " .note" + pincerY).classList.add("noteKept");
+    document.querySelector(".theMatrixNotes " + ".row" + (pincer2Cell.row + 1) + ".column" + (pincer2Cell.column + 1) + " .note" + pincerZ).classList.add("noteKept");
   };
 
   globalVar.areNotesShowing = false;  //toggleNotes lo dejara en True
@@ -298,26 +282,26 @@ const discardYWing = (pivotValues, pincer1Values, pincer1Axis, pincer2Values, pi
   globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
   globalVar.difficulty += 85;
-  globalVar.stepByStep ? true : modifyDOM.discardYWingHTML(pivotValues, pincer1Values, pincer1Axis, pincer2Values, pincer2Axis, pincerX, pincerY, pincerZ, method);
+  globalVar.stepByStep ? true : modifyDOM.discardYWingHTML(pivotCell, pincer1Cell, pincer1Axis, pincer2Cell, pincer2Axis, pincerX, pincerY, pincerZ, method, positiveforZCells, testingforZCells);
 };
 
 //Consolidated function for the 2 Blocks (row, column), when one value can be discarded in SwordFish Detection technique
 //This Function is called by SwordFish Techniques
-const discardSwordFish = (mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method, callbackNoteZero) => {
+const discardSwordFish = (mainAxisValues, mainAxis, secondaryAxisValues, secondaryAxis, value, method, callbackNoteZero) => {
   globalVar.currentStep++;
   globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: method, cellsResolved: globalVar.cellsResolved, nishioGuessingActive: JSON.parse(JSON.stringify(globalVar.nishioGuessingActive)) } );
   globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
 
-  //This process deletes the candidate from the three mainaxis blocks
-  secondaryaxisvalues.forEach((secondaryaxisvalue)  => {
+  //This process deletes the candidate from the three mainAxis blocks
+  secondaryAxisValues.forEach((secondaryAxisValue)  => {
       //Here we take advantage of the functions to delete the notes of found values, a callback function is used depending of the block (row, column or square), currently on evaluation
-      let theMatrixStep = callbackNoteZero(secondaryaxisvalue, value, globalVar.theMatrix[globalVar.currentStep]);
+      let theMatrixStep = callbackNoteZero(secondaryAxisValue, value, globalVar.theMatrix[globalVar.currentStep]);
       globalVar.theMatrix[globalVar.currentStep] = JSON.parse(JSON.stringify(theMatrixStep));
   });
   //Here we restablished the candidate in the 6 corresponding cells evaluating the 9 cells (3 of them did not have the candidate) for SwordFish Technique
-  if (mainaxis === "row") {
-    mainaxisvalues.forEach((mainAxisValue) => {
-      secondaryaxisvalues.forEach((secondaryAxisValue) => {
+  if (mainAxis === "row") {
+    mainAxisValues.forEach((mainAxisValue) => {
+      secondaryAxisValues.forEach((secondaryAxisValue) => {
         if (globalVar.theMatrix[globalVar.currentStep - 1][mainAxisValue][secondaryAxisValue][value] === 1) {
           globalVar.theMatrix[globalVar.currentStep][mainAxisValue][secondaryAxisValue][value] = 1;
           if(globalVar.areHighlightsOn === true) {
@@ -327,9 +311,9 @@ const discardSwordFish = (mainaxisvalues, mainaxis, secondaryaxisvalues, seconda
         };
       });
     });
-  } else { //mainaxis is column
-    mainaxisvalues.forEach((mainAxisValue) => {
-      secondaryaxisvalues.forEach((secondaryAxisValue) => {
+  } else { //mainAxis is column
+    mainAxisValues.forEach((mainAxisValue) => {
+      secondaryAxisValues.forEach((secondaryAxisValue) => {
         if (globalVar.theMatrix[globalVar.currentStep - 1][secondaryAxisValue][mainAxisValue][value] === 1) {
           globalVar.theMatrix[globalVar.currentStep][secondaryAxisValue][mainAxisValue][value] = 1;
           if(globalVar.areHighlightsOn === true) {
@@ -346,7 +330,7 @@ const discardSwordFish = (mainaxisvalues, mainaxis, secondaryaxisvalues, seconda
   globalVar.stepByStep ? true : recurrent.toggleNotes();
   globalVar.discardNoteSuccess = true;
   globalVar.difficulty += 95;
-  globalVar.stepByStep ? true : modifyDOM.discardSwordFishHTML(mainaxisvalues, mainaxis, secondaryaxisvalues, secondaryaxis, value, method);
+  globalVar.stepByStep ? true : modifyDOM.discardSwordFishHTML(mainAxisValues, mainAxis, secondaryAxisValues, secondaryAxis, value, method);
 };
 
 const nishioGuessInvalid = (row, column, method) => {

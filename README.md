@@ -6,6 +6,17 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.6.9 (Highlighted Blocks) 2022-12-06
+
+- WHAT'S NEW!?
+
+  - A new set of EventListeners is defined for when hovering the mentioned row, column or square within the text, they are highlighted.
+  - Most of the DOM modifying functions are updated to take advantage of the above eventListeners, so, the explanation can be cmore detailed.
+  - Several changes to pass data between functions using objects instead of small arrays. That way is simpler to call the needed data by .row .column or .square than calling them referencing and index. This also allowed to eliminate some of the if statements where it was checked what type of mainaxis was being analyzed, instead the same block of code can be used for any block.
+  - Added the set of hovered*Block*Coordinates corresponding to the changes explained above.
+
+---
+
 ### Version 0.6.8 (Finned X-Wing Strategy) 2022-12-04
 
 - WHAT'S NEW!?

@@ -40,7 +40,7 @@ const yWing = () => {
                     // console.log(`Y-Wing Found with Pivot cell in Row ${rowPivot + 1}, Column ${colPivot + 1} with candidates ${pincerX} and ${pincerY}.`);
                     // console.log(`First Pincer (Same Row) in Row ${rowPivot + 1}, Column ${colPincer1 + 1}, Second Pincer (Same Column) in Row ${rowPincer2 + 1}, Column ${colPivot + 1}`);
                     // console.log(`the buddy cell located in Row ${rowPincer2 + 1}, Column ${colPincer1 + 1} contains a Z value ${pincerZ} that will be deleted`);
-                    solvingFunctions.discardYWing([rowPivot, colPivot], [rowPivot, colPincer1], "row", [rowPincer2, colPivot], "column", pincerX, pincerY, pincerZ, "Y-Wing Value with Pincer Cells in Row and Column", notesZero.noteZeroCell, [[rowPincer2, colPincer1]] );
+                    solvingFunctions.discardYWing({ row: rowPivot, column: colPivot }, { row: rowPivot, column: colPincer1 }, "row", { row: rowPincer2, column: colPivot }, "column", pincerX, pincerY, pincerZ, "Y-Wing Value with Pincer Cells in Row and Column", notesZero.noteZeroCell, [ { row: rowPincer2, column: colPincer1} ], [[rowPincer2, colPincer1]], [ { row: rowPincer2, column: colPincer1} ] );
                     break;
                   };
                 };
@@ -94,21 +94,27 @@ const yWing = () => {
                       const { fromrow:fromRowPivotSquare, maximumrow:maximumRowPivotSquare } = coordinates.defineInitialMaxRCFromRC(rowPivot, colPivot);
                       const { fromrow:fromRowPincer2Square, maximumrow:maximumRowPincer2Square } = coordinates.defineInitialMaxRCFromRC(rowPincer2, colPincer1);       
                       let positiveforZvalue = [];
+                      let positiveforZCells = [];
+                      let testingforZCells = [];
                       for (let row = fromRowPivotSquare; row<=maximumRowPivotSquare; row++) {
+                        testingforZCells.push( { row: row, column:colPivot });
                         if (globalVar.theMatrix[globalVar.currentStep][row][colPivot][pincerZ] !==0) { //The second argument (&& row !== rowPincer1) of the If statement (has been deleted for evaluation) is to avoid issues in case the first pincer found (same square) also is in the same column. This case should also be already discarded before by Obvious Triples. It has been deleted
                           positiveforZvalue.push([row, colPivot]);
+                          positiveforZCells.push( { row: row, column:colPivot });
                         };
                       };
                       for (let row = fromRowPincer2Square; row<=maximumRowPincer2Square; row++) {
+                        testingforZCells.push( { row: row, column: colPincer1 });
                         if (globalVar.theMatrix[globalVar.currentStep][row][colPincer1][pincerZ] !==0) { //The second argument (&& row !== rowPincer2) of the If statement is to avoid issues in case the first pincer found (same square) also is in the same column. This case should also be already discarded before by Obvious Triples. It has been deleted
                           positiveforZvalue.push([row, colPincer1]);
+                          positiveforZCells.push( { row: row, column: colPincer1 });
                         };
                       };
                       if (positiveforZvalue.length !== 0) {
                         // console.log(`Y-Wing Found with Pivot cell in Row ${rowPivot + 1}, Column ${colPivot + 1} with candidates ${pincerX} and ${pincerY}.`);
                         // console.log(`First Pincer (Same Square) in Row ${rowPincer1 + 1}, Column ${colPincer1 + 1}, Second Pincer (Same Column) in Row ${rowPincer2 + 1}, Column ${colPivot + 1}`);
                         // console.log(`All those cells seen by both pincer cells that contains a Z value ${pincerZ} have been be deleted`);                  
-                        solvingFunctions.discardYWing([rowPivot, colPivot], [rowPincer1, colPincer1], "square", [rowPincer2, colPivot], "column", pincerX, pincerY, pincerZ, "Y-Wing Value with Pincer Cells in Square and Column", notesZero.noteZeroCell, positiveforZvalue );
+                        solvingFunctions.discardYWing({ row: rowPivot, column: colPivot }, { row:rowPincer1, column:colPincer1, square: square - 1 }, "square", { row:rowPincer2, column:colPivot }, "column", pincerX, pincerY, pincerZ, "Y-Wing Value with Pincer Cells in Square and Column", notesZero.noteZeroCell, positiveforZCells, positiveforZvalue, testingforZCells );
                         break;
                       };
                     };
@@ -138,21 +144,27 @@ const yWing = () => {
                         const { fromcolumn:fromColumnPivotSquare, maximumcolumn:maximumColumnPivotSquare} = coordinates.defineInitialMaxRCFromRC(rowPivot, colPivot);
                         const { fromcolumn:fromColumnPincer2Square, maximumcolumn:maximumColumnPincer2Square} = coordinates.defineInitialMaxRCFromRC(rowPincer1, colPincer2);
                         let positiveforZvalue = [];
+                        let positiveforZCells = [];
+                        let testingforZCells = [];
                         for (let column = fromColumnPivotSquare; column<=maximumColumnPivotSquare; column++) {
+                          testingforZCells.push( { row: rowPivot, column: column });
                           if (globalVar.theMatrix[globalVar.currentStep][rowPivot][column][pincerZ] !==0) { //The second argument (&& column !==colPincer1) of the If statement is to avoid issues in case the first pincer found (same square) also is in the same row. This case should also be already discarded before by Obvious Triples. It has been deleted
                             positiveforZvalue.push([rowPivot, column]);
+                            positiveforZCells.push( { row: rowPivot, column: column });
                           };
                         };
                         for (let column = fromColumnPincer2Square; column<=maximumColumnPincer2Square; column++) {
+                          testingforZCells.push( { row: rowPincer1, column: column });
                           if (globalVar.theMatrix[globalVar.currentStep][rowPincer1][column][pincerZ] !==0) { //The second argument (&& column !== colPincer2) of the If statement is to avoid issues in case the first pincer found (same square) also is in the same row. This case should also be already discarded before by Obvious Triples. It has been deleted
                             positiveforZvalue.push([rowPincer1, column]);
+                            positiveforZCells.push( { row: rowPincer1, column: column });
                           };
                         };
                         if (positiveforZvalue.length !== 0) {
                           // console.log(`Y-Wing Found with Pivot cell in Row ${rowPivot + 1}, Column ${colPivot + 1} with candidates ${pincerX} and ${pincerY}.`);
                           // console.log(`First Pincer (Same Square) in Row ${rowPincer1 + 1}, Column ${colPincer1 + 1}, Second Pincer (Same Row) in Row ${rowPivot + 1}, Column ${colPincer2 + 1}`);
                           // console.log(`All those cells seen by both pincer cells that contains a Z value ${pincerZ} have been be deleted`);                  
-                          solvingFunctions.discardYWing([rowPivot, colPivot], [rowPincer1, colPincer1], "square", [rowPivot, colPincer2], "row", pincerX, pincerY, pincerZ, "Y-Wing Value with Pincer Cells in Square and Row", notesZero.noteZeroCell, positiveforZvalue );
+                          solvingFunctions.discardYWing({ row: rowPivot, column: colPivot }, { row:rowPincer1, column:colPincer1, square: square - 1 }, "square", { row:rowPivot, column:colPincer2 }, "row", pincerX, pincerY, pincerZ, "Y-Wing Value with Pincer Cells in Square and Row", notesZero.noteZeroCell, positiveforZCells, positiveforZvalue, testingforZCells );
                           break;
                         };
                       };

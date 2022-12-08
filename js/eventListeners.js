@@ -196,6 +196,81 @@ const spanRowColumnCoordinatesListener = (spanCoordinates) => {
       console.log("Ever have that feeling where you're not sure if you're awake or dreaming? – Neo");
     });
   };
+
+  // Add event listener to the dinamically created spans hoverings for Row coordinates
+  if (spanCoordinates.dataset.rowcoordinates) { //
+    spanCoordinates.addEventListener("mouseover", (e) => {
+        let rowClass = spanCoordinates.dataset.rowcoordinates;
+        if (globalVar.areHighlightsOn) {
+          document.querySelectorAll(rowClass).forEach(cell => {
+            cell.classList.add("hoveredRowCoordinates");
+          });
+        };
+        console.log("--------------------------------------------");
+        console.log("We're not here because we're free, we're here because we are not free.  – Agent Smith");
+      });
+
+    spanCoordinates.addEventListener("mouseout", (e) => {
+      let rowClass = spanCoordinates.dataset.rowcoordinates;
+      if (globalVar.areHighlightsOn) {
+        document.querySelectorAll(rowClass).forEach(cell => {
+          cell.classList.remove("hoveredRowCoordinates");
+        });
+      };
+      console.log("--------------------------------------------");
+      console.log("Ever have that feeling where you're not sure if you're awake or dreaming? – Neo");
+    });
+  };
+
+  // Add event listener to the dinamically created spans hoverings for Column coordinates
+  if (spanCoordinates.dataset.columncoordinates) { //
+    spanCoordinates.addEventListener("mouseover", (e) => {
+        let columnClass = spanCoordinates.dataset.columncoordinates;
+        if (globalVar.areHighlightsOn) {
+          document.querySelectorAll(columnClass).forEach(cell => {
+            cell.classList.add("hoveredColumnCoordinates");
+          });
+        };
+        console.log("--------------------------------------------");
+        console.log("We're not here because we're free, we're here because we are not free.  – Agent Smith");
+      });
+
+    spanCoordinates.addEventListener("mouseout", (e) => {
+      let columnClass = spanCoordinates.dataset.columncoordinates;
+      if (globalVar.areHighlightsOn) {
+        document.querySelectorAll(columnClass).forEach(cell => {
+          cell.classList.remove("hoveredColumnCoordinates");
+        });
+      };
+      console.log("--------------------------------------------");
+      console.log("Ever have that feeling where you're not sure if you're awake or dreaming? – Neo");
+    });
+  };
+
+  // Add event listener to the dinamically created spans hoverings for Squares coordinates
+  if (spanCoordinates.dataset.squarecoordinates) { //
+    spanCoordinates.addEventListener("mouseover", (e) => {
+        let squareClass = spanCoordinates.dataset.squarecoordinates;
+        if (globalVar.areHighlightsOn) {
+          document.querySelectorAll(squareClass).forEach(cell => {
+            cell.classList.add("hoveredSquareCoordinates");
+          });
+        };
+        console.log("--------------------------------------------");
+        console.log("We're not here because we're free, we're here because we are not free.  – Agent Smith");
+      });
+
+    spanCoordinates.addEventListener("mouseout", (e) => {
+      let squareClass = spanCoordinates.dataset.squarecoordinates;
+      if (globalVar.areHighlightsOn) {
+        document.querySelectorAll(squareClass).forEach(cell => {
+          cell.classList.remove("hoveredSquareCoordinates");
+        });
+      };
+      console.log("--------------------------------------------");
+      console.log("Ever have that feeling where you're not sure if you're awake or dreaming? – Neo");
+    });
+  };
 };
 
 // Add event listener to the LoadPastSudokus button

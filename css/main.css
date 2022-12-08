@@ -143,6 +143,10 @@ h2 {
   /* highlightedRow, highlightedColumn and highlightedSquare are set before > input for the right cell found to be highlighted above the corresponding block*/
 }
 
+.theMatrixNotes .cell.deletionCell, .theMatrix .cell.deletionCell {
+  border: 3px solid #E3170A;
+}
+
 .theMatrixNotes .cell.deletionRow, .theMatrix .cell.deletionRow {
   border-top: 3px solid #E3170A;
   border-bottom: 3px solid #E3170A;
@@ -186,8 +190,8 @@ h2 {
 }
 
 .theMatrixNotes .cell.finnedCell, .theMatrix .cell.finnedCell {
-  border: 3px solid blue;
-  background-color: rgba(0, 0, 255, 0.2);
+  border: 3px solid blue !important;
+  background-color: rgba(0, 0, 255, 0.2) !important;
 }
 
 .theMatrixNotes .cell.finnedDeletionColumnCell, .theMatrix .cell.finnedDeletionColumnCell {
@@ -385,8 +389,50 @@ h2 {
   background-color: #A5FFD6;
 }
 
+.theMatrixNotes .cell.hoveredRowCoordinates input, .theMatrixNotes .cell.hoveredRowCoordinates div, .theMatrix .cell.hoveredRowCoordinates input, .theMatrix .cell.hoveredRowCoordinates div {
+  border-top: 3px dashed blue !important;
+  border-bottom: 3px dashed blue !important;
+}
+
+.theMatrixNotes .cell.hoveredRowCoordinates.column1 input, .theMatrixNotes .cell.hoveredRowCoordinates.column1 div, .theMatrix .cell.hoveredRowCoordinates.column1 input, .theMatrix .cell.hoveredRowCoordinates.column1 div {
+  border-left: 3px dashed blue !important;
+}
+
+.theMatrixNotes .cell.hoveredRowCoordinates.column9 input, .theMatrixNotes .cell.hoveredRowCoordinates.column9 div, .theMatrix .cell.hoveredRowCoordinates.column9 input, .theMatrix .cell.hoveredRowCoordinates.column9 div {
+  border-right: 3px dashed blue !important;
+}
+
+.theMatrixNotes .cell.hoveredColumnCoordinates input, .theMatrixNotes .cell.hoveredColumnCoordinates div, .theMatrix .cell.hoveredColumnCoordinates input, .theMatrix .cell.hoveredColumnCoordinates div {
+  border-right: 3px dashed blue !important;
+  border-left: 3px dashed blue !important;
+}
+
+.theMatrixNotes .cell.hoveredColumnCoordinates.row1 input, .theMatrixNotes .cell.hoveredColumnCoordinates.row1 div, .theMatrix .cell.hoveredColumnCoordinates.row1 input, .theMatrix .cell.hoveredColumnCoordinates.row1 div {
+  border-top: 3px dashed blue !important;
+}
+
+.theMatrixNotes .cell.hoveredColumnCoordinates.row9 input, .theMatrixNotes .cell.hoveredColumnCoordinates.row9 div, .theMatrix .cell.hoveredColumnCoordinates.row9 input, .theMatrix .cell.hoveredColumnCoordinates.row9 div {
+  border-bottom: 3px dashed blue !important;
+}
+
+.theMatrixNotes .cell.hoveredSquareCoordinates.row1, .theMatrixNotes .cell.hoveredSquareCoordinates.row4, .theMatrixNotes .cell.hoveredSquareCoordinates.row7 input, .theMatrixNotes .cell.hoveredSquareCoordinates.row1, .theMatrixNotes .cell.hoveredSquareCoordinates.row4, .theMatrixNotes .cell.hoveredSquareCoordinates.row7 div, .theMatrix .cell.hoveredSquareCoordinates.row1, .theMatrix .cell.hoveredSquareCoordinates.row4, .theMatrix .cell.hoveredSquareCoordinates.row7 input, .theMatrix .cell.hoveredSquareCoordinates.row1, .theMatrix .cell.hoveredSquareCoordinates.row4, .theMatrix .cell.hoveredSquareCoordinates.row7 div {
+  border-top: 3px dashed blue !important;
+}
+
+.theMatrixNotes .cell.hoveredSquareCoordinates.row3, .theMatrixNotes .cell.hoveredSquareCoordinates.row6, .theMatrixNotes .cell.hoveredSquareCoordinates.row9 input, .theMatrixNotes .cell.hoveredSquareCoordinates.row3, .theMatrixNotes .cell.hoveredSquareCoordinates.row6, .theMatrixNotes .cell.hoveredSquareCoordinates.row9 div, .theMatrix .cell.hoveredSquareCoordinates.row3, .theMatrix .cell.hoveredSquareCoordinates.row6, .theMatrix .cell.hoveredSquareCoordinates.row9 input, .theMatrix .cell.hoveredSquareCoordinates.row3, .theMatrix .cell.hoveredSquareCoordinates.row6, .theMatrix .cell.hoveredSquareCoordinates.row9 div {
+  border-bottom: 3px dashed blue !important;
+}
+
+.theMatrixNotes .cell.hoveredSquareCoordinates.column3, .theMatrixNotes .cell.hoveredSquareCoordinates.column6, .theMatrixNotes .cell.hoveredSquareCoordinates.column9 input, .theMatrixNotes .cell.hoveredSquareCoordinates.column3, .theMatrixNotes .cell.hoveredSquareCoordinates.column6, .theMatrixNotes .cell.hoveredSquareCoordinates.column9 div, .theMatrix .cell.hoveredSquareCoordinates.column3, .theMatrix .cell.hoveredSquareCoordinates.column6, .theMatrix .cell.hoveredSquareCoordinates.column9 input, .theMatrix .cell.hoveredSquareCoordinates.column3, .theMatrix .cell.hoveredSquareCoordinates.column6, .theMatrix .cell.hoveredSquareCoordinates.column9 div {
+  border-right: 3px dashed blue !important;
+}
+
+.theMatrixNotes .cell.hoveredSquareCoordinates.column1, .theMatrixNotes .cell.hoveredSquareCoordinates.column4, .theMatrixNotes .cell.hoveredSquareCoordinates.column7 input, .theMatrixNotes .cell.hoveredSquareCoordinates.column1, .theMatrixNotes .cell.hoveredSquareCoordinates.column4, .theMatrixNotes .cell.hoveredSquareCoordinates.column7 div, .theMatrix .cell.hoveredSquareCoordinates.column1, .theMatrix .cell.hoveredSquareCoordinates.column4, .theMatrix .cell.hoveredSquareCoordinates.column7 input, .theMatrix .cell.hoveredSquareCoordinates.column1, .theMatrix .cell.hoveredSquareCoordinates.column4, .theMatrix .cell.hoveredSquareCoordinates.column7 div {
+  border-left: 3px dashed blue !important;
+}
+
 .theMatrixNotes .cell.hoveredCellCoordinates input, .theMatrixNotes .cell.hoveredCellCoordinates div, .theMatrix .cell.hoveredCellCoordinates input, .theMatrix .cell.hoveredCellCoordinates div {
-  border: 4px dashed blue !important;
+  border: 3px dashed blue !important;
 }
 
 /*Configuration for Candidates Borders*/
