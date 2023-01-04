@@ -13,7 +13,7 @@ import * as sudokuFetchAPI from "./sudokuFetchAPI.js";
 // definining elements for Event Listeners
 const button_load = document.querySelector("#button-load");
 const button_loadmanually = document.querySelector("#button-loadmanually");
-const button_loadAPISudoku = document.querySelector("#button-loadAPISudoku");
+// const button_loadAPISudoku = document.querySelector("#button-loadAPISudoku");
 const button_validate = document.querySelector("#button-validate");
 const button_resolve = document.querySelector("#button-solveit");
 const button_reset = document.querySelector("#button-clear");
@@ -40,13 +40,13 @@ const loadMatrixManuallyListener = () => {
   });
 };
 
-const loadAPISudoku = () => {
-  button_loadAPISudoku.addEventListener("click", (e) => {
-    // Stop form from reloading the page
-    e.preventDefault();
-    sudokuFetchAPI.createRequestSudokuAPI();
-  });
-};
+// const loadAPISudoku = () => {
+//   button_loadAPISudoku.addEventListener("click", (e) => {
+//     // Stop form from reloading the page
+//     e.preventDefault();
+//     sudokuFetchAPI.createRequestSudokuAPI();
+//   });
+// };
 
 // Add event listener to the Reload button
 const reloadMatrixListener = () => {
@@ -110,9 +110,9 @@ const inputCellsListener = (input_cellvalues) => {
       document.querySelector("#button-loadmanually").disabled = true;
       document.querySelector("#button-loadmanually").classList.remove("active");
       document.querySelector("#button-loadmanually").classList.add("inactive");
-      document.querySelector("#button-loadAPISudoku").disabled = true;
-      document.querySelector("#button-loadAPISudoku").classList.remove("active");
-      document.querySelector("#button-loadAPISudoku").classList.add("inactive");
+      // document.querySelector("#button-loadAPISudoku").disabled = true;
+      // document.querySelector("#button-loadAPISudoku").classList.remove("active");
+      // document.querySelector("#button-loadAPISudoku").classList.add("inactive");
       document.querySelector("#button-loadPastSudokus").disabled = true;
       document.querySelector("#button-loadPastSudokus").classList.remove("active");
       document.querySelector("#button-loadPastSudokus").classList.add("inactive");
@@ -282,4 +282,4 @@ const theMatrixResurrectionsListener = (button_loadPastSudokus, previousSudokusS
   });
 };
 
-export { loadMatrixListener, loadMatrixManuallyListener, loadAPISudoku, reloadMatrixListener, validateMatrixListener, resetMatrixListener, toggleNotesListener, togglehighlightsListener, inputCellsListener, resolveMatrixListener, goBackToStepListener, spanRowColumnCoordinatesListener, theMatrixResurrectionsListener };
+export { loadMatrixListener, loadMatrixManuallyListener, reloadMatrixListener, validateMatrixListener, resetMatrixListener, toggleNotesListener, togglehighlightsListener, inputCellsListener, resolveMatrixListener, goBackToStepListener, spanRowColumnCoordinatesListener, theMatrixResurrectionsListener };

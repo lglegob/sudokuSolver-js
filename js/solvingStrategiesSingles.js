@@ -46,7 +46,7 @@ const hiddenSinglesRow = () => {
         if (currentCellValue === 0 && globalVar.theMatrix[globalVar.currentStep][row][column][possibleCandidate] === 1) {
           //This cell has not yet been resolved, it sums the values of each candidate position to find a hidden single
           ishiddensingle++;
-          // si ya existen mas de una celda con el possiblevalue, salir del loop y pasar al siguiente possiblevalue
+          // if there is already more tha one cell with the possiblevalue, leave the loop and evaluate the next possiblecandidate
           if (ishiddensingle > 1) break;
           columnfound = column;
         }

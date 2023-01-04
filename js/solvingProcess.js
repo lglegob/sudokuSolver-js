@@ -12,8 +12,9 @@ import * as lockedCandidates from "./solvingStrategiesLockedCandidate.js";
 import * as xwing from "./solvingStrategiesXWing.js";
 import * as ywing from "./solvingStrategiesYWing.js";
 import * as swordFish from "./solvingStrategiesSwordFish.js";
-import * as nishio from "./solvingStrategiesNishio.js";
 import * as finnedXWing from "./solvingStrategiesFinnedXWing.js";
+import * as nishio from "./solvingStrategiesNishio.js";
+
 
 
 ////////////////////////////////////////////////////////////////////////////////

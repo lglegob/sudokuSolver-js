@@ -89,12 +89,6 @@ h2 {
   justify-content: space-evenly;
 }
 
-@media screen and (min-width: 576px) {
-  .theButtons form {
-    flex-wrap: nowrap;
-  }
-}
-
 .theButtons .invisible {
   display: none;
 }
