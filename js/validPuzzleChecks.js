@@ -84,10 +84,7 @@ const validPuzzleSolvingIt = (validPuzzle) => {
           globalVar.loopsExecuted++;
           let currentCellValue = globalVar.theMatrix[globalVar.currentStep][row][column][0];
           //method reduce to obtain the sum of the candidates in this cell
-          const sum = globalVar.theMatrix[globalVar.currentStep][row][column].reduce(add, 0);
-          function add(accumulator, a) {
-            return accumulator + a;
-          };
+          const sum = globalVar.theMatrix[globalVar.currentStep][row][column].reduce((acc, a) => acc + a, 0);
           if (currentCellValue === 0 && sum-currentCellValue === 0) {
             //cell invalid, the cell has no certain value yet and it does not have any more candidates
             globalVar.failure = true;

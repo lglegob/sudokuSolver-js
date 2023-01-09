@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.6.11 (reduce method optimized) 2023-01-08
+
+- WHAT'S NEW!?
+
+  - (Code Improvements) 33 times the reduce method was used, it was optimized to not define an additional function not needed but to use an anonymous function.
+
+---
+
 ### Version 0.6.10 (API Button commented) 2023-01-04
 
 - WHAT'S NEW!?

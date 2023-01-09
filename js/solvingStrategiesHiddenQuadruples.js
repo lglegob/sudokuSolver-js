@@ -22,20 +22,14 @@ const hiddenQuadruplesRow = () => {
             let candidate2notes = whereisthisnote[currentCandidateValue2];
             let candidate1ORcandidate2Notes = candidate1notes.map((cell, index) => cell || candidate2notes[index]);
             //method reduce to obtain the sum of the cells with these candidates.
-            const sum1and2 = candidate1ORcandidate2Notes.reduce(add, 0);
-              function add(accumulator, a) {
-                return accumulator + a;
-              };
+            const sum1and2 = candidate1ORcandidate2Notes.reduce((acc, a) => acc + a, 0);
             if (sum1and2 === 3 || sum1and2 === 4) {
               for (let currentCandidateValue3 = currentCandidateValue2+1; currentCandidateValue3<= 8; currentCandidateValue3++) {
                 if (howmanycellswiththisnote[currentCandidateValue3] === 2 || howmanycellswiththisnote[currentCandidateValue3] === 3 || howmanycellswiththisnote[currentCandidateValue3] === 4) {
                   let candidate3notes = whereisthisnote[currentCandidateValue3];
                   let candidate1ORcandidate2ORcandidate3Notes = candidate3notes.map((cell, index) => cell || candidate1ORcandidate2Notes[index]);
                   //method reduce to obtain the sum of the candidates in this cell
-                  const sum1and2and3 = candidate1ORcandidate2ORcandidate3Notes.reduce(add, 0);
-                    function add(accumulator, a) {
-                      return accumulator + a;
-                    };
+                  const sum1and2and3 = candidate1ORcandidate2ORcandidate3Notes.reduce((acc, a) => acc + a, 0);
                   if (sum1and2and3 === 4) {
                     for (let currentCandidateValue4 = currentCandidateValue3+1; currentCandidateValue4<= 9; currentCandidateValue4++) {
                       globalVar.loopsExecuted++;
@@ -43,10 +37,7 @@ const hiddenQuadruplesRow = () => {
                         let candidate4notes = whereisthisnote[currentCandidateValue4];
                         let candidate1ORcandidate2ORcandidate3ORcandidate4Notes = candidate4notes.map((cell, index) => cell || candidate1ORcandidate2ORcandidate3Notes[index]);
                         //method reduce to obtain the sum of the candidates in this cell
-                        const sum1and2and3and4 = candidate1ORcandidate2ORcandidate3ORcandidate4Notes.reduce(add, 0);
-                          function add(accumulator, a) {
-                            return accumulator + a;
-                          };
+                        const sum1and2and3and4 = candidate1ORcandidate2ORcandidate3ORcandidate4Notes.reduce((acc, a) => acc + a, 0);
                         if (sum1and2and3and4 === 4) {
                           let column1 = candidate1ORcandidate2ORcandidate3ORcandidate4Notes.indexOf(1);
                           let column2 = candidate1ORcandidate2ORcandidate3ORcandidate4Notes.indexOf(1, column1 + 1);
@@ -92,20 +83,14 @@ const hiddenQuadruplesColumn = () => {
             let candidate2notes = whereisthisnote[currentCandidateValue2];
             let candidate1ORcandidate2Notes = candidate1notes.map((cell, index) => cell || candidate2notes[index]);
             //method reduce to obtain the sum of the cells with these candidates.
-            const sum1and2 = candidate1ORcandidate2Notes.reduce(add, 0);
-              function add(accumulator, a) {
-                return accumulator + a;
-              };
+            const sum1and2 = candidate1ORcandidate2Notes.reduce((acc, a) => acc + a, 0);
             if (sum1and2 === 3 || sum1and2 === 4) {
               for (let currentCandidateValue3 = currentCandidateValue2+1; currentCandidateValue3<= 8; currentCandidateValue3++) {
                 if (howmanycellswiththisnote[currentCandidateValue3] === 2 || howmanycellswiththisnote[currentCandidateValue3] === 3 || howmanycellswiththisnote[currentCandidateValue3] === 4) {
                   let candidate3notes = whereisthisnote[currentCandidateValue3];
                   let candidate1ORcandidate2ORcandidate3Notes = candidate3notes.map((cell, index) => cell || candidate1ORcandidate2Notes[index]);
                   //method reduce to obtain the sum of the candidates in this cell
-                  const sum1and2and3 = candidate1ORcandidate2ORcandidate3Notes.reduce(add, 0);
-                    function add(accumulator, a) {
-                      return accumulator + a;
-                    };
+                  const sum1and2and3 = candidate1ORcandidate2ORcandidate3Notes.reduce((acc, a) => acc + a, 0);
                   if (sum1and2and3 === 4) {
                     for (let currentCandidateValue4 = currentCandidateValue3+1; currentCandidateValue4<= 9; currentCandidateValue4++) {
                       globalVar.loopsExecuted++;
@@ -113,10 +98,7 @@ const hiddenQuadruplesColumn = () => {
                         let candidate4notes = whereisthisnote[currentCandidateValue4];
                         let candidate1ORcandidate2ORcandidate3ORcandidate4Notes = candidate4notes.map((cell, index) => cell || candidate1ORcandidate2ORcandidate3Notes[index]);
                         //method reduce to obtain the sum of the candidates in this cell
-                        const sum1and2and3and4 = candidate1ORcandidate2ORcandidate3ORcandidate4Notes.reduce(add, 0);
-                          function add(accumulator, a) {
-                            return accumulator + a;
-                          };
+                        const sum1and2and3and4 = candidate1ORcandidate2ORcandidate3ORcandidate4Notes.reduce((acc, a) => acc + a, 0);
                         if (sum1and2and3and4 === 4) {
                           let row1 = candidate1ORcandidate2ORcandidate3ORcandidate4Notes.indexOf(1);
                           let row2 = candidate1ORcandidate2ORcandidate3ORcandidate4Notes.indexOf(1, row1 + 1);
@@ -163,20 +145,14 @@ const hiddenQuadruplesSquare = () => {
             let candidate2notes = whereisthisnote[currentCandidateValue2];
             let candidate1ORcandidate2Notes = candidate1notes.map((cell, index) => cell || candidate2notes[index]);
             //method reduce to obtain the sum of the cells with these candidates.
-            const sum1and2 = candidate1ORcandidate2Notes.reduce(add, 0);
-              function add(accumulator, a) {
-                return accumulator + a;
-              };
+            const sum1and2 = candidate1ORcandidate2Notes.reduce((acc, a) => acc + a, 0);
             if (sum1and2 ===3 || sum1and2 === 4) {
               for (let currentCandidateValue3 = currentCandidateValue2+1; currentCandidateValue3<= 8; currentCandidateValue3++) {
                 if (howmanycellswiththisnote[currentCandidateValue3] === 2 || howmanycellswiththisnote[currentCandidateValue3] === 3 || howmanycellswiththisnote[currentCandidateValue3] === 4) {
                   let candidate3notes = whereisthisnote[currentCandidateValue3];
                   let candidate1ORcandidate2ORcandidate3Notes = candidate3notes.map((cell, index) => cell || candidate1ORcandidate2Notes[index]);
                   //method reduce to obtain the sum of the candidates in this cell
-                  const sum1and2and3 = candidate1ORcandidate2ORcandidate3Notes.reduce(add, 0);
-                    function add(accumulator, a) {
-                      return accumulator + a;
-                    };
+                  const sum1and2and3 = candidate1ORcandidate2ORcandidate3Notes.reduce((acc, a) => acc + a, 0);
                   if (sum1and2and3 === 4) {
                     for (let currentCandidateValue4 = currentCandidateValue3+1; currentCandidateValue4<= 9; currentCandidateValue4++) {
                       globalVar.loopsExecuted++;
@@ -184,10 +160,7 @@ const hiddenQuadruplesSquare = () => {
                         let candidate4notes = whereisthisnote[currentCandidateValue4];
                         let candidate1ORcandidate2ORcandidate3ORcandidate4Notes = candidate4notes.map((cell, index) => cell || candidate1ORcandidate2ORcandidate3Notes[index]);
                         //method reduce to obtain the sum of the candidates in this cell
-                        const sum1and2and3and4 = candidate1ORcandidate2ORcandidate3ORcandidate4Notes.reduce(add, 0);
-                          function add(accumulator, a) {
-                            return accumulator + a;
-                          };
+                        const sum1and2and3and4 = candidate1ORcandidate2ORcandidate3ORcandidate4Notes.reduce((acc, a) => acc + a, 0);
                         if (sum1and2and3and4 === 4) {
                           let cell1 = candidate1ORcandidate2ORcandidate3ORcandidate4Notes.indexOf(1);
                           let cell2 = candidate1ORcandidate2ORcandidate3ORcandidate4Notes.indexOf(1, cell1 + 1);

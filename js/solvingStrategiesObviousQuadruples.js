@@ -23,20 +23,14 @@ const obviousQuadsRow = () => {
             let cell2notes = globalVar.theMatrix[globalVar.currentStep][row][column2];
             let cell1ORcell2Notes = cell1notes.map((candidate, index) => candidate || cell2notes[index]);
             //method reduce to obtain the sum of the candidates in this cell
-            const sum1and2 = cell1ORcell2Notes.reduce(add, 0);
-              function add(accumulator, a) {
-                return accumulator + a;
-              };
+            const sum1and2 = cell1ORcell2Notes.reduce((acc, a) => acc + a, 0);
             if (sum1and2 === 3 || sum1and2 === 4) {
               for (let column3 = column2+1; column3<= 7; column3++) {
                 if (howmanynotesinthiscell[column3] === 2 || howmanynotesinthiscell[column3] === 3 || howmanynotesinthiscell[column3] === 4) {
                   let cell3notes = globalVar.theMatrix[globalVar.currentStep][row][column3];
                   let cell1ORcell2ORcell3Notes = cell3notes.map((candidate, index) => candidate || cell1ORcell2Notes[index]);
                   //method reduce to obtain the sum of the candidates in this cell
-                  const sum1and2and3 = cell1ORcell2ORcell3Notes.reduce(add, 0);
-                    function add(accumulator, a) {
-                      return accumulator + a;
-                    };
+                  const sum1and2and3 = cell1ORcell2ORcell3Notes.reduce((acc, a) => acc + a, 0);
                   if (sum1and2and3 === 4) {
                     for (let column4 = column3+1; column3<= 8; column3++) {
                       globalVar.loopsExecuted++;
@@ -44,10 +38,7 @@ const obviousQuadsRow = () => {
                         let cell4notes = globalVar.theMatrix[globalVar.currentStep][row][column4];
                         let cell1ORcell2ORcell3ORcell4Notes = cell4notes.map((candidate, index) => candidate || cell1ORcell2ORcell3Notes[index]);
                         //method reduce to obtain the sum of the candidates in this cell
-                        const sum1and2and3and4 = cell1ORcell2ORcell3ORcell4Notes.reduce(add, 0);
-                          function add(accumulator, a) {
-                            return accumulator + a;
-                          };
+                        const sum1and2and3and4 = cell1ORcell2ORcell3ORcell4Notes.reduce((acc, a) => acc + a, 0);
                         if (sum1and2and3and4 === 4) {
                           let currentCandidateValue1 = cell1ORcell2ORcell3ORcell4Notes.indexOf(1);
                           let currentCandidateValue2 = cell1ORcell2ORcell3ORcell4Notes.indexOf(1, currentCandidateValue1 + 1);
@@ -93,20 +84,14 @@ const obviousQuadsColumn = () => {
             let cell2notes = globalVar.theMatrix[globalVar.currentStep][row2][column];
             let cell1ORcell2Notes = cell1notes.map((candidate, index) => candidate || cell2notes[index]);
             //method reduce to obtain the sum of the candidates in this cell
-            const sum1and2 = cell1ORcell2Notes.reduce(add, 0);
-              function add(accumulator, a) {
-                return accumulator + a;
-              };
+            const sum1and2 = cell1ORcell2Notes.reduce((acc, a) => acc + a, 0);
             if (sum1and2 ===3 || sum1and2 === 4) {
               for (let row3 = row2+1; row3<= 7; row3++) {
                 if (howmanynotesinthiscell[row3] === 2 || howmanynotesinthiscell[row3] === 3 || howmanynotesinthiscell[row3] === 4) {
                   let cell3notes = globalVar.theMatrix[globalVar.currentStep][row3][column];
                   let cell1ORcell2ORcell3Notes = cell3notes.map((candidate, index) => candidate || cell1ORcell2Notes[index]);
                   //method reduce to obtain the sum of the candidates in this cell
-                  const sum1and2and3 = cell1ORcell2ORcell3Notes.reduce(add, 0);
-                    function add(accumulator, a) {
-                      return accumulator + a;
-                    };
+                  const sum1and2and3 = cell1ORcell2ORcell3Notes.reduce((acc, a) => acc + a, 0);
                   if (sum1and2and3 === 4) {
                     for (let row4 = row3+1; row4<= 8; row4++) {
                       globalVar.loopsExecuted++;
@@ -114,10 +99,7 @@ const obviousQuadsColumn = () => {
                         let cell4notes = globalVar.theMatrix[globalVar.currentStep][row4][column];
                         let cell1ORcell2ORcell3ORcell4Notes = cell4notes.map((candidate, index) => candidate || cell1ORcell2ORcell3Notes[index]);
                         //method reduce to obtain the sum of the candidates in this cell
-                        const sum1and2and3and4 = cell1ORcell2ORcell3ORcell4Notes.reduce(add, 0);
-                          function add(accumulator, a) {
-                            return accumulator + a;
-                          };
+                        const sum1and2and3and4 = cell1ORcell2ORcell3ORcell4Notes.reduce((acc, a) => acc + a, 0);
                         if (sum1and2and3and4 === 4) {
                           let currentCandidateValue1 = cell1ORcell2ORcell3ORcell4Notes.indexOf(1);
                           let currentCandidateValue2 = cell1ORcell2ORcell3ORcell4Notes.indexOf(1, currentCandidateValue1 + 1);
@@ -166,10 +148,7 @@ const obviousQuadsSquare = () => {
             let cell2notes = globalVar.theMatrix[globalVar.currentStep][realrow2][realcolumn2];
             let cell1ORcell2Notes = cell1notes.map((candidate, index) => candidate || cell2notes[index]);
             //method reduce to obtain the sum of the candidates in this cell
-            const sum1and2 = cell1ORcell2Notes.reduce(add, 0);
-              function add(accumulator, a) {
-                return accumulator + a;
-              };
+            const sum1and2 = cell1ORcell2Notes.reduce((acc, a) => acc + a, 0);
             if (sum1and2 === 3 || sum1and2 === 4) {
               for (let cell3 = cell2+1; cell3<= 7; cell3++) {
                 if (howmanynotesinthiscell[cell3] === 2 || howmanynotesinthiscell[cell3] === 3 || howmanynotesinthiscell[cell3] === 4) {
@@ -177,10 +156,7 @@ const obviousQuadsSquare = () => {
                   let cell3notes = globalVar.theMatrix[globalVar.currentStep][realrow3][realcolumn3];
                   let cell1ORcell2ORcell3Notes = cell3notes.map((candidate, index) => candidate || cell1ORcell2Notes[index]);
                   //method reduce to obtain the sum of the candidates in this cell
-                  const sum1and2and3 = cell1ORcell2ORcell3Notes.reduce(add, 0);
-                    function add(accumulator, a) {
-                      return accumulator + a;
-                    };
+                  const sum1and2and3 = cell1ORcell2ORcell3Notes.reduce((acc, a) => acc + a, 0);
                   if (sum1and2and3 === 4) {
                     for (let cell4 = cell3+1; cell4<= 8; cell4++) {
                       globalVar.loopsExecuted++;
@@ -189,10 +165,7 @@ const obviousQuadsSquare = () => {
                         let cell4notes = globalVar.theMatrix[globalVar.currentStep][realrow4][realcolumn4];
                         let cell1ORcell2ORcell3ORcell4Notes = cell4notes.map((candidate, index) => candidate || cell1ORcell2ORcell3Notes[index]);
                         //method reduce to obtain the sum of the candidates in this cell
-                        const sum1and2and3and4 = cell1ORcell2ORcell3ORcell4Notes.reduce(add, 0);
-                          function add(accumulator, a) {
-                            return accumulator + a;
-                          };
+                        const sum1and2and3and4 = cell1ORcell2ORcell3ORcell4Notes.reduce((acc, a) => acc + a, 0);
                           if (sum1and2and3and4 === 4) {
                             let currentCandidateValue1 = cell1ORcell2ORcell3ORcell4Notes.indexOf(1);
                             let currentCandidateValue2 = cell1ORcell2ORcell3ORcell4Notes.indexOf(1, currentCandidateValue1 + 1);

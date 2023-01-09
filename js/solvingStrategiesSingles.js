@@ -15,10 +15,7 @@ const singleCandidate = () => {
       globalVar.loopsExecuted++;
       let currentCellValue = globalVar.theMatrix[globalVar.currentStep][row][column][0];
       //method reduce to obtain the sum of the candidates in this cell
-      const sum = globalVar.theMatrix[globalVar.currentStep][row][column].reduce(add, 0);
-      function add(accumulator, a) {
-        return accumulator + a;
-      };
+      const sum = globalVar.theMatrix[globalVar.currentStep][row][column].reduce((acc, a) => acc + a, 0);
       if (sum-currentCellValue === 1) {
         //cell solved! iterationsuccess! Detect which value is unique and set it as answer in currentCellValue
         currentCellValue = globalVar.theMatrix[globalVar.currentStep][row][column].findIndex((one, index) => one === 1 && index > 0);
