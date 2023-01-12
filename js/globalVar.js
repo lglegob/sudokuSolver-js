@@ -28,6 +28,7 @@ let difficulty = 0;
 let iterationSuccess = false;
 let discardNoteSuccess = false;
 let areNotesShowing = false;
+let areNotesNeeded = false;
 let areHighlightsOn = true;
 let stepByStep = false;
 let failure = false;
@@ -41,4 +42,4 @@ let failure = false;
 // previousNishioResult: defines the latest nishio guess outcome with possible values ("notExecuted", "invalidGuess", "nishioDeadEnd" )
 let nishioGuessingActive = { evaluating: false, previousNishioResult: "notExecuted" };
 
-export default { theMatrix, theMatrixSolved, stepsDetail, currentStep, loopsExecuted, cellsResolved, iterationSuccess, discardNoteSuccess, areNotesShowing, areHighlightsOn, stepByStep, failure, difficulty, nishioGuessingActive };
+export default { theMatrix, theMatrixSolved, stepsDetail, currentStep, loopsExecuted, cellsResolved, iterationSuccess, discardNoteSuccess, areNotesShowing, areNotesNeeded, areHighlightsOn, stepByStep, failure, difficulty, nishioGuessingActive };

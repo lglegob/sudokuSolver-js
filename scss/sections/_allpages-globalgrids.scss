@@ -11,15 +11,15 @@
 	"solveIt"
 	"theMatrix"
 	"theButtons"
-	"stepsDetails"
+	"stackedCardsSection"
 	;
 	@include size-lg {
 		grid-template-columns: 50% 50%;
 		grid-template-areas: 
 		".				solveIt"
-		"stepsDetails	theMatrix"
-		"stepsDetails 	theButtons"
-		"stepsDetails	."
+		"stackedCardsSection	theMatrix"
+		"stackedCardsSection 	theButtons"
+		"stackedCardsSection	."
 		;
 	}
 }
@@ -34,6 +34,6 @@
 .solveIt {			
 	grid-area: solveIt;
 }
-.stepsDetails {			
-	grid-area: stepsDetails;
+.stackedCardsSection {			
+	grid-area: stackedCardsSection;
 }

@@ -79,32 +79,32 @@ const defineInitialMaxRCFromSquare = (square) => {
 };
 
 const defineSquareFromRC = (row, column) => {
-  let square = 3 * Math.floor(row / 3) + Math.ceil((column + 1) / 3);
+  const square = 3 * Math.floor(row / 3) + Math.ceil((column + 1) / 3);
   return square;
 };
 
 const defineRealRCFromSquareRelativeRC = (square, relativeRow, relativeColumn) => {
-  let realRow = (3 *(Math.floor((square-1) / 3))) + relativeRow;
-  let realColumn = ( 3 * ((square-1) % 3)) + relativeColumn;
+  const realRow = (3 *(Math.floor((square-1) / 3))) + relativeRow;
+  const realColumn = ( 3 * ((square-1) % 3)) + relativeColumn;
   return { realRow, realColumn };
 };
 
 const defineRealRCFromSquareRelativeCell = (square, relativeCell) => {
-  let realRow = (3 *(Math.floor((square-1) / 3))) + Math.floor(relativeCell / 3);
-  let realColumn = ( 3 * ((square-1) % 3)) + (relativeCell % 3);
+  const realRow = (3 *(Math.floor((square-1) / 3))) + Math.floor(relativeCell / 3);
+  const realColumn = ( 3 * ((square-1) % 3)) + (relativeCell % 3);
   return { realRow, realColumn };
 };
 
 //If available, square with above function should the function to use instead
 const defineRealRCFromInitialRCRelativeCell = (fromRow, fromColumn, relativeCell) => {
-  let realRow = fromRow + Math.floor(relativeCell / 3); 
-  let realColumn = fromColumn + relativeCell % 3;
+  const realRow = fromRow + Math.floor(relativeCell / 3); 
+  const realColumn = fromColumn + relativeCell % 3;
   return { realRow, realColumn };
 };
 
 //This function receives row and column (0 to 8) and returns the relative Cell (1 to 81)
 const defineRelativeCellFromRC = (row, column) => {
-  let relativeCell = row * 9 + column + 1;
+  const relativeCell = row * 9 + column + 1;
   return { relativeCell };
 };
 

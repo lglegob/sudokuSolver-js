@@ -92,7 +92,7 @@ const nishioChecking = () => {
           <strong><span data-cellcoordinates=".row${row + 1}.column${column + 1}">R${row + 1}C${column + 1}</span></strong> 
           with no Certain value and no candidates, review your Nishio Guess from step ${globalVar.nishioGuessingActive.step + 1}.
           `;
-          const latestArticle = document.querySelector(".stepsDetails > div article:first-child");
+          const latestArticle = document.querySelector(".stackedCardsSection > div article:first-child");
           latestArticle.append(newWarningP);
           //creating the Event Listeners to the recently created RC spans
           const spanRowColumnCoordinates = document.querySelectorAll(`#Step${globalVar.currentStep} span`);

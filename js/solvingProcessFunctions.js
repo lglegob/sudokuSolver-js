@@ -15,7 +15,7 @@ const cellValueFound = (row, column, currentCellValue, method, mainBlock, mainBl
   globalVar.cellsResolved++;
   globalVar.currentStep++;
   globalVar.iterationSuccess = true;
-  globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: true, method: method, cellsResolved: globalVar.cellsResolved, valueFound: currentCellValue, cellRC: {row: row, column: column}, nishioGuessingActive: JSON.parse(JSON.stringify(globalVar.nishioGuessingActive)) } );
+  globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: true, method: method, cellsResolved: globalVar.cellsResolved, nishioGuessingActive: JSON.parse(JSON.stringify(globalVar.nishioGuessingActive)), valueFound: currentCellValue, cellRC: {row: row, column: column} } );
   let theMatrixStepCellFound = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep - 1])); //The point where a new step is created in theMatrix, so previous state is saved in step-1. It has to be used these JSON methods to avoid the copy by reference but by value
   document.querySelector("#button-reload").disabled = false; //applies only to step 1, but the if is unnecesary
   document.querySelector("#button-reload").classList.add("active");

@@ -183,7 +183,7 @@ const matrixReloaded = (theMatrixDestinedStep, GoBackToStep) => {
     globalVar.currentStep--;
     globalVar.cellsResolved = globalVar.stepsDetail.find(step => step.currentStep === globalVar.currentStep).cellsResolved;
     globalVar.nishioGuessingActive = JSON.parse(JSON.stringify(globalVar.stepsDetail.find(step => step.currentStep === globalVar.currentStep).nishioGuessingActive));   
-    const main = document.querySelector(".stepsDetails > div");
+    const main = document.querySelector(".stackedCardsSection > div");
     main.removeChild(main.firstElementChild);
     //Config to remove the button of the new current step
     let currentArticle = document.querySelector(`#Step${globalVar.currentStep}`);

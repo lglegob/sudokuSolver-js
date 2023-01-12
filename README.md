@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.6.12 (stepsDetails renamed) 2023-01-11
+
+- WHAT'S NEW!?
+
+  - (Code Improvements) stepsDetails has been renamed to stackedCardsSection in all files and across the scss as well, to differentiate it from the variable stepsDetail (easier code handling and further modifications).
+
+---
+
 ### Version 0.6.11 (reduce method optimized) 2023-01-08
 
 - WHAT'S NEW!?
@@ -469,7 +477,7 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ---
 
-### Version 0.4.11 (stepsDetails fine tuning) 2022-10-12
+### Version 0.4.11 (stackedCardsSection fine tuning) 2022-10-12
 
 - WHAT'S NEW!?
 

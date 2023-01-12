@@ -49,12 +49,12 @@ const newFoundValueHTML = (itemRow, itemColumn, currentCellValue, theMatrixStep,
   const mainMatrixNotes = document.querySelector(".theMatrixNotes .row" + itemRow +".column" + itemColumn);
   mainMatrixNotes.replaceWith(newfoundInputNotes);
 
-  //Config for adding the description and card in stepsDetails Section
+  //Config for adding the description and card in stackedCardsSection Section
   let newfoundvalueArticle = document.createElement("article");
   newfoundvalueArticle.classList.add("newfoundvalue");
   newfoundvalueArticle.setAttribute("id", "Step" + globalVar.currentStep );
   newfoundvalueArticle.style.zIndex = -globalVar.currentStep;
-  //At this point, it is defined if the value Found was by NAKED singles technique or by HIDDEN singles technique to give the appropiate message in stepsDetails
+  //At this point, it is defined if the value Found was by NAKED singles technique or by HIDDEN singles technique to give the appropiate message in stackedCardsSection
   if (method === "Detecting Singles") {
     newfoundvalueArticle.innerHTML = `
     <h3>Step ${globalVar.currentStep}</h3>
@@ -93,7 +93,7 @@ const newFoundValueHTML = (itemRow, itemColumn, currentCellValue, theMatrixStep,
     <p>The guessed Value for this Cell is <strong>${currentCellValue}.</strong> which can be proven wrong or right in the next few steps</p>
     `;
   };
-  const main = document.querySelector(".stepsDetails > div");
+  const main = document.querySelector(".stackedCardsSection > div");
   main.prepend(newfoundvalueArticle);
 
   //creating the Event Listeners to the recently created RC spans
@@ -145,7 +145,7 @@ const discardObviousPairsHTML = (mainAxisValue, mainAxis, cellsIdentified, curre
     <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong>
   </p>
   `;
-  const main = document.querySelector(".stepsDetails > div");
+  const main = document.querySelector(".stackedCardsSection > div");
   main.prepend(newDiscardArticle);
 
   //creating the Event Listeners to the recently created RC spans
@@ -197,7 +197,7 @@ const discardHiddenPairHTML = (mainAxisValue, mainAxis, cellsIdentified, current
     in those two cells
   </p>
   `;
-  const main = document.querySelector(".stepsDetails > div");
+  const main = document.querySelector(".stackedCardsSection > div");
   main.prepend(newDiscardArticle);
 
   //creating the Event Listeners to the recently created RC spans
@@ -249,7 +249,7 @@ const discardObviousTripleHTML = (mainAxisValue, mainAxis, cellsIdentified, curr
     <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong>
   </p>
   `;
-  const main = document.querySelector(".stepsDetails > div");
+  const main = document.querySelector(".stackedCardsSection > div");
   main.prepend(newDiscardArticle);
 
   //creating the Event Listeners to the recently created RC spans
@@ -301,7 +301,7 @@ const discardHiddenTripleHTML = (mainAxisValue, mainAxis, cellsIdentified, curre
     in those three cells
   </p>
   `;
-  const main = document.querySelector(".stepsDetails > div");
+  const main = document.querySelector(".stackedCardsSection > div");
   main.prepend(newDiscardArticle);
 
   //creating the Event Listeners to the recently created RC spans
@@ -354,7 +354,7 @@ const discardObviousQuadHTML = (mainAxisValue, mainAxis, cellsIdentified, curren
     <strong><span data-${mainAxis}coordinates=".${mainAxis}${mainAxisValue + 1}">${recurrent.getFirstLetterCapitalized(mainAxis)}${mainAxisValue + 1}</span></strong>
   </p>
   `;
-  const main = document.querySelector(".stepsDetails > div");
+  const main = document.querySelector(".stackedCardsSection > div");
   main.prepend(newDiscardArticle);
 
   //creating the Event Listeners to the recently created RC spans
@@ -407,7 +407,7 @@ const discardHiddenQuadrupleHTML = (mainAxisValue, mainAxis, cellsIdentified, cu
     in those four cells
   </p>
   `;
-  const main = document.querySelector(".stepsDetails > div");
+  const main = document.querySelector(".stackedCardsSection > div");
   main.prepend(newDiscardArticle);
 
   //creating the Event Listeners to the recently created RC spans
@@ -470,7 +470,7 @@ const discardLockedCandidateHTML = (mainAxisValue, mainAxis, secondaryAxisValue,
     have been deleted.
   </p>
   `;
-  const main = document.querySelector(".stepsDetails > div");
+  const main = document.querySelector(".stackedCardsSection > div");
   main.prepend(newDiscardArticle);
 
   //creating the Event Listeners to the recently created RC spans
@@ -542,7 +542,7 @@ const discardXWingHTML = ( cornertopleft, cornerbottomright, mainAxis, secondary
   have been deleted.`;
 
 
-  const main = document.querySelector(".stepsDetails > div");
+  const main = document.querySelector(".stackedCardsSection > div");
   main.prepend(newDiscardArticle);
 
   //creating the Event Listeners to the recently created RC spans
@@ -623,7 +623,7 @@ const discardYWingHTML = (pivotCell, pincer1Cell, pincer1Axis, pincer2Cell, pinc
   </p>
   `;
 
-  const main = document.querySelector(".stepsDetails > div");
+  const main = document.querySelector(".stackedCardsSection > div");
   main.prepend(newDiscardArticle);
 
   //creating the Event Listeners to the recently created RC spans
@@ -729,7 +729,7 @@ const discardSwordFishHTML = (mainAxisValues, mainAxis, secondaryAxisValues, sec
     );
   };
 
-  const main = document.querySelector(".stepsDetails > div");
+  const main = document.querySelector(".stackedCardsSection > div");
   main.prepend(newDiscardArticle);
 
   //creating the Event Listeners to the recently created RC spans
@@ -844,7 +844,7 @@ const discardFinnedXWingHTML = (cornerFin, oppositeCornerFin, squaresRectangle, 
     `
   );
 
-  const main = document.querySelector(".stepsDetails > div");
+  const main = document.querySelector(".stackedCardsSection > div");
   main.prepend(newDiscardArticle);
 
   //creating the Event Listeners to the recently created RC spans
@@ -897,7 +897,7 @@ const discardNishioCandidateProvenWrongHTML = (row, column, wrongCandidate, meth
   </p>
   `;
 
-  const main = document.querySelector(".stepsDetails > div");
+  const main = document.querySelector(".stackedCardsSection > div");
   main.prepend(newDiscardArticle);
 
   //creating the Event Listeners to the recently created RC spans
@@ -937,7 +937,7 @@ const discardNishioGuessDeadEndHTML = (wrongCandidate, method, mainAxis, mainAxi
   To do that, in this step, the puzzle has been returned to the state in step ${globalVar.nishioGuessingActive.step}.</p>
   `;
 
-  const main = document.querySelector(".stepsDetails > div");
+  const main = document.querySelector(".stackedCardsSection > div");
   main.prepend(newDiscardArticle);
 
   //creating the Event Listeners to the recently created RC spans
@@ -990,7 +990,7 @@ const settingHighlightedBlock = (mainBlock, mainBlockValue, classtoadd) => {
 };
 
 const newSudokuPuzzleArticle = () => {
-  //Config for adding the description and card in stepsDetails Section
+  //Config for adding the description and card in stackedCardsSection Section
   let newfoundvalueArticle = document.createElement("article");
   newfoundvalueArticle.classList.add("newsudokupuzzle");
   newfoundvalueArticle.setAttribute("id", "Step" + globalVar.currentStep );
@@ -1016,7 +1016,7 @@ const newSudokuPuzzleArticle = () => {
   <p>Enjoy it and learn a lot about how solving your puzzle.</p>
   <p>The calculated difficulty for this puzzle is: ${globalVar.difficulty}</p>
   `;
-  const main = document.querySelector(".stepsDetails > div");
+  const main = document.querySelector(".stackedCardsSection > div");
   main.prepend(newfoundvalueArticle);
 
   //creating the Event Listeners to the recently created RC spans
