@@ -204,44 +204,44 @@
 
     &.hoveredRowCoordinates { //putting this line inside the input, stopped the issue of the grid jumping/growing when hovering over the span that triggers this class
       & input, & div {
-        border-top: 3px dashed $clr-main-color2 !important;
-        border-bottom: 3px dashed $clr-main-color2 !important;
+        border-top: 3px dashed $clr-hoveredBlock-color !important;
+        border-bottom: 3px dashed $clr-hoveredBlock-color !important;
       }
       &.column1 input, &.column1 div {
-        border-left: 3px dashed $clr-main-color2 !important;
+        border-left: 3px dashed $clr-hoveredBlock-color !important;
       }
       &.column9 input, &.column9 div {
-        border-right: 3px dashed $clr-main-color2 !important;
+        border-right: 3px dashed $clr-hoveredBlock-color !important;
       }
     }
     &.hoveredColumnCoordinates { //putting this line inside the input, stopped the issue of the grid jumping/growing when hovering over the span that triggers this class
       & input, & div {
-        border-right: 3px dashed $clr-main-color2 !important;
-        border-left: 3px dashed $clr-main-color2 !important;
+        border-right: 3px dashed $clr-hoveredBlock-color !important;
+        border-left: 3px dashed $clr-hoveredBlock-color !important;
       }
       &.row1 input, &.row1 div {
-        border-top: 3px dashed $clr-main-color2 !important;
+        border-top: 3px dashed $clr-hoveredBlock-color !important;
       }
       &.row9 input, &.row9 div {
-        border-bottom: 3px dashed $clr-main-color2 !important;
+        border-bottom: 3px dashed $clr-hoveredBlock-color !important;
       }
     }
     &.hoveredSquareCoordinates { //putting this line inside the input, stopped the issue of the grid jumping/growing when hovering over the span that triggers this class
       &.row1,&.row4,&.row7 input, &.row1,&.row4,&.row7 div {
-        border-top: 3px dashed $clr-main-color2 !important;
+        border-top: 3px dashed $clr-hoveredBlock-color !important;
       }
       &.row3,&.row6,&.row9 input, &.row3,&.row6,&.row9 div {
-        border-bottom: 3px dashed $clr-main-color2 !important;
+        border-bottom: 3px dashed $clr-hoveredBlock-color !important;
       }
       &.column3,&.column6,&.column9 input, &.column3,&.column6,&.column9 div {
-        border-right: 3px dashed $clr-main-color2 !important;
+        border-right: 3px dashed $clr-hoveredBlock-color !important;
       }
       &.column1,&.column4,&.column7 input, &.column1,&.column4,&.column7 div {
-        border-left: 3px dashed $clr-main-color2 !important;
+        border-left: 3px dashed $clr-hoveredBlock-color !important;
       }
     }
     &.hoveredCellCoordinates input, &.hoveredCellCoordinates div { //putting this line inside the input, stopped the issue of the grid jumping/growing when hovering over the span that triggers this class
-      border: 3px dashed $clr-main-color2 !important;
+      border: 3px dashed $clr-hoveredBlock-color !important;
     }
   }
 }

@@ -178,17 +178,19 @@ const analyzeMatrix = (theMatrixStep) => {
 
 //Reload the Matrix (html values and notes) based on a previous step
 const matrixReloaded = (theMatrixDestinedStep, GoBackToStep) => {
-  //Loop to go bask as many steps as needed
+  //Loop to go back as many steps as needed
   for (let stepsBack = globalVar.currentStep - GoBackToStep; stepsBack >0; stepsBack--) {
-    globalVar.currentStep--;
-    globalVar.cellsResolved = globalVar.stepsDetail.find(step => step.currentStep === globalVar.currentStep).cellsResolved;
-    globalVar.nishioGuessingActive = JSON.parse(JSON.stringify(globalVar.stepsDetail.find(step => step.currentStep === globalVar.currentStep).nishioGuessingActive));   
+    globalVar.currentStep--;  
     const main = document.querySelector(".stackedCardsSection > div");
     main.removeChild(main.firstElementChild);
     //Config to remove the button of the new current step
     let currentArticle = document.querySelector(`#Step${globalVar.currentStep}`);
     currentArticle.removeChild(currentArticle.lastChild);
   };
+  //setting important variables to its original state in the new destined step
+  globalVar.cellsResolved = globalVar.stepsDetail.find(step => step.currentStep === globalVar.currentStep).cellsResolved;
+  globalVar.nishioGuessingActive = JSON.parse(JSON.stringify(globalVar.stepsDetail.find(step => step.currentStep === globalVar.currentStep).nishioGuessingActive)); 
+  globalVar.areNotesNeeded = globalVar.stepsDetail.find(step => step.currentStep === globalVar.currentStep).areNotesNeeded;
 
   document.querySelector("#button-solveit").disabled = false;
   document.querySelector("#button-solveit").classList.add("active");
@@ -244,7 +246,7 @@ const thePuzzleisValid = (initialMatrixValues, isThisPuzzleNew) => {
   const instructions = document.querySelector(".instructions");
   instructions.remove();
   //stepsDetail push for step zero, so, when going back to step zero, there is information (like cellsResolved)
-  globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: "start", cellsResolved: globalVar.cellsResolved, nishioGuessingActive: JSON.parse(JSON.stringify(globalVar.nishioGuessingActive)) } );
+  globalVar.stepsDetail.push( { currentStep: globalVar.currentStep, cellValueFound: false, method: "start", cellsResolved: globalVar.cellsResolved, areNotesNeeded: globalVar.areNotesNeeded, nishioGuessingActive: JSON.parse(JSON.stringify(globalVar.nishioGuessingActive)) } );
 
   //Process to save the current Sudoku Puzzle in Local Storage for future references, as first step it defines if there are more than X puzzle saved to delete the oldest one.
   if (isThisPuzzleNew) {    
@@ -310,7 +312,7 @@ const thePuzzleisValid = (initialMatrixValues, isThisPuzzleNew) => {
   document.querySelector("#button-reload").disabled = true;
   document.querySelector("#button-reload").classList.remove("active", "invisible");
   document.querySelector("#button-reload").classList.add("inactive", "visible");
-  //ToggleHighlights and is just made visible, but not yet active
+  //ToggleHighlights is just made visible, but not yet active
   document.querySelector("#button-togglehighlights").classList.add("visible");
   document.querySelector("#button-togglehighlights").classList.remove("invisible");
   console.log("--------------------------------------------");

@@ -22,8 +22,10 @@ https://coolors.co/e3170a-343434-d7fcd4-9ac4f8-f9f9f9
 $clr-main-color: #E2AE12;
 $clr-main-color-transparent: #{transparentize($clr-main-color, 0.8)};
 
-$clr-main-color2: blue;
+$clr-main-color2: midnightblue;
 $clr-main-color2-transparent: #{transparentize($clr-main-color2, 0.8)};
+
+$clr-hoveredBlock-color: purple;
 
 $clr-wrong: #E3170A;    // Vermilion //
 $clr-wrong-transparent: #{transparentize($clr-wrong, 0.4)};

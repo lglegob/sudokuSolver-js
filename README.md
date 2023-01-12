@@ -6,6 +6,15 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.6.13 (step for NeededNotes) 2023-01-11
+
+- WHAT'S NEW!?
+
+  - (User Experience) It has been isolated an step in the solving process when notes (candidates) start to me mandatory to be able to continue solving the puzzle.
+  - (Code Improvements)(User Experience) Some minor changes in colours assigning a different variable for main-color2 and for the color to be used when hovering the coordinates for a block.
+
+---
+
 ### Version 0.6.12 (stepsDetails renamed) 2023-01-11
 
 - WHAT'S NEW!?

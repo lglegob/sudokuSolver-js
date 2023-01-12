@@ -5,7 +5,7 @@ import * as recurrent from "./recurrentFunctions.js";
 import * as coordinates from "./defineCoordinates.js";
 
 ////////////////////////////////////////////////////////////////////////////////
-//                       DISCARDING DOM FUNCTIONS                            //
+//                       MODIFYING DOM FUNCTIONS                             //
 //////////////////////////////////////////////////////////////////////////////
 
 //This Function is called by SOLVING Techniques where a Cell Value is now certain. It can by NAKED Singles or HIDDEN Singles
@@ -1024,4 +1024,24 @@ const newSudokuPuzzleArticle = () => {
   spanRowColumnCoordinates.forEach(spanCoordinates => {eventListeners.spanRowColumnCoordinatesListener(spanCoordinates)});
 };
 
-export { newFoundValueHTML, discardLockedCandidateHTML, discardXWingHTML, discardObviousPairsHTML, discardHiddenPairHTML, discardObviousTripleHTML, discardHiddenTripleHTML, discardObviousQuadHTML, discardHiddenQuadrupleHTML, discardYWingHTML, discardSwordFishHTML, discardFinnedXWingHTML, discardNishioCandidateProvenWrongHTML, discardNishioGuessDeadEndHTML, addGoBackToStepButton, newSudokuPuzzleArticle };
+const fromThisStepNotesAreNeededArticle = () => {
+  //Config for adding the description and card in stackedCardsSection Section
+  let newArticle = document.createElement("article");
+  newArticle.classList.add("weneednotes");
+  newArticle.setAttribute("id", "Step" + globalVar.currentStep );
+  newArticle.style.zIndex = -globalVar.currentStep;
+  newArticle.innerHTML = `
+  <h3>Step ${globalVar.currentStep}</h3>
+  <h4>Notes are needed</h4>
+  <p>For this step, it has not been possible to find a new solution value for any cell directly. From this point forward, to keep solving the Sudoku puzzle, it is necessary to have in each cell, the possible candidates marked.</p>
+  <p>Those notes will be used to try and discard possible candidates for the cells, by using more advanced techniques.</p>
+  <p>It has been marked for you all the possible candidates for each cell, based on the current status of the puzzle. This has been done by taking each cell already solved, and discarding that solved value in all the cells "seen" by that solved cell.</p>
+  <p>"seen" means those cells located in the same row, column or square than the cell with the value already defined, which by the rules of Sudoku, cannot be a possibility for that value.</p>
+  <p>The values left as candidates, are those which at this point cannot be discarded yet. Let's try and discard more, so we continue finding more cells to be solved.</p>
+  `;
+  const main = document.querySelector(".stackedCardsSection > div");
+  main.prepend(newArticle);
+  addGoBackToStepButton();
+};
+
+export { newFoundValueHTML, discardLockedCandidateHTML, discardXWingHTML, discardObviousPairsHTML, discardHiddenPairHTML, discardObviousTripleHTML, discardHiddenTripleHTML, discardObviousQuadHTML, discardHiddenQuadrupleHTML, discardYWingHTML, discardSwordFishHTML, discardFinnedXWingHTML, discardNishioCandidateProvenWrongHTML, discardNishioGuessDeadEndHTML, addGoBackToStepButton, newSudokuPuzzleArticle, fromThisStepNotesAreNeededArticle };

@@ -107,6 +107,7 @@ const validPuzzleSolvingIt = (validPuzzle) => {
   };
   globalVar.theMatrixSolved = JSON.parse(JSON.stringify(globalVar.theMatrix[globalVar.currentStep]));
   globalVar.stepByStep = false;
+  globalVar.areNotesNeeded = false;
   globalVar.cellsResolved = tempCellsResolved;
   globalVar.currentStep = tempCurrentStep;
   globalVar.nishioGuessingActive = { evaluating: false, previousNishioResult: "notExecuted" };

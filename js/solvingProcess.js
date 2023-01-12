@@ -14,6 +14,7 @@ import * as ywing from "./solvingStrategiesYWing.js";
 import * as swordFish from "./solvingStrategiesSwordFish.js";
 import * as finnedXWing from "./solvingStrategiesFinnedXWing.js";
 import * as nishio from "./solvingStrategiesNishio.js";
+import * as solvingFunctions from "./solvingProcessFunctions.js";
 
 
 
@@ -42,6 +43,11 @@ const solvingProcess = () => {
   };
   if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false) {
     singles.hiddenSinglesSquare();
+  };
+
+  //NOTES ARE NEEDED
+  if (globalVar.iterationSuccess === false && globalVar.discardNoteSuccess === false && globalVar.areNotesNeeded === false) {
+    solvingFunctions.setNeedNotes();
   };
 
   //OBVIOUS PAIRS METHODS
