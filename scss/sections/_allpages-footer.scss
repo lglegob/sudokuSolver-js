@@ -1,0 +1,58 @@
+/***************************************************************************
+***                        Footer (All Pages)                            ***
+***************************************************************************/
+
+footer {
+	background: $clr-main-color;
+	color: $clr-light-background;
+	text-align: center;
+
+	& .contact-list {
+		list-style-type: none;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-evenly;
+		& a {
+			padding: 15px;
+			display: inline-block;
+			transition: all 1s ease-out;
+			&:hover {
+				opacity: 70%;
+				transform: translateY(-20%) scale(1.6);
+			}
+		}
+	}
+	& p {
+		margin-bottom: 4px;
+	}
+}
+
+.curva-SVG {		
+	display: none;
+	height: 150px;
+	overflow: hidden;
+	margin-bottom: -10px; /* Valor negativo para evitar linea de pixel blanco sobrelapando con el footer */
+	& svg {
+		height: 100%;
+		width: 100%;
+		& path {
+			stroke: none;
+			fill: $clr-main-color;
+		}
+	}
+	@include size-sm {
+		display: inherit;
+	}
+}
+
+// Se elimina el background del footer del index y se coloca en un div adicional, para permitir que las secciones arriba del footer queden sobrelapadas  //
+.footer-index {
+	background-color: inherit;
+	& .curva-SVG {
+		margin-top: 150px;
+	}
+	& .footer-index-background {
+		background: $clr-main-color;
+	}
+}

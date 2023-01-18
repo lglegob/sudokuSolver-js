@@ -596,6 +596,74 @@ input[type=number] {
 }
 
 /***************************************************************************
+***                        Footer (All Pages)                            ***
+***************************************************************************/
+footer {
+  background: #E2AE12;
+  color: #F9F9F9;
+  text-align: center;
+}
+
+footer .contact-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+footer .contact-list a {
+  padding: 15px;
+  display: inline-block;
+  transition: all 1s ease-out;
+}
+
+footer .contact-list a:hover {
+  opacity: 70%;
+  transform: translateY(-20%) scale(1.6);
+}
+
+footer p {
+  margin-bottom: 4px;
+}
+
+.curva-SVG {
+  display: none;
+  height: 150px;
+  overflow: hidden;
+  margin-bottom: -10px;
+  /* Valor negativo para evitar linea de pixel blanco sobrelapando con el footer */
+}
+
+.curva-SVG svg {
+  height: 100%;
+  width: 100%;
+}
+
+.curva-SVG svg path {
+  stroke: none;
+  fill: #E2AE12;
+}
+
+@media screen and (min-width: 576px) {
+  .curva-SVG {
+    display: inherit;
+  }
+}
+
+.footer-index {
+  background-color: inherit;
+}
+
+.footer-index .curva-SVG {
+  margin-top: 150px;
+}
+
+.footer-index .footer-index-background {
+  background: #E2AE12;
+}
+
+/***************************************************************************
 ***                        Matrix 3D Rotation                            ***
 ***************************************************************************/
 .card3d {

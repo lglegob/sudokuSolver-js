@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.6.14 (Adding Footer) 2023-01-17
+
+- WHAT'S NEW!?
+
+  - (User Experience) Footer is added with Contact Information.
+
+---
+
 ### Version 0.6.13 (step for NeededNotes) 2023-01-11
 
 - WHAT'S NEW!?
