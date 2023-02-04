@@ -6,6 +6,14 @@ Repository dedicated for the configuration and development of a Sudoku Solver ba
 
 ## Change Control and Versioning
 
+### Version 0.6.15 (Fixed Finned highlighting) 2023-02-03
+
+- FIXED BUGs
+
+  - (Styling) When classes to highlight finned events happened, the recurrent function deleteLastShowMe was not deleting for the next steps the classes (finnedCell, finnedDeletionColumnCell and finnedDeletionRowCell) which were kept in the No notes version of the Matrix.
+
+---
+
 ### Version 0.6.14 (Adding Footer) 2023-01-17
 
 - WHAT'S NEW!?
